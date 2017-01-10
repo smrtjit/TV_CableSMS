@@ -94,18 +94,18 @@ function __doPostBack(eventTarget, eventArgument) {
 			<ul>
 				<!--menu iteam code -->
 				<li class="pushy-link"><a href="#"></a></li>
-				<li class="pushy-link"><a href="dashboard.jsp">Complaint</a></li>
-				<li class="pushy-link"><a href="connection.jsp">Connection</a></li>
-				<li class="pushy-link"><a href="collection.jsp">Collection</a></li>
-				<li class="pushy-link"><a href="user.jsp">Create User</a></li>
+				<li class="pushy-link"><a href="Dashboard.jsp">Complaint</a></li>
+				<li class="pushy-link"><a href="Connection.jsp">Connection</a></li>
+				<li class="pushy-link"><a href="Collection.jsp">Collection</a></li>
+				<li class="pushy-link"><a href="NewUser.jsp">Create User</a></li>
 <!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-				<li class="pushy-link"><a href="topup.jsp">Top-UP</a></li>
-				<li class="pushy-link"><a href="billing.jsp">Bulk-Billing</a></li>
-				<li class="pushy-link"><a href="bulk_tran.jsp">Bulk Transactions</a></li>
+				<li class="pushy-link"><a href="TopUp.jsp">Top-UP</a></li>
+				<li class="pushy-link"><a href="BulkBilling.jsp">Bulk-Billing</a></li>
+				<li class="pushy-link"><a href="BulkTransaction.jsp">Bulk Transactions</a></li>
 <!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 <!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a href="myaccount.jsp">My Account</a></li>
+				<li class="pushy-link"><a href="MyAccount.jsp">My Account</a></li>
 				<li class="pushy-link"><a href="login.jsp">Log Out</a></li>
 			</ul>
 			</nav>
@@ -905,10 +905,10 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$abc', 'fo
 
 			<!-- Pushy JS -->
 
-			<script src="js/pushy.min.js"></script>
-			<script src="js/jquery-1.10.2.js"></script>
-			<script src="js/bootstrap.js"></script>
-			<script src="js/bootstrap.min.js"></script>
+			<script src="/js/pushy.min.js"></script>
+			<script src="/js/jquery-1.10.2.js"></script>
+			<script src="/js/bootstrap.js"></script>
+			<script src="/js/bootstrap.min.js"></script>
 			<link
 				href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
 				rel="stylesheet" type="text/css" />
