@@ -35,8 +35,8 @@
 			</form>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/TV_CableSMS">Home</a></li>
-				<li><a href="userlogin.html">Operator Login</a></li>
-				<li class="active"><a href="login.html">Customer Login</a></li>
+				<li><a href="login.html">Operator Login</a></li>
+				<li class="active"><a href="userlogin.html">Customer Login</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Explore<b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -66,7 +66,7 @@
 	</div>
 	<div></div>
 	<div></div>
-	<a class="btn btn-primary" href="<spring:url value="login.html"/>">Login
+	<a class="btn btn-primary" href="<spring:url value="/"/>">Login
 		as different user?</a>
 </body>
 </html>

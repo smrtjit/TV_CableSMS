@@ -1,6 +1,9 @@
 
 package com.dialnet.source.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,5 +90,11 @@ public class UserController {
 		}
 		
 	}
+	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+    public String logout(HttpSession session ) {
+       session.invalidate();
+       return "logout";
+    }
 	
 }

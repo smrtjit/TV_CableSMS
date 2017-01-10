@@ -97,7 +97,7 @@ function __doPostBack(eventTarget, eventArgument) {
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 <!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
 				<li class="pushy-link"><a href="MyAccount.jsp">My Account</a></li>
-				<li class="pushy-link"><a href="login.jsp">Log Out</a></li>
+				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
                 </ul>
             </nav>
 

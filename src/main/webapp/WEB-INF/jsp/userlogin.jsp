@@ -50,8 +50,8 @@
 			</form>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/TV_CableSMS">Home</a></li>
-				<li><a href="userlogin.html">Operator Login</a></li>
-				<li class="active"><a href="login.html">Customer Login</a></li>
+				<li><a href="login.html">Operator Login</a></li>
+				<li class="active"><a href="userlogin.html">Customer Login</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Explore<b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -83,7 +83,7 @@
 						<form:form id="myForm" method="post"
 							class="bs-example form-horizontal" commandName="studentLogin">
 							<fieldset>
-								<legend>TV Cable Operator Login Form</legend>
+								<legend>Customer Login Form</legend>
 
 								<div class="form-group">
 									<label for="userNameInput" class="col-lg-3 control-label">User
