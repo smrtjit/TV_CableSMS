@@ -57,7 +57,7 @@ public class UserController {
 		} else {
 			boolean found = studentService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
 			if (found) {				
-				return "success";
+				return "Dashboard";
 			} else {				
 				return "failure";
 			}
