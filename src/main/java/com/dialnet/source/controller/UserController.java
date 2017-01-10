@@ -1,3 +1,4 @@
+
 package com.dialnet.source.controller;
 
 import javax.validation.Valid;
@@ -57,7 +58,7 @@ public class UserController {
 		} else {
 			boolean found = studentService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
 			if (found) {				
-				return "Dashboard";
+				return "redirect:Dashboard.jsp";
 			} else {				
 				return "failure";
 			}

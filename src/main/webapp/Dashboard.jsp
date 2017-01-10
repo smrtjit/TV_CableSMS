@@ -94,19 +94,19 @@ function __doPostBack(eventTarget, eventArgument) {
 			<ul>
 				<!--menu iteam code -->
 				<li class="pushy-link"><a href="#"></a></li>
-				<li class="pushy-link"><a href="dashboard.aspx">Complaint</a></li>
-				<li class="pushy-link"><a href="connection.aspx">Connection</a></li>
-				<li class="pushy-link"><a href="collection.aspx">Collection</a></li>
-				<li class="pushy-link"><a href="user.aspx">Create User</a></li>
-				<li class="pushy-link"><a href="packages.aspx">Packages</a></li>
-				<li class="pushy-link"><a href="topup.aspx">Top-UP</a></li>
-				<li class="pushy-link"><a href="billing.aspx">Bulk-Billing</a></li>
-				<li class="pushy-link"><a href="bulk_tran.aspx">Bulk Transactions</a></li>
-				<li class="pushy-link"><a href="stock.aspx">Stock</a></li>
-				<li class="pushy-link"><a href="report.aspx">Reports</a></li>
-				<li class="pushy-link"><a href="notification.aspx">Notification</a></li>
-				<li class="pushy-link"><a href="myaccount.aspx">My Account</a></li>
-				<li class="pushy-link"><a href="login.aspx">Log Out</a></li>
+				<li class="pushy-link"><a href="dashboard.jsp">Complaint</a></li>
+				<li class="pushy-link"><a href="connection.jsp">Connection</a></li>
+				<li class="pushy-link"><a href="collection.jsp">Collection</a></li>
+				<li class="pushy-link"><a href="user.jsp">Create User</a></li>
+<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
+				<li class="pushy-link"><a href="topup.jsp">Top-UP</a></li>
+				<li class="pushy-link"><a href="billing.jsp">Bulk-Billing</a></li>
+				<li class="pushy-link"><a href="bulk_tran.jsp">Bulk Transactions</a></li>
+<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
+<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
+<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
+				<li class="pushy-link"><a href="myaccount.jsp">My Account</a></li>
+				<li class="pushy-link"><a href="login.jsp">Log Out</a></li>
 			</ul>
 			</nav>
 
