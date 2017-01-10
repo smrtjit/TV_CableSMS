@@ -65,4 +65,27 @@ public class UserController {
 		}
 		
 	}
+	
+	@RequestMapping(value="/userlogin", method=RequestMethod.GET)
+	public String Userlogin(Model model) {			
+		UserLogin studentLogin = new UserLogin();		
+		model.addAttribute("studentLogin", studentLogin);
+		return "userlogin";
+	}
+	
+	@RequestMapping(value="/userlogin", method=RequestMethod.POST)
+	public String Userlogin(@Valid @ModelAttribute("studentLogin") UserLogin studentLogin, BindingResult result) {
+		if (result.hasErrors()) {
+			return "userlogin";
+		} else {
+			boolean found = studentService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
+			if (found) {				
+				return "redirect:CustAccount.jsp";
+			} else {				
+				return "failure";
+			}
+		}
+		
+	}
+	
 }

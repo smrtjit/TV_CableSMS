@@ -35,8 +35,8 @@
 			</form>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/TV_CableSMS">Home</a></li>
-				<li><a href="signup.html">Signup</a></li>
-				<li class="active"><a href="login.html">Login</a></li>
+				<li><a href="userlogin.html">Operator Login</a></li>
+				<li class="active"><a href="login.html">Customer Login</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Explore<b class="caret"></b></a>
 					<ul class="dropdown-menu">
