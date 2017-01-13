@@ -15,8 +15,53 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="student")
+@Table(name="lco_user_login")
 public class User {
+
+	
+	
+	public User(Long id, String customer_name, String customer_add, String customer_mobile, String password,
+			String customer_email, String customer_id_no, String customer_photo, String customer_vc_no,
+			String customer_stb_no, String customer_waranty_date, String connection_status, String package_name,
+			String pairing_status, String account_balance, String last_payment, String last_recharge_date,
+			String connection_go_live, String timestamp, String username) {
+		super();
+		this.id = id;
+		this.customer_name = customer_name;
+		this.customer_add = customer_add;
+		this.customer_mobile = customer_mobile;
+		this.password = password;
+		this.customer_email = customer_email;
+		this.customer_id_no = customer_id_no;
+		this.customer_photo = customer_photo;
+		this.customer_vc_no = customer_vc_no;
+		this.customer_stb_no = customer_stb_no;
+		this.customer_waranty_date = customer_waranty_date;
+		this.connection_status = connection_status;
+		this.package_name = package_name;
+		this.pairing_status = pairing_status;
+		this.account_balance = account_balance;
+		this.last_payment = last_payment;
+		this.last_recharge_date = last_recharge_date;
+		this.connection_go_live = connection_go_live;
+		this.timestamp = timestamp;
+		this.username = username;
+	}
+
+
+	public User() {
+		super();
+	}
+
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 
 	@Id
 	@GeneratedValue
@@ -24,13 +69,13 @@ public class User {
 	
 	@NotEmpty
 	@Size(min=4, max=20)
-	private String userName;
+	private String customer_name;
 	
 	@NotEmpty
-	private String firstName;
+	private String customer_add;
 	
 	@NotEmpty
-	private String lastName;
+	private String customer_mobile;
 	
 	@NotEmpty
 	@Size(min=4, max=8)
@@ -38,12 +83,50 @@ public class User {
 	
 	@NotEmpty
 	@Email
-	private String emailAddress;
+	private String customer_email;
 	
-	@NotNull
-	@Past
-	@DateTimeFormat(pattern="MM/dd/yyyy")
-	private Date dateOfBirth;
+	@NotEmpty
+	private String customer_id_no;
+	
+	@NotEmpty
+	private String customer_photo;
+	
+	@NotEmpty
+	private String customer_vc_no;
+	
+	@NotEmpty
+	private String customer_stb_no;
+	
+	@NotEmpty
+	private String customer_waranty_date;
+	
+	@NotEmpty
+	private String connection_status;
+	
+	@NotEmpty
+	private String package_name;
+	
+	@NotEmpty
+	private String pairing_status;
+	
+	@NotEmpty
+	private String account_balance;
+	
+	@NotEmpty
+	private String last_payment;
+	
+	@NotEmpty
+	private String last_recharge_date;
+	
+	
+	@NotEmpty
+	private String connection_go_live;
+	
+	@NotEmpty
+	private String timestamp;
+
+	@NotEmpty
+	private String username;
 	
 	public Long getId() {
 		return id;
@@ -53,28 +136,28 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getCustomer_name() {
+		return customer_name;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setCustomer_name(String customer_name) {
+		this.customer_name = customer_name;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getCustomer_add() {
+		return customer_add;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setCustomer_add(String customer_add) {
+		this.customer_add = customer_add;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getCustomer_mobile() {
+		return customer_mobile;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setCustomer_mobile(String customer_mobile) {
+		this.customer_mobile = customer_mobile;
 	}
 
 	public String getPassword() {
@@ -85,19 +168,119 @@ public class User {
 		this.password = password;
 	}
 
-	public String getEmailAddress() {
-		return emailAddress;
+	public String getCustomer_email() {
+		return customer_email;
 	}
 
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+	public void setCustomer_email(String customer_email) {
+		this.customer_email = customer_email;
 	}
 
-	public Date getDateOfBirth() {
-		return dateOfBirth;
+	public String getCustomer_id_no() {
+		return customer_id_no;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}	
+	public void setCustomer_id_no(String customer_id_no) {
+		this.customer_id_no = customer_id_no;
+	}
+
+	public String getCustomer_photo() {
+		return customer_photo;
+	}
+
+	public void setCustomer_photo(String customer_photo) {
+		this.customer_photo = customer_photo;
+	}
+
+	public String getCustomer_vc_no() {
+		return customer_vc_no;
+	}
+
+	public void setCustomer_vc_no(String customer_vc_no) {
+		this.customer_vc_no = customer_vc_no;
+	}
+
+	public String getCustomer_stb_no() {
+		return customer_stb_no;
+	}
+
+	public void setCustomer_stb_no(String customer_stb_no) {
+		this.customer_stb_no = customer_stb_no;
+	}
+
+	public String getCustomer_waranty_date() {
+		return customer_waranty_date;
+	}
+
+	public void setCustomer_waranty_date(String customer_waranty_date) {
+		this.customer_waranty_date = customer_waranty_date;
+	}
+
+	public String getConnection_status() {
+		return connection_status;
+	}
+
+	public void setConnection_status(String connection_status) {
+		this.connection_status = connection_status;
+	}
+
+	public String getPackage_name() {
+		return package_name;
+	}
+
+	public void setPackage_name(String package_name) {
+		this.package_name = package_name;
+	}
+
+	public String getPairing_status() {
+		return pairing_status;
+	}
+
+	public void setPairing_status(String pairing_status) {
+		this.pairing_status = pairing_status;
+	}
+
+	public String getAccount_balance() {
+		return account_balance;
+	}
+
+	public void setAccount_balance(String account_balance) {
+		this.account_balance = account_balance;
+	}
+
+	public String getLast_payment() {
+		return last_payment;
+	}
+
+	public void setLast_payment(String last_payment) {
+		this.last_payment = last_payment;
+	}
+
+	public String getLast_recharge_date() {
+		return last_recharge_date;
+	}
+
+	public void setLast_recharge_date(String last_recharge_date) {
+		this.last_recharge_date = last_recharge_date;
+	}
+
+	public String getConnection_go_live() {
+		return connection_go_live;
+	}
+
+	public void setConnection_go_live(String connection_go_live) {
+		this.connection_go_live = connection_go_live;
+	}
+
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	
+	
+		
 }

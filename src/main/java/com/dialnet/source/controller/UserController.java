@@ -20,12 +20,12 @@ import com.dialnet.source.model.UserLogin;
 import com.dialnet.source.service.UserService;
 
 @Controller
-@SessionAttributes("student")
+@SessionAttributes("custLogin")
 public class UserController {
 	
 	@Autowired
-	private UserService studentService;
-		
+	public UserService userService;
+	/*
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String signup(Model model) {
 		User student = new User();		
@@ -46,55 +46,39 @@ public class UserController {
 			return "redirect:login.html";
 		}
 	}
-
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String login(Model model) {			
-		UserLogin studentLogin = new UserLogin();		
-		model.addAttribute("studentLogin", studentLogin);
-		return "login";
-	}
+	*/
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@Valid @ModelAttribute("studentLogin") UserLogin studentLogin, BindingResult result) {
-		if (result.hasErrors()) {
-			return "login";
-		} else {
-			boolean found = studentService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
-			if (found) {				
-				return "redirect:Dashboard.jsp";
-			} else {				
-				return "failure";
-			}
-		}
-		
-	}
 	
 	@RequestMapping(value="/userlogin", method=RequestMethod.GET)
 	public String Userlogin(Model model) {			
 		UserLogin studentLogin = new UserLogin();		
-		model.addAttribute("studentLogin", studentLogin);
+		model.addAttribute("custLogin", studentLogin);
 		return "userlogin";
 	}
 	
 	@RequestMapping(value="/userlogin", method=RequestMethod.POST)
-	public String Userlogin(@Valid @ModelAttribute("studentLogin") UserLogin studentLogin, BindingResult result) {
+	public String Userlogin(@Valid @ModelAttribute("custLogin") UserLogin studentLogin, BindingResult result) {
 		if (result.hasErrors()) {
 			return "userlogin";
 		} else {
-			boolean found = studentService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
+			boolean found = userService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
 			if (found) {				
 				return "redirect:CustAccount.jsp";
 			} else {				
-				return "failure";
+				return "userlogin";
 			}
 		}
 		
 	}
+	
+	
+	
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
     public String logout(HttpSession session ) {
        session.invalidate();
        return "logout";
     }
+	
 	
 }

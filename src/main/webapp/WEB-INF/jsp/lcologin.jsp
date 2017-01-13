@@ -50,7 +50,7 @@
 			</form>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/TV_CableSMS">Home</a></li>
-				<li><a href="login.html">Operator Login</a></li>
+				<li><a href="lcologin.html">Operator Login</a></li>
 				<li class="active"><a href="userlogin.html">Customer Login</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Explore<b class="caret"></b></a>
@@ -81,7 +81,7 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<form:form id="myForm" method="post"
-							class="bs-example form-horizontal" commandName="studentLogin">
+							class="bs-example form-horizontal" commandName="lcoLogin">
 							<fieldset>
 								<legend>TV Cable Operator Login Form</legend>
 

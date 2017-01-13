@@ -30,7 +30,7 @@ body {
 			</form>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/TV_CableSMS">Home</a></li>
-				<li><a href="login.html">Operator Login</a></li>
+				<li><a href="lcologin.html">Operator Login</a></li>
 				<li class="active"><a href="userlogin.html">Customer Login</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Explore<b class="caret"></b></a>
@@ -51,7 +51,7 @@ body {
 					us. Or login to access your details, if you are already enrolled.</p>
 			</div>
 
-			<a class="btn btn-primary" href="login.html">Operator Login » </a> 
+			<a class="btn btn-primary" href="lcologin.html">Operator Login » </a> 
 			<a class="btn btn-primary" href="userlogin.html">Customer Login » </a>
 		</div>
 

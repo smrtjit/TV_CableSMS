@@ -7,19 +7,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dialnet.source.model.User;
 import com.dialnet.source.repository.UserRepository;
 
-@Service("studentService")
+@Service("custService")
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserRepository studentRepository;
+	public UserRepository custRepository;
 	
 	@Transactional
 	public User save(User student) {
-		return studentRepository.save(student);
+		return custRepository.save(student);
 	}
 
 	public boolean findByLogin(String userName, String password) {	
-		User stud = studentRepository.findByUserName(userName);
+		User stud = custRepository.findByUserName(userName);
 		
 		if(stud != null && stud.getPassword().equals(password)) {
 			return true;
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean findByUserName(String userName) {
-		User stud = studentRepository.findByUserName(userName);
+		User stud = custRepository.findByUserName(userName);
 		
 		if(stud != null) {
 			return true;
