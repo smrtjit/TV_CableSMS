@@ -32,7 +32,10 @@ public class LCOServiceImpl implements LCOService {
 
 	public boolean findByLogin(String userName, String password) {	
 		LCOUser stud = lcoRepository.findByUserName(userName);
-		
+		if(stud==null)
+		{
+			return false;	
+		}else
 		if(stud != null && stud.getPassword().equals(password)) {
 			return true;
 		} 

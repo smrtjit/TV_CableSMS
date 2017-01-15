@@ -1,4 +1,5 @@
 
+
 package com.dialnet.source.controller;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dialnet.source.model.LMUser;
 import com.dialnet.source.model.UserLogin;
@@ -55,15 +57,19 @@ public class LMController {
 	}
 	
 	@RequestMapping(value="/lmlogin", method=RequestMethod.POST)
-	public String login(@Valid @ModelAttribute("lmLogin") UserLogin studentLogin, BindingResult result) {
+	public ModelAndView login(@Valid @ModelAttribute("lmLogin") UserLogin studentLogin, BindingResult result) {
 		if (result.hasErrors()) {
-			return "lmlogin";
+			//return "lmlogin";
+			return new ModelAndView("LMDashboard", "error", "There is some Error!!!");
 		} else {
+			String user=studentLogin.getUserName();
 			boolean found = userService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
 			if (found) {				
-				return "redirect:LMDashboard.jsp";
+				//return "redirect:LMDashboard.jsp";
+				return new ModelAndView("LMDashboard", "user", user);
 			} else {				
-				return "userlogin";
+				//return "userlogin";
+				return new ModelAndView("LMDashboard", "error","Invalid Username or Password!!!");
 			}
 		}
 		

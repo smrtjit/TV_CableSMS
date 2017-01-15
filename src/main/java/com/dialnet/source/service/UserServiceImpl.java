@@ -20,7 +20,10 @@ public class UserServiceImpl implements UserService {
 
 	public boolean findByLogin(String userName, String password) {	
 		User stud = custRepository.findByUserName(userName);
-		
+		if(stud==null)
+		{
+			return false;	
+		}else
 		if(stud != null && stud.getPassword().equals(password)) {
 			return true;
 		} 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dialnet.source.model.User;
 import com.dialnet.source.model.UserLogin;
@@ -57,15 +58,19 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/userlogin", method=RequestMethod.POST)
-	public String Userlogin(@Valid @ModelAttribute("custLogin") UserLogin studentLogin, BindingResult result) {
+	public ModelAndView Userlogin(@Valid @ModelAttribute("custLogin") UserLogin studentLogin, BindingResult result) {
 		if (result.hasErrors()) {
-			return "userlogin";
+			//return "userlogin";
+			return new ModelAndView("userlogin", "error", "There is some Error!!!");
 		} else {
 			boolean found = userService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
-			if (found) {				
-				return "redirect:CustAccount.jsp";
+			if (found) {	
+				String user=studentLogin.getUserName();
+				//return "redirect:CustAccount.jsp";
+				return new ModelAndView("CustAccount", "user", user);
 			} else {				
-				return "userlogin";
+				//return "userlogin";
+				return new ModelAndView("userlogin", "error", "Invalid Username or Password");
 			}
 		}
 		

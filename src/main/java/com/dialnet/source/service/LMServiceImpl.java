@@ -31,7 +31,10 @@ public class LMServiceImpl implements LMService {
 
 	public boolean findByLogin(String userName, String password) {	
 		LMUser stud = lmRepository.findByUserName(userName);
-		
+		if(stud==null)
+		{
+			return false;	
+		}else
 		if(stud != null && stud.getPassword().equals(password)) {
 			return true;
 		} 

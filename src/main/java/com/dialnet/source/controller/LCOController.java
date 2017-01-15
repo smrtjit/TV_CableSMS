@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dialnet.source.model.LCOUser;
 import com.dialnet.source.model.UserLogin;
@@ -55,17 +56,20 @@ public class LCOController {
 	}
 	
 	@RequestMapping(value="/lcologin", method=RequestMethod.POST)
-	public String login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result) {
+	public ModelAndView login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result) {
 		if (result.hasErrors()) {
-			return "lcologin";
+			//return "lcologin";
+			return new ModelAndView("lcologin", "error", "There is some Errors");
 			
 		} else {
 			boolean found = lcoService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
+			String user=studentLogin.getUserName();
 			if (found) {				
-				return "redirect:Dashboard.jsp";
+				return new ModelAndView("Dashboard", "user", user);
 			} else {	
 				//model.addAttribute("message", "You have been logged out successfully.");
-				return "userlogin";
+				//return "lcologin";
+				return new ModelAndView("lcologin", "error", "Invalid Username or Password!!!");
 			}
 		}
 		

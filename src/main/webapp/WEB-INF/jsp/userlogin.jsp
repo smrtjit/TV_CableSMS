@@ -22,6 +22,14 @@
 	padding: 8px;
 	margin: 16px;
 }
+.error{
+
+	padding: 8px;
+	margin: 16px;
+	color: #ff0000;
+	font-size: 0.9em;
+	font-weight: bold;
+}
 </style>
 <title>Operator Login</title>
 </head>
@@ -102,11 +110,12 @@
 											path="password" id="passwordInput" placeholder="Password" />
 										<form:errors path="password" cssClass="error" />
 									</div>
+									<div Class="error" >${error}</div>
 								</div>
-
+								
 								<div class="col-lg-9 col-lg-offset-3">
-									<button class="btn btn-default">Cancel</button>
-
+<!-- 									<button class="btn btn-default">Cancel</button> -->
+									<input type="reset" value="Cancel" class="btn btn-default"/>
 									<button class="btn btn-primary">Login</button>
 								</div>
 
