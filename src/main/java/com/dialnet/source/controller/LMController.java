@@ -66,10 +66,10 @@ public class LMController {
 			boolean found = userService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
 			if (found) {				
 				//return "redirect:LMDashboard.jsp";
-				return new ModelAndView("LMDashboard", "user", user);
+				return new ModelAndView("redirect:LMDashboard.jsp", "user", user);
 			} else {				
 				//return "userlogin";
-				return new ModelAndView("LMDashboard", "error","Invalid Username or Password!!!");
+				return new ModelAndView("lmlogin", "error","Invalid Username or Password!!!");
 			}
 		}
 		

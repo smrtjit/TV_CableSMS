@@ -29,6 +29,17 @@
     </style>
 </head>
 <body style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
+
+		<%
+			if(session.getAttribute("lcoLogin")==null){
+				System.out.print("session not found");
+				response.sendRedirect("lcologin.html?error=Session is Expired!!!");
+			}else{
+				System.out.print("session found");
+				%>
+				
+				
+
     <form method="post" action="#" id="form1">
 <div class="aspNetHidden">
 <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="r6AGeqFmF0nhSNoD5iYRPAAtKSvrUPfYXi/z4gS0zvZNZC1Lk8+FBcitDYpdVxkNPFrydcC7zn43JM+J2Dk8PgaCP90XIyDPTTKG+h9+TE4=" />
@@ -41,7 +52,7 @@
 </div>
         <div>
             <header class="site-header push">
-                <marquee>Welcome to Cable TV Show <%= request.getParameter("user") %></marquee>
+                <marquee>Welcome to Cable TV Show <%= request.getParameter("LoginID") %></marquee>
             </header>
             <!-- Pushy Menu -->
             <nav class="pushy pushy-left">
@@ -49,7 +60,7 @@
                     
                    <!--menu iteam code -->
 				<li class="pushy-link"><a href="#"></a></li>
-				<li class="pushy-link"><a href="Dashboard.jsp">Complaint</a></li>
+				<li class="pushy-link"><a href="Dashboard.jsp?user=<%= request.getParameter("LoginID") %>">Complaint</a></li>
 				<li class="pushy-link"><a href="Connection.jsp">Connection</a></li>
 				<li class="pushy-link"><a href="Collection.jsp">Collection</a></li>
 				<li class="pushy-link"><a href="NewUser.jsp">Create User</a></li>
@@ -60,7 +71,7 @@
 <!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 <!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-			<li class="pushy-link"><a href="LCODetail.html?id=<%= request.getParameter("user") %>">My Account</a></li>
+			<li class="pushy-link"><a href="LCODetail.html?id=<%= request.getParameter("LoginID") %>">My Account</a></li>
 				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
                 </ul>
             </nav>
@@ -86,7 +97,7 @@
                     <p class="p1">LCO Code</p>
                 </div>
                 <div class="col-sm-8">
-                    <input name="ctl00$ContentPlaceHolder1$txtcode" type="text" value="${LCOCode}" readonly="readonly" id="ContentPlaceHolder1_txtcode" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtcode" type="text" value="<%= request.getParameter("LCOCode") %>" readonly="readonly" id="ContentPlaceHolder1_txtcode" class="form-control" />
                 </div>
             </div>
 
@@ -95,7 +106,7 @@
                     <p class="p1">LCO Name</p>
                 </div>
                 <div class="col-sm-8">
-                    <input name="ctl00$ContentPlaceHolder1$txtname" type="text" value="${LCOName}" readonly="readonly" id="ContentPlaceHolder1_txtname" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtname" type="text" value="<%= request.getParameter("LCOName") %>" readonly="readonly" id="ContentPlaceHolder1_txtname" class="form-control" />
                 </div>
             </div>
         </div>
@@ -110,19 +121,19 @@
                     <p class="p1">Login Id</p>
                 </div>
                 <div class="col-sm-8" style="margin-bottom: 10px">
-                    <input name="ctl00$ContentPlaceHolder1$txtloginid" type="text" value="${LoginID}" readonly="readonly" id="ContentPlaceHolder1_txtloginid" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtloginid" type="text" value="<%= request.getParameter("LoginID") %>" readonly="readonly" id="ContentPlaceHolder1_txtloginid" class="form-control" />
                 </div>
                 <div class="col-sm-3" style="margin-bottom: 10px">
                     <p class="p1">Middle Name</p>
                 </div>
                 <div class="col-sm-8" style="margin-bottom: 10px">
-                    <input name="ctl00$ContentPlaceHolder1$txtmname" type="text" value="${MiddleName}" readonly="readonly" id="ContentPlaceHolder1_txtmname" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtmname" type="text" value="<%= request.getParameter("MiddleName") %>" readonly="readonly" id="ContentPlaceHolder1_txtmname" class="form-control" />
                 </div>
                 <div class="col-sm-3" style="margin-bottom: 10px">
                     <p class="p1">JV No.</p>
                 </div>
                 <div class="col-sm-8" style="margin-bottom: 10px">
-                    <input name="ctl00$ContentPlaceHolder1$txtjvno" type="text" value="${JVNum}" readonly="readonly" id="ContentPlaceHolder1_txtjvno" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtjvno" type="text" value="<%= request.getParameter("JVNum") %>" readonly="readonly" id="ContentPlaceHolder1_txtjvno" class="form-control" />
                 </div>
             </div>
 
@@ -133,19 +144,19 @@
                     <p class="p1">First Name</p>
                 </div>
                 <div class="col-sm-8" style="margin-bottom: 10px">
-                    <input name="ctl00$ContentPlaceHolder1$txtfname" type="text" value="${Fname}" readonly="readonly" id="ContentPlaceHolder1_txtfname" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtfname" type="text" value="<%= request.getParameter("Fname") %>" readonly="readonly" id="ContentPlaceHolder1_txtfname" class="form-control" />
                 </div>
                 <div class="col-sm-3" style="margin-bottom: 10px">
                     <p class="p1">Last Name</p>
                 </div>
                 <div class="col-sm-8" style="margin-bottom: 10px">
-                    <input name="ctl00$ContentPlaceHolder1$txtlname" type="text" value="${Lname}" readonly="readonly" id="ContentPlaceHolder1_txtlname" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtlname" type="text" value="<%= request.getParameter("Lname") %>" readonly="readonly" id="ContentPlaceHolder1_txtlname" class="form-control" />
                 </div>
                 <div class="col-sm-3" style="margin-bottom: 10px">
                     <p class="p1">Direct No.</p>
                 </div>
                 <div class="col-sm-8" style="margin-bottom: 10px">
-                    <input name="ctl00$ContentPlaceHolder1$txtdirectno" type="text" value="${DirNum}" readonly="readonly" id="ContentPlaceHolder1_txtdirectno" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtdirectno" type="text" value="<%= request.getParameter("DirNum") %>" readonly="readonly" id="ContentPlaceHolder1_txtdirectno" class="form-control" />
                 </div>
 
             </div>
@@ -161,7 +172,7 @@
                     <p class="p1">BRM POID</p>
                 </div>
                 <div class="col-sm-8">
-                    <input name="ctl00$ContentPlaceHolder1$txtpoid" type="text" value="${BRMPoid}" readonly="readonly" id="ContentPlaceHolder1_txtpoid" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtpoid" type="text" value="<%= request.getParameter("BRMPoid") %>" readonly="readonly" id="ContentPlaceHolder1_txtpoid" class="form-control" />
                 </div>
             </div>
 
@@ -170,7 +181,7 @@
                     <p class="p1">Account No.</p>
                 </div>
                 <div class="col-sm-8">
-                    <input name="ctl00$ContentPlaceHolder1$txtaccount" type="text" value="${Account}" readonly="readonly" id="ContentPlaceHolder1_txtaccount" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtaccount" type="text" value="<%= request.getParameter("Account") %>" readonly="readonly" id="ContentPlaceHolder1_txtaccount" class="form-control" />
                 </div>
             </div>
         </div>
@@ -186,7 +197,7 @@
                     <p class="p1">Mobile No.</p>
                 </div>
                 <div class="col-sm-8">
-                    <input name="ctl00$ContentPlaceHolder1$txtmobile" type="text" value="${Mobile}" readonly="readonly" id="ContentPlaceHolder1_txtmobile" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtmobile" type="text" value="<%= request.getParameter("Mobile") %>" readonly="readonly" id="ContentPlaceHolder1_txtmobile" class="form-control" />
                 </div>
             </div>
 
@@ -195,7 +206,7 @@
                     <p class="p1">Email Id</p>
                 </div>
                 <div class="col-sm-8">
-                    <input name="ctl00$ContentPlaceHolder1$txtemail" type="text" value="${Email}" readonly="readonly" id="ContentPlaceHolder1_txtemail" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtemail" type="text" value="<%= request.getParameter("Email") %>" readonly="readonly" id="ContentPlaceHolder1_txtemail" class="form-control" />
                 </div>
             </div>
         </div>
@@ -212,7 +223,7 @@
                 </div>
                 <div class="col-sm-8" style="margin-bottom: 10px">
                     <textarea name="ctl00$ContentPlaceHolder1$txtadd" rows="2" cols="20" readonly="readonly" id="ContentPlaceHolder1_txtadd" class="form-control">
-${Add}</textarea>
+<%= request.getParameter("Add") %></textarea>
                 </div>
 
                 <div class="col-sm-3" style="margin-bottom: 10px">
@@ -232,7 +243,7 @@ ${Add}</textarea>
                     <p class="p1">City Name</p>
                 </div>
                 <div class="col-sm-8" style="margin-bottom: 10px">
-                    <input name="ctl00$ContentPlaceHolder1$txtcity" type="text" value="${City}" readonly="readonly" id="ContentPlaceHolder1_txtcity" class="form-control" />
+                    <input name="ctl00$ContentPlaceHolder1$txtcity" type="text" value="<%= request.getParameter("City") %>" readonly="readonly" id="ContentPlaceHolder1_txtcity" class="form-control" />
                 </div>
 
                 
@@ -257,5 +268,10 @@ ${Add}</textarea>
     </form>
 
     <link href="assets/css/circle.css" rel="stylesheet" />
+    
+    <% 
+			}
+		
+		%>
 </body>
 </html>

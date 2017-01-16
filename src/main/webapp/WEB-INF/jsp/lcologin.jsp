@@ -110,7 +110,10 @@
 											path="password" id="passwordInput" placeholder="Password" />
 										<form:errors path="password" cssClass="error" />
 									</div>
-									<div Class="error" >${error}</div>
+									<div Class="error" >${error}<%if(request.getParameter("error")!=null){%>
+										<%= request.getParameter("error") %>
+										
+								<%	} %></div>
 								</div>
 								
 								<div class="col-lg-9 col-lg-offset-3">

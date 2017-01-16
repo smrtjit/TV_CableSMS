@@ -28,7 +28,7 @@ import com.dialnet.source.service.LCOService;
 //import com.dialnet.source.service.LCOUserRegService;
 
 @Controller
-@SessionAttributes("lcouser")
+@SessionAttributes("lcoLogin")
 public class LCOController {
 	
 	@Autowired
@@ -94,7 +94,7 @@ public class LCOController {
 		} else {
 			LCOUser found = lcoService.get(id);
 			//System.out.println("LCO Controller LcoCode: "+found.getLoc_code());
-			ModelAndView model=new ModelAndView("MyAccount");
+			ModelAndView model=new ModelAndView("redirect:MyAccount.jsp");
 			model.addObject("LCOCode", found.getLoc_code());
 			model.addObject("LCOName", found.getLoc_name());
 			model.addObject("LoginID", found.getLogin_id());

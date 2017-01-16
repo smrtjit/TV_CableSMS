@@ -29,6 +29,17 @@
     </style>
 </head>
 <body style="background-color: #eeeeee;">
+
+		
+		<%
+			if(session.getAttribute("custLogin")==null){
+				System.out.print("session not found");
+				response.sendRedirect("lcologin.html?error=Session is Expired!!!");
+			}else{
+				System.out.print("session found");
+				%>
+				
+
     <form method="post" action="./myaccount.aspx" id="form1">
 <div class="aspNetHidden">
 <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
@@ -270,5 +281,9 @@ function __doPostBack(eventTarget, eventArgument) {
 
         </div>
     </form>
+    
+    <%
+    }
+    %>
 </body>
 </html>

@@ -42,6 +42,14 @@ table td {
 </head>
 <body
 	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
+	<%
+			if(session.getAttribute("lcoLogin")==null){
+				System.out.print("session not found");
+				response.sendRedirect("lcologin.html?error=Session is Expired!!!");
+			}else{
+				System.out.print("session found");
+				%>
+	
 	<form method="post" action="./dashboard.jsp" id="form1">
 		<div class="aspNetHidden">
 			<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
@@ -917,5 +925,6 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$abc', 'fo
 	</form>
 
 	<link href="assets/css/circle.css" rel="stylesheet" />
+	<%} %>
 </body>
 </html>

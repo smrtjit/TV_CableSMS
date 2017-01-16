@@ -18,6 +18,13 @@
 <link href="assets/css/kolkata.css" rel="stylesheet" />
 </head>
 <body style="background-color: #eeeeee;">
+<%
+			if(session.getAttribute("custLogin")==null){
+				System.out.print("session not found");
+				response.sendRedirect("lcologin.html?error=Session is Expired!!!");
+			}else{
+				System.out.print("session found");
+				%>
 	<form method="post" action="./recharge.aspx" id="form1">
 		<div class="aspNetHidden">
 			<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE"
@@ -150,5 +157,8 @@
 
 		</div>
 	</form>
+	<%
+    }
+    %>
 </body>
 </html>

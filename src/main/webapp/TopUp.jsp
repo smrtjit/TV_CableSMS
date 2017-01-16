@@ -36,6 +36,14 @@
     </style>
 </head>
 <body style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
+  
+  <%
+			if(session.getAttribute("lcoLogin")==null){
+				System.out.print("session not found");
+				response.sendRedirect("lcologin.html?error=Session is Expired!!!");
+			}else{
+				System.out.print("session found");
+				%>
     <form method="post" action="./topup.aspx" id="form1" enctype="multipart/form-data">
 <div class="aspNetHidden">
 <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="de/+VKqi0FxpVSugkitEwyKRdY+08xHfhz4ssnSkhx2Cy+hpuEzdVfBrHD8RL1cwnUtBKDNGDmysJSCD1aduYtpc2d28xr2W5+q+oM70tncEEcVvGUWT7Q7qLHBNsfO85I44OJx0gUYIPsj/ERzehXfMKUHBC4NyzQMGbZVc8nAwsoauGGAON5pyu6qK4tPrU7Op/9/jGG+b39MIZiWf8pdQxvZlA9r+xFe8slh6iOth1AprwVtfhzWxCLl6+YJS" />
@@ -295,5 +303,6 @@
     </form>
 
     <link href="assets/css/circle.css" rel="stylesheet" />
+    <%} %>
 </body>
 </html>

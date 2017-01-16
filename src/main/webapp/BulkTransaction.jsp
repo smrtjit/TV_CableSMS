@@ -63,6 +63,14 @@ table#ContentPlaceHolder1_gvChannel {
 </head>
 <body
 	style="background-image: url(back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
+	
+	<%
+			if(session.getAttribute("lcoLogin")==null){
+				System.out.print("session not found");
+				response.sendRedirect("lcologin.html?error=Session is Expired!!!");
+			}else{
+				System.out.print("session found");
+				%>
 	<form method="post" action="#" id="form1"
 		enctype="multipart/form-data">
 		<div class="aspNetHidden">
@@ -672,7 +680,7 @@ table#ContentPlaceHolder1_gvChannel {
             <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		</div>
 	</form>
-
+	 <%} %>
 	<link href="assets/css/circle.css" rel="stylesheet" />
 </body>
 </html>

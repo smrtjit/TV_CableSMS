@@ -24,6 +24,13 @@ table#ContentPlaceHolder1_gvcompHistory {
 </style>
 </head>
 <body style="background-color: #eeeeee;">
+<%
+			if(session.getAttribute("custLogin")==null){
+				System.out.print("session not found");
+				response.sendRedirect("lcologin.html?error=Session is Expired!!!");
+			}else{
+				System.out.print("session found");
+				%>
 	<form method="post" action="./complaint.aspx" id="form1">
 		<div class="aspNetHidden">
 			<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE"
@@ -168,5 +175,8 @@ table#ContentPlaceHolder1_gvcompHistory {
 
 		</div>
 	</form>
+	<%
+    }
+    %>
 </body>
 </html>
