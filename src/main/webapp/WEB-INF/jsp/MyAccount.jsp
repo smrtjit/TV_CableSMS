@@ -41,7 +41,7 @@
 </div>
         <div>
             <header class="site-header push">
-                <marquee>Welcome to Cable TV Show <%= request.getParameter("user") %></marquee>
+                <marquee>Welcome to Cable TV Show <%= request.getParameter("id") %></marquee>
             </header>
             <!-- Pushy Menu -->
             <nav class="pushy pushy-left">
@@ -49,7 +49,7 @@
                     
                    <!--menu iteam code -->
 				<li class="pushy-link"><a href="#"></a></li>
-				<li class="pushy-link"><a href="Dashboard.jsp">Complaint</a></li>
+				<li class="pushy-link"><a href="Dashboard.jsp?user=<%= request.getParameter("id") %>">Complaint</a></li>
 				<li class="pushy-link"><a href="Connection.jsp">Connection</a></li>
 				<li class="pushy-link"><a href="Collection.jsp">Collection</a></li>
 				<li class="pushy-link"><a href="NewUser.jsp">Create User</a></li>
@@ -60,7 +60,7 @@
 <!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 <!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-			<li class="pushy-link"><a href="LCODetail.html?id=<%= request.getParameter("user") %>">My Account</a></li>
+				<li class="pushy-link"><a href="LCODetail.html?id=<%= request.getParameter("id") %>">My Account</a></li>
 				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
                 </ul>
             </nav>

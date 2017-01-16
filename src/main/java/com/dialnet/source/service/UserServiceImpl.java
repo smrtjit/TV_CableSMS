@@ -41,4 +41,12 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	public User get(String userName) {
+		User stud = custRepository.findByUserName(userName);
+		
+		if(stud != null) {
+			return stud;
+		}
+		return null;
+	}
 }

@@ -18,6 +18,14 @@
             /*font-weight: bold;*/
             font-size: 15px;
         }
+        .error{
+
+	padding: 8px;
+	margin: 16px;
+	color: #ff0000;
+	font-size: 0.9em;
+	font-weight: bold;
+}
     </style>
 </head>
 <body style="background-color: #eeeeee;">
@@ -56,9 +64,9 @@ function __doPostBack(eventTarget, eventArgument) {
                     <a class="navbar-brand" href="#">My Cable TV </a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="CustAccount.jsp">My Account</a></li>
+                    <li class="active"><a href="UserDetail.html?id=<%= request.getParameter("id") %>">My Account</a></li>
                     <li><a href="CustComplaint.jsp">Complaint</a></li>
-                    <li><a href="Custrecharge.jsp">Recharge</a></li>
+                    <li><a href="CustRecharge.html?id=<%= request.getParameter("id") %>">Recharge</a></li>
                     
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -84,7 +92,9 @@ function __doPostBack(eventTarget, eventArgument) {
 					</div>
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
-							<span id="ContentPlaceHolder1_lblname" class="form-controlc">Ankit</span>
+							<span id="ContentPlaceHolder1_lblname" class="form-controlc">
+<%-- 							${UserName} --%>
+							<%= request.getParameter("UserName") %></span>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
 						</div>
@@ -96,7 +106,9 @@ function __doPostBack(eventTarget, eventArgument) {
 					</div>
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
-							<span id="ContentPlaceHolder1_lblvcno" class="form-controlc">87777</span>
+							<span id="ContentPlaceHolder1_lblvcno" class="form-controlc">
+<%-- 							${vc_no} --%>
+							<%= request.getParameter("vc_no") %></span>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
 						</div>
@@ -108,7 +120,9 @@ function __doPostBack(eventTarget, eventArgument) {
 					</div>
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
-							<span id="ContentPlaceHolder1_lblStb" class="form-controlc">7656320789001</span>
+							<span id="ContentPlaceHolder1_lblStb" class="form-controlc">
+<%-- 							${stb_no} --%>
+							<%= request.getParameter("stb_no") %></span>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
 						</div>
@@ -120,7 +134,9 @@ function __doPostBack(eventTarget, eventArgument) {
 					</div>
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
-							<span id="ContentPlaceHolder1_lblcurrentpackage" class="form-controlc">Hindi Punjabi</span>
+							<span id="ContentPlaceHolder1_lblcurrentpackage" class="form-controlc">
+<%-- 							${Package_name} --%>
+							<%= request.getParameter("Package_name") %></span>
 						</div>
 						
 					</div>
@@ -132,7 +148,9 @@ function __doPostBack(eventTarget, eventArgument) {
 					</div>
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
-							<span id="ContentPlaceHolder1_lblamaunt" class="form-controlc"></span>
+							<span id="ContentPlaceHolder1_lblamaunt" class="form-controlc">
+<%-- 							${Account_balance} --%>
+							<%= request.getParameter("Account_balance") %></span>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
 						</div>
@@ -144,7 +162,9 @@ function __doPostBack(eventTarget, eventArgument) {
 					</div>
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
-							<span id="ContentPlaceHolder1_lblLastPay" class="form-controlc"></span>
+							<span id="ContentPlaceHolder1_lblLastPay" class="form-controlc">
+<%-- 							${Last_payment} --%>
+							<%= request.getParameter("Last_payment") %></span>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
 						</div>
@@ -156,7 +176,8 @@ function __doPostBack(eventTarget, eventArgument) {
 					</div>
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
-							<span id="ContentPlaceHolder1_lblRechargeAmount" class="form-controlc">299</span>
+							<span id="ContentPlaceHolder1_lblRechargeAmount" class="form-controlc">-----
+							</span>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
 						</div>
@@ -168,7 +189,10 @@ function __doPostBack(eventTarget, eventArgument) {
 					</div>
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
-							<span id="ContentPlaceHolder1_lblRechargeDate" class="form-controlc">Tuesday, January 10, 2017</span>
+							<span id="ContentPlaceHolder1_lblRechargeDate" class="form-controlc">
+<%-- 							${Last_recharge_date} --%>
+							<%= request.getParameter("Last_recharge_date") %>
+							</span>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
 						</div>
@@ -180,10 +204,13 @@ function __doPostBack(eventTarget, eventArgument) {
 					</div>
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
-							<span id="ContentPlaceHolder1_lblmobile" class="form-controlc">9559404556</span>
+							<span id="ContentPlaceHolder1_lblmobile" class="form-controlc">
+<%-- 							${mobile} --%>
+							<%= request.getParameter("mobile") %>
+							</span>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
-							<a id="ContentPlaceHolder1_LinkButton9" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$LinkButton9&#39;,&#39;&#39;)">Edit</a>
+<!-- 							<a id="ContentPlaceHolder1_LinkButton9" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$LinkButton9&#39;,&#39;&#39;)">Edit</a> -->
 						</div>
 					</div>
 				</div>
@@ -193,10 +220,12 @@ function __doPostBack(eventTarget, eventArgument) {
 					</div>
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
-							<span id="ContentPlaceHolder1_lblemail" class="form-controlc">ankit@gmail.com</span>
+ 							<span id="ContentPlaceHolder1_lblemail" class="form-controlc"><%--${email} --%>
+							<%= request.getParameter("email") %>
+							</span>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
-							<a id="ContentPlaceHolder1_LinkButton10" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$LinkButton10&#39;,&#39;&#39;)">Edit</a>
+<!-- 							<a id="ContentPlaceHolder1_LinkButton10" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$LinkButton10&#39;,&#39;&#39;)">Edit</a> -->
 						</div>
 					</div>
 				</div>
@@ -207,7 +236,8 @@ function __doPostBack(eventTarget, eventArgument) {
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
 							<textarea name="ctl00$ContentPlaceHolder1$txtAddress" rows="2" cols="20" id="ContentPlaceHolder1_txtAddress" class="form-control" style="height:100px;width:230px;">
-Flat No. 16/3 Vardhman Block-5, South Bengal 713144</textarea>
+<%-- ${add} --%>
+<%= request.getParameter("add") %></textarea>
 						</div>
 						
 					</div>

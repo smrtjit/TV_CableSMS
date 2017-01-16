@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "lco_login")
 /**
- * @author KRISHNA
+ * @author Jitesh
  *
  */
 public class LCOUser {

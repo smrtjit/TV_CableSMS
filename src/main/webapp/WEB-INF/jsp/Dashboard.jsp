@@ -94,7 +94,7 @@ function __doPostBack(eventTarget, eventArgument) {
 			<ul>
 				<!--menu iteam code -->
 				<li class="pushy-link"><a href="#"></a></li>
-				<li class="pushy-link"><a href="Dashboard.jsp">Complaint</a></li>
+				<li class="pushy-link"><a href="Dashboard.jsp?user=${user}">Complaint</a></li>
 				<li class="pushy-link"><a href="Connection.jsp">Connection</a></li>
 				<li class="pushy-link"><a href="Collection.jsp">Collection</a></li>
 				<li class="pushy-link"><a href="NewUser.jsp">Create User</a></li>
@@ -105,7 +105,7 @@ function __doPostBack(eventTarget, eventArgument) {
 <!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 <!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a href="MyAccount.jsp">My Account</a></li>
+				<li class="pushy-link"><a href="LCODetail.html?id=${user}">My Account</a></li>
 				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 			</ul>
 			</nav>

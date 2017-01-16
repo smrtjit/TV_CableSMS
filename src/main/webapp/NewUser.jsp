@@ -85,10 +85,10 @@ function __doPostBack(eventTarget, eventArgument) {
                     
                       	<!--menu iteam code -->
 				<li class="pushy-link"><a href="#"></a></li>
-				<li class="pushy-link"><a href="Dashboard.jsp">Complaint</a></li>
+				<li class="pushy-link"><a href="Dashboard.jsp?user=<%= request.getParameter("user") %> ">Complaint</a></li>
 				<li class="pushy-link"><a href="Connection.jsp">Connection</a></li>
 				<li class="pushy-link"><a href="Collection.jsp">Collection</a></li>
-				<li class="pushy-link"><a href="NewUser.jsp">Create User</a></li>
+				<li class="pushy-link"><a href="createUser.html">Create User</a></li>
 <!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
 				<li class="pushy-link"><a href="TopUp.jsp">Top-UP</a></li>
 				<li class="pushy-link"><a href="BulkBilling.jsp">Bulk-Billing</a></li>
@@ -96,7 +96,7 @@ function __doPostBack(eventTarget, eventArgument) {
 <!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 <!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a href="MyAccount.jsp">My Account</a></li>
+				<li class="pushy-link"><a href="LCODetail.html?id=<%= request.getParameter("user") %>">My Account</a></li>
 				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
                 </ul>
             </nav>

@@ -88,16 +88,16 @@ function __doPostBack(eventTarget, eventArgument) {
 				value="PErdKhkNKqEhU+P9L8R7/TDKy708BFDxxCu9KB5ljoPue6KRMmHo3pNeQsG6hGASEPzwjaOhGrwDaeJsehiK3vbGEa6NGyftyQP2aXEpwHcIREWhlnQS3JIhLfqEXuy6ICBy/06TMWCtqiyTj9z/JqQD0noEaGBGTK78n3GnIN7wFRQ0NMA5A0EdLvZ97BPgclBzrRfwQr8uTXPO0dNIhe+WKdDskF5pR9UKGY/CfF1XcDyGWYXKi4A69uwBDRcVA9Ut0MKH65jj1miweGJd9FoHxHU8jZU8QfR/1k7IreCfcPP/+CwZXOw8e78WMvCq0BbXvMU0ig7U63cukE6as4B//eJrORMOesArvgbcwUZmPubVuJuqNNAc0DzVzDO6VpDuyrKWqLHXXuTMPXfpFGYm9CLozfq1GVMf0mbzOyra6oWMhs496T0pMEsH0xzn/OXNwdVHOPAbLJAd5LjUNPNEhcK6jB6NAQvcDasujLUB3zIIp9+ObGo+vOUPqxZ/tPJqQWGxFru+WlJkYqfloQKP6bgaT/PoXyVxk2Ivujj5ZttRrxjoAU5uRlPW/J4fJFOLGuVv7nfDcOng8mbTLr/VdjXA09pqpAEr22Jau9pIL/l5hlqhpWK/gQSbPMpd6HKSTj0DNBDqfbQVC/eiHsTAg4PYrd4QIszxRMkzgcp3YvasSALFcWOq39POy/y166qio9otKOHT/lnxStWUPQzqpDeVx1PX7oQrIW1kuGJ0t/To0Zn1rPMKmBn04lYWLqmRfLYlC+P+A4Ys1Z0UDWwUlOG5qBG2av3C5YB/zEMDFi0BfbsIUDAW0BwHIFcWHu/5z63Lx+PzjBkD4JVuCxW9GUQGTkKN6Wxv1x0VKHIT7jcDwY8P5uWiXRmiRt6AEIhapdv4ZDHqONdBiKKs2EKLt6XiW0i0AfvXpMpUpb4fvYFx2Ihiv6nCK5b+qR9I3Y6en7sneeiFx5KxgnbFFPGmnyp2RESHqgbbVeYuCrGEXNMCgCHOf5x1wrUcNEThDnRpA12VK0PmndtJ3sKvmsbvizqwDsiZfu+/a3AitsOmbTQTubLuJOHgTRVx+QI1jD1g//KIVncc/pOaZS4BeTRBgyAdD65TJN2TYFMWRDTE+1PguogNbPCYV5pX7vkpvk/5L21SfkphICq3xuRB5jAyABnBVsWcVb341eL/QVfOEyZQjJ/O+3T0Ao781frhU0favHd6amp8PTznSF8nPNKOvS4A7pI/JlBaADyAPdFYGKY2RY4sneWgd0VsOl42qmHOFa+1gb6JzA2EtOSKhPXxONdvpPELCQ+KhuZ88RajiJALXB/ciU+Wlm+o9i4vcyQnlCYB2oXXsVEQWcZAMii6dYRI7ks3g3GpHBgHL1SwUHW84CNQeL/mx1DctBLW5wR5NlTlcHYr0NbiB2rGv+HLFkQS+lE/UMjZxmbBjcp8wgje5Wzcii4f0bOPWgWH" />
 		</div>
 		<div>
-			<header class="site-header push"> <marquee>Welcome to Cable TV Show ${hello} </marquee> </header>
+			<header class="site-header push"> <marquee>Welcome to Cable TV Operator Management System <%= request.getParameter("user") %> </marquee> </header>
 			<!-- Pushy Menu -->
 			<nav class="pushy pushy-left">
 			<ul>
 				<!--menu iteam code -->
 				<li class="pushy-link"><a href="#"></a></li>
-				<li class="pushy-link"><a href="Dashboard.jsp">Complaint</a></li>
+				<li class="pushy-link"><a href="Dashboard.jsp?user=<%= request.getParameter("user") %> ">Complaint</a></li>
 				<li class="pushy-link"><a href="Connection.jsp">Connection</a></li>
 				<li class="pushy-link"><a href="Collection.jsp">Collection</a></li>
-				<li class="pushy-link"><a href="NewUser.jsp">Create User</a></li>
+				<li class="pushy-link"><a href="createUser.html">Create User</a></li>
 <!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
 				<li class="pushy-link"><a href="TopUp.jsp">Top-UP</a></li>
 				<li class="pushy-link"><a href="BulkBilling.jsp">Bulk-Billing</a></li>
@@ -105,7 +105,7 @@ function __doPostBack(eventTarget, eventArgument) {
 <!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 <!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a href="MyAccount.jsp">My Account</a></li>
+				<li class="pushy-link"><a href="LCODetail.html?id=<%= request.getParameter("user") %>">My Account</a></li>
 				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 			</ul>
 			</nav>
