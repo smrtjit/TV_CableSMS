@@ -1,6 +1,10 @@
 
 package com.dialnet.source.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -9,17 +13,23 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dialnet.source.model.LCOPackages;
 import com.dialnet.source.model.LCOUser;
 import com.dialnet.source.model.User;
+import com.dialnet.source.model.CustComplaint;
 import com.dialnet.source.model.UserLogin;
+import com.dialnet.source.service.LCOPackageService;
+import com.dialnet.source.service.UserComplaintService;
 import com.dialnet.source.service.UserService;
 
 @Controller
@@ -28,6 +38,12 @@ public class UserController {
 	
 	@Autowired
 	public UserService userService;
+	
+	@Autowired
+	public LCOPackageService lcoPackageService;
+	
+	@Autowired
+	public UserComplaintService userComplaintService;
 	/*
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String signup(Model model) {
@@ -77,7 +93,9 @@ public class UserController {
 				model.addObject("UserName", found.getCustomer_name());
 				model.addObject("vc_no", found.getCustomer_vc_no());
 				model.addObject("stb_no", found.getCustomer_stb_no());
-				model.addObject("Package_name", found.getPackage_name());
+				
+				LCOPackages lco=lcoPackageService.findByPckCode(found.getPackage_name());
+				model.addObject("Package_name", lco.getName());
 				model.addObject("Account_balance", found.getAccount_balance());
 				model.addObject("Last_payment", found.getLast_payment());
 				//model.addObject("Account_balance", found.get);
@@ -111,7 +129,8 @@ public class UserController {
 			model.addObject("UserName", found.getCustomer_name());
 			model.addObject("vc_no", found.getCustomer_vc_no());
 			model.addObject("stb_no", found.getCustomer_stb_no());
-			model.addObject("Package_name", found.getPackage_name());
+			LCOPackages lco=lcoPackageService.findByPckCode(found.getPackage_name());
+			model.addObject("Package_name", lco.getName());
 			model.addObject("Account_balance", found.getAccount_balance());
 			model.addObject("Last_payment", found.getLast_payment());
 			//model.addObject("Account_balance", found.get);
@@ -141,7 +160,9 @@ public class UserController {
 			model.addObject("UserName", found.getCustomer_name());
 			model.addObject("vc_no", found.getCustomer_vc_no());
 			//model.addObject("stb_no", found.getCustomer_stb_no());
-			model.addObject("Package_name", found.getPackage_name());
+			LCOPackages lco=lcoPackageService.findByPckCode(found.getPackage_name());
+			model.addObject("Package_name", lco.getName());
+			model.addObject("Package_cost", lco.getPrice());
 			model.addObject("Account_balance", found.getAccount_balance());
 			model.addObject("Last_payment", found.getLast_payment());
 			//model.addObject("Account_balance", found.get);
@@ -154,9 +175,60 @@ public class UserController {
 		}
 		
 	}
+	
+	
+	
+	/*
+	@RequestMapping(value="/CustComplaint", method=RequestMethod.GET)
+	public ModelAndView CustComplaint( @ModelAttribute("UserDetail") User studentLogin,@RequestParam("vcc") String vcc,@RequestParam("id") String id,BindingResult result) {
+		System.out.println("CustComplaint Controller LcoCode: "+vcc+","+id);
+		if (result.hasErrors()) {
+			//return "lcologin";
+			return new ModelAndView("userlogin", "error", "There are some Errors");
+			
+		} else {
+			List<CustComplaint>  found = userComplaintService.findByPckCode(vcc);
+			ModelAndView model=new ModelAndView("redirect:CustComplaint.jsp");
+			model.addObject("id", id);
+			model.addObject("vc_no", vcc);
+			model.addObject("Complist", found);
+			
+			return model;
+		}
+		
+	}
+	
+	*/
+	 @RequestMapping(value="/CustComplaint", method=RequestMethod.GET)
+	    public ModelAndView registerPage(ModelMap map,@RequestParam("vc_no") String vcc,@RequestParam("id") String id) {
+	        //this method should retrieve the data for all users
+	        List<CustComplaint> userList = userComplaintService.findByPckCode(vcc);
+	        map.addAttribute("userList", userList);
+	        map.addAttribute("id", id);
+	        map.addAttribute("vc_no", vcc);
+	        return new ModelAndView("CustComplaint", map);
+	    }
+	
+	
+	 @RequestMapping(value="/addComplaint", method=RequestMethod.GET)
+	    public ModelAndView addComplaint(ModelMap map,@RequestParam("vc_no") String vcc,@RequestParam("id") String id
+	    		,@RequestParam("lcomplaint") String camptype ,@RequestParam("remark") String remark) {
+	        
+	        System.out.println("id: "+id+",vcc: "+vcc+",camptype: "+camptype+",remark: "+remark);
+	        userComplaintService.addComplaint(id,vcc,camptype,remark);
+	        List<CustComplaint> userList = userComplaintService.findByPckCode(vcc);
+	        map.addAttribute("userList", userList);
+	        map.addAttribute("id", id);
+	        map.addAttribute("vc_no", vcc);
+	        return new ModelAndView("CustComplaint", map);
+	    }
+	 
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
     public String logout(HttpSession session ) {
+		
        session.invalidate();
+       session=null;
+       //System.out.println("Session Ends: "+session);
        return "logout";
     }
 	

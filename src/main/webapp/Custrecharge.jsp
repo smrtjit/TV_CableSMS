@@ -21,7 +21,7 @@
 <%
 			if(session.getAttribute("custLogin")==null){
 				System.out.print("session not found");
-				response.sendRedirect("lcologin.html?error=Session is Expired!!!");
+				response.sendRedirect("userlogin.html?error=Session is Expired!!!");
 			}else{
 				System.out.print("session found");
 				%>
@@ -45,7 +45,7 @@
 				</div>
 				<ul class="nav navbar-nav">
 					 <li class="active"><a href="UserDetail.html?id=<%= request.getParameter("id") %>">My Account</a></li>
-					 <li><a href="Custrecharge.jsp">Complaint </a></li>
+					 <li><a href="CustComplaint.html?vc_no=<%= request.getParameter("vc_no") %>&id=<%= request.getParameter("id") %>">Complaint </a></li>
                     <li><a href="CustRecharge.html?id=<%= request.getParameter("id") %>">Recharge</a></li>
 					
 
@@ -146,7 +146,7 @@
 					</div>
 					<div class="col-sm-4">
 						Package Price <input name="ctl00$ContentPlaceHolder1$txtPackPrice"
-							type="text" value="<%= request.getParameter("Account_balance") %>" readonly="readonly"
+							type="text" value="<%= request.getParameter("Package_cost") %>" readonly="readonly"
 							id="ContentPlaceHolder1_txtPackPrice" class="form-control"
 							placeholder="" />
 					</div>

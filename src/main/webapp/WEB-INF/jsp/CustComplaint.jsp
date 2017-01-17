@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
@@ -39,7 +40,7 @@ table#ContentPlaceHolder1_gvcompHistory {
 				</div>
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="UserDetail.html?id=<%= request.getParameter("id") %>">My Account</a></li>
-					<li><a href="CustComplaint.html?vcc=<%= request.getParameter("vc_no") %>">Complaint</a></li>
+					<li><a href="CustComplaint.html?vc_no=<%= request.getParameter("vc_no") %>&id=<%= request.getParameter("id") %>"">Complaint</a></li>
 					<li><a href="CustRecharge.html?id=<%= request.getParameter("id") %>">Recharge</a></li>
 
 				</ul>
@@ -61,20 +62,23 @@ table#ContentPlaceHolder1_gvcompHistory {
 				</div>
 				<hr />
 				<div class="row">
+				<form:form id="myForm" method="get" action="addComplaint.html"
+							class="bs-example form-horizontal" commandName="addComplaint">
 					<div class="col-sm-2">
 						<div style="margin-bottom: 10px">
-							VC No.: <input name="ctl00$ContentPlaceHolder1$txtvc" type="text"
+							VC No.: <input name="vc_notext" type="text"
 								value="<%= request.getParameter("vc_no") %>" id="ContentPlaceHolder1_txtvc" disabled="disabled"
 								tabindex="1" class="aspNetDisabled form-control"
 								placeholder="VC No." />
-
+	
 						</div>
-
+						<input type="hidden" name="vc_no" value="<%= request.getParameter("vc_no") %>">
+						<input type="hidden" name="id" value="<%= request.getParameter("id") %>">
 					</div>
 					<div class="col-sm-2">
 						<div style="margin-bottom: 10px">
 							Complaint Type: <select
-								name="ctl00$ContentPlaceHolder1$ddlcomplaint"
+								name="lcomplaint"
 								id="ContentPlaceHolder1_ddlcomplaint" tabindex="2"
 								class="form-control" placeholder="Responsibility">
 								<option value="NA">Select</option>
@@ -82,8 +86,7 @@ table#ContentPlaceHolder1_gvcompHistory {
 								<option value="Not Working">Not Working</option>
 								<option value="STB Problem">STB Problem</option>
 								<option value="Bad Singnal">Bad Singnal</option>
-								<option value="Channel Not Available">Channel Not
-									Available</option>
+								<option value="Channel Not Available">Channel Not Available</option>
 								<option value="Others">Others</option>
 
 							</select>
@@ -92,7 +95,7 @@ table#ContentPlaceHolder1_gvcompHistory {
 
 					</div>
 					<div class="col-sm-3">
-						<textarea name="ctl00$ContentPlaceHolder1$txtRemarks" rows="2"
+						<textarea name="remark" rows="5" required
 							cols="20" id="ContentPlaceHolder1_txtRemarks" tabindex="3"
 							class="form-control" placeholder="Complaint Remarks">
 </textarea>
@@ -106,8 +109,9 @@ table#ContentPlaceHolder1_gvcompHistory {
 
 						</div>
 					</div>
-
+				</form:form>
 				</div>
+				
 				<div class="col-md-12"></div>
 				<hr />
 
@@ -135,10 +139,12 @@ table#ContentPlaceHolder1_gvcompHistory {
 									<th scope="col">Closing Date</th>
 									<th scope="col">Closing Remarks</th>
 								</tr>
-								
+								<%
+									int i=0;
+								%>
 								<c:forEach items="${userList}" var="user">   
    								<tr>
-   									<td>${user.vc_no}</td>
+   									<td> <%= i %></td>
    									<td>${user.vc_no}</td>
    									<td>${user.complaint_type}</td>
    									<td>${user.time_stamp}</td>
@@ -146,7 +152,9 @@ table#ContentPlaceHolder1_gvcompHistory {
    									<td>${user.opening_remarks}</td>
    									<td>${user.close_date_time}</td>
    									<td>${user.closing_remarks}</td>
-									
+									<%
+									i++;
+								%>
 								</tr>
 								</c:forEach>
 								
