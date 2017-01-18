@@ -23,9 +23,9 @@ public class UserComplaintServiceImpl implements UserComplaintService {
 	}
 
 
-	public CustComplaint addComplaint(String id, String vcc, String type,String opening_remarks) {
-		CustComplaint lco=lcoRepository.addComplaint(id, vcc, type, opening_remarks);
-		return lco;
+	public void addComplaint(String id, String vcc, String type,String opening_remarks) {
+		lcoRepository.addComplaint(id, vcc, type, opening_remarks);
+		//return lco;
 	}
 
 

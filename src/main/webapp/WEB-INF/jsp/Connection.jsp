@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -369,87 +371,26 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$ScriptMan
 		<table class="table table-striped table-bordered table-hover fontsize" cellspacing="0" rules="all" border="1" id="ContentPlaceHolder1_gvdash" style="width:100%;border-collapse:collapse;">
 			<tr>
 				<th scope="col">SN</th><th scope="col">Account_ID</th><th scope="col">VC_No</th><th scope="col">Customer_Name</th><th scope="col">Customer_Email</th><th scope="col">Connection_Status</th><th scope="col">Create_Time</th><th scope="col">Action</th><th scope="col">Action</th>
-			</tr><tr>
-				<td>
-                                    1
-                                </td><td>9559404556</td><td>87777</td><td>Ankit</td><td>ankit@gmail.com</td><td>LIVE</td><td>1/5/2017 12:32:22 PM</td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnktEdit_0" class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a>
-                                </td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnkDetails_0" class="btn-primary btn btn-sm btn-block" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
-                                </td>
-			</tr><tr>
-				<td>
-                                    2
-                                </td><td>9832469432</td><td>900003</td><td>Deepak</td><td>deepak@gmail.com</td><td>Live</td><td>1/5/2017 10:34:37 AM</td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnktEdit_1" class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a>
-                                </td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnkDetails_1" class="btn-primary btn btn-sm btn-block" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl03$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
-                                </td>
-			</tr><tr>
-				<td>
-                                    3
-                                </td><td>7053450769</td><td>8292</td><td>Pramod</td><td>PK@gmail.com</td><td>LIVE</td><td>1/4/2017 4:47:50 PM</td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnktEdit_2" class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a>
-                                </td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnkDetails_2" class="btn-primary btn btn-sm btn-block" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl04$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
-                                </td>
-			</tr><tr>
-				<td>
-                                    4
-                                </td><td>4785487891</td><td>5147821203</td><td>Asile Babu Ghosh</td><td>dahalsalik@hotmail.com; </td><td>Expire</td><td>1/3/2017 7:17:52 PM</td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnktEdit_3" class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a>
-                                </td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnkDetails_3" class="btn-primary btn btn-sm btn-block" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl05$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
-                                </td>
-			</tr><tr>
-				<td>
-                                    5
-                                </td><td>9876543210</td><td>7845120369</td><td>Harish</td><td>rajanupreti@hotmail.com;</td><td>Live</td><td>1/3/2017 5:47:20 PM</td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnktEdit_4" class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a>
-                                </td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnkDetails_4" class="btn-primary btn btn-sm btn-block" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl06$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
-                                </td>
-			</tr><tr>
-				<td>
-                                    6
-                                </td><td>9911152626</td><td>1258562233</td><td>Bankim Chatoorjee</td><td>htrahddis@hotmail.com;</td><td>Pending</td><td>1/3/2017 5:24:00 PM</td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnktEdit_5" class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a>
-                                </td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnkDetails_5" class="btn-primary btn btn-sm btn-block" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl07$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
-                                </td>
-			</tr><tr>
-				<td>
-                                    7
-                                </td><td>8566311471</td><td>4986320142</td><td>Chandranath Bose</td><td>rafee90@hotmail.com;</td><td>Expire</td><td>1/3/2017 5:06:42 PM</td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnktEdit_6" class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a>
-                                </td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnkDetails_6" class="btn-primary btn btn-sm btn-block" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl08$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
-                                </td>
-			</tr><tr>
-				<td>
-                                    8
-                                </td><td>5478569320</td><td>8526974301</td><td>Babu Ghosh</td><td>sujata@hotmail.com;</td><td>Live</td><td>1/2/2017 6:38:37 PM</td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnktEdit_7" class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a>
-                                </td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnkDetails_7" class="btn-primary btn btn-sm btn-block" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl09$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
-                                </td>
-			</tr><tr>
-				<td>
-                                    9
-                                </td><td>9875526901</td><td>7896541230</td><td>Aishwarya Roi</td><td>uja_shakya@hotmail.com;</td><td>Expire</td><td>1/2/2017 6:38:37 PM</td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnktEdit_8" class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a>
-                                </td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnkDetails_8" class="btn-primary btn btn-sm btn-block" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl10$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
-                                </td>
-			</tr><tr>
-				<td>
-                                    10
-                                </td><td>8745693210</td><td>8965230147</td><td>Bankim Nath</td><td>sag_sameer@hotmail.com;</td><td>Live</td><td>1/2/2017 6:38:37 PM</td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnktEdit_9" class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a>
-                                </td><td>
-                                    <a id="ContentPlaceHolder1_gvdash_LnkDetails_9" class="btn-primary btn btn-sm btn-block" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl11$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
-                                </td>
-			</tr><tr>
+			</tr>
+			
+			<tr>
+			<% int i=0; %>
+			<c:forEach items="${userList}" var="user">   
+   								<tr>
+   									<td> <%= i %></td>
+   									<td>${user.username}</td>
+   									<td>${user.customer_vc_no}</td>
+   									<td>${user.customer_name}</td>
+   									<td>${user.customer_email}</td>
+   									<td>${user.connection_status}</td>
+   									<td>${user.timestamp}</td>
+   									<td> <a id="ContentPlaceHolder1_gvdash_LnktEdit_0" class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a></td>
+									<td><a id="ContentPlaceHolder1_gvdash_LnkDetails_0" class="btn-primary btn btn-sm btn-block" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnkDetails&#39;,&#39;&#39;)">View/Print</a> </td>
+									<%
+									i++;
+								%>
+								</tr>
+								</c:forEach>
 				<td colspan="9"><table>
 					<tr>
 						<td><span>1</span></td><td><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash&#39;,&#39;Page$2&#39;)">2</a></td><td><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash&#39;,&#39;Page$3&#39;)">3</a></td>

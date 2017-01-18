@@ -9,18 +9,18 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dialnet.source.model.LCOUser;
+
 import com.dialnet.source.model.LCOUserRegistration;
 import com.dialnet.source.model.User;
 
-@Repository("lcoRepository")
-public interface LCORepository extends JpaRepository<LCOUser, Long> {
+@Repository("lcoUserRegistrationService")
+public interface LCOUserRegistrationRepository extends JpaRepository<LCOUserRegistration, Long> {
 	
 	
-	@Query("select s from LCOUser s where s.login_id = :login_id")
-	LCOUser findByUserName(@Param("login_id") String userName);
+	@Query("select s from LCOUserRegistration s")
+	List<LCOUserRegistration> findData();
 	
-		
+	
 	/*
 	@Modifying
     @Query("UPDATE LCO_User c SET c.address = :address WHERE c.id = :id")

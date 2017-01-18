@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +22,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.dialnet.source.model.CustComplaint;
+import com.dialnet.source.model.LCOComplaint;
+import com.dialnet.source.model.LCOPackages;
 import com.dialnet.source.model.LCOUser;
+import com.dialnet.source.model.LCOUserRegistration;
+import com.dialnet.source.model.User;
 //import com.dialnet.source.model.LCOUserRegistration;
 import com.dialnet.source.model.UserLogin;
+import com.dialnet.source.service.LCOComplaintService;
 import com.dialnet.source.service.LCOService;
+import com.dialnet.source.service.LCOUserRegistrationService;
 //import com.dialnet.source.service.LCOUserRegService;
+import com.dialnet.source.service.UserService;
 
 @Controller
 @SessionAttributes("lcoLogin")
@@ -33,6 +42,15 @@ public class LCOController {
 	
 	@Autowired
 	public LCOService lcoService;
+	
+	@Autowired
+	public LCOUserRegistrationService lcoUserRegService;
+	
+	@Autowired
+	public UserService userService;
+	
+	@Autowired
+	public LCOComplaintService LCOComplaintRepository;
 	/*
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String signup(Model model) {
@@ -72,7 +90,6 @@ public class LCOController {
 			boolean found = lcoService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
 			String user=studentLogin.getUserName();
 			if (found) {	
-				
 				return new ModelAndView("redirect:Dashboard.jsp", "user", user);
 			} else {	
 				//model.addAttribute("message", "You have been logged out successfully.");
@@ -115,6 +132,47 @@ public class LCOController {
 		
 	}
 	
+	
+	 @RequestMapping(value="/OldUserInfo", method=RequestMethod.GET)
+	    public ModelAndView OldUserInfo(ModelMap map,@RequestParam("user") String user) {
+	        //this method should retrieve the data for all users
+	        List<LCOUserRegistration> userList = lcoUserRegService.findData();
+//	        for (LCOUserRegistration temp : userList) {
+//				System.out.println("Complaint Type: "+temp.getUsername()+",Complaint time: "+temp.getMobile());
+//			}
+	        map.addAttribute("userList", userList);
+	        map.addAttribute("id", user);
+	        return new ModelAndView("NewUser", map);
+	    }
+	 
+	 
+	 @RequestMapping(value="/oldConnections", method=RequestMethod.GET)
+		public ModelAndView CustRecharge(ModelMap map,@RequestParam("user") String user) {
+				List<User> userList = userService.findData();
+				for (User temp : userList) {
+					System.out.println("User Name: "+temp.getUsername()+",Mobile No.: "+temp.getCustomer_mobile());
+					
+				}
+				map.addAttribute("userList", userList);
+		        map.addAttribute("user", user);
+		        return new ModelAndView("Connection", map);
+			
+			
+		}
+	 
+	 @RequestMapping(value="/allLCOComplain", method=RequestMethod.GET)
+		public ModelAndView allLCOComplain(ModelMap map,@RequestParam("user") String user) {
+				List<LCOComplaint> userList = LCOComplaintRepository.findData();
+				for (LCOComplaint temp : userList) {
+					System.out.println("User Name: "+temp.getCustomer_name()+",Mobile No.: "+temp.getCustomer_mobile());
+					
+				}
+				map.addAttribute("userList", userList);
+		        map.addAttribute("user", user);
+		        return new ModelAndView("Dashboard", map);
+			
+			
+		}
 	
 	/*
 	@Autowired(required=true)

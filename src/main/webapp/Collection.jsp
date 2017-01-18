@@ -33,13 +33,13 @@ table#ContentPlaceHolder1_gvcollection {
 <body
 	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
 	<%
-			if(session.getAttribute("lcoLogin")==null){
-				System.out.print("session not found");
-				response.sendRedirect("lcologin.html?error=Session is Expired!!!");
-			}else{
-				System.out.print("session found");
-				%>
-	
+		if (session.getAttribute("lcoLogin") == null) {
+			System.out.print("session not found");
+			response.sendRedirect("lcologin.html?error=Session is Expired!!!");
+		} else {
+			System.out.print("session found");
+	%>
+
 	<form method="post" action="#" id="form1">
 		<div class="aspNetHidden">
 			<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
@@ -91,21 +91,22 @@ table#ContentPlaceHolder1_gvcollection {
 			<!-- Pushy Menu -->
 			<nav class="pushy pushy-left">
 				<ul>
-				<!--menu iteam code -->
-				<li class="pushy-link"><a href="#"></a></li>
-				<li class="pushy-link"><a href="Dashboard.jsp">Complaint</a></li>
-				<li class="pushy-link"><a href="Connection.jsp">Connection</a></li>
-				<li class="pushy-link"><a href="Collection.jsp">Collection</a></li>
-				<li class="pushy-link"><a href="NewUser.jsp">Create User</a></li>
-<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-				<li class="pushy-link"><a href="TopUp.jsp">Top-UP</a></li>
-				<li class="pushy-link"><a href="BulkBilling.jsp">Bulk-Billing</a></li>
-				<li class="pushy-link"><a href="BulkTransaction.jsp">Bulk Transactions</a></li>
-<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
-<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a href="MyAccount.jsp">My Account</a></li>
-				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
+					<!--menu iteam code -->
+				<li class="pushy-link" ><a href="#?user=<%= request.getParameter("user") %>" style="background:OLDLACE;color:black"><h5><%= request.getParameter("user") %></h5></font></a></li>
+					<li class="pushy-link"><a href="Collection.jsp?user=<%= request.getParameter("user") %>">Collection</a></li>
+					<li class="pushy-link"><a href="Dashboard.jsp?user=<%= request.getParameter("user") %>">Complaint</a></li>
+					<li class="pushy-link"><a href="Connection.jsp?user=<%= request.getParameter("user") %>">Connection</a></li>
+					<li class="pushy-link"><a href="NewUser.jsp?user=<%= request.getParameter("user") %>">Create User</a></li>
+					<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
+					<li class="pushy-link"><a href="TopUp.jsp?user=<%= request.getParameter("user") %>">Top-UP</a></li>
+					<li class="pushy-link"><a href="BulkBilling.jsp?user=<%= request.getParameter("user") %>">Bulk-Billing</a></li>
+					<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk
+							Transactions</a></li>
+					<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
+					<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
+					<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
+					<li class="pushy-link"><a href="MyAccount.jsp?user=<%= request.getParameter("user") %>">My Account</a></li>
+					<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 				</ul>
 			</nav>
 
@@ -405,18 +406,22 @@ table#ContentPlaceHolder1_gvcollection {
 
 
 			</div>
-<!-- Pushy JS -->
+			<!-- Pushy JS -->
 
-            <script src="assets/js/pushy.min.js"></script>
-            <script src="assets/js/jquery-1.10.2.js"></script>
-            <script src="assets/js/bootstrap.js"></script>
-            <script src="assets/js/bootstrap.min.js"></script>
-            <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css" rel="stylesheet" type="text/css" />
-            <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-        </div>
-    </form>
+			<script src="assets/js/pushy.min.js"></script>
+			<script src="assets/js/jquery-1.10.2.js"></script>
+			<script src="assets/js/bootstrap.js"></script>
+			<script src="assets/js/bootstrap.min.js"></script>
+			<link
+				href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
+				rel="stylesheet" type="text/css" />
+			<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		</div>
+	</form>
 
-    <link href="assets/css/circle.css" rel="stylesheet" />
-     <%} %>
+	<link href="assets/css/circle.css" rel="stylesheet" />
+	<%
+		}
+	%>
 </body>
 </html>

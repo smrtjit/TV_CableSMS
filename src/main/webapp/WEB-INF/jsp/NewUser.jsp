@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -116,8 +118,7 @@ table td {
 				<li class="pushy-link"><a
 					href="Connection.jsp?user=<%=request.getParameter("user")%>">Connection</a></li>
 				<li class="pushy-link"><a
-					href="NewUser?user=<%=request.getParameter("user")%>">Create
-						User</a></li>
+					href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create User</a></li>
 				<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
 				<li class="pushy-link"><a
 					href="TopUp.jsp?user=<%=request.getParameter("user")%>">Top-UP</a></li>
@@ -408,111 +409,31 @@ table td {
 										<th scope="col">Role</th>
 										<th scope="col">Action</th>
 									</tr>
-									<tr>
-										<td>1</td>
-										<td>10008</td>
-										<td>943584528</td>
-										<td>Developer</td>
-										<td>Lalit</td>
-										<td>943584528</td>
-										<td>022-32423</td>
-										<td>lalit@gmail.com</td>
-										<td>Collection</td>
-										<td><a id="ContentPlaceHolder1_gvuser_LnktDetail_0"
+									<%
+									int i=0;
+								%>
+								<c:forEach items="${userList}" var="user">   
+   								<tr>
+   									<td> <%= i %></td>
+   									<td>${user.id}</td>
+   									<td>${user.username}</td>
+   									<td>${user.designation}</td>
+   									<td>${user.name}</td>
+   									<td>${user.mobile}</td>
+   									<td>${user.landline_no}</td>
+   									<td>${user.email}</td>
+   									<td>${user.responsibility}</td>
+   									<td><a id="ContentPlaceHolder1_gvuser_LnktDetail_0"
 											class="btn-primary btn btn-block"
 											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvuser$ctl02$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
 										</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>10007</td>
-										<td>9988776655</td>
-										<td>TEST</td>
-										<td>TEst</td>
-										<td>9988776655</td>
-										<td>23894234</td>
-										<td>test@gmail.com</td>
-										<td>Collection</td>
-										<td><a id="ContentPlaceHolder1_gvuser_LnktDetail_1"
-											class="btn-primary btn btn-block"
-											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvuser$ctl03$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-										</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>10006</td>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
-										<td>System.Web.UI.WebControls.TextBox</td>
-										<td>Select</td>
-										<td><a id="ContentPlaceHolder1_gvuser_LnktDetail_2"
-											class="btn-primary btn btn-block"
-											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvuser$ctl04$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-										</td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td>10005</td>
-										<td>9559404556</td>
-										<td>field Work</td>
-										<td>Pramod</td>
-										<td>9559404556</td>
-										<td>5435346</td>
-										<td>System.Web.UI.WebControls.TextBox</td>
-										<td>Local Fault Repair</td>
-										<td><a id="ContentPlaceHolder1_gvuser_LnktDetail_3"
-											class="btn-primary btn btn-block"
-											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvuser$ctl05$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-										</td>
-									</tr>
-									<tr>
-										<td>5</td>
-										<td>10004</td>
-										<td>7845123690</td>
-										<td>Office Team</td>
-										<td>Sujeet</td>
-										<td>8547963210</td>
-										<td>335896574</td>
-										<td>sujeet@yangee.in</td>
-										<td>All</td>
-										<td><a id="ContentPlaceHolder1_gvuser_LnktDetail_4"
-											class="btn-primary btn btn-block"
-											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvuser$ctl06$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-										</td>
-									</tr>
-									<tr>
-										<td>6</td>
-										<td>10003</td>
-										<td>8521479630</td>
-										<td>Field Team</td>
-										<td>Manish randhawa</td>
-										<td>8563214709</td>
-										<td>332458793</td>
-										<td>manishe@gmail.com</td>
-										<td>Local Fault Repair</td>
-										<td><a id="ContentPlaceHolder1_gvuser_LnktDetail_5"
-											class="btn-primary btn btn-block"
-											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvuser$ctl07$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-										</td>
-									</tr>
-									<tr>
-										<td>7</td>
-										<td>10002</td>
-										<td>9875641230</td>
-										<td>Team Member</td>
-										<td>Harish</td>
-										<td>9874563210</td>
-										<td>1203125630</td>
-										<td>harish@text.com</td>
-										<td>Collection</td>
-										<td><a id="ContentPlaceHolder1_gvuser_LnktDetail_6"
-											class="btn-primary btn btn-block"
-											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvuser$ctl08$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-										</td>
-									</tr>
+									<%
+									i++;
+								%>
+								</tr>
+								</c:forEach>
+								
+								
 								</table>
 							</div>
 

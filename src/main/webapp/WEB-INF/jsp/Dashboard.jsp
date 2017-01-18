@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -270,16 +272,21 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$abc', 'fo
 											<th scope="col">Action</th>
 											<th scope="col">Action</th>
 										</tr>
-										<tr>
-											<td>1</td>
-											<td>13016</td>
-											<td>9559404556</td>
-											<td>Ankit</td>
-											<td>Flat No. 16/3 Vardhman Block-5, South Bengal 713144</td>
-											<td>9559404556</td>
-											<td>Not Working</td>
-											<td>OPEN</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnkEdit_0"
+									
+									<%
+									int i=0;
+								%>
+								<c:forEach items="${userList}" var="user">   
+   								<tr>
+   									<td> <%= i %></td>
+   									<td>${user.complaint_no}</td>
+   									<td>${user.customer_mobile}</td>
+   									<td>${user.customer_name}</td>
+   									<td>${user.customer_add}</td>
+   									<td>${user.customer_mobile}</td>
+   									<td>${user.complaint_type}</td>
+   									<td>${user.complaint_status}</td>
+   									<td><a id="ContentPlaceHolder1_gvdash_LnkEdit_0"
 												class="btn-primary btn btn-block"
 												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnkEdit&#39;,&#39;&#39;)">Edit</a>
 											</td>
@@ -288,178 +295,11 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$abc', 'fo
 												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
 
 											</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>13014</td>
-											<td>9559404556</td>
-											<td>Ankit</td>
-											<td>Flat No. 16/3 Vardhman Block-5, South Bengal 713144</td>
-											<td>9559404556</td>
-											<td>STB Problem</td>
-											<td>OPEN</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnkEdit_1"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl03$LnkEdit&#39;,&#39;&#39;)">Edit</a>
-											</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_1"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl03$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-
-											</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>13004</td>
-											<td>8566311471</td>
-											<td>Chandranath Bose</td>
-											<td>Flat No. 16/2 Vardhman Block-1, West Bengal 713144</td>
-											<td>8566311471</td>
-											<td>Bad Singnal</td>
-											<td>HOLD</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnkEdit_2"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl04$LnkEdit&#39;,&#39;&#39;)">Edit</a>
-											</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_2"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl04$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-
-											</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>13002</td>
-											<td>8566311471</td>
-											<td>Chandranath Bose</td>
-											<td>Flat No. 16/2 Vardhman Block-1, West Bengal 713144</td>
-											<td>8566311471</td>
-											<td>Bad Singnal</td>
-											<td>OPEN</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnkEdit_3"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl05$LnkEdit&#39;,&#39;&#39;)">Edit</a>
-											</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_3"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl05$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-
-											</td>
-										</tr>
-										<tr>
-											<td>5</td>
-											<td>13001</td>
-											<td>8566311471</td>
-											<td>Chandranath Bose</td>
-											<td>Flat No. 16/2 Vardhman Block-1, West Bengal 713144</td>
-											<td>8566311471</td>
-											<td>STB Problem</td>
-											<td>RESOLVED</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnkEdit_4"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl06$LnkEdit&#39;,&#39;&#39;)">Edit</a>
-											</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_4"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl06$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-
-											</td>
-										</tr>
-										<tr>
-											<td>6</td>
-											<td>13000</td>
-											<td>8566311471</td>
-											<td>Chandranath Bose</td>
-											<td>Flat No. 16/2 Vardhman Block-1, West Bengal 713144</td>
-											<td>8566311471</td>
-											<td>Channel Not Available</td>
-											<td>OPEN</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnkEdit_5"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl07$LnkEdit&#39;,&#39;&#39;)">Edit</a>
-											</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_5"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl07$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-
-											</td>
-										</tr>
-										<tr>
-											<td>7</td>
-											<td>22</td>
-											<td>4785487891</td>
-											<td>Asile Babu Ghosh</td>
-											<td>Bunglow No. 15 Stree No. 10 Howrah, Kolkata</td>
-											<td>4785487891</td>
-											<td>Bad Singnal</td>
-											<td>PENDING</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnkEdit_6"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl08$LnkEdit&#39;,&#39;&#39;)">Edit</a>
-											</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_6"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl08$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-
-											</td>
-										</tr>
-										<tr>
-											<td>8</td>
-											<td>20</td>
-											<td>5478569320</td>
-											<td>Babu Ghosh</td>
-											<td>Bunglow No. 120 Stree No. 3 Howrah, Kolkata</td>
-											<td>5478569320</td>
-											<td>No Signal</td>
-											<td>ESCLATED MSO</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnkEdit_7"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl09$LnkEdit&#39;,&#39;&#39;)">Edit</a>
-											</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_7"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl09$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-
-											</td>
-										</tr>
-										<tr>
-											<td>9</td>
-											<td>19</td>
-											<td>9875526901</td>
-											<td>Aishwarya Roi</td>
-											<td>Flat No. 16/10 Vardhman Block-1, West Bengal 713144</td>
-											<td>9875526901</td>
-											<td>Wrong Package</td>
-											<td>RESOLVED</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnkEdit_8"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl10$LnkEdit&#39;,&#39;&#39;)">Edit</a>
-											</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_8"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl10$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-
-											</td>
-										</tr>
-										<tr>
-											<td>10</td>
-											<td>18</td>
-											<td>4785487891</td>
-											<td>Asile Babu Ghosh</td>
-											<td>Bunglow No. 15 Stree No. 10 Howrah, Kolkata</td>
-											<td>4785487891</td>
-											<td>Remote Not Working</td>
-											<td>RESOLVED</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnkEdit_9"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl11$LnkEdit&#39;,&#39;&#39;)">Edit</a>
-											</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_9"
-												class="btn-primary btn btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl11$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-
-											</td>
-										</tr>
+									<%
+									i++;
+								%>
+								</tr>
+								</c:forEach>
 										<tr>
 											<td colspan="10"><table>
 													<tr>

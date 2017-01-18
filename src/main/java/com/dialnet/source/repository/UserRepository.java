@@ -1,5 +1,7 @@
 package com.dialnet.source.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,7 +18,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("select s from User s where s.username = :username")
 	User findByUserName(@Param("username") String username);
 	
-	
+	@Query("select s from User s")
+	List<User> findData();
 	/*
 	@Modifying
     @Query("UPDATE LCO_User c SET c.address = :address WHERE c.id = :id")

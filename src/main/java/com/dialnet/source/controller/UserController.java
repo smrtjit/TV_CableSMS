@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dialnet.source.model.LCOPackages;
-import com.dialnet.source.model.LCOUser;
 import com.dialnet.source.model.User;
 import com.dialnet.source.model.CustComplaint;
 import com.dialnet.source.model.UserLogin;

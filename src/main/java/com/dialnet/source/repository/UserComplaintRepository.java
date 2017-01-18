@@ -21,11 +21,11 @@ public interface UserComplaintRepository extends JpaRepository<CustComplaint, Lo
 	@Query("select s from CustComplaint s where s.vc_no = :vcno")
 	List<CustComplaint> findByPckCode(@Param("vcno") String vcno);
 	
-	@Modifying
+	//@Modifying
 	@Transactional
-	@Query(value ="insert into CustComplaint (userid, vc_no,complaint_type,opening_remarks) VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
-	CustComplaint addComplaint(@Param("userid") String id,@Param("vc_no") String vcno,@Param("complaint_type") String type,@Param("opening_remarks") String remark);
-	
+	@Query(value ="insert into CustComplaint (userid, vc_no,complaint_type,opening_remarks) VALUES (?, ?, ?, ?)", nativeQuery = true)
+	//CustComplaint addComplaint(@Param("userid") String id,@Param("vc_no") String vcno,@Param("complaint_type") String type,@Param("opening_remarks") String remark);
+	void addComplaint(String id, String vcno, String type, String remark);
 	/*
 	@Modifying
     @Query("UPDATE LCO_User c SET c.address = :address WHERE c.id = :id")

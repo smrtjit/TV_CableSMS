@@ -92,19 +92,20 @@ table#ContentPlaceHolder1_gvChannel {
 			<!-- Pushy Menu -->
 			<nav class="pushy pushy-left">
 				<ul>
-<li class="pushy-link"><a href="#"></a></li>
-				<li class="pushy-link"><a href="Dashboard.jsp">Complaint</a></li>
-				<li class="pushy-link"><a href="Connection.jsp">Connection</a></li>
-				<li class="pushy-link"><a href="Collection.jsp">Collection</a></li>
-				<li class="pushy-link"><a href="NewUser.jsp">Create User</a></li>
+				<li class="pushy-link" ><a href="#?user=<%= request.getParameter("user") %>" style="background:OLDLACE;color:black"><h5><%= request.getParameter("user") %></h5></font></a></li>
+				<li class="pushy-link"><a href="Collection.jsp?user=<%= request.getParameter("user") %>">Collection</a></li>
+
+				<li class="pushy-link"><a href="Dashboard.jsp?user=<%= request.getParameter("user") %>">Complaint</a></li>
+				<li class="pushy-link"><a href="Connection.jsp?user=<%= request.getParameter("user") %>">Connection</a></li>
+				<li class="pushy-link"><a href="NewUser.jsp?user=<%= request.getParameter("user") %>">Create User</a></li>
 <!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-				<li class="pushy-link"><a href="TopUp.jsp">Top-UP</a></li>
-				<li class="pushy-link"><a href="BulkBilling.jsp">Bulk-Billing</a></li>
-				<li class="pushy-link"><a href="BulkTransaction.jsp">Bulk Transactions</a></li>
+				<li class="pushy-link"><a href="TopUp.jsp?user=<%= request.getParameter("user") %>">Top-UP</a></li>
+				<li class="pushy-link"><a href="BulkBilling.jsp?user=<%= request.getParameter("user") %>">Bulk-Billing</a></li>
+				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li>
 <!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 <!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a href="MyAccount.jsp">My Account</a></li>
+				<li class="pushy-link"><a href="MyAccount.jsp?user=<%= request.getParameter("user") %>">My Account</a></li>
 				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 				</ul>
 			</nav>
