@@ -60,13 +60,13 @@ public class LMController {
 	public ModelAndView login(@Valid @ModelAttribute("lmLogin") UserLogin studentLogin, BindingResult result) {
 		if (result.hasErrors()) {
 			//return "lmlogin";
-			return new ModelAndView("LMDashboard", "error", "There is some Error!!!");
+			return new ModelAndView("lmlogin", "error", "There is some Error!!!");
 		} else {
 			String user=studentLogin.getUserName();
 			boolean found = userService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
 			if (found) {				
 				//return "redirect:LMDashboard.jsp";
-				return new ModelAndView("redirect:LMDashboard.jsp", "user", user);
+				return new ModelAndView("LMDashborad", "user", user);
 			} else {				
 				//return "userlogin";
 				return new ModelAndView("lmlogin", "error","Invalid Username or Password!!!");
