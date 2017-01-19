@@ -31,7 +31,7 @@
 	font-weight: bold;
 }
 </style>
-<title>Operator Login</title>
+<title>Customer Login</title>
 </head>
 <body>
 	<script src="jquery-1.8.3.js">
@@ -76,7 +76,7 @@
 	<div class="container">
 		<div class="jumbotron">
 			<div>
-				<h1>Welcome to Customer Login</h1>
+				<h1>Welcome to TV Cable Operator Login</h1>
 				<p>Login to explore the complete features!</p>
 			</div>
 		</div>
@@ -90,9 +90,9 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<form:form id="myForm" method="post"
-							class="bs-example form-horizontal" commandName="custLogin">
+							class="bs-example form-horizontal" commandName="lmlogin">
 							<fieldset>
-								<legend>Customer Login Form</legend>
+								<legend>TV Cable LM Operator Login Form</legend>
 
 								<div class="form-group">
 									<label for="userNameInput" class="col-lg-3 control-label">User

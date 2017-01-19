@@ -30,7 +30,16 @@
         }
     </style>
 </head>
-<body style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
+<body 
+
+	<%
+		if (session.getAttribute("lmlogin") == null) {
+			System.out.print("session not found");
+			response.sendRedirect("lmlogin.html?error=Session is Expired!!!");
+		} else {
+			System.out.print("session found");
+	%>
+ style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
     <form method="post" action="./topup.aspx" id="form1" enctype="multipart/form-data">
 <div class="aspNetHidden">
 <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="H3GqyrAhohkqj7JO3Q+q8d8Kuhuogb5Pl1k+KW9c5hXBzBW+TiN0lULkof//Ot099kMktrywDbavE0VLB4qhw0ls1vn4bvXrIumDbNVJ7Jt06rffWzbEm23CcYPkJJlRUKJXcehHHMjM9IZp9A2UVc+dretFS+goj0PuYTNYJEryvgnniYxGb8ECP1aun4B/w7A0wDdI8dIICNJeZrSZGQGp12gXGMFJIf+fctjOsw2Lfng5Y5r8TfNe5hzmucRn" />
@@ -48,17 +57,19 @@
             <!-- Pushy Menu -->
             <nav class="pushy pushy-left">
                 <ul>
-                  <li class="pushy-link"><a href="#"></a></li>
-                    <li class="pushy-link"><a href="LMDashborad.jsp">Complaint</a></li>
-                    <li class="pushy-link"><a href="LMConnection.jsp">Connection</a></li>
-<!--                     <li class="pushy-link"><a href="packages.aspx">Packages</a></li> -->
-                    <li class="pushy-link"><a href="LMTopup.jsp">Top-UP</a></li>
-                    <li class="pushy-link"><a href="LMBulkTransactions.jsp">Bulk Transactions</a></li>
-<!--                     <li class="pushy-link"><a href="stock.aspx">Stock</a></li> -->
-<!--                     <li class="pushy-link"><a href="report.aspx">Reports</a></li> -->
-<!--                     <li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-                    <li class="pushy-link"><a href="LMMyAccount.jsp">My Account</a></li>
-                    <li class="pushy-link"><a href="logout.html">Log Out</a></li>
+				<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5><%= request.getParameter("user") %></h5></font></a></li>
+					<li class="pushy-link"><a href="LMDashborad.jsp?user=<%= request.getParameter("user") %>">Complaint</a></li>
+					<li class="pushy-link"><a href="LMConnection.jsp?user=<%= request.getParameter("user") %>">Connection</a></li>
+					<!--                     <li class="pushy-link"><a href="packages.aspx">Packages</a></li> -->
+					<li class="pushy-link"><a href="LMTopup.jsp?user=<%= request.getParameter("user") %>">Top-UP</a></li>
+					<li class="pushy-link"><a href="LAccount.jsp?user=<%= request.getParameter("user") %>">Account</a></li>
+<!-- 					<li class="pushy-link"><a href="LMBulkTransactions.jsp">Bulk -->
+<!-- 							Transactions</a></li> -->
+					<!--                     <li class="pushy-link"><a href="stock.aspx">Stock</a></li> -->
+					<!--                     <li class="pushy-link"><a href="report.aspx">Reports</a></li> -->
+					<!--                     <li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
+					<li class="pushy-link"><a href="LMMyAccount.jsp?user=<%= request.getParameter("user") %>">My Account</a></li>
+					<li class="pushy-link"><a href="logout.html">Log Out</a></li>
                 </ul>
             </nav>
 
@@ -287,7 +298,9 @@
             
         </div>
     </form>
-
+<%
+		}
+	%>
     <link href="assets/css/circle.css" rel="stylesheet" />
 </body>
 </html>

@@ -1,14 +1,13 @@
 
 
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
 <meta name="description"
 	content="Pushy is an off-canvas navigation menu for your website." />
 <meta name="viewport"
@@ -50,6 +49,7 @@ table td {
 			response.sendRedirect("lmlogin.html?error=Session is Expired!!!");
 		} else {
 			System.out.print("session found");
+
 	%>
 	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
 	<form method="post" action="./dashboard.aspx" id="form1">
@@ -105,7 +105,7 @@ function __doPostBack(eventTarget, eventArgument) {
 			<nav class="pushy pushy-left">
 				<ul>
 				<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5><%= request.getParameter("user") %></h5></font></a></li>
-					<li class="pushy-link"><a href="LMDashborad.jsp?user=<%= request.getParameter("user") %>">Complaint</a></li>
+									<li class="pushy-link"><a href="LMDashborad.jsp?user=<%= request.getParameter("user") %>">Complaint</a></li>
 					<li class="pushy-link"><a href="LMConnection.jsp?user=<%= request.getParameter("user") %>">Connection</a></li>
 					<!--                     <li class="pushy-link"><a href="packages.aspx">Packages</a></li> -->
 					<li class="pushy-link"><a href="LMTopup.jsp?user=<%= request.getParameter("user") %>">Top-UP</a></li>

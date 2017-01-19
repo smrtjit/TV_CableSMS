@@ -32,6 +32,7 @@ body {
 				<li><a href="/TV_CableSMS">Home</a></li>
 				<li><a href="lcologin.html">Operator Login</a></li>
 				<li class="active"><a href="userlogin.html">Customer Login</a></li>
+				<li ><a href="lmlogin.html">LM Login</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Explore<b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -51,17 +52,21 @@ body {
 					us. Or login to access your details, if you are already enrolled.</p>
 			</div>
 
-			<a class="btn btn-primary" href="lcologin.html">Operator Login » </a> 
-			<a class="btn btn-primary" href="userlogin.html">Customer Login » </a>
+			<a class="btn btn-primary" href="lcologin.html">Operator Login »
+			</a> <a class="btn btn-primary" href="userlogin.html">Customer Login
+			</a> <a class="btn btn-primary" href="lmlogin.html">LM Login » </a>
+
 		</div>
 
 		<div></div>
 	</div>
 	<script src="jquery-1.8.3.js">
-</script>
+		
+	</script>
 
 	<script src="bootstrap/js/bootstrap.js">
-</script>
+		
+	</script>
 
 </body>
 </html>
