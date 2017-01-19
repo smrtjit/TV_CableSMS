@@ -471,9 +471,7 @@ table td {
 										<td>&nbsp;</td>
 										<td>&nbsp;</td>
 										<td>1/12/2017 5:22:44 PM</td>
-										<td><a id="ContentPlaceHolder1_gvdash_LnkDetails_0"
-											class="btn-primary btn btn-sm btn-block"
-											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
+										<td><a id="ContentPlaceHolder1_gvdash_LnkDetails_0"	class="btn-primary btn btn-sm btn-block" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
 										</td>
 									</tr>
 									<tr>
