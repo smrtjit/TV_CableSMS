@@ -1,3 +1,4 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -106,33 +107,19 @@ table td {
 			<ul>
 
 				<!--menu iteam code -->
-				<li class="pushy-link"><a
-					href="#?user=<%=request.getParameter("user")%>"
-					style="background: OLDLACE; color: black"><h5><%=request.getParameter("user")%></h5>
-						</font></a></li>
-				<li class="pushy-link"><a
-					href="Collection.jsp?user=<%=request.getParameter("user")%>">Collection</a></li>
-
-				<li class="pushy-link"><a
-					href="Dashboard.jsp?user=<%=request.getParameter("user")%> ">Complaint</a></li>
-				<li class="pushy-link"><a
-					href="Connection.jsp?user=<%=request.getParameter("user")%>">Connection</a></li>
-				<li class="pushy-link"><a
-					href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create User</a></li>
-				<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-				<li class="pushy-link"><a
-					href="TopUp.jsp?user=<%=request.getParameter("user")%>">Top-UP</a></li>
-				<li class="pushy-link"><a
-					href="BulkBilling.jsp?user=<%=request.getParameter("user")%>">Bulk-Billing</a></li>
-				<li class="pushy-link"><a
-					href="BulkTransaction.jsp?user=<%=request.getParameter("user")%>">Bulk
-						Transactions</a></li>
-				<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
-				<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-				<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a
-					href="LCODetail.html?id=<%=request.getParameter("user")%>">My
-						Account</a></li>
+				<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5>${user}</h5></font></a></li>
+				<li class="pushy-link"><a href="Collection.jsp?user=${user}">Collection</a></li>
+				<li class="pushy-link"><a href="allLCOComplain.html?user=${user} ">Complaint</a></li>
+				<li class="pushy-link"><a href="oldConnections.html?user=<%= request.getParameter("user") %>">Connection</a></li>
+				<li class="pushy-link"><a href="OldUserInfo.html?user=<%= request.getParameter("user") %>">Create User</a></li>
+<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
+				<li class="pushy-link"><a href="TopUp.jsp?user=<%= request.getParameter("user") %>">Top-UP</a></li>
+				<li class="pushy-link"><a href="BulkBilling.jsp?user=<%= request.getParameter("user") %>">Bulk-Billing</a></li>
+				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li>
+<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
+<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
+<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
+				<li class="pushy-link"><a href="LCODetail.html?user=<%= request.getParameter("user") %>">My Account</a></li>
 				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 			</ul>
 			</nav>

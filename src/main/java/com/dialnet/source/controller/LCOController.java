@@ -1,6 +1,7 @@
 
 package com.dialnet.source.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,17 +23,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.dialnet.source.model.AllCollections;
 import com.dialnet.source.model.AllComplaints;
-import com.dialnet.source.model.CustComplaint;
-import com.dialnet.source.model.LCOComplaint;
+
 import com.dialnet.source.model.LCOPackages;
 import com.dialnet.source.model.LCOUser;
 import com.dialnet.source.model.LCOUserRegistration;
 import com.dialnet.source.model.User;
 //import com.dialnet.source.model.LCOUserRegistration;
 import com.dialnet.source.model.UserLogin;
+import com.dialnet.source.service.AllCollectionService;
 import com.dialnet.source.service.AllComplaintService;
-import com.dialnet.source.service.LCOComplaintService;
+
 import com.dialnet.source.service.LCOService;
 import com.dialnet.source.service.LCOUserRegistrationService;
 //import com.dialnet.source.service.LCOUserRegService;
@@ -53,6 +55,9 @@ public class LCOController {
 	
 	@Autowired
 	public AllComplaintService LCOComplaintRepository;
+	
+	@Autowired
+	public AllCollectionService LCOCollectionRepository;
 	/*
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String signup(Model model) {
@@ -83,7 +88,7 @@ public class LCOController {
 	}
 	
 	@RequestMapping(value="/lcologin", method=RequestMethod.POST)
-	public ModelAndView login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result,ModelMap map) {
+	public ModelAndView login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result,ModelMap map, RedirectAttributes redir) {
 		if (result.hasErrors()) {
 			//return "lcologin";
 			return new ModelAndView("lcologin", "error", "There is some Errors");
@@ -91,8 +96,14 @@ public class LCOController {
 		} else {
 			boolean found = lcoService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
 			String user=studentLogin.getUserName();
-			if (found) {	
-				return new ModelAndView("redirect:Dashboard.jsp", "user", user);
+			if (found) {
+				ModelAndView modelAndView=new ModelAndView();
+				modelAndView.setViewName("redirect:allLCOComplain.html?user="+user);
+			    return modelAndView;
+				//map.addAttribute("userList", userList);
+		       // map.addAttribute("user", user);
+		        //return new ModelAndView("Dashboard", map);
+				//return new ModelAndView("redirect:Dashboard.jsp", "user", user);
 			} else {	
 				//model.addAttribute("message", "You have been logged out successfully.");
 				//return "lcologin";
@@ -104,16 +115,18 @@ public class LCOController {
 	
 	
 	@RequestMapping(value="/LCODetail", method=RequestMethod.GET)
-	public ModelAndView LCODEtail( @ModelAttribute("LCODetail") LCOUser studentLogin,@RequestParam("id") String id,BindingResult result) {
-		System.out.println("LCO Controller LcoCode: "+id);
+	public ModelAndView LCODEtail( @ModelAttribute("LCODetail") LCOUser studentLogin,@RequestParam("user") String user,BindingResult result) {
+		System.out.println("LCO Controller LcoCode: "+user);
 		if (result.hasErrors()) {
 			//return "lcologin";
 			return new ModelAndView("lcologin", "error", "There are some Errors");
 			
 		} else {
-			LCOUser found = lcoService.get(id);
+			LCOUser found = lcoService.get(user);
 			//System.out.println("LCO Controller LcoCode: "+found.getLoc_code());
-			ModelAndView model=new ModelAndView("redirect:MyAccount.jsp");
+			List data=new ArrayList();
+			ModelAndView model=new ModelAndView("MyAccount");
+			model.addObject("user", user);
 			model.addObject("LCOCode", found.getLoc_code());
 			model.addObject("LCOName", found.getLoc_name());
 			model.addObject("LoginID", found.getLogin_id());
@@ -173,6 +186,21 @@ public class LCOController {
 				map.addAttribute("userList", userList);
 		        map.addAttribute("user", user);
 		        return new ModelAndView("Dashboard", map);
+			
+			
+		}
+	 
+	 @RequestMapping(value="/allLCOCollection", method=RequestMethod.GET)
+		public ModelAndView allLCOCollection(ModelMap map,@RequestParam("user") String user) {
+		 List<AllCollections> userList = LCOCollectionRepository.findData();
+				for (AllCollections temp : userList) {
+					System.out.println("User Name: "+temp.getCust_Name()+",Invoice No.: "+temp.getInvoice());
+					
+				}
+				
+				map.addAttribute("userList", userList);
+		        map.addAttribute("user", user);
+		        return new ModelAndView("Collection", map);
 			
 			
 		}
