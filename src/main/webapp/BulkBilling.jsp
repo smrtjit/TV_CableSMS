@@ -104,6 +104,8 @@ function __doPostBack(eventTarget, eventArgument) {
 				<li class="pushy-link"><a href="NewUser.jsp?user=<%= request.getParameter("user") %>">Create User</a></li>
 				<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
 				<li class="pushy-link"><a href="TopUp.jsp?user=<%= request.getParameter("user") %>">Top-UP</a></li>
+				<li class="pushy-link"><a href="Account.jsp?user=<%= request.getParameter("user") %>">Account</a></li>
+				
 				<li class="pushy-link"><a href="BulkBilling.jsp?user=<%= request.getParameter("user") %>">Bulk-Billing</a></li>
 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk-Transactions</a></li>
 				<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->

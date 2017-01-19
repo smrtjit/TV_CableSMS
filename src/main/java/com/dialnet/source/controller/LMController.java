@@ -22,7 +22,7 @@ import com.dialnet.source.model.UserLogin;
 import com.dialnet.source.service.LMService;
 
 @Controller
-@SessionAttributes("lmuser")
+@SessionAttributes("lmlogin")
 public class LMController {
 	
 	@Autowired
@@ -57,7 +57,7 @@ public class LMController {
 	}
 	
 	@RequestMapping(value="/lmlogin", method=RequestMethod.POST)
-	public ModelAndView login(@Valid @ModelAttribute("lmLogin") UserLogin studentLogin, BindingResult result) {
+	public ModelAndView login(@Valid @ModelAttribute("lmlogin") UserLogin studentLogin, BindingResult result) {
 		if (result.hasErrors()) {
 			//return "lmlogin";
 			return new ModelAndView("lmlogin", "error", "There is some Error!!!");

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -40,23 +41,22 @@ table td {
 </style>
 </head>
 <body
-
+	<%if (session.getAttribute("lmlogin") == null) {
+				System.out.print("session not found");
+				response.sendRedirect("lmlogin.html?error=Session is Expired!!!");
+			} else {
+				System.out.print("session found");%>
 	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
 
-	<%
-		if (session.getAttribute("lcoLogin") == null) {
-			System.out.print("session not found");
-			response.sendRedirect("lcologin.html?error=Session is Expired!!!");
-		} else {
-			System.out.print("session found");
-	%>
+
 
 	<form method="post" action="./connection.aspx" id="form1"
 		enctype="multipart/form-data">
 		<div class="aspNetHidden">
 			<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
 			<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT"
-				value="" /> <input type="hidden" name="__VIEWSTATE"	id="__VIEWSTATE"value="#" />
+				value="" /> <input type="hidden" name="__VIEWSTATE"
+				id="__VIEWSTATE" value="#" />
 		</div>
 
 		<script type="text/javascript">
@@ -72,12 +72,12 @@ table td {
 					theForm.submit();
 				}
 			}
-		
-// 			window.onload = function WindowLoad(event) {
-// 				$('#Income').show();
-// 				$('#Expense').hide();
-// 				$('#Tax').hide();
-// 			}
+
+			// 			window.onload = function WindowLoad(event) {
+			// 				$('#Income').show();
+			// 				$('#Expense').hide();
+			// 				$('#Tax').hide();
+			// 			}
 			//]]>
 		</script>
 
@@ -90,39 +90,19 @@ table td {
 			<nav class="pushy pushy-left">
 			<ul>
 				<!--menu iteam code -->
-				<li class="pushy-link"><a
-					href="#?user=<%=request.getParameter("user")%>"
-					style="background: OLDLACE; color: black"><h5><%=request.getParameter("user")%></h5>
-						</font></a></li>
-
-				<li class="pushy-link"><a
-					href="Collection.jsp?user=<%=request.getParameter("user")%>">Collection</a></li>
-
-				<li class="pushy-link"><a
-					href="Dashboard.jsp?user=<%=request.getParameter("user")%>">Complaint</a></li>
-				<li class="pushy-link"><a
-					href="Connection.jsp?user=<%=request.getParameter("user")%>">Connection</a></li>
-				<li class="pushy-link"><a
-					href="NewUser.jsp?user=<%=request.getParameter("user")%>">Create
-						User</a></li>
-				<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-				<li class="pushy-link"><a
-					href="TopUp.jsp?user=<%=request.getParameter("user")%>">Top-UP</a></li>
-				<li class="pushy-link"><a
-					href="BulkBilling.jsp?user=<%=request.getParameter("user")%>">Bulk-Billing</a></li>
-				<li class="pushy-link"><a href="Account.jsp">Account</a></li>
-
-				<li class="pushy-link"><a
-					href="BulkTransaction.jsp?user=<%=request.getParameter("user")%>">Bulk
-						Transactions</a></li>
-				<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
-				<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-				<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a
-					href="MyAccount.jsp?user=<%=request.getParameter("user")%>">My
-						Account</a></li>
-				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
-			</ul>
+				<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5><%= request.getParameter("user") %></h5></font></a></li>
+					<li class="pushy-link"><a href="LMDashborad.jsp?user=<%= request.getParameter("user") %>">Complaint</a></li>
+					<li class="pushy-link"><a href="LMConnection.jsp?user=<%= request.getParameter("user") %>">Connection</a></li>
+					<!--                     <li class="pushy-link"><a href="packages.aspx">Packages</a></li> -->
+					<li class="pushy-link"><a href="LMTopup.jsp?user=<%= request.getParameter("user") %>">Top-UP</a></li>
+					<li class="pushy-link"><a href="LAccount.jsp?user=<%= request.getParameter("user") %>">Account</a></li>
+<!-- 					<li class="pushy-link"><a href="LMBulkTransactions.jsp">Bulk -->
+<!-- 							Transactions</a></li> -->
+					<!--                     <li class="pushy-link"><a href="stock.aspx">Stock</a></li> -->
+					<!--                     <li class="pushy-link"><a href="report.aspx">Reports</a></li> -->
+					<!--                     <li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
+					<li class="pushy-link"><a href="LMMyAccount.jsp?user=<%= request.getParameter("user") %>">My Account</a></li>
+					<li class="pushy-link"><a href="logout.html">Log Out</a></li>			</ul>
 			</nav>
 
 			<!-- Site Overlay -->
@@ -144,7 +124,6 @@ table td {
 									'ContentPlaceHolder1_msgbox' ], [], [], 90,
 							'ctl00');
 					//]]>
-					
 				</script>
 
 				<div class="row">
@@ -158,13 +137,11 @@ table td {
 										for="ContentPlaceHolder1_rbselect_0">Income</label></span></td>
 								<td><span class="radio-inline"><input
 										id="ContentPlaceHolder1_rbselect_1" type="radio"
-										name="ctl00$ContentPlaceHolder1$rbselect" value="1"
-										 /><label
+										name="ctl00$ContentPlaceHolder1$rbselect" value="1" /><label
 										for="ContentPlaceHolder1_rbselect_1">Expenses</label></span></td>
 								<td><span class="radio-inline"><input
 										id="ContentPlaceHolder1_rbselect_2" type="radio"
-										name="ctl00$ContentPlaceHolder1$rbselect" value="2"
-										 /><label
+										name="ctl00$ContentPlaceHolder1$rbselect" value="2" /><label
 										for="ContentPlaceHolder1_rbselect_2">Tax</label></span></td>
 							</tr>
 						</table>
@@ -318,7 +295,7 @@ table td {
 						<div class="col-sm-12" style="height: 1px"></div>
 					</div>
 				</div>
-				<div id="Expense"style=" display: none">
+				<div id="Expense" style="display: none">
 					<div id="ContentPlaceHolder1_upd1">
 						<div class="row">
 							<div class="col-sm-26">
@@ -447,7 +424,7 @@ table td {
 						</div>
 					</div>
 				</div>
-				
+
 				<div id="Tax" style="display: none">
 					<div id="ContentPlaceHolder1_upd1">
 						<div class="row">
@@ -540,30 +517,53 @@ table td {
 								</div>
 							</div>
 						</div>
-						
-					<script type="text/javascript">
-							$(document).ready(
+
+						<script type="text/javascript">
+							$(document)
+									.ready(
 											function() {
 												debugger;
-												$('#ContentPlaceHolder1_rbselect').click(
+												$(
+														'#ContentPlaceHolder1_rbselect')
+														.click(
 																function() {
 
-																	var chk = $('#ContentPlaceHolder1_rbselect').find(":checked").val()
+																	var chk = $(
+																			'#ContentPlaceHolder1_rbselect')
+																			.find(
+																					":checked")
+																			.val()
 
 																	if (chk == 0) {
-																		$('#Income').show();
-																		$('#Expense').hide();
-																		$('#Tax').hide();
-																	}
-																	else if (chk == 1) {
-																		$('#Expense').show();
-																		$('#Income').hide();
-																		$('#Tax').hide();
-																	}
-																	else if (chk == 2) {
-																		$('#Expense').hide();
-																		$('#Income').hide();
-																		$('#Tax').show();
+																		$(
+																				'#Income')
+																				.show();
+																		$(
+																				'#Expense')
+																				.hide();
+																		$(
+																				'#Tax')
+																				.hide();
+																	} else if (chk == 1) {
+																		$(
+																				'#Expense')
+																				.show();
+																		$(
+																				'#Income')
+																				.hide();
+																		$(
+																				'#Tax')
+																				.hide();
+																	} else if (chk == 2) {
+																		$(
+																				'#Expense')
+																				.hide();
+																		$(
+																				'#Income')
+																				.hide();
+																		$(
+																				'#Tax')
+																				.show();
 																	}
 																});
 

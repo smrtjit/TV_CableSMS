@@ -1,13 +1,14 @@
 
 
-
 <!DOCTYPE html>
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
 <meta name="description"
 	content="Pushy is an off-canvas navigation menu for your website." />
 <meta name="viewport"
@@ -42,6 +43,14 @@ table td {
 </style>
 </head>
 <body
+
+	<%
+		if (session.getAttribute("lmlogin") == null) {
+			System.out.print("session not found");
+			response.sendRedirect("lmlogin.html?error=Session is Expired!!!");
+		} else {
+			System.out.print("session found");
+	%>
 	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
 	<form method="post" action="./dashboard.aspx" id="form1">
 		<div class="aspNetHidden">
@@ -95,19 +104,18 @@ function __doPostBack(eventTarget, eventArgument) {
 			<!-- Pushy Menu -->
 			<nav class="pushy pushy-left">
 				<ul>
-
-					<li class="pushy-link"><a href="#"></a></li>
-					<li class="pushy-link"><a href="LMDashborad.jsp">Complaint</a></li>
-					<li class="pushy-link"><a href="LMConnection.jsp">Connection</a></li>
+				<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5><%= request.getParameter("user") %></h5></font></a></li>
+					<li class="pushy-link"><a href="LMDashborad.jsp?user=<%= request.getParameter("user") %>">Complaint</a></li>
+					<li class="pushy-link"><a href="LMConnection.jsp?user=<%= request.getParameter("user") %>">Connection</a></li>
 					<!--                     <li class="pushy-link"><a href="packages.aspx">Packages</a></li> -->
-					<li class="pushy-link"><a href="LMTopup.jsp">Top-UP</a></li>
-					<li class="pushy-link"><a href="LMBulkTransactions.jsp">Bulk
-							Transactions</a></li>
+					<li class="pushy-link"><a href="LMTopup.jsp?user=<%= request.getParameter("user") %>">Top-UP</a></li>
+					<li class="pushy-link"><a href="LAccount.jsp?user=<%= request.getParameter("user") %>">Account</a></li>
+<!-- 					<li class="pushy-link"><a href="LMBulkTransactions.jsp">Bulk -->
+<!-- 							Transactions</a></li> -->
 					<!--                     <li class="pushy-link"><a href="stock.aspx">Stock</a></li> -->
 					<!--                     <li class="pushy-link"><a href="report.aspx">Reports</a></li> -->
 					<!--                     <li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-					<li class="pushy-link"><a href="LMMyAccount.jsp">My
-							Account</a></li>
+					<li class="pushy-link"><a href="LMMyAccount.jsp?user=<%= request.getParameter("user") %>">My Account</a></li>
 					<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 				</ul>
 			</nav>
@@ -811,6 +819,9 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$abc', 'fo
 
 		</div>
 	</form>
+	<%
+		}
+	%>
 	<link href="assets/css/circle.css" rel="stylesheet" />
 </body>
 </html>
