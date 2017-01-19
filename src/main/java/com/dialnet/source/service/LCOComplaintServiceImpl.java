@@ -14,11 +14,11 @@ import com.dialnet.source.repository.LCOComplaintRepository;
 public class LCOComplaintServiceImpl implements LCOComplaintService {
 
 	@Autowired
-	public LCOComplaintRepository LCOCompRepository;
+	public LCOComplaintRepository lcoCompRepository;
 	
 
 	public List<LCOComplaint> findData() {
-		List<LCOComplaint>  stud = LCOCompRepository.findData();
+		List<LCOComplaint>  stud = lcoCompRepository.findData();
 		return stud;
 	}
 

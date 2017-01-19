@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dialnet.source.model.LCOComplaint;
 
 
-@Repository("LCOComplaintRepository")
+@Repository("LCOCompRepository")
 public interface LCOComplaintRepository extends JpaRepository<LCOComplaint, Long> {
 	
 	
