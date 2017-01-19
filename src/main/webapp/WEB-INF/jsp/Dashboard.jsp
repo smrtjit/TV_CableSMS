@@ -262,11 +262,11 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$abc', 'fo
 										style="width: 100%; border-collapse: collapse;">
 										<tr>
 											<th scope="col">SN</th>
-											<th scope="col">Complaint_ID</th>
-											<th scope="col">Customer_ID</th>
-											<th scope="col">Customer_Name</th>
-											<th scope="col">Customer_Address</th>
-											<th scope="col">Customer_Mobile</th>
+											<th scope="col">Complaint ID</th>
+											<th scope="col">Customer VCNO.</th>
+											<th scope="col">Customer Name</th>
+											<th scope="col">Customer Address</th>
+											<th scope="col">Customer Mobile</th>
 											<th scope="col">Type of Complaint</th>
 											<th scope="col">Current Status</th>
 											<th scope="col">Action</th>
@@ -280,7 +280,7 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$abc', 'fo
    								<tr>
    									<td> <%= i %></td>
    									<td>${user.complaint_no}</td>
-   									<td>${user.customer_mobile}</td>
+   									<td>${user.customer_vcno}</td>
    									<td>${user.customer_name}</td>
    									<td>${user.customer_add}</td>
    									<td>${user.customer_mobile}</td>

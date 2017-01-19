@@ -25,8 +25,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dialnet.source.model.LCOPackages;
 import com.dialnet.source.model.User;
-import com.dialnet.source.model.CustComplaint;
+import com.dialnet.source.model.AllComplaints;
 import com.dialnet.source.model.UserLogin;
+import com.dialnet.source.service.AllComplaintService;
 import com.dialnet.source.service.LCOPackageService;
 import com.dialnet.source.service.UserComplaintService;
 import com.dialnet.source.service.UserService;
@@ -42,7 +43,7 @@ public class UserController {
 	public LCOPackageService lcoPackageService;
 	
 	@Autowired
-	public UserComplaintService userComplaintService;
+	public AllComplaintService userComplaintService;
 	/*
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String signup(Model model) {
@@ -201,7 +202,7 @@ public class UserController {
 	 @RequestMapping(value="/CustComplaint", method=RequestMethod.GET)
 	    public ModelAndView registerPage(ModelMap map,@RequestParam("vc_no") String vcc,@RequestParam("id") String id) {
 	        //this method should retrieve the data for all users
-	        List<CustComplaint> userList = userComplaintService.findByPckCode(vcc);
+	        List<AllComplaints> userList = userComplaintService.findById(id);
 	        map.addAttribute("userList", userList);
 	        map.addAttribute("id", id);
 	        map.addAttribute("vc_no", vcc);
@@ -215,7 +216,7 @@ public class UserController {
 	        
 	        System.out.println("id: "+id+",vcc: "+vcc+",camptype: "+camptype+",remark: "+remark);
 	        userComplaintService.addComplaint(id,vcc,camptype,remark);
-	        List<CustComplaint> userList = userComplaintService.findByPckCode(vcc);
+	        List<AllComplaints> userList = userComplaintService.findById(id);
 	        map.addAttribute("userList", userList);
 	        map.addAttribute("id", id);
 	        map.addAttribute("vc_no", vcc);

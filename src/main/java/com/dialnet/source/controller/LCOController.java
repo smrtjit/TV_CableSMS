@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.dialnet.source.model.AllComplaints;
 import com.dialnet.source.model.CustComplaint;
 import com.dialnet.source.model.LCOComplaint;
 import com.dialnet.source.model.LCOPackages;
@@ -30,6 +31,7 @@ import com.dialnet.source.model.LCOUserRegistration;
 import com.dialnet.source.model.User;
 //import com.dialnet.source.model.LCOUserRegistration;
 import com.dialnet.source.model.UserLogin;
+import com.dialnet.source.service.AllComplaintService;
 import com.dialnet.source.service.LCOComplaintService;
 import com.dialnet.source.service.LCOService;
 import com.dialnet.source.service.LCOUserRegistrationService;
@@ -50,7 +52,7 @@ public class LCOController {
 	public UserService userService;
 	
 	@Autowired
-	public LCOComplaintService LCOComplaintRepository;
+	public AllComplaintService LCOComplaintRepository;
 	/*
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String signup(Model model) {
@@ -81,7 +83,7 @@ public class LCOController {
 	}
 	
 	@RequestMapping(value="/lcologin", method=RequestMethod.POST)
-	public ModelAndView login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result, RedirectAttributes redir) {
+	public ModelAndView login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result,ModelMap map) {
 		if (result.hasErrors()) {
 			//return "lcologin";
 			return new ModelAndView("lcologin", "error", "There is some Errors");
@@ -162,11 +164,12 @@ public class LCOController {
 	 
 	 @RequestMapping(value="/allLCOComplain", method=RequestMethod.GET)
 		public ModelAndView allLCOComplain(ModelMap map,@RequestParam("user") String user) {
-				List<LCOComplaint> userList = LCOComplaintRepository.findData();
-				for (LCOComplaint temp : userList) {
-					System.out.println("User Name: "+temp.getCustomer_name()+",Mobile No.: "+temp.getCustomer_mobile());
+		 List<AllComplaints> userList = LCOComplaintRepository.findData();
+				for (AllComplaints temp : userList) {
+					System.out.println("User Name: "+temp.getComplaint_no()+",Mobile No.: "+temp.getCustomer_vcno());
 					
 				}
+				
 				map.addAttribute("userList", userList);
 		        map.addAttribute("user", user);
 		        return new ModelAndView("Dashboard", map);

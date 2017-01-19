@@ -131,7 +131,7 @@ table#ContentPlaceHolder1_gvcompHistory {
 								style="width: 100%; border-collapse: collapse;">
 								<tr>
 									<th scope="col">SN</th>
-									<th scope="col">VC No.</th>
+									<th scope="col">Complain No.</th>
 									<th scope="col">Complaint Type</th>
 									<th scope="col">Date of Complaint</th>
 									<th scope="col">Status</th>
@@ -145,13 +145,13 @@ table#ContentPlaceHolder1_gvcompHistory {
 								<c:forEach items="${userList}" var="user">   
    								<tr>
    									<td> <%= i %></td>
-   									<td>${user.vc_no}</td>
+   									<td>${user.complaint_no}</td>
    									<td>${user.complaint_type}</td>
-   									<td>${user.time_stamp}</td>
-   									<td>${user.status}</td>
-   									<td>${user.opening_remarks}</td>
-   									<td>${user.close_date_time}</td>
-   									<td>${user.closing_remarks}</td>
+   									<td>${user.open_date}</td>
+   									<td>${user.complaint_status}</td>
+   									<td>${user.cust_remark}</td>
+   									<td>${user.closing_date}</td>
+   									<td>${user.closing_remark}</td>
 									<%
 									i++;
 								%>
