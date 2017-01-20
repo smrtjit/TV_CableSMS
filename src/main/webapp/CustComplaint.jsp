@@ -29,7 +29,7 @@ table#ContentPlaceHolder1_gvcompHistory {
 				System.out.print("session not found");
 				response.sendRedirect("userlogin.html?error=Session is Expired!!!");
 			}else{
-				System.out.print("session found");
+				System.out.print("session found ****");
 				%>
 	
 		<nav class="navbar navbar-inverse">
@@ -99,11 +99,9 @@ table#ContentPlaceHolder1_gvcompHistory {
 					</div>
 					<div class="col-sm-2">
 						<div style="margin-bottom: 10px">
-							<br /> <input type="submit"
-								name="ctl00$ContentPlaceHolder1$btn_search" value="Submit"
-								id="ContentPlaceHolder1_btn_search" tabindex="4"
-								class="btn-primary btn btn-block" />
-
+							<br /> <input type="submit"name="ctl00$ContentPlaceHolder1$btn_search" value="Submit"id="ContentPlaceHolder1_btn_search" tabindex="4"class="btn-primary btn btn-block" />
+							<input type="submit" name="saveComplaint.html?id=<%= request.getParameter("id") %>"value="Pay Now" id="ContentPlaceHolder1_btn_sbmit"class="btn btn-primary" />
+	
 						</div>
 					</div>
 
@@ -138,14 +136,14 @@ table#ContentPlaceHolder1_gvcompHistory {
 								
 								<c:forEach items="${userList}" var="user">   
    								<tr>
-   									<td>${user.vc_no}</td>
-   									<td>${user.vc_no}</td>
+   									<td>0</td>
+   									<td>${user.customer_vcno}</td>
    									<td>${user.complaint_type}</td>
-   									<td>${user.time_stamp}</td>
-   									<td>${user.status}</td>
-   									<td>${user.opening_remarks}</td>
-   									<td>${user.close_date_time}</td>
-   									<td>${user.closing_remarks}</td>
+   									<td>${user.open_date}</td>
+   									<td>${user.complaint_status}</td>
+   									<td>${user.cust_remark}</td>
+   									<td>${user.closing_date}</td>
+   									<td>${user.closing_remark}</td>
 									
 								</tr>
 								</c:forEach>

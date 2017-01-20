@@ -117,7 +117,7 @@
 								<div class="col-sm-8" style="margin-bottom: 10px">
 									<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"value="Submit" id="ContentPlaceHolder1_btn_sbmit"class="btn btn-primary" />
 									<!-- 									<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"value="Cancel" id="Custrecharge.jsp"class="btn btn-primary" /> -->
-									<a class="btn btn-primary" href="Custrecharge.jsp">Cancel</a>
+									<a class="btn btn-primary" href="CustRecharge.html?id=<%= request.getParameter("id") %>">Cancel</a>
 									<div class="col-sm-8" style="margin-bottom: 10px"></div>
 								</div>
 

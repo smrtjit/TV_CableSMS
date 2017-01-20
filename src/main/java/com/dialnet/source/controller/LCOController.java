@@ -43,89 +43,86 @@ import com.dialnet.source.service.UserService;
 @Controller
 @SessionAttributes("lcoLogin")
 public class LCOController {
-	
+
 	@Autowired
 	public LCOService lcoService;
-	
+
 	@Autowired
 	public LCOUserRegistrationService lcoUserRegService;
-	
+
 	@Autowired
 	public UserService userService;
-	
+
 	@Autowired
 	public AllComplaintService LCOComplaintRepository;
-	
+
 	@Autowired
 	public AllCollectionService LCOCollectionRepository;
+
 	/*
-	@RequestMapping(value="/signup", method=RequestMethod.GET)
-	public String signup(Model model) {
-		User student = new User();		
-		model.addAttribute("student", student);		
-		return "signup";
-	}
-	
-	@RequestMapping(value="/signup", method=RequestMethod.POST)
-	public String signup(@Valid @ModelAttribute("student") User student, BindingResult result, Model model) {		
-		if(result.hasErrors()) {
-			return "signup";
-		} else if(studentService.findByUserName(student.getUserName())) {
-			model.addAttribute("message", "User Name exists. Try another user name");
-			return "signup";
-		} else {
-			studentService.save(student);
-			model.addAttribute("message", "Saved student details");
-			return "redirect:login.html";
-		}
-	}
-	*/
-	@RequestMapping(value="/lcologin", method=RequestMethod.GET)
-	public String login(Model model) {			
-		UserLogin studentLogin = new UserLogin();		
+	 * @RequestMapping(value="/signup", method=RequestMethod.GET) public String
+	 * signup(Model model) { User student = new User();
+	 * model.addAttribute("student", student); return "signup"; }
+	 * 
+	 * @RequestMapping(value="/signup", method=RequestMethod.POST) public String
+	 * signup(@Valid @ModelAttribute("student") User student, BindingResult
+	 * result, Model model) { if(result.hasErrors()) { return "signup"; } else
+	 * if(studentService.findByUserName(student.getUserName())) {
+	 * model.addAttribute("message", "User Name exists. Try another user name");
+	 * return "signup"; } else { studentService.save(student);
+	 * model.addAttribute("message", "Saved student details"); return
+	 * "redirect:login.html"; } }
+	 */
+	@RequestMapping(value = "/lcologin", method = RequestMethod.GET)
+	public String login(Model model) {
+		UserLogin studentLogin = new UserLogin();
 		model.addAttribute("lcoLogin", studentLogin);
 		return "lcologin";
 	}
-	
-	@RequestMapping(value="/lcologin", method=RequestMethod.POST)
-	public ModelAndView login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result,ModelMap map, RedirectAttributes redir) {
+
+	@RequestMapping(value = "/lcologin", method = RequestMethod.POST)
+	public ModelAndView login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result,
+			ModelMap map, RedirectAttributes redir) {
 		if (result.hasErrors()) {
-			//return "lcologin";
+			// return "lcologin";
 			return new ModelAndView("lcologin", "error", "There is some Errors");
-			
+
 		} else {
 			boolean found = lcoService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
-			String user=studentLogin.getUserName();
+			String user = studentLogin.getUserName();
 			if (found) {
-				ModelAndView modelAndView=new ModelAndView();
-				modelAndView.setViewName("redirect:allLCOComplain.html?user="+user);
-			    return modelAndView;
-				//map.addAttribute("userList", userList);
-		       // map.addAttribute("user", user);
-		        //return new ModelAndView("Dashboard", map);
-				//return new ModelAndView("redirect:Dashboard.jsp", "user", user);
-			} else {	
-				//model.addAttribute("message", "You have been logged out successfully.");
-				//return "lcologin";
+				ModelAndView modelAndView = new ModelAndView();
+				modelAndView.setViewName("redirect:allLCOComplain.html?user=" + user);
+				return modelAndView;
+				// map.addAttribute("userList", userList);
+				// map.addAttribute("user", user);
+				// return new ModelAndView("Dashboard", map);
+				// return new ModelAndView("redirect:Dashboard.jsp", "user",
+				// user);
+			} else {
+				// model.addAttribute("message", "You have been logged out
+				// successfully.");
+				// return "lcologin";
 				return new ModelAndView("lcologin", "error", "Invalid Username or Password!!!");
 			}
 		}
-		
+
 	}
-	
-	
-	@RequestMapping(value="/LCODetail", method=RequestMethod.GET)
-	public ModelAndView LCODEtail( @ModelAttribute("LCODetail") LCOUser studentLogin,@RequestParam("user") String user,BindingResult result) {
-		System.out.println("LCO Controller LcoCode: "+user);
+
+	@RequestMapping(value = "/LCODetail", method = RequestMethod.GET)
+	public ModelAndView LCODEtail(@ModelAttribute("LCODetail") LCOUser studentLogin, @RequestParam("user") String user,
+			BindingResult result) {
+		System.out.println("LCO Controller LcoCode: " + user);
 		if (result.hasErrors()) {
-			//return "lcologin";
+			// return "lcologin";
 			return new ModelAndView("lcologin", "error", "There are some Errors");
-			
+
 		} else {
 			LCOUser found = lcoService.get(user);
-			//System.out.println("LCO Controller LcoCode: "+found.getLoc_code());
-			List data=new ArrayList();
-			ModelAndView model=new ModelAndView("MyAccount");
+			// System.out.println("LCO Controller LcoCode:
+			// "+found.getLoc_code());
+			List data = new ArrayList();
+			ModelAndView model = new ModelAndView("MyAccount");
 			model.addObject("user", user);
 			model.addObject("LCOCode", found.getLoc_code());
 			model.addObject("LCOName", found.getLoc_name());
@@ -144,93 +141,85 @@ public class LCOController {
 			model.addObject("City", found.getCity());
 			return model;
 		}
-		
+
 	}
-	
-	
-	 @RequestMapping(value="/OldUserInfo", method=RequestMethod.GET)
-	    public ModelAndView OldUserInfo(ModelMap map,@RequestParam("user") String user) {
-	        //this method should retrieve the data for all users
-	        List<LCOUserRegistration> userList = lcoUserRegService.findData();
-//	        for (LCOUserRegistration temp : userList) {
-//				System.out.println("Complaint Type: "+temp.getUsername()+",Complaint time: "+temp.getMobile());
-//			}
-	        map.addAttribute("userList", userList);
-	        map.addAttribute("id", user);
-	        return new ModelAndView("NewUser", map);
-	    }
-	 
-	 
-	 @RequestMapping(value="/oldConnections", method=RequestMethod.GET)
-		public ModelAndView CustRecharge(ModelMap map,@RequestParam("user") String user) {
-				List<User> userList = userService.findData();
-				for (User temp : userList) {
-					System.out.println("User Name: "+temp.getUsername()+",Mobile No.: "+temp.getCustomer_mobile());
-					
-				}
-				map.addAttribute("userList", userList);
-		        map.addAttribute("user", user);
-		        return new ModelAndView("Connection", map);
-			
-			
-		}
-	 
-	 @RequestMapping(value="/allLCOComplain", method=RequestMethod.GET)
-		public ModelAndView allLCOComplain(ModelMap map,@RequestParam("user") String user) {
-		 List<AllComplaints> userList = LCOComplaintRepository.findData();
-				for (AllComplaints temp : userList) {
-					System.out.println("User Name: "+temp.getComplaint_no()+",Mobile No.: "+temp.getCustomer_vcno());
-					
-				}
-				
-				map.addAttribute("userList", userList);
-		        map.addAttribute("user", user);
-		        return new ModelAndView("Dashboard", map);
-			
-			
-		}
-	 
-	 @RequestMapping(value="/allLCOCollection", method=RequestMethod.GET)
-		public ModelAndView allLCOCollection(ModelMap map,@RequestParam("user") String user) {
-		 List<AllCollections> userList = LCOCollectionRepository.findData();
-				for (AllCollections temp : userList) {
-					System.out.println("User Name: "+temp.getCust_Name()+",Invoice No.: "+temp.getInvoice());
-					
-				}
-				
-				map.addAttribute("userList", userList);
-		        map.addAttribute("user", user);
-		        return new ModelAndView("Collection", map);
-			
-			
-		}
-	
-	/*
-	@Autowired(required=true)
-	public LCOUserRegService lcoUserRegService;
-	
-	@RequestMapping(value="/createUser", method=RequestMethod.GET)
-	public ModelAndView createUser( @ModelAttribute("LCOUserList") LCOUserRegistration studentLogin,@RequestParam("id") String id,BindingResult result) {
-		if (result.hasErrors()) {
-			//return "lcologin";
-			return new ModelAndView("lcologin", "error", "There are some Errors");
-			
-		} else {
-			List<LCOUserRegistration> found = lcoUserRegService.getAll();
-			ModelAndView model=new ModelAndView("redirect:NewUser.jsp", "user", id);
-			//model.addObject("LCOUserList", found);
-			
-			return model;
-		}
-		
+
+	@RequestMapping(value = "/OldUserInfo", method = RequestMethod.GET)
+	public ModelAndView OldUserInfo(ModelMap map, @RequestParam("user") String user) {
+		// this method should retrieve the data for all users
+		List<LCOUserRegistration> userList = lcoUserRegService.findData();
+		// for (LCOUserRegistration temp : userList) {
+		// System.out.println("Complaint Type: "+temp.getUsername()+",Complaint
+		// time: "+temp.getMobile());
+		// }
+		map.addAttribute("userList", userList);
+		map.addAttribute("id", user);
+		return new ModelAndView("NewUser", map);
 	}
-	
-	*/
+
+	@RequestMapping(value = "/oldConnections", method = RequestMethod.GET)
+	public ModelAndView CustRecharge(ModelMap map, @RequestParam("user") String user) {
+		List<User> userList = userService.findData();
+		for (User temp : userList) {
+			System.out.println("User Name: " + temp.getUsername() + ",Mobile No.: " + temp.getCustomer_mobile());
+
+		}
+		map.addAttribute("userList", userList);
+		map.addAttribute("user", user);
+		return new ModelAndView("Connection", map);
+
+	}
+
+	@RequestMapping(value = "/allLCOComplain", method = RequestMethod.GET)
+	public ModelAndView allLCOComplain(ModelMap map, @RequestParam("user") String user) {
+		List<AllComplaints> userList = LCOComplaintRepository.findData();
+		for (AllComplaints temp : userList) {
+			System.out.println("User Name: " + temp.getComplaint_no() + ",Mobile No.: " + temp.getCustomer_vcno());
+
+		}
+
+		map.addAttribute("userList", userList);
+		map.addAttribute("user", user);
+		return new ModelAndView("Dashboard", map);
+
+	}
+
+	@RequestMapping(value = "/allLCOCollection", method = RequestMethod.GET)
+	public ModelAndView allLCOCollection(ModelMap map, @RequestParam("user") String user) {
+		List<AllCollections> userList = LCOCollectionRepository.findData();
+		for (AllCollections temp : userList) {
+			System.out.println("User Name: " + temp.getCust_Name() + ",Invoice No.: " + temp.getInvoice());
+
+		}
+
+		map.addAttribute("userList", userList);
+		map.addAttribute("user", user);
+		return new ModelAndView("Collection", map);
+
+	}
+
+
+
 	/*
-	@RequestMapping(value="/logout", method=RequestMethod.GET)
-    public String logout(HttpSession session ) {
-       session.invalidate();
-       return "logout";
-    }
-	*/
+	 * @Autowired(required=true) public LCOUserRegService lcoUserRegService;
+	 * 
+	 * @RequestMapping(value="/createUser", method=RequestMethod.GET) public
+	 * ModelAndView createUser( @ModelAttribute("LCOUserList")
+	 * LCOUserRegistration studentLogin,@RequestParam("id") String
+	 * id,BindingResult result) { if (result.hasErrors()) { //return "lcologin";
+	 * return new ModelAndView("lcologin", "error", "There are some Errors");
+	 * 
+	 * } else { List<LCOUserRegistration> found = lcoUserRegService.getAll();
+	 * ModelAndView model=new ModelAndView("redirect:NewUser.jsp", "user", id);
+	 * //model.addObject("LCOUserList", found);
+	 * 
+	 * return model; }
+	 * 
+	 * }
+	 * 
+	 */
+	/*
+	 * @RequestMapping(value="/logout", method=RequestMethod.GET) public String
+	 * logout(HttpSession session ) { session.invalidate(); return "logout"; }
+	 */
 }

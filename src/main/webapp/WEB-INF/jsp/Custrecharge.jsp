@@ -109,7 +109,6 @@
 <!-- 										<a class="btn btn-primary" href="">Pay now</a>  -->
 								</div>
 							</div>
-
 						</div>
 						<div class="col-sm-6"></div>
 					</div>
