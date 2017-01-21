@@ -1,0 +1,39 @@
+package com.dialnet.source.dao;
+
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.dialnet.source.model.AllComplaints;
+import com.dialnet.source.model.PackageInfo;
+
+@Repository("pack")
+public class PackageInfoDaoImpl implements PackageInfoDao {
+
+	
+	@Autowired
+	private SessionFactory session;
+
+	public PackageInfo getByID(String code) {
+		System.out.println("PackageInfo\t"+code);
+		Session sf = session.openSession();
+//		Criteria c2 = sf.createCriteria(PackageInfo.class);
+//		c2.add(Restrictions.eq("code", code));
+//		//AllComplaints product = (AllComplaints) sf.get(AllComplaints.class, Long.parseLong(complaints_No));
+//		//System.out.println("customer_vcno: " + product);
+//		PackageInfo tmp=(PackageInfo)c2.uniqueResult();
+		return (PackageInfo)sf.get(PackageInfo.class, Long.parseLong(code));
+	}
+
+	public List<PackageInfo> getAll() {
+		Session sf = session.openSession();
+		return sf.createQuery("from PackageInfo").list();
+	}
+	
+
+}

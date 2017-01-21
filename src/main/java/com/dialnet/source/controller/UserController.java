@@ -1,6 +1,7 @@
 
 package com.dialnet.source.controller;
 
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -15,27 +16,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-import com.dialnet.source.model.LCOPackages;
 import com.dialnet.source.model.User;
 import com.dialnet.source.model.AllComplaints;
+import com.dialnet.source.model.PackageInfo;
 import com.dialnet.source.model.UserLogin;
 import com.dialnet.source.service.AllComplaintService;
-import com.dialnet.source.service.LCOPackageService;
-
-import com.dialnet.source.service.UserService;
+import com.dialnet.source.service.PackageInfoService;
+import com.dialnet.source.service.SubscriberService;
 
 @Controller
 @SessionAttributes("custLogin")
 public class UserController {
 
 	@Autowired
-	public UserService userService;
-
-	@Autowired
-	public LCOPackageService lcoPackageService;
-
-	@Autowired
 	public AllComplaintService userComplaintService;
+
+	@Autowired
+	public SubscriberService subservice;
+	
+	@Autowired
+	PackageInfoService packageinfoservice;
 	/*
 	 * @RequestMapping(value="/signup", method=RequestMethod.GET) public String
 	 * signup(Model model) { User student = new User();
@@ -61,15 +61,15 @@ public class UserController {
 	@RequestMapping(value = "/userlogin", method = RequestMethod.POST)
 	public ModelAndView Userlogin(@Valid @ModelAttribute("custLogin") UserLogin studentLogin, BindingResult result) {
 		if (result.hasErrors()) {
-			// return "userlogin";
+
 			return new ModelAndView("userlogin", "error", "There is some Error!!!");
 		} else {
-			boolean found1 = userService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
+			boolean found1 = subservice.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
 			if (found1) {
 				String user = studentLogin.getUserName();
 				// return "redirect:CustAccount.jsp";
 				// return new ModelAndView("CustAccount", "user", user);
-				User found = userService.get(studentLogin.getUserName());
+				User found = subservice.get(studentLogin.getUserName());
 				// System.out.println("LCO Controller LcoCode:
 				// "+found.getLoc_code());
 				ModelAndView model = new ModelAndView("redirect:CustAccount.jsp");
@@ -78,8 +78,9 @@ public class UserController {
 				model.addObject("vc_no", found.getCustomer_vc_no());
 				model.addObject("stb_no", found.getCustomer_stb_no());
 
-				LCOPackages lco = lcoPackageService.findByPckCode(found.getPackage_name());
+				PackageInfo lco = packageinfoservice.getByID(found.getPackage_name());
 				model.addObject("Package_name", lco.getName());
+				//model.addObject("Package_name", "0001");
 				model.addObject("Account_balance", found.getAccount_balance());
 				model.addObject("Last_payment", found.getLast_payment());
 				// model.addObject("Account_balance", found.get);
@@ -106,14 +107,14 @@ public class UserController {
 			return new ModelAndView("userlogin", "error", "There are some Errors");
 
 		} else {
-			User found = userService.get(id);
+			User found = subservice.get(id);
 			System.out.println("LCO Controller LcoCode: " + found.getCustomer_name());
 			ModelAndView model = new ModelAndView("redirect:CustAccount.jsp");
 			model.addObject("id", found.getUsername());
 			model.addObject("UserName", found.getCustomer_name());
 			model.addObject("vc_no", found.getCustomer_vc_no());
 			model.addObject("stb_no", found.getCustomer_stb_no());
-			LCOPackages lco = lcoPackageService.findByPckCode(found.getPackage_name());
+			PackageInfo lco = packageinfoservice.getByID(found.getPackage_name());
 			model.addObject("Package_name", lco.getName());
 			model.addObject("Account_balance", found.getAccount_balance());
 			model.addObject("Last_payment", found.getLast_payment());
@@ -135,14 +136,13 @@ public class UserController {
 			return new ModelAndView("userlogin", "error", "There are some Errors");
 
 		} else {
-			User found = userService.get(id);
+			User found = subservice.get(id);
 			System.out.println("LCO Controller LcoCode: " + found.getCustomer_name());
 			ModelAndView model = new ModelAndView("redirect:Custrecharge.jsp");
 			model.addObject("id", found.getUsername());
 			model.addObject("UserName", found.getCustomer_name());
 			model.addObject("vc_no", found.getCustomer_vc_no());
-			// model.addObject("stb_no", found.getCustomer_stb_no());
-			LCOPackages lco = lcoPackageService.findByPckCode(found.getPackage_name());
+			PackageInfo lco = packageinfoservice.getByID(found.getPackage_name());
 			model.addObject("Package_name", lco.getName());
 			model.addObject("Package_cost", lco.getPrice());
 			model.addObject("Account_balance", found.getAccount_balance());
@@ -161,7 +161,8 @@ public class UserController {
 	@RequestMapping(value = "/payNow", method = RequestMethod.POST)
 	public ModelAndView payNow(ModelMap map, @RequestParam("vc_no") String vc_no,
 			@RequestParam("Customer_name") String Customer_name, @RequestParam("pckg") String pckg,
-			@RequestParam("pckg_price") String pckg_price, @RequestParam("amount") String amount, @RequestParam("id") String id) {
+			@RequestParam("pckg_price") String pckg_price, @RequestParam("amount") String amount,
+			@RequestParam("id") String id) {
 		ModelAndView md = new ModelAndView("Custpaynow");
 		md.addObject("id", id);
 		md.addObject("vc_no", vc_no);
@@ -169,14 +170,15 @@ public class UserController {
 		md.addObject("pckg", pckg);
 		md.addObject("pckg_price", pckg_price);
 		md.addObject("amount", amount);
-		System.out.println(id+"*******************************");
+		System.out.println(id + "*******************************");
 		return md;
 	}
-	
+
 	@RequestMapping(value = "/saveComplaint", method = RequestMethod.POST)
 	public ModelAndView saveComplaint(ModelMap map, @RequestParam("vc_no") String vc_no,
 			@RequestParam("Customer_name") String Customer_name, @RequestParam("pckg") String pckg,
-			@RequestParam("pckg_price") String pckg_price, @RequestParam("amount") String amount, @RequestParam("id") String id) {
+			@RequestParam("pckg_price") String pckg_price, @RequestParam("amount") String amount,
+			@RequestParam("id") String id) {
 		ModelAndView md = new ModelAndView("Custpaynow");
 		md.addObject("id", id);
 		md.addObject("vc_no", vc_no);
@@ -184,47 +186,66 @@ public class UserController {
 		md.addObject("pckg", pckg);
 		md.addObject("pckg_price", pckg_price);
 		md.addObject("amount", amount);
-		System.out.println(id+"*******************************");
+		System.out.println(id + "*******************************");
 		return md;
 	}
-	
 
+	@RequestMapping(value = "/CustComplaint", method = RequestMethod.GET)
+	public ModelAndView CustComplaint(@ModelAttribute("UserDetail") User studentLogin, @RequestParam("vc_no") String vcc,
+			@RequestParam("id") String id, BindingResult result) {
+		System.out.println("CustComplaint Controller LcoCode: " + vcc + "," + id);
+		ModelAndView model = new ModelAndView("CustComplaint");
+		if (result.hasErrors()) { // return "lcologin"; return new
+			 return new ModelAndView("userlogin", "error", "There are some Errors");
+
+		} else {
+			List<AllComplaints> found = userComplaintService.getComplaint(vcc);
+			for(AllComplaints tmp: found){
+				System.out.println("Value1: "+tmp.getCustomer_mobile());
+			}
+			model.addObject("id", id);
+			model.addObject("vc_no", vcc);
+			model.addObject("userList", found);
+			return model;
+		}
+
+		
+	}
 	/*
-	 * @RequestMapping(value="/CustComplaint", method=RequestMethod.GET) public
-	 * ModelAndView CustComplaint( @ModelAttribute("UserDetail") User
-	 * studentLogin,@RequestParam("vcc") String vcc,@RequestParam("id") String
-	 * id,BindingResult result) {
-	 * System.out.println("CustComplaint Controller LcoCode: "+vcc+","+id); if
-	 * (result.hasErrors()) { //return "lcologin"; return new
-	 * ModelAndView("userlogin", "error", "There are some Errors");
-	 * 
-	 * } else { List<CustComplaint> found =
-	 * userComplaintService.findByPckCode(vcc); ModelAndView model=new
-	 * ModelAndView("redirect:CustComplaint.jsp"); model.addObject("id", id);
-	 * model.addObject("vc_no", vcc); model.addObject("Complist", found);
-	 * 
-	 * return model; }
-	 * 
-	 * }
-	 * 
-	 */
 	@RequestMapping(value = "/CustComplaint", method = RequestMethod.GET)
 	public ModelAndView registerPage(ModelMap map, @RequestParam("vc_no") String vcc, @RequestParam("id") String id) {
 		// this method should retrieve the data for all users
-		List<AllComplaints> userList = userComplaintService.findById(id);
+		AllComplaints userList = userComplaintService.getComplaint(id);
 		map.addAttribute("userList", userList);
 		map.addAttribute("id", id);
 		map.addAttribute("vc_no", vcc);
 		return new ModelAndView("CustComplaint", map);
 	}
+	*/
 
 	@RequestMapping(value = "/addComplaint", method = RequestMethod.GET)
 	public ModelAndView addComplaint(ModelMap map, @RequestParam("vc_no") String vcc, @RequestParam("id") String id,
 			@RequestParam("lcomplaint") String camptype, @RequestParam("remark") String remark) {
-
+		User found = subservice.findByVCNO(id);
+		String user = found.getUsername() + "";
 		System.out.println("id: " + id + ",vcc: " + vcc + ",camptype: " + camptype + ",remark: " + remark);
-		userComplaintService.addComplaint(id, vcc, camptype, remark);
-		List<AllComplaints> userList = userComplaintService.findById(id);
+
+		AllComplaints tmp = new AllComplaints();
+		// tmp.setComplaint_no();
+		tmp.setComplaint_type(camptype);
+		tmp.setComplaint_status("Open");
+		tmp.setCustomer_vcno(vcc);
+		tmp.setCust_remark(remark);
+		tmp.setOpen_date(new Date().toString());
+		tmp.setClosing_remark("NA");
+		tmp.setClosing_date("NA");
+		tmp.setCreater_Id(user);
+		tmp.setCustomer_name(found.getCustomer_name());
+		tmp.setCustomer_add(found.getCustomer_add());
+		tmp.setCustomer_mobile(found.getCustomer_mobile());
+
+		userComplaintService.add(tmp);
+		List<AllComplaints> userList = userComplaintService.getComplaint(id);
 		map.addAttribute("userList", userList);
 		map.addAttribute("id", id);
 		map.addAttribute("vc_no", vcc);

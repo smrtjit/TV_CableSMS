@@ -24,9 +24,9 @@ public class User {
 			String customer_email, String customer_id_no, String customer_photo, String customer_vc_no,
 			String customer_stb_no, String customer_waranty_date, String connection_status, String package_name,
 			String pairing_status, String account_balance, String last_payment, String last_recharge_date,
-			String connection_go_live, String timestamp, String username) {
+			String connection_go_live, String timestamp, long username) {
 		super();
-		this.id = id;
+		
 		this.customer_name = customer_name;
 		this.customer_add = customer_add;
 		this.customer_mobile = customer_mobile;
@@ -49,23 +49,27 @@ public class User {
 	}
 
 
+	public long getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(long username) {
+		this.username = username;
+	}
+
+
 	public User() {
 		super();
 	}
 
 	
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	
 
 
 	@Id
 	@GeneratedValue
-	private Long id;
+	private long username;
 	
 	@NotEmpty
 	@Size(min=4, max=20)
@@ -125,16 +129,7 @@ public class User {
 	@NotEmpty
 	private String timestamp;
 
-	@NotEmpty
-	private String username;
-	
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getCustomer_name() {
 		return customer_name;

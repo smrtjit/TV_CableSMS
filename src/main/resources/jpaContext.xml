@@ -11,7 +11,7 @@
 
 	<context:annotation-config />
 	
-	<jpa:repositories base-package="com.dialnet.source.repository" />
+	<jpa:repositories base-package="com.dialnet.source.dao" />
 	
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 

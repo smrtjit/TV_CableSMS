@@ -1,8 +1,11 @@
 package com.dialnet.source.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -14,7 +17,8 @@ public class AllComplaints {
 	
 	@Id
 	@GeneratedValue
-	private int complaint_no;
+	@Column(name = "complaint_no")
+	private long complaint_no;
 	@NotEmpty
 	@Size(min = 1, max = 25)
 	private String complaint_type;
@@ -32,7 +36,7 @@ public class AllComplaints {
 	private String cust_remark;
 	
 	@NotEmpty
-	@Size(min = 1, max = 25)
+	@Size(min = 1, max = 75)
 	private String open_date;
 	
 	@NotEmpty
@@ -40,7 +44,7 @@ public class AllComplaints {
 	private String closing_remark;
 	
 	@NotEmpty
-	@Size(min = 1, max = 25)
+	@Size(min = 1, max = 75)
 	private String closing_date;
 	private String creater_Id;
 	private String customer_name;
@@ -50,7 +54,7 @@ public class AllComplaints {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public AllComplaints(int complaint_no, String complaint_type, String complaint_status, String customer_vcno,
+	public AllComplaints(long complaint_no, String complaint_type, String complaint_status, String customer_vcno,
 			String cust_remark, String open_date, String closing_remark, String closing_date, String creater_Id,
 			String customer_name, String customer_add, String customer_mobile) {
 		super();
@@ -92,10 +96,10 @@ public class AllComplaints {
 		this.customer_mobile = customer_mobile;
 	}
 
-	public int getComplaint_no() {
+	public long getComplaint_no() {
 		return complaint_no;
 	}
-	public void setComplaint_no(int complaint_no) {
+	public void setComplaint_no(long complaint_no) {
 		this.complaint_no = complaint_no;
 	}
 	public String getComplaint_type() {
