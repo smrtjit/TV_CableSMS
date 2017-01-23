@@ -54,15 +54,7 @@ table td {
 		} else {
 			System.out.print("session found");
 	%>
-	<form method="post" action="./user.aspx" id="form1"
-		enctype="multipart/form-data">
-		<div class="aspNetHidden">
-			<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
-			<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT"
-				value="" /> <input type="hidden" name="__VIEWSTATE"
-				id="__VIEWSTATE"
-				value="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" />
-		</div>
+
 
 		<script type="text/javascript">
 			//<![CDATA[
@@ -92,13 +84,7 @@ table td {
 		<script
 			src="/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OH0Sw-M4qzmZwT9bsg3n62-gOKiVwa9UCtjFUFX-MpMNFolFCkukdkkG0wDCoiXn4NuwfsJz-AWKjjH8hirPHQw006vVvWwxHha230iF_qCTZZzNf-bCZKOAMjMSmxWMQ9iQPtOU8werOASQNLJTDAU1&amp;t=ffffffffc45b034e"
 			type="text/javascript"></script>
-		<div class="aspNetHidden">
-
-			<input type="hidden" name="__VIEWSTATEGENERATOR"
-				id="__VIEWSTATEGENERATOR" value="38D9001F" /> <input type="hidden"
-				name="__EVENTVALIDATION" id="__EVENTVALIDATION"
-				value="WvyRtFj/rlMJoAt4Cnhy6rQ7xtl/RvNkjeChpl/9nGWvNcYfK4a4qMMLLGAXut9X3ti/fr46fzt9xSrmlk8Zrrt5Oof74ytZXnQRYuDd/ZUaUsL8pjPM2xhlhdh1/8RZEgOgR+3ysPhmxiMoOHUK2qrRAin817kJPOCpPNh9QESwHGTEC8a9HC/QblzM3VXcNJUoYWx87ubPAL1yi5OgMQoJMW8FF3WbhM76P53X/eXrwommYIk52NzI5bHiTUOzVd3J5inZrmsG4fa1iwvF9tVzhGBQsCoyTjyeslNh9d1AG7I6WBn/QsXns9bPeLTfAsyG15Db7YK4MqbkdzZEQ/hSOE/8NNu4oOijlHkEBIYlq24fF3k+TVdfXxeJnXs+zzHzLl5NYlYw9Skg9ycYiyxWPMQ800Ug53m5Elpd/1qkqvfieKBy7s79yJ6iDf03sqi+cxdWeMfBDofVCf2ZbLe1OSHn6UdfC3gjuzNXaxkzhcWtgY+NwnQA71UNxTFW9d8dWcrfWh5MeiIf2a4J9cB0ypsrlAzg1rwM8oj1Dzw26ENpm+b4kY+/7kSJQHb7TF0vjgGARVRX2v4/sy9ETg==" />
-		</div>
+	
 		<div>
 			<header class="site-header push"> <marquee>Welcome
 				to Cable TV Show</marquee> </header>
@@ -108,14 +94,14 @@ table td {
 
 				<!--menu iteam code -->
 				<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5>${user}</h5></font></a></li>
-				<li class="pushy-link"><a href="Collection.jsp?user=${user}">Collection</a></li>
+				<li class="pushy-link"><a href="allLCOCollection.html?user=${user}">Collection</a></li>
 				<li class="pushy-link"><a href="allLCOComplain.html?user=${user} ">Complaint</a></li>
 				<li class="pushy-link"><a href="oldConnections.html?user=<%= request.getParameter("user") %>">Connection</a></li>
 				<li class="pushy-link"><a href="OldUserInfo.html?user=<%= request.getParameter("user") %>">Create User</a></li>
 <!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-				<li class="pushy-link"><a href="TopUp.jsp?user=<%= request.getParameter("user") %>">Top-UP</a></li>
-				<li class="pushy-link"><a href="BulkBilling.jsp?user=<%= request.getParameter("user") %>">Bulk-Billing</a></li>
-				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li>
+				<li class="pushy-link"><a href="lcoTopUp.html?user=<%= request.getParameter("user") %>">Top-UP</a></li>
+				<li class="pushy-link"><a href="lcoBilling.html?user=<%= request.getParameter("user") %>">Bulk-Billing</a></li>
+<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
 <!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 <!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
@@ -394,7 +380,7 @@ table td {
 										<th scope="col">Landline No.</th>
 										<th scope="col">Email ID</th>
 										<th scope="col">Role</th>
-										<th scope="col">Action</th>
+<!-- 										<th scope="col">Action</th> -->
 									</tr>
 									<%
 									int i=0;
@@ -408,12 +394,12 @@ table td {
    									<td>${user.name}</td>
    									<td>${user.mobile}</td>
    									<td>${user.landline_no}</td>
-   									<td>${user.email}</td>
+   									<td>${user.email_id}</td>
    									<td>${user.responsibility}</td>
-   									<td><a id="ContentPlaceHolder1_gvuser_LnktDetail_0"
-											class="btn-primary btn btn-block"
-											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvuser$ctl02$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-										</td>
+<!--    									<td><a id="ContentPlaceHolder1_gvuser_LnktDetail_0" -->
+<!-- 											class="btn-primary btn btn-block" -->
+<!-- 											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvuser$ctl02$LnktDetail&#39;,&#39;&#39;)">View/Print</a> -->
+<!-- 										</td> -->
 									<%
 									i++;
 								%>
@@ -535,7 +521,7 @@ table td {
 				rel="stylesheet" type="text/css" />
 			<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		</div>
-	</form>
+
 
 	<link href="assets/css/circle.css" rel="stylesheet" />
 	<%

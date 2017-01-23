@@ -25,7 +25,18 @@
 			}else{
 				System.out.print("session found");
 				%>
-	<form method="post" action="payNow.html?id=<%= request.getParameter("id") %>&vc_no=<%= request.getParameter("vc_no") %>&Customer_name=<%= request.getParameter("UserName") %>&pckg=<%= request.getParameter("Package_name") %>&pckg_price=<%= request.getParameter("Package_cost") %>" id="form1">
+	<form method="get" action="payNow.html" id="form1">
+<%-- 	id=<%= request.getParameter("id") %> --%>
+<%-- 	&vc_no=<%= request.getParameter("vc_no") %>& --%>
+<%-- 	Customer_name=<%= request.getParameter("UserName") %>& --%>
+<%-- 	pckg=<%= request.getParameter("Package_name") %>& --%>
+<%-- 	pckg_price=<%= request.getParameter("Package_cost") %> --%>
+	<input type="hidden" name="id" value="${id}"/>
+	<input type="hidden" name="vc_no" value="${vc_no}"/>
+	<input type="hidden" name="Customer_name" value="${UserName}"/>
+	<input type="hidden" name="pckg" value="${Package_name}"/>
+	<input type="hidden" name="pckg_price" value="${Package_cost}"/>
+	 
 		
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
@@ -33,9 +44,9 @@
 					<a class="navbar-brand" href="#">My Cable TV </a>
 				</div>
 				<ul class="nav navbar-nav">
-					 <li class="active"><a href="UserDetail.html?id=<%= request.getParameter("id") %>">My Account</a></li>
-					 <li><a href="CustComplaint.html?vc_no=<%= request.getParameter("vc_no") %>&id=<%= request.getParameter("id") %>">Complaint </a></li>
-                    <li><a href="CustRecharge.html?id=<%= request.getParameter("id") %>">Recharge</a></li>
+					 <li class="active"><a href="UserDetail.html?id=${id }">My Account</a></li>
+					 <li><a href="CustComplaint.html?vc_no=${vc_no }&id=${id}">Complaint </a></li>
+                    <li><a href="CustRecharge.html?id=${id }">Recharge</a></li>
 					
 
 				</ul>
@@ -64,7 +75,7 @@
 								<div class="col-sm-4">VC NO.OR Mobile No</div>
 								<div class="col-sm-8" style="margin-bottom: 10px">
 									<input name="ctl00$ContentPlaceHolder1$txtvcno" type="text"
-										value="<%= request.getParameter("vc_no") %>" readonly="readonly"
+										value="${vc_no }" readonly="readonly"
 										id="ContentPlaceHolder1_txtvcno" class="form-control"
 										placeholder="" />
 								</div>
@@ -73,7 +84,7 @@
 								<div class="col-sm-4">Current balance</div>
 								<div class="col-sm-8" style="margin-bottom: 10px">
 									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										readonly="readonly" id="ContentPlaceHolder1_txtBalance" value="<%= request.getParameter("Account_balance") %>"
+										readonly="readonly" id="ContentPlaceHolder1_txtBalance" value="${Account_balance }"
 										class="form-control" placeholder="" />
 								</div>
 							</div>
@@ -81,7 +92,7 @@
 								<div class="col-sm-4">Due Date</div>
 								<div class="col-sm-8" style="margin-bottom: 10px">
 									<input name="ctl00$ContentPlaceHolder1$txtDueDate" type="text"
-										value="<%= request.getParameter("Last_recharge_date") %>" readonly="readonly"
+										value="${Last_recharge_date }" readonly="readonly"
 										id="ContentPlaceHolder1_txtDueDate" class="form-control"
 										placeholder="" />
 								</div>
@@ -94,14 +105,14 @@
 										placeholder="" required="" />
 								</div>
 							</div>
-							<div class="col-sm-12">
-								<div class="col-sm-4">Discount Coupon</div>
-								<div class="col-sm-8" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-										id="ContentPlaceHolder1_txtcoupon" class="form-control"
-										placeholder="" />
-								</div>
-							</div>
+<!-- 							<div class="col-sm-12"> -->
+<!-- 								<div class="col-sm-4">Discount Coupon</div> -->
+<!-- 								<div class="col-sm-8" style="margin-bottom: 10px"> -->
+<!-- 									<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text" -->
+<!-- 										id="ContentPlaceHolder1_txtcoupon" class="form-control" -->
+<!-- 										placeholder="" /> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							<div class="col-sm-12">
 								<div class="col-sm-4"></div>
 								<div class="col-sm-8" style="margin-bottom: 10px">
@@ -120,19 +131,19 @@
 				<div class="container" style="background: #fff;">
 					<div class="col-sm-4">
 						Customer Name <input name="ctl00$ContentPlaceHolder1$txtname"
-							type="text" value="<%= request.getParameter("UserName") %>" readonly="readonly"
+							type="text" value="${UserName }" readonly="readonly"
 							id="ContentPlaceHolder1_txtname" class="form-control"
 							placeholder="" />
 					</div>
 					<div class="col-sm-4">
 						Current Package <input name="ctl00$ContentPlaceHolder1$txtcpack"
-							type="text" value="<%= request.getParameter("Package_name") %>" readonly="readonly"
+							type="text" value="${Package_name }" readonly="readonly"
 							id="ContentPlaceHolder1_txtcpack" class="form-control"
 							placeholder="" />
 					</div>
 					<div class="col-sm-4">
 						Package Price <input name="ctl00$ContentPlaceHolder1$txtPackPrice"
-							type="text" value="<%= request.getParameter("Package_cost") %>" readonly="readonly"
+							type="text" value="${Package_cost }" readonly="readonly"
 							id="ContentPlaceHolder1_txtPackPrice" class="form-control"
 							placeholder="" />
 					</div>

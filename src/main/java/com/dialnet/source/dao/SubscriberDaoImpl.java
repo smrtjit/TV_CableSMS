@@ -9,6 +9,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.dialnet.source.model.LCOUser;
 import com.dialnet.source.model.User;
 
 @Transactional
@@ -35,9 +37,6 @@ public class SubscriberDaoImpl implements SubsriberDao {
 
 	public User get(String complaints_No) {
 		Session sf = dao.openSession();
-		Criteria c2 = sf.createCriteria(User.class);
-		c2.add(Restrictions.eqProperty("username", complaints_No));
-		c2.setMaxResults(1);
 		User product = (User) sf.get(User.class, Long.parseLong(complaints_No));
 		System.out.println("user: " + product);
 
@@ -45,15 +44,17 @@ public class SubscriberDaoImpl implements SubsriberDao {
 	}
 
 	public List getAll() {
-		
-		return null;
+		Session sf = dao.openSession();
+		return sf.createCriteria(User.class).list();
 	}
 
 	public User findByVCNO(String vcno) {
 		Session sf = dao.openSession();
-		Criteria c2 = sf.createCriteria(User.class);
-		c2.add(Restrictions.eqProperty("customer_vcno", vcno));
-		User product = (User) sf.get(User.class, vcno);
+		Criteria cr = sf.createCriteria(User.class);
+
+		// To get records having salary more than 2000
+		cr.add(Restrictions.gt("customer_vc_no", vcno));
+		User product = (User)cr.uniqueResult();
 		System.out.println("user: " + product);
 
 		return product;

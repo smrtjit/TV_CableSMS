@@ -37,19 +37,7 @@
 			}else{
 				System.out.print("session found");
 				%>
-				
-				
 
-    <form method="post" action="#" id="form1">
-<div class="aspNetHidden">
-<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="r6AGeqFmF0nhSNoD5iYRPAAtKSvrUPfYXi/z4gS0zvZNZC1Lk8+FBcitDYpdVxkNPFrydcC7zn43JM+J2Dk8PgaCP90XIyDPTTKG+h9+TE4=" />
-</div>
-
-<div class="aspNetHidden">
-
-	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="04595DA2" />
-	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="2O/dUnwjMFM7Hki/wd3iP/y762z1D0GTSjLi02kD9fdRTCd7KOuKxGiyy1mTlo712Ad6FGxuEX9fiMOk34d+a0HSYgcb0Xe7wDS5fMWUmR5HcQMx05CsgO738j36p/yDXp9AUa2JLDXKunJ9QR4MaZCHmyvDUZ6xfnNuvddj3bo9lPY4t5G7WGnNTQ5sp/Cp9oZorbE1iE4pqDnroOItJXn6wFwbQ3NnaBoXeHsi64OCsHYKCHvPDW7Zi/I5TJx9ymxgZfZ/sLmyVHgAxZUCsAOzxCKBV1vT6dU98YlQgGr4s8DiF/BIma6CmLpi35HIY6v9pqQMH/lWm4pqY3EdQJn9E9Au9UxxElc3E/GGSFQftvQrfWmmxsU5cigSYe907i2tFwskdl58ruu5Gj9c4w4Cvw8FLdr7GAq5SUya810=" />
-</div>
         <div>
             <header class="site-header push">
                 <marquee>Welcome to Cable TV Show </marquee>
@@ -59,19 +47,19 @@
                 <ul>
                     
                    <!--menu iteam code -->
-				<li class="pushy-link" ><a href="#?user=${user}" style="background:OLDLACE;color:black"><h5>${user}</h5></font></a></li>
-				<li class="pushy-link"><a href="Collection.jsp?user=${user}">Collection</a></li>
-				<li class="pushy-link"><a href="allLCOComplain.html?user=${user}">Complaint</a></li>
-				<li class="pushy-link"><a href="Connection.jsp?user=${user}">Connection</a></li>
-				<li class="pushy-link"><a href="NewUser.jsp?user=${user}">Create User</a></li>
+		<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5>${user}</h5></font></a></li>
+				<li class="pushy-link"><a href="allLCOCollection.html?user=${user}">Collection</a></li>
+				<li class="pushy-link"><a href="allLCOComplain.html?user=${user} ">Complaint</a></li>
+				<li class="pushy-link"><a href="oldConnections.html?user=<%= request.getParameter("user") %>">Connection</a></li>
+				<li class="pushy-link"><a href="OldUserInfo.html?user=<%= request.getParameter("user") %>">Create User</a></li>
 <!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-				<li class="pushy-link"><a href="TopUp.jsp?user=${user}">Top-UP</a></li>
-				<li class="pushy-link"><a href="BulkBilling.jsp?user=${user}">Bulk-Billing</a></li>
-				<li class="pushy-link"><a href="BulkTransaction.jsp?user=${user}">Bulk Transactions</a></li>
+				<li class="pushy-link"><a href="lcoTopUp.html?user=<%= request.getParameter("user") %>">Top-UP</a></li>
+				<li class="pushy-link"><a href="lcoBilling.html?user=<%= request.getParameter("user") %>">Bulk-Billing</a></li>
+<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
 <!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 <!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-			<li class="pushy-link"><a href="LCODetail.html?user=${user}">My Account</a></li>
+				<li class="pushy-link"><a href="LCODetail.html?user=<%= request.getParameter("user") %>">My Account</a></li>
 				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
                 </ul>
             </nav>
@@ -265,7 +253,6 @@
             <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css" rel="stylesheet" type="text/css" />
             <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         </div>
-    </form>
 
     <link href="assets/css/circle.css" rel="stylesheet" />
     

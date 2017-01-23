@@ -24,18 +24,7 @@
 		} else {
 			System.out.print("session found");
 	%>
-	<form method="post" action="./recharge.aspx" id="form1">
-		<div class="aspNetHidden">
-			<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE"
-				value="YBPRIT/EdAieJFhoTPpxSHWVYlO/ie3Q/eUJI9MRwgMRPzBnIfT/5JUwI/UW6cODW3HXL2ePWfBOYEILF36W8KQdshXL2uWUsQ9iQ+ysLEG9ZVUiqp9LK1Ren30DmhvNZSl8KCGntF92/IGUsOsa3t326C5i6axeFG0ZbrS386i2cwLM3jgEScOWupJ0TyDxJHYVy8fI5KrrWIaUJNkqZ9ZKSuoURxEuENs/YoPfJw+GEa3QY+uij3DtheYmjUrNmEGBY820D5y2dIclNlV0iQDZZUlW9lpzGVb6rChwFmc=" />
-		</div>
-
-		<div class="aspNetHidden">
-			<input type="hidden" name="__VIEWSTATEGENERATOR"
-				id="__VIEWSTATEGENERATOR" value="7AE5A342" /> <input type="hidden"
-				name="__EVENTVALIDATION" id="__EVENTVALIDATION"
-				value="yc9WjJyFdUbXS4ESTtUJFJgasbfJ9NWRG6R1IV22lxnKLrWE8oG4U6ur17fsnuH5LGrjOV3F4i12vTE17sAGVhW3HQoWLRtC0mcX1/HKjN0s+zTehAQE0C9xkb938PmWIj9LBRmPyBE0Bo+eDsksXVtY0oom6Bxo9IC7iS61HVZmN6rO3aX0TZ/Ac+yJngDLlaDzD7KYsmp/rVmr0as5qPUcYY20eCup238vvK8JsCG3d2E/sKaBenxF3OW4hfS8ltbHbgJMMFRQnrzPkrg9k6r5FEY/EbP/Hk1Iy7HMJP8=" />
-		</div>
+	
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -43,11 +32,11 @@
 				</div>
 				<ul class="nav navbar-nav">
 					<li class="active"><a
-						href="UserDetail.html?id=<%=request.getParameter("id")%>">My
+						href="UserDetail.html?id=${id }">My
 							Account</a></li>
 					<li><a href="Custrecharge.jsp">Complaint </a></li>
 					<li><a
-						href="CustRecharge.html?id=<%=request.getParameter("id")%>">Recharge</a></li>
+						href="CustRecharge.html?id=${id}">Recharge</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="logout.html"><span></span><b>Log Out</b></a></li>
@@ -117,7 +106,7 @@
 								<div class="col-sm-8" style="margin-bottom: 10px">
 									<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"value="Submit" id="ContentPlaceHolder1_btn_sbmit"class="btn btn-primary" />
 									<!-- 									<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"value="Cancel" id="Custrecharge.jsp"class="btn btn-primary" /> -->
-									<a class="btn btn-primary" href="CustRecharge.html?id=<%= request.getParameter("id") %>">Cancel</a>
+									<a class="btn btn-primary" href="CustRecharge.html?id=${id }">Cancel</a>
 									<div class="col-sm-8" style="margin-bottom: 10px"></div>
 								</div>
 
@@ -129,7 +118,7 @@
 				</div>
 
 			</div>
-	</form>
+	
 	<%
 		}
 	%>

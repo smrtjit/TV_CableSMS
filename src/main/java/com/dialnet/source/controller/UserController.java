@@ -36,20 +36,7 @@ public class UserController {
 	
 	@Autowired
 	PackageInfoService packageinfoservice;
-	/*
-	 * @RequestMapping(value="/signup", method=RequestMethod.GET) public String
-	 * signup(Model model) { User student = new User();
-	 * model.addAttribute("student", student); return "signup"; }
-	 * 
-	 * @RequestMapping(value="/signup", method=RequestMethod.POST) public String
-	 * signup(@Valid @ModelAttribute("student") User student, BindingResult
-	 * result, Model model) { if(result.hasErrors()) { return "signup"; } else
-	 * if(studentService.findByUserName(student.getUserName())) {
-	 * model.addAttribute("message", "User Name exists. Try another user name");
-	 * return "signup"; } else { studentService.save(student);
-	 * model.addAttribute("message", "Saved student details"); return
-	 * "redirect:login.html"; } }
-	 */
+
 
 	@RequestMapping(value = "/userlogin", method = RequestMethod.GET)
 	public String Userlogin(Model model) {
@@ -67,13 +54,13 @@ public class UserController {
 			boolean found1 = subservice.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
 			if (found1) {
 				String user = studentLogin.getUserName();
-				// return "redirect:CustAccount.jsp";
-				// return new ModelAndView("CustAccount", "user", user);
 				User found = subservice.get(studentLogin.getUserName());
 				// System.out.println("LCO Controller LcoCode:
 				// "+found.getLoc_code());
-				ModelAndView model = new ModelAndView("redirect:CustAccount.jsp");
+				ModelAndView model = new ModelAndView("redirect:UserDetail.html");
+				
 				model.addObject("id", studentLogin.getUserName());
+				/*
 				model.addObject("UserName", found.getCustomer_name());
 				model.addObject("vc_no", found.getCustomer_vc_no());
 				model.addObject("stb_no", found.getCustomer_stb_no());
@@ -88,7 +75,7 @@ public class UserController {
 				model.addObject("mobile", found.getCustomer_mobile());
 				model.addObject("email", found.getCustomer_email());
 				model.addObject("add", found.getCustomer_add());
-
+*/
 				return model;
 			} else {
 				// return "userlogin";
@@ -108,8 +95,8 @@ public class UserController {
 
 		} else {
 			User found = subservice.get(id);
-			System.out.println("LCO Controller LcoCode: " + found.getCustomer_name());
-			ModelAndView model = new ModelAndView("redirect:CustAccount.jsp");
+			
+			ModelAndView model = new ModelAndView("CustAccount");
 			model.addObject("id", found.getUsername());
 			model.addObject("UserName", found.getCustomer_name());
 			model.addObject("vc_no", found.getCustomer_vc_no());
@@ -138,7 +125,7 @@ public class UserController {
 		} else {
 			User found = subservice.get(id);
 			System.out.println("LCO Controller LcoCode: " + found.getCustomer_name());
-			ModelAndView model = new ModelAndView("redirect:Custrecharge.jsp");
+			ModelAndView model = new ModelAndView("Custrecharge");
 			model.addObject("id", found.getUsername());
 			model.addObject("UserName", found.getCustomer_name());
 			model.addObject("vc_no", found.getCustomer_vc_no());
@@ -158,7 +145,7 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/payNow", method = RequestMethod.POST)
+	@RequestMapping(value = "/payNow", method = RequestMethod.GET)
 	public ModelAndView payNow(ModelMap map, @RequestParam("vc_no") String vc_no,
 			@RequestParam("Customer_name") String Customer_name, @RequestParam("pckg") String pckg,
 			@RequestParam("pckg_price") String pckg_price, @RequestParam("amount") String amount,
@@ -200,9 +187,9 @@ public class UserController {
 
 		} else {
 			List<AllComplaints> found = userComplaintService.getComplaint(vcc);
-			for(AllComplaints tmp: found){
-				System.out.println("Value1: "+tmp.getCustomer_mobile());
-			}
+//			for(AllComplaints tmp: found){
+//				System.out.println("Value1: "+tmp.getCustomer_vcno());
+//			}
 			model.addObject("id", id);
 			model.addObject("vc_no", vcc);
 			model.addObject("userList", found);
@@ -211,24 +198,14 @@ public class UserController {
 
 		
 	}
-	/*
-	@RequestMapping(value = "/CustComplaint", method = RequestMethod.GET)
-	public ModelAndView registerPage(ModelMap map, @RequestParam("vc_no") String vcc, @RequestParam("id") String id) {
-		// this method should retrieve the data for all users
-		AllComplaints userList = userComplaintService.getComplaint(id);
-		map.addAttribute("userList", userList);
-		map.addAttribute("id", id);
-		map.addAttribute("vc_no", vcc);
-		return new ModelAndView("CustComplaint", map);
-	}
-	*/
+
 
 	@RequestMapping(value = "/addComplaint", method = RequestMethod.GET)
 	public ModelAndView addComplaint(ModelMap map, @RequestParam("vc_no") String vcc, @RequestParam("id") String id,
 			@RequestParam("lcomplaint") String camptype, @RequestParam("remark") String remark) {
 		User found = subservice.findByVCNO(id);
 		String user = found.getUsername() + "";
-		System.out.println("id: " + id + ",vcc: " + vcc + ",camptype: " + camptype + ",remark: " + remark);
+		//System.out.println("id: " + id + ",vcc: " + vcc + ",camptype: " + camptype + ",remark: " + remark);
 
 		AllComplaints tmp = new AllComplaints();
 		// tmp.setComplaint_no();

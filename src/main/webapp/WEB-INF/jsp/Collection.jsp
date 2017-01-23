@@ -36,20 +36,12 @@ table#ContentPlaceHolder1_gvcollection {
 	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
 	<%
 		if (session.getAttribute("lcoLogin") == null) {
-			System.out.print("session not found");
+			System.out.print("session not found in collection jsp page");
 			response.sendRedirect("lcologin.html?error=Session is Expired!!!");
 		} else {
-			System.out.print("session found");
+			System.out.print("session found in collection jsp page");
 	%>
 
-	<form method="post" action="#" id="form1">
-		<div class="aspNetHidden">
-			<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
-			<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT"
-				value="" /> <input type="hidden" name="__VIEWSTATE"
-				id="__VIEWSTATE"
-				value="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" />
-		</div>
 
 		<script type="text/javascript">
 			//<![CDATA[
@@ -79,13 +71,7 @@ table#ContentPlaceHolder1_gvcollection {
 		<script
 			src="/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OH0Sw-M4qzmZwT9bsg3n62-gOKiVwa9UCtjFUFX-MpMNFolFCkukdkkG0wDCoiXn4NuwfsJz-AWKjjH8hirPHQw006vVvWwxHha230iF_qCTZZzNf-bCZKOAMjMSmxWMQ9iQPtOU8werOASQNLJTDAU1&amp;t=ffffffffc45b034e"
 			type="text/javascript"></script>
-		<div class="aspNetHidden">
-
-			<input type="hidden" name="__VIEWSTATEGENERATOR"
-				id="__VIEWSTATEGENERATOR" value="A2FEFAA4" /> <input type="hidden"
-				name="__EVENTVALIDATION" id="__EVENTVALIDATION"
-				value="gJDDJk5d8xEbdauXX9IVu1NDhkvhseyrfCzlevKnjMkG3B++BxRiUpnO1IblkXnL63IQ/g0gIZzwTKjTil1t7KzRZvwLCnVgINBDE+jQLlmmJ/IDK6Br2NndppVNTxSamEpXmKTexEe4h0UB23ZajQXUlxttfVohzGOasabioYOU3Qqw7917Gdd6hIVs0BFEBK6bfnZEJKhHDK7/pU0oqyiUE47TFbITpozEZMhImQBS9HYQzKnCw0Jq5tFT5dZek5CNoxSne5vLcaGmYTi0TbcQCGq5YuwQxHYQjIh3pkl8bF5kVY5JRHR0uPnENyzC9ZJykEx4hbiW4RcQ/L2yS/VR6x0k7FPl967e+a59Vt2Adb26u7Au3MXRpRo40Q4d/kg4aSTT4zKjVN7mB6hQOtLF9v2vUG7/Vnl3t2tEf1+ZWqpF1bMkJOix2m4wfQs4" />
-		</div>
+		
 		<div>
 			<header class="site-header push">
 				<marquee>Welcome to Cable TV Show</marquee>
@@ -94,21 +80,20 @@ table#ContentPlaceHolder1_gvcollection {
 			<nav class="pushy pushy-left">
 				<ul>
 					<!--menu iteam code -->
-				<li class="pushy-link" ><a href="#?user=<%= request.getParameter("user") %>" style="background:OLDLACE;color:black"><h5><%= request.getParameter("user") %></h5></font></a></li>
-					<li class="pushy-link"><a href="Collection.jsp?user=<%= request.getParameter("user") %>">Collection</a></li>
-					<li class="pushy-link"><a href="Dashboard.jsp?user=<%= request.getParameter("user") %>">Complaint</a></li>
-					<li class="pushy-link"><a href="Connection.jsp?user=<%= request.getParameter("user") %>">Connection</a></li>
-					<li class="pushy-link"><a href="NewUser.jsp?user=<%= request.getParameter("user") %>">Create User</a></li>
-					<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-					<li class="pushy-link"><a href="TopUp.jsp?user=<%= request.getParameter("user") %>">Top-UP</a></li>
-					<li class="pushy-link"><a href="BulkBilling.jsp?user=<%= request.getParameter("user") %>">Bulk-Billing</a></li>
-					<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk
-							Transactions</a></li>
-					<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
-					<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-					<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-					<li class="pushy-link"><a href="MyAccount.jsp?user=<%= request.getParameter("user") %>">My Account</a></li>
-					<li class="pushy-link"><a href="logout.html">Log Out</a></li>
+				<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5>${user}</h5></font></a></li>
+				<li class="pushy-link"><a href="allLCOCollection.html?user=${user}">Collection</a></li>
+				<li class="pushy-link"><a href="allLCOComplain.html?user=${user} ">Complaint</a></li>
+				<li class="pushy-link"><a href="oldConnections.html?user=<%= request.getParameter("user") %>">Connection</a></li>
+				<li class="pushy-link"><a href="OldUserInfo.html?user=<%= request.getParameter("user") %>">Create User</a></li>
+<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
+				<li class="pushy-link"><a href="lcoTopUp.html?user=<%= request.getParameter("user") %>">Top-UP</a></li>
+				<li class="pushy-link"><a href="lcoBilling.html?user=<%= request.getParameter("user") %>">Bulk-Billing</a></li>
+<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
+<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
+<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
+<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
+				<li class="pushy-link"><a href="LCODetail.html?user=<%= request.getParameter("user") %>">My Account</a></li>
+				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 				</ul>
 			</nav>
 
@@ -245,15 +230,15 @@ table#ContentPlaceHolder1_gvcollection {
 <%--    									<td>${user.trndate}</td> --%>
    									
    									
+   									<td>${user.invoice}</td>
    									<td>${user.VC_No}</td>
-   									<td>${user.VC_No}</td>
-   									<td>${user.VC_No}</td>
-   									<td>${user.VC_No}</td>
-   									<td>${user.VC_No}</td>
-   									<td>${user.VC_No}</td>
-   									<td>${user.VC_No}</td>
-   									<td>${user.VC_No}</td>
-   									<td>${user.VC_No}</td>
+   									<td>${user.cust_Name}</td>
+   									<td>${user.current_Pckg}</td>
+   									<td>${user.pckg_Price}</td>
+   									<td>${user.recharge_Amount}</td>
+   									<td>${user.payment_Mode}</td>
+   									<td>${user.LM_Id}</td>
+   									<td>${user.payment_Status}</td>
    									<td>${user.trndate}</td>
    									
    									
@@ -349,7 +334,6 @@ table#ContentPlaceHolder1_gvcollection {
 				rel="stylesheet" type="text/css" />
 			<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		</div>
-	</form>
 
 	<link href="assets/css/circle.css" rel="stylesheet" />
 	<%

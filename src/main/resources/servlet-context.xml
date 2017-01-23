@@ -42,8 +42,11 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.dialnet.source.model.User</value>
+				<value>com.dialnet.source.model.LMUser</value>
 				<value>com.dialnet.source.model.AllComplaints</value>
 				<value>com.dialnet.source.model.PackageInfo</value>
+				<value>com.dialnet.source.model.LCOUser</value>
+				<value>com.dialnet.source.model.AllCollections</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

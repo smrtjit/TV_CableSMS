@@ -40,12 +40,6 @@
 				%>
 				
 
-    <form method="post" action="./myaccount.aspx" id="form1">
-<div class="aspNetHidden">
-<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
-<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
-<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="WoAfP5MgEFbcxjXWKi/WaoZrAlVfF31814iLihaVX2X7MYXsA0QV5I5VjmUlahiP1pK4UjmRyElXkPIFyJ3hkqdXzaDCF3uNJywBYsi+JJrQg5d48dLVcKBI/fVfTcSaCRix2DqnA5gx9Cxy3pX4DUlif6BEZAzm5QLUXV0k85avq4B4jXqXjhVaOQXiSJIsyMvyX4bbRK/bveeZQjg2aLNWkLmP7A18dIkvI6tpDQqVL+vViRq8zqcFynJh4z4p9TT3tRPRfXJKjhivy5BP1PGz7avnKmrYOmt813yeNCC0yAal+eDV4V6WG9OTy841A5bc/zJLME9nF/uZeMj/S8WipOrZuXkwSlTirdhudV1Wr+RtHHJwpCJF3H7nhTn7jWukPuNf/rRNH1wwbuhpiw==" />
-</div>
 
 <script type="text/javascript">
 //<![CDATA[
@@ -75,9 +69,9 @@ function __doPostBack(eventTarget, eventArgument) {
                     <a class="navbar-brand" href="#">My Cable TV </a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="UserDetail.html?id=<%= request.getParameter("id") %>">My Account</a></li>
-                    <li><a href="CustComplaint.html?vc_no=<%= request.getParameter("vc_no") %>&id=<%= request.getParameter("id") %>">Complaint</a></li>
-                    <li><a href="CustRecharge.html?id=<%= request.getParameter("id") %>">Recharge</a></li>
+                    <li class="active"><a href="UserDetail.html?id=${id }">My Account</a></li>
+                    <li><a href="CustComplaint.html?vc_no=${vc_no }&id=${id}">Complaint</a></li>
+                    <li><a href="CustRecharge.html?id=${id }">Recharge</a></li>
                     
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -104,8 +98,8 @@ function __doPostBack(eventTarget, eventArgument) {
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
 							<span id="ContentPlaceHolder1_lblname" class="form-controlc">
-<%-- 							${UserName} --%>
-							<%= request.getParameter("UserName") %></span>
+							${UserName}
+<%-- 							<%= request.getParameter("UserName") %></span> --%>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
 						</div>
@@ -118,8 +112,8 @@ function __doPostBack(eventTarget, eventArgument) {
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
 							<span id="ContentPlaceHolder1_lblvcno" class="form-controlc">
-<%-- 							${vc_no} --%>
-							<%= request.getParameter("vc_no") %></span>
+							${vc_no}
+<%-- 							<%= request.getParameter("vc_no") %></span> --%>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
 						</div>
@@ -132,8 +126,8 @@ function __doPostBack(eventTarget, eventArgument) {
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
 							<span id="ContentPlaceHolder1_lblStb" class="form-controlc">
-<%-- 							${stb_no} --%>
-							<%= request.getParameter("stb_no") %></span>
+							${stb_no}
+<%-- 							<%= request.getParameter("stb_no") %></span> --%>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
 						</div>
@@ -146,8 +140,8 @@ function __doPostBack(eventTarget, eventArgument) {
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
 							<span id="ContentPlaceHolder1_lblcurrentpackage" class="form-controlc">
-<%-- 							${Package_name} --%>
-							<%= request.getParameter("Package_name") %></span>
+							${Package_name}
+<%-- 							<%= request.getParameter("Package_name") %></span> --%>
 						</div>
 						
 					</div>
@@ -160,8 +154,8 @@ function __doPostBack(eventTarget, eventArgument) {
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
 							<span id="ContentPlaceHolder1_lblamaunt" class="form-controlc">
-<%-- 							${Account_balance} --%>
-							<%= request.getParameter("Account_balance") %></span>
+							${Account_balance}
+<%-- 							<%= request.getParameter("Account_balance") %></span> --%>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
 						</div>
@@ -174,8 +168,8 @@ function __doPostBack(eventTarget, eventArgument) {
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
 							<span id="ContentPlaceHolder1_lblLastPay" class="form-controlc">
-<%-- 							${Last_payment} --%>
-							<%= request.getParameter("Last_payment") %></span>
+							${Last_payment}
+<%-- 							<%= request.getParameter("Last_payment") %></span> --%>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
 						</div>
@@ -201,8 +195,8 @@ function __doPostBack(eventTarget, eventArgument) {
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
 							<span id="ContentPlaceHolder1_lblRechargeDate" class="form-controlc">
-<%-- 							${Last_recharge_date} --%>
-							<%= request.getParameter("Last_recharge_date") %>
+							${Last_recharge_date}
+<%-- 							<%= request.getParameter("Last_recharge_date") %> --%>
 							</span>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
@@ -216,8 +210,8 @@ function __doPostBack(eventTarget, eventArgument) {
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
 							<span id="ContentPlaceHolder1_lblmobile" class="form-controlc">
-<%-- 							${mobile} --%>
-							<%= request.getParameter("mobile") %>
+							${mobile}
+<%-- 							<%= request.getParameter("mobile") %> --%>
 							</span>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
@@ -231,8 +225,9 @@ function __doPostBack(eventTarget, eventArgument) {
 					</div>
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
- 							<span id="ContentPlaceHolder1_lblemail" class="form-controlc"><%--${email} --%>
-							<%= request.getParameter("email") %>
+ 							<span id="ContentPlaceHolder1_lblemail" class="form-controlc">
+ 							${email}
+<%-- 							<%= request.getParameter("email") %> --%>
 							</span>
 						</div>
 						<div class="col-sm-2" style="margin-top: 10px">
@@ -247,8 +242,8 @@ function __doPostBack(eventTarget, eventArgument) {
 					<div class="col-sm-8">
 						<div class="col-sm-8" style="margin-bottom: 10px">
 							<textarea name="ctl00$ContentPlaceHolder1$txtAddress" rows="2" cols="20" id="ContentPlaceHolder1_txtAddress" class="form-control" style="height:100px;width:230px;">
-<%-- ${add} --%>
-<%= request.getParameter("add") %></textarea>
+${add}
+<%-- <%= request.getParameter("add") %></textarea> --%>
 						</div>
 						
 					</div>

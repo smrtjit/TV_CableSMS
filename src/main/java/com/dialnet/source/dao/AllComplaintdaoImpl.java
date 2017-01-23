@@ -42,6 +42,7 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 		//AllComplaints product = (AllComplaints) sf.get(AllComplaints.class, Long.parseLong(complaints_No));
 		//System.out.println("customer_vcno: " + product);
 		List<AllComplaints> tmp=c2.list();
+		System.out.println("customer_vcno: " + tmp);
 		return tmp;
 	}
 
