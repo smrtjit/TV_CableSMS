@@ -22,4 +22,9 @@ public class AllCollectionServiceImpl implements AllCollectionService {
 		return dao.getAll();
 	}
 
+	@Override
+	public List<AllCollections> getByAnyOne(String sdate, String edate, String VC_no, String mobile, String pckg) {
+	return dao.getByAnyOne(sdate, edate, VC_no, mobile, pckg);
+	}
+
 }

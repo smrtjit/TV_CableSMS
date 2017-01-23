@@ -1,12 +1,12 @@
 
 package com.dialnet.source.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +21,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.dialnet.source.model.AllCollections;
 import com.dialnet.source.model.AllComplaints;
-
-import com.dialnet.source.model.PackageInfo;
 import com.dialnet.source.model.LCOUser;
 import com.dialnet.source.model.LMUser;
+import com.dialnet.source.model.PackageInfo;
 import com.dialnet.source.model.User;
 //import com.dialnet.source.model.LCOUserRegistration;
 import com.dialnet.source.model.UserLogin;
 import com.dialnet.source.service.AllCollectionService;
 import com.dialnet.source.service.AllComplaintService;
-
 import com.dialnet.source.service.LCOUserService;
 import com.dialnet.source.service.LMUserService;
+import com.dialnet.source.service.PackageInfoService;
 import com.dialnet.source.service.SubscriberService;
 
 @Controller
@@ -59,7 +57,11 @@ public class LCOController {
 	
 	@Autowired
 	LMUserService lmuserservice;
+	
 
+	@Autowired
+	PackageInfoService pckgservice;
+	
 	
 	@RequestMapping(value = "/lcologin", method = RequestMethod.GET)
 	public String login(Model model) {
@@ -179,11 +181,20 @@ public class LCOController {
 	 @RequestMapping(value="/OldUserInfo", method=RequestMethod.GET)
 	    public ModelAndView OldUserInfo(ModelMap map,@RequestParam("user") String user) {
 		 System.out.println("Old User Info Called");
+		 LMUser userForm = new LMUser();		
+			map.addAttribute("userForm", userForm);
+			ArrayList<String> departments = new ArrayList<String>();
+	        departments.add( "Select Repsonsibility");
+	        departments.add( "Collection");
+	        departments.add( "Local Fault Repair");
+	        departments.add( "Others");
+	       
 	        List<LMUser> userList = lmuserservice.getAll();
 	        System.out.println("Old User Info Called userList size: "+userList.size());
 	        for (LMUser temp : userList) {
 				System.out.println("Old User Info Name: "+temp.getUsername()+",Mobile: "+temp.getMobile());
 			}
+	        map.addAttribute("resp",departments);
 	        map.addAttribute("userList", userList);
 	        map.addAttribute("id", user);
 	        return new ModelAndView("NewUser", map);
@@ -199,5 +210,96 @@ public class LCOController {
 		 	map.addAttribute("user", user);
 	        return new ModelAndView("BulkBilling", map);
 		}
+	 
+	 
+	@RequestMapping(method = RequestMethod.GET,value = "register")
+		public ModelAndView processRegistration(@ModelAttribute("userForm") LMUser lmuser, 
+				ModelMap map,@RequestParam("user") String user) {
+			
+			System.out.println("username: " + lmuser.getUsername());
+			System.out.println("password: " + lmuser.getEmail_id());
+			System.out.println("email: " + lmuser.getMobile());
+			lmuser.setPassword(getSaltString());
+			lmuser.setUsername(lmuser.getMobile());
+			lmuser.setTimestamp(getDate());
+			lmuserservice.add(lmuser);
+			map.addAttribute("user", user);
+	        return new ModelAndView("redirect:OldUserInfo.html", map);
+		
+		}  
+	
+	
+	
+	 @RequestMapping(value="/searchVCbyLCO", method=RequestMethod.GET)
+	 public ModelAndView searchVCbyLCO(ModelMap map,@RequestParam("user") String user,@RequestParam("VC_No") String VC_No) {
+		 	map.addAttribute("user", user);
+		 	System.out.println("VC no: "+VC_No);
+		 	User tmp=userService.findByVCNO(VC_No);
+		 	if(tmp==null){
+		 		map.addAttribute("error","VC Number is not Valid");
+		 	}else{
+		 		map.addAttribute("userDetails",tmp);
+		 		PackageInfo pck=pckgservice.getByID(tmp.getPackage_name());
+		 		map.addAttribute("pckinfo", pck.getName());
+		 		System.out.println("name: "+tmp.getCustomer_name());
+		 	}
+		 	
+	        return new ModelAndView("TopUp", map);
+		}
+	
+	 
+	 @RequestMapping(value="/searchByanyOne", method=RequestMethod.GET)
+	 public ModelAndView searchByanyOne(ModelMap map,@RequestParam("user") String user,@RequestParam("VC_No") String VC_No
+			 ,@RequestParam("fdate") String fdate,@RequestParam("edate") String edate
+			 ,@RequestParam("mobile") String mobile ,@RequestParam("pckg") String pckg) {
+		 	map.addAttribute("user", user);
+		 	System.out.println("VC no: "+VC_No);
+		 	List<AllCollections> tmp=LCOCollectionRepository.getByAnyOne(fdate, edate, VC_No, mobile, pckg);
+		 	System.out.println("tmp.size()***************: "+tmp.size());
+		 	if(tmp.size()<1){
+		 		map.addAttribute("error","No Data Found!!!");
+		 		System.out.println("No Data Found........................");
+		 	}else{
+		 		map.addAttribute("userList",tmp);
+		 	}
+		 	
+	        return new ModelAndView("Collection", map);
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//////////////////////////////////Date and Password Generation functions///////////////////////////////////
+	
+	String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 10) {
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
 
+    }
+
+	 public String getDate() {
+	        String trnstamp = null;
+	         try {
+	            SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	            Date now = new Date();
+	            String strDate = sdfDate.format(now);
+	            //System.out.println(strDate.toString());
+	            trnstamp = strDate.toString();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return trnstamp;
+	    }
 }

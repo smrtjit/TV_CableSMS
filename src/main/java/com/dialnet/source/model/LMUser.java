@@ -22,7 +22,7 @@ public class LMUser {
 
 	public LMUser(Long id, String username, String password, String designation, String name, String email_id,
 			String mobile, String landline_no, String corres_add, String permanent_add, String identity_proof,
-			String add_proof, String photo, String responsibility, String timestamp, String email) {
+			String add_proof, String photo, String responsibility, String timestamp) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -39,7 +39,7 @@ public class LMUser {
 		this.photo = photo;
 		this.responsibility = responsibility;
 		this.timestamp = timestamp;
-		this.email = email;
+		
 	}
 
 	public Long getId() {
@@ -162,20 +162,13 @@ public class LMUser {
 		this.timestamp = timestamp;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	
 	@NotEmpty
 	@Size(min = 4, max = 20)
 	private String username;
 	
 	@NotEmpty
-	@Size(min = 4, max = 20)
+	@Size(min = 4, max = 200)
 	private String password;
 	
 	@NotEmpty
@@ -183,11 +176,11 @@ public class LMUser {
 	private String designation;
 	
 	@NotEmpty
-	@Size(min = 4, max = 20)
+	@Size(min = 4, max = 70)
 	private String name;
 	
 	@NotEmpty
-	@Size(min = 4, max = 50)
+	@Size(min = 4, max = 100)
 	private String email_id;
 	
 	@NotEmpty
@@ -195,41 +188,16 @@ public class LMUser {
 	private String mobile;
 	
 	
-	@NotEmpty
-	@Size(min = 4, max = 20)
+	
 	private String landline_no;
-	
-	@NotEmpty
-	@Size(min = 4, max = 20)
 	private String corres_add;
-	
-	@NotEmpty
-	@Size(min = 4, max = 75)
 	private String permanent_add;
-	
-	@NotEmpty
-	@Size(min = 4, max = 75)
 	private String identity_proof;
-	
-	@NotEmpty
-	@Size(min = 4, max = 75)
 	private String add_proof;
-	
-	
-	@NotEmpty
-	@Size(min = 4, max = 75)
 	private String photo;
-	
-	@NotEmpty
-	@Size(min = 4, max = 75)
 	private String responsibility;
-	
-	@NotEmpty
-	@Size(min = 4, max = 75)
 	private String timestamp;
 	
-	@NotEmpty
-	@Size(min = 4, max = 20)
-	private String email;
+	
 	
 }

@@ -30,6 +30,15 @@
 table#ContentPlaceHolder1_gvcollection {
 	background-color: #d5f7ce;
 }
+
+.nofound{
+color: red;
+font-size: 3ex;
+margin-left: 350px;
+widows: 100%;
+
+
+}
 </style>
 </head>
 <body
@@ -120,9 +129,12 @@ table#ContentPlaceHolder1_gvcollection {
 
 				<hr />
 				<div class="row">
+				<form action="searchByanyOne.html">
+				<input type="hidden"name="user" value="${user }"/>
+				
 					<div class="col-sm-2">
 						<div style="margin-bottom: 10px">
-							<input name="ctl00$ContentPlaceHolder1$txttodate" type="text"
+							<input name="fdate" type="text"
 								id="ContentPlaceHolder1_txttodate" tabindex="1"
 								class="form-control" placeholder="From Date" />
 						</div>
@@ -132,7 +144,7 @@ table#ContentPlaceHolder1_gvcollection {
 					<div class="col-sm-2">
 						<div style="margin-bottom: 10px">
 
-							<input name="ctl00$ContentPlaceHolder1$txtfromdate" type="text"
+							<input name="edate" type="text"
 								id="ContentPlaceHolder1_txtfromdate" tabindex="2"
 								class="form-control" placeholder="To Date" />
 
@@ -142,14 +154,14 @@ table#ContentPlaceHolder1_gvcollection {
 					<div class="col-sm-2">
 						<div style="margin-bottom: 10px">
 
-							<input name="ctl00$ContentPlaceHolder1$txtvcno" type="text"
+							<input name="VC_No" type="text"
 								id="ContentPlaceHolder1_txtvcno" tabindex="2"
 								class="form-control" placeholder="VC No." />
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<div style="margin-bottom: 10px">
-							<input name="ctl00$ContentPlaceHolder1$txtmobile" type="text"
+							<input name="mobile" type="text"
 								id="ContentPlaceHolder1_txtmobile" tabindex="1"
 								class="form-control" placeholder="Mobille No." />
 
@@ -158,7 +170,7 @@ table#ContentPlaceHolder1_gvcollection {
 					</div>
 					<div class="col-sm-2">
 						<div style="margin-bottom: 10px">
-							<input name="ctl00$ContentPlaceHolder1$txtpkg" type="text"
+							<input name="pckg" type="text"
 								id="ContentPlaceHolder1_txtpkg" tabindex="2"
 								class="form-control" placeholder="Package Name" />
 						</div>
@@ -176,7 +188,8 @@ table#ContentPlaceHolder1_gvcollection {
 						</div>
 
 					</div>
-
+					<div class="nofound">  ${error} </div>
+				</form>
 					<div class="col-sm-12">
 						<div class="col-sm-12">
 							<hr />

@@ -54,7 +54,7 @@ public class SubscriberServiceImpl implements SubscriberService {
 
 	public User findByVCNO(String vcno) {
 		
-		User stud = subsriberdao.get(vcno);
+		User stud = subsriberdao.findByVCNO(vcno);
 		return stud;	
 	}
 	

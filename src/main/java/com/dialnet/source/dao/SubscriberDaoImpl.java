@@ -38,7 +38,7 @@ public class SubscriberDaoImpl implements SubsriberDao {
 	public User get(String complaints_No) {
 		Session sf = dao.openSession();
 		User product = (User) sf.get(User.class, Long.parseLong(complaints_No));
-		System.out.println("user: " + product);
+		//System.out.println("user: " + product);
 
 		return product;
 	}
@@ -53,9 +53,9 @@ public class SubscriberDaoImpl implements SubsriberDao {
 		Criteria cr = sf.createCriteria(User.class);
 
 		// To get records having salary more than 2000
-		cr.add(Restrictions.gt("customer_vc_no", vcno));
+		cr.add(Restrictions.eq("customer_vc_no", vcno));
 		User product = (User)cr.uniqueResult();
-		System.out.println("user: " + product);
+		//System.out.println("user: " + product);
 
 		return product;
 	}

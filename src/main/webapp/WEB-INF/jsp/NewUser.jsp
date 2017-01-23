@@ -93,9 +93,9 @@ table td {
 			<ul>
 
 				<!--menu iteam code -->
-				<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5>${user}</h5></font></a></li>
-				<li class="pushy-link"><a href="allLCOCollection.html?user=${user}">Collection</a></li>
-				<li class="pushy-link"><a href="allLCOComplain.html?user=${user} ">Complaint</a></li>
+				<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5><%= request.getParameter("user") %></h5></font></a></li>
+				<li class="pushy-link"><a href="allLCOCollection.html?user=<%= request.getParameter("user") %>">Collection</a></li>
+				<li class="pushy-link"><a href="allLCOComplain.html?user=<%= request.getParameter("user") %>">Complaint</a></li>
 				<li class="pushy-link"><a href="oldConnections.html?user=<%= request.getParameter("user") %>">Connection</a></li>
 				<li class="pushy-link"><a href="OldUserInfo.html?user=<%= request.getParameter("user") %>">Create User</a></li>
 <!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
@@ -155,7 +155,10 @@ table td {
 
 
 					<div class="container">
-						<div class="row">
+					<form:form action="register.html" method="get" commandName="userForm" autocomplete="off">
+					
+					<input type="hidden"name="user" value="<%= request.getParameter("user") %>"/>
+			<div class="row">
 
 							<div class="col-sm-10" style="margin-bottom: 10px">
 								<div>
@@ -163,10 +166,11 @@ table td {
 										<p class="p1">Designation</p>
 									</div>
 									<div class="col-sm-6">
-										<input name="ctl00$ContentPlaceHolder1$txtdesignation"
-											type="text" id="ContentPlaceHolder1_txtdesignation"
-											tabindex="1" class="form-control"
-											placeholder="Please Enter Designation" />
+									<form:input path="designation" class="form-control" placeholder="Please Enter Designation" required="required"/>
+<!-- 										<input name="ctl00$ContentPlaceHolder1$txtdesignation" -->
+<!-- 											type="text" id="ContentPlaceHolder1_txtdesignation" -->
+<!-- 											tabindex="1" class="form-control" -->
+<!-- 											placeholder="Please Enter Designation" /> -->
 									</div>
 
 								</div>
@@ -178,9 +182,10 @@ table td {
 										<p class="p1">Name</p>
 									</div>
 									<div class="col-sm-6">
-										<input name="ctl00$ContentPlaceHolder1$txtname" type="text"
-											id="ContentPlaceHolder1_txtname" tabindex="2"
-											class="form-control" placeholder="Please Enter Name" />
+									<form:input path="name" class="form-control" placeholder="Please Enter Designation" required="required"/>
+<!-- 										<input name="ctl00$ContentPlaceHolder1$txtname" type="text" -->
+<!-- 											id="ContentPlaceHolder1_txtname" tabindex="2" -->
+<!-- 											class="form-control" placeholder="Please Enter Name" /> -->
 									</div>
 
 								</div>
@@ -192,9 +197,10 @@ table td {
 										<p class="p1">Email Id</p>
 									</div>
 									<div class="col-sm-6">
-										<input name="ctl00$ContentPlaceHolder1$txtemailid" type="text"
-											id="ContentPlaceHolder1_txtemailid" tabindex="3"
-											class="form-control" placeholder="Please Enter Email id" />
+									<form:input path="email_id" class="form-control" placeholder="Please Enter Designation" required="required"/>
+<!-- 										<input name="ctl00$ContentPlaceHolder1$txtemailid" type="text" -->
+<!-- 											id="ContentPlaceHolder1_txtemailid" tabindex="3" -->
+<!-- 											class="form-control" placeholder="Please Enter Email id" /> -->
 									</div>
 
 								</div>
@@ -206,9 +212,10 @@ table td {
 										<p class="p1">Mobile No.</p>
 									</div>
 									<div class="col-sm-6">
-										<input name="ctl00$ContentPlaceHolder1$txtmobile" type="text"
-											id="ContentPlaceHolder1_txtmobile" tabindex="4"
-											class="form-control" placeholder="Please Enter Mobile Number" />
+									<form:input path="mobile" class="form-control" placeholder="Please Enter Designation" required="required"/>
+<!-- 										<input name="ctl00$ContentPlaceHolder1$txtmobile" type="text" -->
+<!-- 											id="ContentPlaceHolder1_txtmobile" tabindex="4" -->
+<!-- 											class="form-control" placeholder="Please Enter Mobile Number" /> -->
 									</div>
 
 								</div>
@@ -220,9 +227,10 @@ table td {
 										<p class="p1">Landline</p>
 									</div>
 									<div class="col-sm-6">
-										<input name="ctl00$ContentPlaceHolder1$txtlandline"
-											type="text" id="ContentPlaceHolder1_txtlandline" tabindex="5"
-											class="form-control" placeholder="Please Enter Landline" />
+									<form:input path="landline_no" class="form-control" placeholder="Please Enter Designation"/>
+<!-- 										<input name="ctl00$ContentPlaceHolder1$txtlandline" -->
+<!-- 											type="text" id="ContentPlaceHolder1_txtlandline" tabindex="5" -->
+<!-- 											class="form-control" placeholder="Please Enter Landline" /> -->
 									</div>
 
 								</div>
@@ -234,10 +242,11 @@ table td {
 										<p class="p1">Correspondence Address</p>
 									</div>
 									<div class="col-sm-6">
-										<input name="ctl00$ContentPlaceHolder1$txtcadd" type="text"
-											id="ContentPlaceHolder1_txtcadd" tabindex="6"
-											class="form-control"
-											placeholder="Please Enter Correspondence Address" />
+									<form:input path="corres_add" class="form-control" placeholder="Please Enter Designation"/>
+<!-- 										<input name="ctl00$ContentPlaceHolder1$txtcadd" type="text" -->
+<!-- 											id="ContentPlaceHolder1_txtcadd" tabindex="6" -->
+<!-- 											class="form-control" -->
+<!-- 											placeholder="Please Enter Correspondence Address" /> -->
 									</div>
 
 								</div>
@@ -249,10 +258,11 @@ table td {
 										<p class="p1">Permanent Address</p>
 									</div>
 									<div class="col-sm-6">
-										<input name="ctl00$ContentPlaceHolder1$txtpadd" type="text"
-											id="ContentPlaceHolder1_txtpadd" tabindex="7"
-											class="form-control"
-											placeholder="Please Enter Permanent Address" />
+									<form:input path="permanent_add" class="form-control" placeholder="Please Enter Designation" required="required"/>
+<!-- 										<input name="ctl00$ContentPlaceHolder1$txtpadd" type="text" -->
+<!-- 											id="ContentPlaceHolder1_txtpadd" tabindex="7" -->
+<!-- 											class="form-control" -->
+<!-- 											placeholder="Please Enter Permanent Address" /> -->
 									</div>
 
 								</div>
@@ -264,8 +274,9 @@ table td {
 										<p class="p1">Identity Proof</p>
 									</div>
 									<div class="col-sm-6">
+<%-- 									<form:input path="identity_proof" class="form-control" placeholder="Please Enter Designation"/> --%>
 										<input type="file"
-											name="ctl00$ContentPlaceHolder1$FileUpload2"
+											name="id_proof"
 											id="ContentPlaceHolder1_FileUpload2" tabindex="8"
 											class="form-control" placeholder="Upload file" />
 									</div>
@@ -279,8 +290,9 @@ table td {
 										<p class="p1">Address Proof</p>
 									</div>
 									<div class="col-sm-6">
+<%-- 									<form:input path="add_proof" class="form-control" placeholder="Please Enter Designation"/> --%>
 										<input type="file"
-											name="ctl00$ContentPlaceHolder1$FileUpload1"
+											name="add_proof"
 											id="ContentPlaceHolder1_FileUpload1" tabindex="9"
 											class="form-control" placeholder="Upload file" />
 									</div>
@@ -294,7 +306,8 @@ table td {
 										<p class="p1">Photo</p>
 									</div>
 									<div class="col-sm-6">
-										<input type="file" name="ctl00$ContentPlaceHolder1$fuUser"
+<%-- 									<form:input path="photo" class="form-control" placeholder="Please Enter Designation"/> --%>
+										<input type="file" name="photo"
 											id="ContentPlaceHolder1_fuUser" tabindex="10"
 											class="form-control" placeholder="Upload file" />
 									</div>
@@ -308,16 +321,20 @@ table td {
 										<p class="p1">Responsibility</p>
 									</div>
 									<div class="col-sm-6">
-										<select name="ctl00$ContentPlaceHolder1$ddlrespo"
-											id="ContentPlaceHolder1_ddlrespo" tabindex="11"
-											class="form-control" placeholder="Responsibility">
-											<option value="Select">Select</option>
-											<option value="Collection">Collection</option>
-											<option value="Local Fault Repair">Local Fault
-												Repair</option>
-											<option value="Other">Other</option>
+										<form:select path="responsibility" class="form-control" placeholder="Responsibility">
+											<form:options items="${resp }" />
+											
+											
+										</form:select>
+<!-- 										<select name="ctl00$ContentPlaceHolder1$ddlrespo" -->
+<!-- 											id="ContentPlaceHolder1_ddlrespo" tabindex="11" -->
+<!-- 											class="form-control" placeholder="Responsibility"> -->
+<!-- 											<option value="Select">Select</option> -->
+<!-- 											<option value="Collection">Collection</option> -->
+<!-- 											<option value="Local Fault Repair">Local Fault Repair</option> -->
+<!-- 											<option value="Other">Other</option> -->
 
-										</select>
+<!-- 										</select> -->
 									</div>
 
 								</div>
@@ -330,7 +347,6 @@ table td {
 										<div style="margin-bottom: 20px">
 											<div class="col-sm-6">
 												<input type="submit"name="ctl00$ContentPlaceHolder1$btnsubmit" value="Add User"	id="ContentPlaceHolder1_btnsubmit"
-													onclick="form.action='create.html';"
 													class="btn btn-primary btn-block"
 													style="font-weight: bold;" />
 											</div>
@@ -354,6 +370,7 @@ table td {
 							<div class="col-sm-12" style="height: 1px"></div>
 
 						</div>
+		</form:form>
 					</div>
 
 				</div>

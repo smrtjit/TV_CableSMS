@@ -20,13 +20,15 @@ public class User {
 
 	
 	
-	public User(Long id, String customer_name, String customer_add, String customer_mobile, String password,
+	
+
+	public User(long username, String customer_name, String customer_add, String customer_mobile, String password,
 			String customer_email, String customer_id_no, String customer_photo, String customer_vc_no,
 			String customer_stb_no, String customer_waranty_date, String connection_status, String package_name,
 			String pairing_status, String account_balance, String last_payment, String last_recharge_date,
-			String connection_go_live, String timestamp, long username) {
+			String connection_go_live, String timestamp, String con_expiry_date) {
 		super();
-		
+		this.username = username;
 		this.customer_name = customer_name;
 		this.customer_add = customer_add;
 		this.customer_mobile = customer_mobile;
@@ -45,7 +47,7 @@ public class User {
 		this.last_recharge_date = last_recharge_date;
 		this.connection_go_live = connection_go_live;
 		this.timestamp = timestamp;
-		this.username = username;
+		this.con_expiry_date = con_expiry_date;
 	}
 
 
@@ -126,9 +128,19 @@ public class User {
 	@NotEmpty
 	private String connection_go_live;
 	
-	@NotEmpty
 	private String timestamp;
+	
+	private String con_expiry_date;
 
+
+	public String getCon_expiry_date() {
+		return con_expiry_date;
+	}
+
+
+	public void setCon_expiry_date(String con_expiry_date) {
+		this.con_expiry_date = con_expiry_date;
+	}
 
 
 	public String getCustomer_name() {

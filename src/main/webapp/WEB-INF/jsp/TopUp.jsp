@@ -34,6 +34,15 @@ hr {
 table#ContentPlaceHolder1_gvBulkRecharge {
 	background-color: #d5f7ce;
 }
+
+.nofound{
+color: red;
+font-size: 3ex;
+margin-left: 350px;
+widows: 100%;
+
+
+}
 </style>
 </head>
 <body
@@ -56,7 +65,7 @@ table#ContentPlaceHolder1_gvBulkRecharge {
 
 				<!--menu iteam code -->
 		<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5>${user}</h5></font></a></li>
-				<li class="pushy-link"><a href="allLCOCollection.html?user=${user}">Collection</a></li>
+				<li class="pushy-link"><a href="allLCOCollection.html?user=<%= request.getParameter("user") %>">Collection</a></li>
 				<li class="pushy-link"><a href="allLCOComplain.html?user=${user} ">Complaint</a></li>
 				<li class="pushy-link"><a href="oldConnections.html?user=<%= request.getParameter("user") %>">Connection</a></li>
 				<li class="pushy-link"><a href="OldUserInfo.html?user=<%= request.getParameter("user") %>">Create User</a></li>
@@ -104,12 +113,14 @@ table#ContentPlaceHolder1_gvBulkRecharge {
 
 
 					<div class="row">
+					<form action="searchVCbyLCO.html">
+					<input type="hidden" name="user" value="${user }"/>
 						<div class="col-sm-3"></div>
 						<div class="col-sm-2">
 							<div style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtvcmobile" type="text"
+								<input name="VC_No" type="text"
 									id="ContentPlaceHolder1_txtvcmobile" tabindex="1"
-									class="form-control" placeholder="VC No" />
+									class="form-control" placeholder="VC No" required/>
 
 							</div>
 
@@ -119,14 +130,18 @@ table#ContentPlaceHolder1_gvBulkRecharge {
 						<div class="col-sm-2">
 							<div style="margin-bottom: 10px">
 
-								<input type="submit" name="ctl00$ContentPlaceHolder1$btn_search"
+								<input type="submit" name="submit"
 									value="Submit" id="ContentPlaceHolder1_btn_search"
 									tabindex="12" class="btn-primary btn btn-block" />
 
 							</div>
 						</div>
+						
+						</form>
 					</div>
-
+	<div class="nofound">
+	${error }
+	</div>
 					<hr />
 
 					<div class="container">
@@ -137,7 +152,8 @@ table#ContentPlaceHolder1_gvBulkRecharge {
 									<input name="ctl00$ContentPlaceHolder1$txtid" type="text"
 										id="ContentPlaceHolder1_txtid" disabled="disabled"
 										tabindex="2" class="aspNetDisabled form-control"
-										placeholder="CustomerID" />
+										placeholder="CustomerID" 
+										value="${userDetails.username }"/>
 
 								</div>
 							</div>
@@ -147,7 +163,8 @@ table#ContentPlaceHolder1_gvBulkRecharge {
 									<input name="ctl00$ContentPlaceHolder1$txtname" type="text"
 										id="ContentPlaceHolder1_txtname" disabled="disabled"
 										tabindex="2" class="aspNetDisabled form-control"
-										placeholder="Customer Name" />
+										placeholder="Customer Name"
+										value="${userDetails.customer_name }" />
 
 								</div>
 							</div>
@@ -158,7 +175,8 @@ table#ContentPlaceHolder1_gvBulkRecharge {
 									<input name="ctl00$ContentPlaceHolder1$txtadd" type="text"
 										id="ContentPlaceHolder1_txtadd" disabled="disabled"
 										tabindex="3" class="aspNetDisabled form-control"
-										placeholder="Customer Address" />
+										placeholder="Customer Address"
+										value="${userDetails.customer_add }" />
 
 								</div>
 							</div>
@@ -169,7 +187,8 @@ table#ContentPlaceHolder1_gvBulkRecharge {
 									<input name="ctl00$ContentPlaceHolder1$txtpackage" type="text"
 										id="ContentPlaceHolder1_txtpackage" disabled="disabled"
 										tabindex="3" class="aspNetDisabled form-control"
-										placeholder="Customer Package Name" />
+										placeholder="Customer Package Name" 
+										value="${pckinfo}"/>
 
 								</div>
 							</div>
@@ -179,7 +198,8 @@ table#ContentPlaceHolder1_gvBulkRecharge {
 									<input name="ctl00$ContentPlaceHolder1$txtmobile" type="text"
 										id="ContentPlaceHolder1_txtmobile" disabled="disabled"
 										tabindex="3" class="aspNetDisabled form-control"
-										placeholder="Customer Mobile No." />
+										placeholder="Customer Mobile No." 
+										value="${userDetails.customer_mobile }"/>
 
 								</div>
 							</div>
@@ -190,7 +210,8 @@ table#ContentPlaceHolder1_gvBulkRecharge {
 									<input name="ctl00$ContentPlaceHolder1$txtemail" type="text"
 										id="ContentPlaceHolder1_txtemail" disabled="disabled"
 										tabindex="3" class="aspNetDisabled form-control"
-										placeholder="Customer Email Id" />
+										placeholder="Customer Email Id" 
+										value="${userDetails.customer_email }"/>
 
 								</div>
 							</div>
@@ -202,7 +223,8 @@ table#ContentPlaceHolder1_gvBulkRecharge {
 										type="text" id="ContentPlaceHolder1_txtinstalldate"
 										disabled="disabled" tabindex="3"
 										class="aspNetDisabled form-control"
-										placeholder="Connection Installation Date" />
+										placeholder="Connection Installation Date" 
+										value="${userDetails.timestamp }"/>
 
 								</div>
 							</div>
@@ -214,7 +236,8 @@ table#ContentPlaceHolder1_gvBulkRecharge {
 										type="text" id="ContentPlaceHolder1_txtexpirydate"
 										disabled="disabled" tabindex="3"
 										class="aspNetDisabled form-control"
-										placeholder="Connection Expiry Date" />
+										placeholder="Connection Expiry Date" 
+										value="${userDetails.con_expiry_date }"/>
 
 								</div>
 							</div>
@@ -222,10 +245,10 @@ table#ContentPlaceHolder1_gvBulkRecharge {
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
 
-									<input name="ctl00$ContentPlaceHolder1$txtamount" type="text"
+									<input name="amt" type="text"
 										id="ContentPlaceHolder1_txtamount" tabindex="3"
 										class="form-control" placeholder="Amount Of Recharge"
-										style="border-color: Red;" />
+										required style="border-color: Red;" />
 
 								</div>
 							</div>

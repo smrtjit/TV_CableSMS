@@ -20,6 +20,9 @@ public class AllCollections {
 	private String VC_No;
 	
 	@NotEmpty
+	private String cust_mobile;
+	
+	@NotEmpty
 	@Size(min = 1, max = 150)
 	private String Cust_Name;
 	
@@ -49,12 +52,14 @@ public class AllCollections {
 	public AllCollections() {
 		// TODO Auto-generated constructor stub
 	}
-	public AllCollections(String invoice, String vC_No, String cust_Name, String current_Pckg, String pckg_Price,
-			String recharge_Amount, String discount, String payment_Mode, String lM_Id, String payment_Status,
-			String refernceId, String trndate) {
+
+	public AllCollections(String invoice, String vC_No, String cust_mobile, String cust_Name, String current_Pckg,
+			String pckg_Price, String recharge_Amount, String discount, String payment_Mode, String lM_Id,
+			String payment_Status, String refernceId, String trndate) {
 		super();
 		Invoice = invoice;
 		VC_No = vC_No;
+		this.cust_mobile = cust_mobile;
 		Cust_Name = cust_Name;
 		Current_Pckg = current_Pckg;
 		Pckg_Price = pckg_Price;
@@ -66,6 +71,7 @@ public class AllCollections {
 		RefernceId = refernceId;
 		this.trndate = trndate;
 	}
+
 	public String getInvoice() {
 		return Invoice;
 	}
@@ -81,6 +87,14 @@ public class AllCollections {
 	public String getCust_Name() {
 		return Cust_Name;
 	}
+	public String getCust_mobile() {
+		return cust_mobile;
+	}
+
+	public void setCust_mobile(String cust_mobile) {
+		this.cust_mobile = cust_mobile;
+	}
+
 	public void setCust_Name(String cust_Name) {
 		Cust_Name = cust_Name;
 	}

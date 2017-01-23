@@ -44,7 +44,7 @@ public class LMUserDaoImpl implements LMUserDao {
 	public LMUser get(String username) {
 		Session sf = dao.openSession();
 		Criteria c2 = sf.createCriteria(LMUser.class);
-		c2.add(Restrictions.eq("login_id", username));
+		c2.add(Restrictions.eq("username", username));
 		System.out.println("LMUser Id: "+username);
 		LMUser product = (LMUser) c2.uniqueResult();
 		//LCOUser product = (LCOUser) sf.get(LMUser.class, Long.parseLong(username));

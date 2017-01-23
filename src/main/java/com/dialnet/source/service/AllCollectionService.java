@@ -8,4 +8,7 @@ public interface AllCollectionService {
 
 	
 	public List<AllCollections> getAll();
+	
+	public List<AllCollections> getByAnyOne(String sdate,String edate,String VC_no,String mobile,String pckg); 
+	
 }
