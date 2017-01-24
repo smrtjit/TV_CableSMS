@@ -323,6 +323,20 @@ public class LCOController {
 		return new ModelAndView("Connection", map);
 	}
 
+	
+	
+	@RequestMapping(value="/lcoaccountMgmt", method=RequestMethod.GET)
+	public String accountMgmt(@RequestParam("user") String user,Model model) {	
+	model.addAttribute("user", user);
+	return "LCOAccountMgmt";
+	}
+	@RequestMapping(value="/lcostock", method=RequestMethod.GET)
+	public String lcoStock(@RequestParam("user") String user,Model model) {	
+	model.addAttribute("user", user);
+	return "LCOStock";
+	}
+	
+	
 	////////////////////////////////// Date and Password Generation
 	////////////////////////////////// functions///////////////////////////////////
 
