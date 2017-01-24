@@ -57,6 +57,12 @@ public class SubscriberServiceImpl implements SubscriberService {
 		User stud = subsriberdao.findByVCNO(vcno);
 		return stud;	
 	}
+
+	@Override
+	public List<User> findByAnyone(String sdate, String edate, String stb_no, String VC_no, String mobile,
+			String status, String pckg) {
+		return subsriberdao.findByAnyone(sdate, edate, stb_no, VC_no, mobile, status, pckg);
+	}
 	
 
 }

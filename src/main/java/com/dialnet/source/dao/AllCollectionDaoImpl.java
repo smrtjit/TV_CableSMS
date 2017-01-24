@@ -29,15 +29,39 @@ public class AllCollectionDaoImpl implements AllCollectionDao {
 
 	@Override
 	public List<AllCollections> getByAnyOne(String sdate, String edate, String VC_no, String mobile, String pckg) {
+		System.out.println("sdate: "+sdate+",edate: "+edate+",VC_no: "+VC_no+",mobile: "+mobile+",pckg: "+pckg);
 		Session sf=dao.openSession();
 		Criteria criteria = sf.createCriteria(AllCollections.class); 
+		if(sdate==null || sdate.equalsIgnoreCase("")){
+			System.out.println("sdate is not available");
+		}
+		else{
+			criteria.add(Restrictions.gt("trndate",sdate+" 00:00:00"));
+		}
 		
-		return criteria.add(Restrictions.disjunction()
-			      .add(Restrictions.gt("trndate", sdate))
-			      .add(Restrictions.lt("trndate", edate)) 
-			      .add(Restrictions.eq("VC_No", VC_no)) 
-			      .add(Restrictions.eq("cust_mobile", mobile))
-			      .add(Restrictions.eq("Current_Pckg", pckg))).list();
+		if(edate==null || edate.equalsIgnoreCase(""))
+			System.out.println("edate is not available");
+		else{
+			criteria.add(Restrictions.lt("trndate",edate+" 59:59:59"));
+		}
+		
+		if(VC_no==null || VC_no.equalsIgnoreCase(""))
+			System.out.println("VC_no is not available");
+		else{
+			criteria.add(Restrictions.eq("VC_No",VC_no));
+		}
+		
+		if(mobile==null || mobile.equalsIgnoreCase(""))
+			System.out.println("mobile is not available");
+		else
+		criteria.add(Restrictions.eq("cust_mobile",mobile));
+		if(pckg==null || pckg.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("Current_Pckg",pckg));
+		
+		
+		return criteria.list();
 		
 	}
 

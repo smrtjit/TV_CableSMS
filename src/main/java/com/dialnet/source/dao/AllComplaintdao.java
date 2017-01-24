@@ -12,4 +12,6 @@ public interface AllComplaintdao {
 	public List<AllComplaints> getComplaint(String complaints_No);
 	public List<AllComplaints> getAllComplaints();
 	
+	public List<AllComplaints> getByAnyOne(String sdate,String edate,String VC_no,String mobile,String status); 
+	
 }

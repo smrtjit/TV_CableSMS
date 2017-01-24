@@ -325,10 +325,10 @@ widows: 100%;
 						debugger;
 
 						$('#ContentPlaceHolder1_txttodate').datepicker({
-							dateFormat : 'dd-mm-yy'
+							dateFormat : 'yy-mm-dd'
 						});
 						$('#ContentPlaceHolder1_txtfromdate').datepicker({
-							dateFormat : 'dd-mm-yy'
+							dateFormat : 'yy-mm-dd'
 						});
 
 					});

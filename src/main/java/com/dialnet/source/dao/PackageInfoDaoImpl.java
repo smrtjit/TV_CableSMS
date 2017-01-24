@@ -5,7 +5,10 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,6 +36,17 @@ public class PackageInfoDaoImpl implements PackageInfoDao {
 	public List<PackageInfo> getAll() {
 		Session sf = session.openSession();
 		return sf.createQuery("from PackageInfo").list();
+	}
+
+	@Override
+	public List<String> getAllPckgNames() {
+		Session sf = session.openSession();
+		Criteria cr = sf.createCriteria(PackageInfo.class);
+		ProjectionList proList = Projections.projectionList(); 
+		proList.add(Projections.property("name"));
+		cr.setProjection(proList); 
+
+		return cr.list();
 	}
 	
 

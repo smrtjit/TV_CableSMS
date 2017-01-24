@@ -23,5 +23,11 @@ public class PackageInfoServiceImpl implements PackageInfoService {
 		return packageinfodao.getAll();
 	}
 
+	@Override
+	public List<String> getAllPckgNames() {
+		
+		return packageinfodao.getAllPckgNames();
+	}
+
 
 }

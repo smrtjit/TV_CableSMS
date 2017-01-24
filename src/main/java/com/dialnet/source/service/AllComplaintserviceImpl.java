@@ -43,4 +43,9 @@ public class AllComplaintserviceImpl implements AllComplaintService {
 		return allcomplaintdao.getComplaint(complaints_No);
 	}
 
+	@Override
+	public List<AllComplaints> getByAnyOne(String sdate, String edate, String VC_no, String mobile, String status) {
+		return allcomplaintdao.getByAnyOne(sdate, edate, VC_no, mobile, status);
+	}
+
 }

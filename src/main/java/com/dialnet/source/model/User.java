@@ -22,7 +22,7 @@ public class User {
 	
 	
 
-	public User(long username, String customer_name, String customer_add, String customer_mobile, String password,
+	public User(String username, String customer_name, String customer_add, String customer_mobile, String password,
 			String customer_email, String customer_id_no, String customer_photo, String customer_vc_no,
 			String customer_stb_no, String customer_waranty_date, String connection_status, String package_name,
 			String pairing_status, String account_balance, String last_payment, String last_recharge_date,
@@ -51,30 +51,22 @@ public class User {
 	}
 
 
-	public long getUsername() {
-		return username;
-	}
-
-
-	public void setUsername(long username) {
-		this.username = username;
-	}
-
-
 	public User() {
 		super();
 	}
 
 	
-	
-
-
 	@Id
 	@GeneratedValue
-	private long username;
+	private long id;
+	
 	
 	@NotEmpty
-	@Size(min=4, max=20)
+	@Size(min=4, max=40)
+	private String username;
+	
+	@NotEmpty
+	@Size(min=4, max=40)
 	private String customer_name;
 	
 	@NotEmpty
@@ -84,17 +76,15 @@ public class User {
 	private String customer_mobile;
 	
 	@NotEmpty
-	@Size(min=4, max=8)
+	@Size(min=4, max=28)
 	private String password;
 	
 	@NotEmpty
 	@Email
 	private String customer_email;
 	
-	@NotEmpty
 	private String customer_id_no;
 	
-	@NotEmpty
 	private String customer_photo;
 	
 	@NotEmpty
@@ -102,35 +92,30 @@ public class User {
 	
 	@NotEmpty
 	private String customer_stb_no;
-	
-	@NotEmpty
 	private String customer_waranty_date;
 	
 	@NotEmpty
 	private String connection_status;
-	
-	@NotEmpty
 	private String package_name;
-	
-	@NotEmpty
 	private String pairing_status;
 	
 	@NotEmpty
 	private String account_balance;
-	
-	@NotEmpty
 	private String last_payment;
-	
-	@NotEmpty
 	private String last_recharge_date;
-	
-	
-	@NotEmpty
 	private String connection_go_live;
-	
 	private String timestamp;
-	
 	private String con_expiry_date;
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 
 	public String getCon_expiry_date() {

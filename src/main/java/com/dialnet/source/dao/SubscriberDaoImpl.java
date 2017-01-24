@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dialnet.source.model.LCOUser;
 import com.dialnet.source.model.User;
 
 @Transactional
@@ -21,8 +20,8 @@ public class SubscriberDaoImpl implements SubsriberDao {
 	private SessionFactory dao;
 
 	public void add(User complaints) {
-		// TODO Auto-generated method stub
-
+		Session sf = dao.openSession();
+		sf.save(complaints);
 	}
 
 	public void edit(User complaints) {
@@ -37,8 +36,11 @@ public class SubscriberDaoImpl implements SubsriberDao {
 
 	public User get(String complaints_No) {
 		Session sf = dao.openSession();
-		User product = (User) sf.get(User.class, Long.parseLong(complaints_No));
-		//System.out.println("user: " + product);
+		Criteria cr = sf.createCriteria(User.class);
+
+		// To get records having salary more than 2000
+		cr.add(Restrictions.eq("username", complaints_No));
+		User product = (User)cr.uniqueResult();
 
 		return product;
 	}
@@ -58,6 +60,53 @@ public class SubscriberDaoImpl implements SubsriberDao {
 		//System.out.println("user: " + product);
 
 		return product;
+	}
+
+	@Override
+	public List<User> findByAnyone(String sdate, String edate, String stb_no, String VC_no, String mobile,
+			String status, String pckg) {
+		System.out.println("sdate: "+sdate+",edate: "+edate+",VC_no: "+VC_no+",mobile: "+mobile+",pckg: "+pckg+",Status: "+status);
+		Session sf=dao.openSession();
+		Criteria criteria = sf.createCriteria(User.class); 
+		if(sdate==null || sdate.equalsIgnoreCase("")){
+			System.out.println("sdate is not available");
+		}
+		else{
+			criteria.add(Restrictions.gt("timestamp",sdate+" 00:00:00"));
+		}
+		
+		if(edate==null || edate.equalsIgnoreCase(""))
+			System.out.println("edate is not available");
+		else{
+			criteria.add(Restrictions.lt("timestamp",edate+" 59:59:59"));
+		}
+		
+		if(VC_no==null || VC_no.equalsIgnoreCase(""))
+			System.out.println("VC_no is not available");
+		else{
+			criteria.add(Restrictions.eq("customer_vc_no",VC_no));
+		}
+		
+		if(mobile==null || mobile.equalsIgnoreCase(""))
+			System.out.println("mobile is not available");
+		else
+		criteria.add(Restrictions.eq("customer_mobile",mobile));
+		if(pckg==null || pckg.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("package_name",pckg));
+		
+		if(status==null || status.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("connection_status",status));
+		
+		if(stb_no==null || stb_no.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("customer_stb_no",stb_no));
+		
+		return criteria.list();
 	}
 
 }

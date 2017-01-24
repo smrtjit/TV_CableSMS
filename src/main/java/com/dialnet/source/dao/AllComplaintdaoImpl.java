@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dialnet.source.model.AllCollections;
 import com.dialnet.source.model.AllComplaints;
 import com.dialnet.source.model.User;
 
@@ -50,6 +51,44 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 		System.out.println("Call All Complaint \t");
 		Session sf = session.openSession();
 		return sf.createQuery("from AllComplaints").list();
+	}
+	
+	@Override
+	public List<AllComplaints> getByAnyOne(String sdate, String edate, String VC_no, String mobile, String status) {
+		System.out.println("sdate: "+sdate+",edate: "+edate+",VC_no: "+VC_no+",mobile: "+mobile+",pckg: "+status);
+		Session sf=session.openSession();
+		Criteria criteria = sf.createCriteria(AllComplaints.class); 
+		if(sdate==null || sdate.equalsIgnoreCase("")){
+			System.out.println("sdate is not available");
+		}
+		else{
+			criteria.add(Restrictions.gt("open_date",sdate+" 00:00:00"));
+		}
+		
+		if(edate==null || edate.equalsIgnoreCase(""))
+			System.out.println("edate is not available");
+		else{
+			criteria.add(Restrictions.lt("open_date",edate+" 59:59:59"));
+		}
+		
+		if(VC_no==null || VC_no.equalsIgnoreCase(""))
+			System.out.println("VC_no is not available");
+		else{
+			criteria.add(Restrictions.eq("customer_vcno",VC_no));
+		}
+		
+		if(mobile==null || mobile.equalsIgnoreCase(""))
+			System.out.println("mobile is not available");
+		else
+		criteria.add(Restrictions.eq("customer_mobile",mobile));
+		if(status==null || status.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("complaint_status",status));
+		
+		
+		return criteria.list();
+		
 	}
 
 }

@@ -44,25 +44,21 @@ public class LCOController {
 	@Autowired
 	public LCOUserService lcoService;
 
-	
 	@Autowired
 	public SubscriberService userService;
 
 	@Autowired
 	public AllComplaintService LCOComplaintRepository;
-	
+
 	@Autowired
 	public AllCollectionService LCOCollectionRepository;
-	
-	
+
 	@Autowired
 	LMUserService lmuserservice;
-	
 
 	@Autowired
 	PackageInfoService pckgservice;
-	
-	
+
 	@RequestMapping(value = "/lcologin", method = RequestMethod.GET)
 	public String login(Model model) {
 		UserLogin studentLogin = new UserLogin();
@@ -90,42 +86,43 @@ public class LCOController {
 		}
 
 	}
-	
-	
-	@RequestMapping(value="/allLCOCollection", method=RequestMethod.GET)
-	public ModelAndView allLCOCollection(ModelMap map,@RequestParam("user") String user) {
-	 List<AllCollections> userList = LCOCollectionRepository.getAll();
-	 /*
-			for (AllCollections temp : userList) {
-				System.out.println("User Name: "+temp.getCust_Name()+",Invoice No.: "+temp.getInvoice());
-				
-			}
-		*/	
-			map.addAttribute("userList", userList);
-	        map.addAttribute("user", user);
-	        return new ModelAndView("Collection", map);
-		
-		
+
+	@RequestMapping(value = "/allLCOCollection", method = RequestMethod.GET)
+	public ModelAndView allLCOCollection(ModelMap map, @RequestParam("user") String user) {
+		List<AllCollections> userList = LCOCollectionRepository.getAll();
+		/*
+		 * for (AllCollections temp : userList) {
+		 * System.out.println("User Name: "+temp.getCust_Name()+",Invoice No.: "
+		 * +temp.getInvoice());
+		 * 
+		 * }
+		 */
+		map.addAttribute("userList", userList);
+		map.addAttribute("user", user);
+		return new ModelAndView("Collection", map);
+
 	}
 
 	
-	
-	 @RequestMapping(value="/oldConnections", method=RequestMethod.GET)
-		public ModelAndView CustRecharge(ModelMap map,@RequestParam("user") String user) {
-				List<User> userList = userService.getAll();
-				/*
-				for (User temp : userList) {
-					System.out.println("User Name: "+temp.getUsername()+",Mobile No.: "+temp.getCustomer_mobile());
-					
-				}
-				*/
-				map.addAttribute("userList", userList);
-		        map.addAttribute("user", user);
-		        return new ModelAndView("Connection", map);
-			
-			
-		}
-	 
+	@RequestMapping(value = "/oldConnections", method = RequestMethod.GET)
+	public ModelAndView CustRecharge(ModelMap map, @RequestParam("user") String user) {
+		User userForm = new User();
+		map.addAttribute("subForm", userForm);
+		List<String> al=pckgservice.getAllPckgNames();
+		map.addAttribute("pckInfo", al);
+		List<User> userList = userService.getAll();
+		/*
+		  for (User temp : userList) {
+		  System.out.println("User Name: "+temp.getUsername()+",Mobile No.: " +temp.getCustomer_mobile());
+		  
+		  }
+		 */
+		map.addAttribute("userList", userList);
+		map.addAttribute("user", user);
+		return new ModelAndView("Connection", map);
+
+	}
+
 	@RequestMapping(value = "/LCODetail", method = RequestMethod.GET)
 	public ModelAndView LCODEtail(@ModelAttribute("LCODetail") LCOUser studentLogin, @RequestParam("user") String user,
 			BindingResult result) {
@@ -159,147 +156,200 @@ public class LCOController {
 		}
 
 	}
-	 
-	 @RequestMapping(value="/allLCOComplain", method=RequestMethod.GET)
-		public ModelAndView allLCOComplain(ModelMap map,@RequestParam("user") String user) {
-		
-		 List<AllComplaints> userList = LCOComplaintRepository.getAllComplaints();
-		 /*
-				for (AllComplaints temp : userList) {
-					System.out.println("User Name: "+temp.getComplaint_no()+",Mobile No.: "+temp.getCustomer_vcno());
-					
-				}
-			*/	
-				map.addAttribute("userList", userList);
-				
-		        map.addAttribute("user", user);
-		        return new ModelAndView("Dashboard", map);
-			
-			
+
+	@RequestMapping(value = "/allLCOComplain", method = RequestMethod.GET)
+	public ModelAndView allLCOComplain(ModelMap map, @RequestParam("user") String user) {
+
+		List<AllComplaints> userList = LCOComplaintRepository.getAllComplaints();
+		/*
+		 * for (AllComplaints temp : userList) {
+		 * System.out.println("User Name: "+temp.getComplaint_no()
+		 * +",Mobile No.: "+temp.getCustomer_vcno());
+		 * 
+		 * }
+		 */
+		map.addAttribute("userList", userList);
+
+		map.addAttribute("user", user);
+		return new ModelAndView("Dashboard", map);
+
+	}
+
+	@RequestMapping(value = "/OldUserInfo", method = RequestMethod.GET)
+	public ModelAndView OldUserInfo(ModelMap map, @RequestParam("user") String user) {
+		System.out.println("Old User Info Called");
+		LMUser userForm = new LMUser();
+		map.addAttribute("userForm", userForm);
+		ArrayList<String> departments = new ArrayList<String>();
+		departments.add("Select Repsonsibility");
+		departments.add("Collection");
+		departments.add("Local Fault Repair");
+		departments.add("Others");
+
+		List<LMUser> userList = lmuserservice.getAll();
+		System.out.println("Old User Info Called userList size: " + userList.size());
+		for (LMUser temp : userList) {
+			System.out.println("Old User Info Name: " + temp.getUsername() + ",Mobile: " + temp.getMobile());
 		}
-	 
-	 @RequestMapping(value="/OldUserInfo", method=RequestMethod.GET)
-	    public ModelAndView OldUserInfo(ModelMap map,@RequestParam("user") String user) {
-		 System.out.println("Old User Info Called");
-		 LMUser userForm = new LMUser();		
-			map.addAttribute("userForm", userForm);
-			ArrayList<String> departments = new ArrayList<String>();
-	        departments.add( "Select Repsonsibility");
-	        departments.add( "Collection");
-	        departments.add( "Local Fault Repair");
-	        departments.add( "Others");
-	       
-	        List<LMUser> userList = lmuserservice.getAll();
-	        System.out.println("Old User Info Called userList size: "+userList.size());
-	        for (LMUser temp : userList) {
-				System.out.println("Old User Info Name: "+temp.getUsername()+",Mobile: "+temp.getMobile());
-			}
-	        map.addAttribute("resp",departments);
-	        map.addAttribute("userList", userList);
-	        map.addAttribute("id", user);
-	        return new ModelAndView("NewUser", map);
-	    }
-	 @RequestMapping(value="/lcoTopUp", method=RequestMethod.GET)
-	 public ModelAndView topUp(ModelMap map,@RequestParam("user") String user) {
-		 	map.addAttribute("user", user);
-	        return new ModelAndView("TopUp", map);
+		map.addAttribute("resp", departments);
+		map.addAttribute("userList", userList);
+		map.addAttribute("id", user);
+		return new ModelAndView("NewUser", map);
+	}
+
+	@RequestMapping(value = "/lcoTopUp", method = RequestMethod.GET)
+	public ModelAndView topUp(ModelMap map, @RequestParam("user") String user) {
+		map.addAttribute("user", user);
+		return new ModelAndView("TopUp", map);
+	}
+
+	@RequestMapping(value = "/lcoBilling", method = RequestMethod.GET)
+	public ModelAndView lcoBilling(ModelMap map, @RequestParam("user") String user) {
+		map.addAttribute("user", user);
+		return new ModelAndView("BulkBilling", map);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "register")
+	public ModelAndView processRegistration(@ModelAttribute("userForm") LMUser lmuser, ModelMap map,
+			@RequestParam("user") String user) {
+
+		//System.out.println("username: " + lmuser.getUsername());
+		//System.out.println("password: " + lmuser.getEmail_id());
+		//System.out.println("email: " + lmuser.getMobile());
+		lmuser.setPassword(getSaltString());
+		lmuser.setUsername(lmuser.getMobile());
+		lmuser.setTimestamp(getDate());
+		lmuserservice.add(lmuser);
+		map.addAttribute("user", user);
+		return new ModelAndView("redirect:OldUserInfo.html", map);
+
+	}
+
+	@RequestMapping(value = "/searchVCbyLCO", method = RequestMethod.GET)
+	public ModelAndView searchVCbyLCO(ModelMap map, @RequestParam("user") String user,
+			@RequestParam("VC_No") String VC_No) {
+		map.addAttribute("user", user);
+		System.out.println("VC no: " + VC_No);
+		User tmp = userService.findByVCNO(VC_No);
+		if (tmp == null) {
+			map.addAttribute("error", "VC Number is not Valid");
+		} else {
+			map.addAttribute("userDetails", tmp);
+			PackageInfo pck = pckgservice.getByID(tmp.getPackage_name());
+			map.addAttribute("pckinfo", pck.getName());
+			System.out.println("name: " + tmp.getCustomer_name());
 		}
-	 
-	 @RequestMapping(value="/lcoBilling", method=RequestMethod.GET)
-	 public ModelAndView lcoBilling(ModelMap map,@RequestParam("user") String user) {
-		 	map.addAttribute("user", user);
-	        return new ModelAndView("BulkBilling", map);
+
+		return new ModelAndView("TopUp", map);
+	}
+
+	@RequestMapping(value = "/searchByanyOne", method = RequestMethod.GET)
+	public ModelAndView searchByanyOne(ModelMap map, @RequestParam("user") String user,
+			@RequestParam("VC_No") String VC_No, @RequestParam("fdate") String fdate,
+			@RequestParam("edate") String edate, @RequestParam("mobile") String mobile,
+			@RequestParam("pckg") String pckg) {
+		map.addAttribute("user", user);
+		System.out.println("VC no: " + VC_No);
+		List<AllCollections> tmp = LCOCollectionRepository.getByAnyOne(fdate, edate, VC_No, mobile, pckg);
+		System.out.println("tmp.size()***************: " + tmp.size());
+		if (tmp.size() < 1) {
+			map.addAttribute("error", "No Data Found!!!");
+			System.out.println("No Data Found........................");
+		} else {
+			map.addAttribute("userList", tmp);
 		}
-	 
-	 
-	@RequestMapping(method = RequestMethod.GET,value = "register")
-		public ModelAndView processRegistration(@ModelAttribute("userForm") LMUser lmuser, 
-				ModelMap map,@RequestParam("user") String user) {
-			
-			System.out.println("username: " + lmuser.getUsername());
-			System.out.println("password: " + lmuser.getEmail_id());
-			System.out.println("email: " + lmuser.getMobile());
-			lmuser.setPassword(getSaltString());
-			lmuser.setUsername(lmuser.getMobile());
-			lmuser.setTimestamp(getDate());
-			lmuserservice.add(lmuser);
+
+		return new ModelAndView("Collection", map);
+	}
+
+	@RequestMapping(value = "/addNewUser", method = RequestMethod.GET)
+	public ModelAndView addNewUser(@ModelAttribute("subForm") User sub, ModelMap map,
+			@RequestParam("user") String user,@RequestParam("username") String username) {
+		System.out.println("user name for inserting new connection: "+sub.getCustomer_name()+",user: "+username);
+		sub.setUsername(username);
+		sub.setPassword(getSaltString());
+		sub.setTimestamp(getDate());
+		sub.setLast_recharge_date(getDate());
+		sub.setLast_payment(sub.getAccount_balance());
+			userService.add(sub);
 			map.addAttribute("user", user);
-	        return new ModelAndView("redirect:OldUserInfo.html", map);
-		
-		}  
+		return new ModelAndView("redirect:oldConnections.html", map);
+	}
 	
 	
-	
-	 @RequestMapping(value="/searchVCbyLCO", method=RequestMethod.GET)
-	 public ModelAndView searchVCbyLCO(ModelMap map,@RequestParam("user") String user,@RequestParam("VC_No") String VC_No) {
-		 	map.addAttribute("user", user);
-		 	System.out.println("VC no: "+VC_No);
-		 	User tmp=userService.findByVCNO(VC_No);
-		 	if(tmp==null){
-		 		map.addAttribute("error","VC Number is not Valid");
-		 	}else{
-		 		map.addAttribute("userDetails",tmp);
-		 		PackageInfo pck=pckgservice.getByID(tmp.getPackage_name());
-		 		map.addAttribute("pckinfo", pck.getName());
-		 		System.out.println("name: "+tmp.getCustomer_name());
-		 	}
-		 	
-	        return new ModelAndView("TopUp", map);
+	@RequestMapping(value = "/searchComplainByanyOne", method = RequestMethod.GET)
+	public ModelAndView searchComplainByanyOne(ModelMap map, @RequestParam("user") String user,
+			@RequestParam("VC_No") String VC_No, @RequestParam("fdate") String fdate,
+			@RequestParam("edate") String edate, @RequestParam("mobile") String mobile,
+			@RequestParam("status") String pckg) {
+		map.addAttribute("user", user);
+		System.out.println("VC no: " + VC_No);
+		List<AllComplaints> tmp = LCOComplaintRepository.getByAnyOne(fdate, edate, VC_No, mobile, pckg);
+		System.out.println("tmp.size()***************: " + tmp.size());
+		if (tmp.size() < 1) {
+			map.addAttribute("error", "No Data Found!!!");
+			System.out.println("No Data Found........................");
+		} else {
+			map.addAttribute("userList", tmp);
 		}
+
+		return new ModelAndView("Dashboard", map);
+	}
 	
-	 
-	 @RequestMapping(value="/searchByanyOne", method=RequestMethod.GET)
-	 public ModelAndView searchByanyOne(ModelMap map,@RequestParam("user") String user,@RequestParam("VC_No") String VC_No
-			 ,@RequestParam("fdate") String fdate,@RequestParam("edate") String edate
-			 ,@RequestParam("mobile") String mobile ,@RequestParam("pckg") String pckg) {
-		 	map.addAttribute("user", user);
-		 	System.out.println("VC no: "+VC_No);
-		 	List<AllCollections> tmp=LCOCollectionRepository.getByAnyOne(fdate, edate, VC_No, mobile, pckg);
-		 	System.out.println("tmp.size()***************: "+tmp.size());
-		 	if(tmp.size()<1){
-		 		map.addAttribute("error","No Data Found!!!");
-		 		System.out.println("No Data Found........................");
-		 	}else{
-		 		map.addAttribute("userList",tmp);
-		 	}
-		 	
-	        return new ModelAndView("Collection", map);
+	
+	
+	@RequestMapping(value = "/searchLCOConByLCO", method = RequestMethod.GET)
+	public ModelAndView searchOlConByLCO(ModelMap map, @RequestParam("user") String user,@ModelAttribute("subForm") User sub,
+			@RequestParam("VC_No") String VC_No, @RequestParam("fdate") String fdate,
+			@RequestParam("edate") String edate, @RequestParam("mobile") String mobile,
+			@RequestParam("status") String status,@RequestParam("stb_no") String stb
+			,@RequestParam("pckg") String pckg)
+			 {
+		User userForm = new User();
+		map.addAttribute("subForm", userForm);
+		map.addAttribute("user", user);
+		List<String> al=pckgservice.getAllPckgNames();
+		map.addAttribute("pckInfo", al);
+		System.out.println("status in searchLCOConByLCO: " + status);
+		List<User> tmp = userService.findByAnyone(fdate, edate, stb, VC_No, mobile, status, pckg);
+		System.out.println("tmp.size()***************: " + tmp.size());
+		if (tmp.size() < 1) {
+			map.addAttribute("error", "No Data Found!!!");
+			System.out.println("No Data Found........................");
+		} else {
+			map.addAttribute("userList", tmp);
 		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//////////////////////////////////Date and Password Generation functions///////////////////////////////////
-	
+
+		return new ModelAndView("Connection", map);
+	}
+
+	////////////////////////////////// Date and Password Generation
+	////////////////////////////////// functions///////////////////////////////////
+
 	String getSaltString() {
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        StringBuilder salt = new StringBuilder();
-        Random rnd = new Random();
-        while (salt.length() < 10) {
-            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-            salt.append(SALTCHARS.charAt(index));
-        }
-        String saltStr = salt.toString();
-        return saltStr;
+		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+		StringBuilder salt = new StringBuilder();
+		Random rnd = new Random();
+		while (salt.length() < 10) {
+			int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+			salt.append(SALTCHARS.charAt(index));
+		}
+		String saltStr = salt.toString();
+		return saltStr;
 
-    }
+	}
 
-	 public String getDate() {
-	        String trnstamp = null;
-	         try {
-	            SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	            Date now = new Date();
-	            String strDate = sdfDate.format(now);
-	            //System.out.println(strDate.toString());
-	            trnstamp = strDate.toString();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	        return trnstamp;
-	    }
+	public String getDate() {
+		String trnstamp = null;
+		try {
+			SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date now = new Date();
+			String strDate = sdfDate.format(now);
+			// System.out.println(strDate.toString());
+			trnstamp = strDate.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return trnstamp;
+	}
 }

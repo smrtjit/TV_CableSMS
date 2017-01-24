@@ -13,4 +13,5 @@ public interface SubscriberService {
 	public boolean findByLogin(String id,String pwd);
 	public List getAll();
 	public User findByVCNO(String vcno);
+	public List<User> findByAnyone(String sdate,String edate,String stb_no,String VC_no,String mobile,String status,String pckg);
 }
