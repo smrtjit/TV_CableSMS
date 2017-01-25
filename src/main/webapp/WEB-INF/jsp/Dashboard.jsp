@@ -56,15 +56,7 @@ table td {
 				System.out.print("session found");
 				%>
 	
-	<form method="post" action="./dashboard.jsp" id="form1">
-		<div class="aspNetHidden">
-			<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
-			<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT"
-				value="" /> <input type="hidden" name="__LASTFOCUS"
-				id="__LASTFOCUS" value="" /> <input type="hidden"
-				name="__VIEWSTATE" id="__VIEWSTATE"
-				value="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" />
-		</div>
+
 
 		<script type="text/javascript">
 //<![CDATA[
@@ -81,15 +73,9 @@ function __doPostBack(eventTarget, eventArgument) {
 }
 //]]>
 </script>
-	<div class="aspNetHidden">
-
-			<input type="hidden" name="__VIEWSTATEGENERATOR"
-				id="__VIEWSTATEGENERATOR" value="B543B226" /> <input type="hidden"
-				name="__EVENTVALIDATION" id="__EVENTVALIDATION"
-				value="PErdKhkNKqEhU+P9L8R7/TDKy708BFDxxCu9KB5ljoPue6KRMmHo3pNeQsG6hGASEPzwjaOhGrwDaeJsehiK3vbGEa6NGyftyQP2aXEpwHcIREWhlnQS3JIhLfqEXuy6ICBy/06TMWCtqiyTj9z/JqQD0noEaGBGTK78n3GnIN7wFRQ0NMA5A0EdLvZ97BPgclBzrRfwQr8uTXPO0dNIhe+WKdDskF5pR9UKGY/CfF1XcDyGWYXKi4A69uwBDRcVA9Ut0MKH65jj1miweGJd9FoHxHU8jZU8QfR/1k7IreCfcPP/+CwZXOw8e78WMvCq0BbXvMU0ig7U63cukE6as4B//eJrORMOesArvgbcwUZmPubVuJuqNNAc0DzVzDO6VpDuyrKWqLHXXuTMPXfpFGYm9CLozfq1GVMf0mbzOyra6oWMhs496T0pMEsH0xzn/OXNwdVHOPAbLJAd5LjUNPNEhcK6jB6NAQvcDasujLUB3zIIp9+ObGo+vOUPqxZ/tPJqQWGxFru+WlJkYqfloQKP6bgaT/PoXyVxk2Ivujj5ZttRrxjoAU5uRlPW/J4fJFOLGuVv7nfDcOng8mbTLr/VdjXA09pqpAEr22Jau9pIL/l5hlqhpWK/gQSbPMpd6HKSTj0DNBDqfbQVC/eiHsTAg4PYrd4QIszxRMkzgcp3YvasSALFcWOq39POy/y166qio9otKOHT/lnxStWUPQzqpDeVx1PX7oQrIW1kuGJ0t/To0Zn1rPMKmBn04lYWLqmRfLYlC+P+A4Ys1Z0UDWwUlOG5qBG2av3C5YB/zEMDFi0BfbsIUDAW0BwHIFcWHu/5z63Lx+PzjBkD4JVuCxW9GUQGTkKN6Wxv1x0VKHIT7jcDwY8P5uWiXRmiRt6AEIhapdv4ZDHqONdBiKKs2EKLt6XiW0i0AfvXpMpUpb4fvYFx2Ihiv6nCK5b+qR9I3Y6en7sneeiFx5KxgnbFFPGmnyp2RESHqgbbVeYuCrGEXNMCgCHOf5x1wrUcNEThDnRpA12VK0PmndtJ3sKvmsbvizqwDsiZfu+/a3AitsOmbTQTubLuJOHgTRVx+QI1jD1g//KIVncc/pOaZS4BeTRBgyAdD65TJN2TYFMWRDTE+1PguogNbPCYV5pX7vkpvk/5L21SfkphICq3xuRB5jAyABnBVsWcVb341eL/QVfOEyZQjJ/O+3T0Ao781frhU0favHd6amp8PTznSF8nPNKOvS4A7pI/JlBaADyAPdFYGKY2RY4sneWgd0VsOl42qmHOFa+1gb6JzA2EtOSKhPXxONdvpPELCQ+KhuZ88RajiJALXB/ciU+Wlm+o9i4vcyQnlCYB2oXXsVEQWcZAMii6dYRI7ks3g3GpHBgHL1SwUHW84CNQeL/mx1DctBLW5wR5NlTlcHYr0NbiB2rGv+HLFkQS+lE/UMjZxmbBjcp8wgje5Wzcii4f0bOPWgWH" />
-		</div>
+	
 		<div>
-			<header class="site-header push"> <marquee>Welcome to Cable TV Operator Management System</marquee>  </header>
+			<header class="site-header push"> <marquee>Welcome to Payspot</marquee>  </header>
 			<!-- Pushy Menu -->
 			<nav class="pushy pushy-left">
 			<ul>
@@ -103,8 +89,9 @@ function __doPostBack(eventTarget, eventArgument) {
 				<li class="pushy-link"><a href="lcoTopUp.html?user=${user}">Top-UP</a></li>
 				<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
 				<li class="pushy-link"><a href="lcoaccountMgmt.html?user=${user}">Account Management</a></li>
+				
 <%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
-				<li class="pushy-link"><a href="lcostock.html?user=${user}"">Stock</a></li>
+				<li class="pushy-link"><a href="lcostock.html?user=${user}">Stock</a></li>
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 <!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
 				<li class="pushy-link"><a href="LCODetail.html?user=${user}">My Account</a></li>

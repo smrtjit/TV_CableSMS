@@ -41,9 +41,9 @@ table td {
 </style>
 </head>
 <body
-	<%if (session.getAttribute("lmlogin") == null) {
+	<%if (session.getAttribute("lcoLogin") == null) {
 				System.out.print("session not found");
-				response.sendRedirect("lmlogin.html?error=Session is Expired!!!");
+				response.sendRedirect("lcologin.html?error=Session is Expired!!!");
 			} else {
 				System.out.print("session found");%>
 	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
@@ -74,8 +74,7 @@ table td {
 
 
 	<div>
-		<header class="site-header push"> <marquee>Welcome
-			to Cable TV Show</marquee> </header>
+		<header class="site-header push"> <marquee>Welcome to Payspot</marquee>  </header>
 		<!-- Pushy Menu -->
 		<nav class="pushy pushy-left">
 		<ul>
@@ -89,7 +88,7 @@ table td {
 				<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
 				<li class="pushy-link"><a href="lcoaccountMgmt.html?user=${user}">Account Management</a></li>
 <%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
-				<li class="pushy-link"><a href="lcostock.html?user=${user}"">Stock</a></li>
+				<li class="pushy-link"><a href="lcostock.html?user=<%= request.getParameter("user") %>">Stock</a></li>
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 <!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
 				<li class="pushy-link"><a href="LCODetail.html?user=${user}">My Account</a></li>

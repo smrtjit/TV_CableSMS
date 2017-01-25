@@ -27,15 +27,19 @@ import com.dialnet.source.model.AllComplaints;
 import com.dialnet.source.model.LCOUser;
 import com.dialnet.source.model.LMUser;
 import com.dialnet.source.model.PackageInfo;
+import com.dialnet.source.model.STBStock;
 import com.dialnet.source.model.User;
 //import com.dialnet.source.model.LCOUserRegistration;
 import com.dialnet.source.model.UserLogin;
+import com.dialnet.source.model.VCStock;
 import com.dialnet.source.service.AllCollectionService;
 import com.dialnet.source.service.AllComplaintService;
 import com.dialnet.source.service.LCOUserService;
 import com.dialnet.source.service.LMUserService;
 import com.dialnet.source.service.PackageInfoService;
+import com.dialnet.source.service.STBStockService;
 import com.dialnet.source.service.SubscriberService;
+import com.dialnet.source.service.VCStockService;
 
 @Controller
 @SessionAttributes("lcoLogin")
@@ -52,6 +56,12 @@ public class LCOController {
 
 	@Autowired
 	public AllCollectionService LCOCollectionRepository;
+	
+	@Autowired 
+	public STBStockService stbService;
+	
+	@Autowired
+	public VCStockService vcService;
 
 	@Autowired
 	LMUserService lmuserservice;
@@ -330,12 +340,48 @@ public class LCOController {
 	model.addAttribute("user", user);
 	return "LCOAccountMgmt";
 	}
+	
+	
+	
 	@RequestMapping(value="/lcostock", method=RequestMethod.GET)
 	public String lcoStock(@RequestParam("user") String user,Model model) {	
+		
+	List<STBStock> tmp=	stbService.getAllVCStock();
+	List <VCStock> tmp1=vcService.getAllVCStock();
+	/*
+	System.out.println("LCO Stock size: "+tmp.size());
+	for(STBStock st: tmp){
+		System.out.println("Data Check for Setup Box: "+st.getStb_box_no());
+	}
+	*/
+	model.addAttribute("stbList",tmp);
+	model.addAttribute("vcList",tmp1);
 	model.addAttribute("user", user);
 	return "LCOStock";
 	}
 	
+	
+	
+	@RequestMapping(value="/updateVCStatus", method=RequestMethod.GET)
+	public String updateVCStatus(@RequestParam("user") String user,@RequestParam("VC_No") String vcc,
+			@RequestParam("vcStatus") String status,Model model) {	
+	System.out.println("Update Status check data: "+vcc+","+status+","+user);
+	int result=vcService.upStatus(vcc, status);
+	System.out.println("Result: "+result);
+	model.addAttribute("user", user);
+	return "redirect:lcostock.html";
+	}
+	
+	
+	@RequestMapping(value="/stbUpdateLCO", method=RequestMethod.GET)
+	public String stbUpdateLCO(@RequestParam("user") String user,@RequestParam("STB") String vcc,
+			@RequestParam("vcStatus") String status,Model model) {	
+	System.out.println("Update Status check data: "+vcc+","+status+","+user);
+	int result=stbService.upSTB(vcc, status);
+	System.out.println("Result: "+result);
+	model.addAttribute("user", user);
+	return "redirect:lcostock.html";
+	}
 	
 	////////////////////////////////// Date and Password Generation
 	////////////////////////////////// functions///////////////////////////////////

@@ -47,6 +47,8 @@
 				<value>com.dialnet.source.model.PackageInfo</value>
 				<value>com.dialnet.source.model.LCOUser</value>
 				<value>com.dialnet.source.model.AllCollections</value>
+				<value>com.dialnet.source.model.STBStock</value>
+				<value>com.dialnet.source.model.VCStock</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

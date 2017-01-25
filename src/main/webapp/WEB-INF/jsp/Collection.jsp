@@ -82,9 +82,7 @@ widows: 100%;
 			type="text/javascript"></script>
 		
 		<div>
-			<header class="site-header push">
-				<marquee>Welcome to Cable TV Show</marquee>
-			</header>
+			<header class="site-header push"> <marquee>Welcome to Payspot</marquee>  </header>
 			<!-- Pushy Menu -->
 			<nav class="pushy pushy-left">
 				<ul>
@@ -97,6 +95,8 @@ widows: 100%;
 <!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
 				<li class="pushy-link"><a href="lcoTopUp.html?user=<%= request.getParameter("user") %>">Top-UP</a></li>
 				<li class="pushy-link"><a href="lcoBilling.html?user=<%= request.getParameter("user") %>">Bulk-Billing</a></li>
+				<li class="pushy-link"><a href="lcoaccountMgmt.html?user=<%=request.getParameter("user")%>">Account Management</a></li>
+				<li class="pushy-link"><a href="lcostock.html?user=<%= request.getParameter("user") %>">Stock</a></li>
 <%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
 <!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
 <!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
