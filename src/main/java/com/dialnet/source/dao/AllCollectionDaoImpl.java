@@ -48,7 +48,7 @@ public class AllCollectionDaoImpl implements AllCollectionDao {
 		if(VC_no==null || VC_no.equalsIgnoreCase(""))
 			System.out.println("VC_no is not available");
 		else{
-			criteria.add(Restrictions.eq("VC_No",VC_no));
+			criteria.add(Restrictions.eq("VC_No",VC_no.trim()));
 		}
 		
 		if(mobile==null || mobile.equalsIgnoreCase(""))

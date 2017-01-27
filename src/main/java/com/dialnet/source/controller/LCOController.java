@@ -375,7 +375,7 @@ public class LCOController {
 	
 	@RequestMapping(value="/stbUpdateLCO", method=RequestMethod.GET)
 	public String stbUpdateLCO(@RequestParam("user") String user,@RequestParam("STB") String vcc,
-			@RequestParam("vcStatus") String status,Model model) {	
+			@RequestParam("stbStatus") String status,Model model) {	
 	System.out.println("Update Status check data: "+vcc+","+status+","+user);
 	int result=stbService.upSTB(vcc, status);
 	System.out.println("Result: "+result);

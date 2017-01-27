@@ -193,7 +193,7 @@
 									<tr>
 									<form action="stbUpdateLCO.html">
 									<input type="hidden" name="user" value="${user}"/>
-									<input type="hidden" name="STB" value="${user1.vc_no}"/>
+									<input type="hidden" name="STB" value="${user1.stb_box_no}"/>
 										<td><%=i%></td>
 										<td>${user1.stb_box_no}</td>
 										<td>${user1.company}</td>
@@ -210,8 +210,7 @@
 										</select>
 										<input type="submit"
 											name="ctl00$ContentPlaceHolder1$grdVC$ctl03$btnEdit"
-											value="Edit" id="ContentPlaceHolder1_grdVC_btnEdit_1"
-											disabled="disabled" class="aspNetDisabled btn btn-primary" />
+											value="Edit" class="aspNetDisabled btn btn-primary" />
 										</td>
 
 										<%
@@ -337,8 +336,7 @@
 			</script>
 
 		</div>
-  <h1>Spring Framework Jquery Ajax Demo</h1>
- <div id="result"></div>
+
 
 		<!-- Pushy JS -->
 
