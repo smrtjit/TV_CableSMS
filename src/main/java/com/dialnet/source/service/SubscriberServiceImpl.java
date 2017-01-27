@@ -63,6 +63,11 @@ public class SubscriberServiceImpl implements SubscriberService {
 			String status, String pckg) {
 		return subsriberdao.findByAnyone(sdate, edate, stb_no, VC_no, mobile, status, pckg);
 	}
+
+	@Override
+	public List<User> findUserForBillGeneration() {
+		return subsriberdao.findUserForBillGeneration();
+	}
 	
 
 }

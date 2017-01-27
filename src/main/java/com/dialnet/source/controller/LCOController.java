@@ -24,21 +24,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dialnet.source.model.AllCollections;
 import com.dialnet.source.model.AllComplaints;
+import com.dialnet.source.model.Cust_Invoice;
 import com.dialnet.source.model.LCOUser;
 import com.dialnet.source.model.LMUser;
 import com.dialnet.source.model.PackageInfo;
 import com.dialnet.source.model.STBStock;
+import com.dialnet.source.model.TaxInformation;
 import com.dialnet.source.model.User;
 //import com.dialnet.source.model.LCOUserRegistration;
 import com.dialnet.source.model.UserLogin;
 import com.dialnet.source.model.VCStock;
 import com.dialnet.source.service.AllCollectionService;
 import com.dialnet.source.service.AllComplaintService;
+import com.dialnet.source.service.Cust_InvoiceService;
 import com.dialnet.source.service.LCOUserService;
 import com.dialnet.source.service.LMUserService;
 import com.dialnet.source.service.PackageInfoService;
 import com.dialnet.source.service.STBStockService;
 import com.dialnet.source.service.SubscriberService;
+import com.dialnet.source.service.TaxInfoService;
 import com.dialnet.source.service.VCStockService;
 
 @Controller
@@ -68,6 +72,14 @@ public class LCOController {
 
 	@Autowired
 	PackageInfoService pckgservice;
+	
+	
+	@Autowired
+	TaxInfoService taxService;
+	
+	
+	@Autowired
+	Cust_InvoiceService invoice;
 
 	@RequestMapping(value = "/lcologin", method = RequestMethod.GET)
 	public String login(Model model) {
@@ -215,6 +227,9 @@ public class LCOController {
 
 	@RequestMapping(value = "/lcoBilling", method = RequestMethod.GET)
 	public ModelAndView lcoBilling(ModelMap map, @RequestParam("user") String user) {
+		
+		List<User> tmp=userService.findUserForBillGeneration();
+		map.addAttribute("BillUser", tmp);
 		map.addAttribute("user", user);
 		return new ModelAndView("BulkBilling", map);
 	}
@@ -383,6 +398,19 @@ public class LCOController {
 	return "redirect:lcostock.html";
 	}
 	
+	
+	
+	@RequestMapping(value="/createSingleBill", method=RequestMethod.GET)
+	public String createSingleBill(@RequestParam("user") String user,@RequestParam("CustId") String id,
+			Model model) {	
+		System.out.println("Customer Id: "+id);
+		createBill(id);
+	model.addAttribute("user", user);
+	return "redirect:lcoBilling.html";
+	}
+	
+	
+
 	////////////////////////////////// Date and Password Generation
 	////////////////////////////////// functions///////////////////////////////////
 
@@ -411,5 +439,62 @@ public class LCOController {
 			e.printStackTrace();
 		}
 		return trnstamp;
+	}
+	
+	private void createBill(String id) {
+		
+		User tmp=userService.get(id);
+		String invoiceId="IN"+tmp.getUsername()+"_"+System.currentTimeMillis();
+		
+		
+		PackageInfo pck=pckgservice.getByID(tmp.getPackage_name());
+		
+		TaxInformation tx=taxService.getInfo();
+		System.out.println("Tax Amount: "+tx.getAmmusement_Tax()+","+tx.getServiceTax());
+		int cost=Integer.parseInt(pck.getPrice());
+		int costPerDay=cost/30;
+		float interval=Float.parseFloat(dayCalculate(tmp.getLast_recharge_date(), tmp.getCon_expiry_date()));
+		float primaryAmt=costPerDay*interval;
+		
+		float serviceTax=(primaryAmt*Float.parseFloat(tx.getServiceTax()))/100;
+		float entTax=(primaryAmt*Float.parseFloat(tx.getEntertainment_Tax()))/100;
+		float amsTax=(primaryAmt*Float.parseFloat(tx.getAmmusement_Tax()))/100;
+		float otherTax=(primaryAmt*Float.parseFloat(tx.getOther_Tax()))/100;
+		float vatTax=(primaryAmt*Float.parseFloat(tx.getVAT()))/100;
+		float ltfee=Float.parseFloat(tx.getLateFee());
+		
+		float totalAmt=primaryAmt+serviceTax+entTax+amsTax+otherTax;
+		
+		float totalAmtafdue=primaryAmt+serviceTax+entTax+amsTax+otherTax+ltfee;
+		float advance_Amt=totalAmt+Integer.parseInt(tmp.getLast_payment());
+		Cust_Invoice custIn=new Cust_Invoice();
+		custIn.setInvoice_No(invoiceId);
+		custIn.setUser_Id(tmp.getUsername());
+		custIn.setBilling_Date(getDate());
+		custIn.setLastDue_Date(tmp.getLast_recharge_date());
+		custIn.setDueDate(getDate());
+		custIn.setTotal_Amount(totalAmt+"");
+		custIn.setPackage_Name(pck.getName());
+		custIn.setPackage_Cost(primaryAmt+"");
+		custIn.setService_Tax(serviceTax+"");
+		custIn.setEntertain_Tax(entTax+"");
+		custIn.setVAT(vatTax+"");
+		custIn.setPrevoius_Bal(tmp.getAccount_balance());
+		custIn.setAdvance_Amt(advance_Amt+"");
+		custIn.setLastPaid_Amt(tmp.getLast_payment());
+		custIn.setLatePay_Charges(tx.getLateFee());
+		custIn.setDiascount("0");
+		custIn.setInvoice_No(invoiceId);
+		
+		invoice.save(custIn);
+		
+	}
+	
+	
+	public String  dayCalculate(String fdate,String edate){
+		
+		String interval=20+"";
+		return interval;
+		
 	}
 }

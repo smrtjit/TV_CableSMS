@@ -35,45 +35,125 @@
 	rel="stylesheet" type="text/css">
 <style>
 select {
-/*    margin: 50px; */
-margin-bottom: 10px;
-    border: 1px solid #111;
-   background: transparent;
-   width: 150px;
-   padding: 5px 25px 5px 5px;
-   font-size: 13px;
-   border: 1px solid #ccc;
-   height: 30px;
-   -webkit-appearance: none;
-   -moz-appearance: none;
-   appearance: none;
-    background: url(http://www.stackoverflow.com/favicon.ico) 96% / 15% no-repeat #eee;
-} 
+	/*    margin: 50px; */
+	margin-bottom: 10px;
+	border: 1px solid #111;
+	background: transparent;
+	width: 150px;
+	padding: 5px 25px 5px 5px;
+	font-size: 13px;
+	border: 1px solid #ccc;
+	height: 30px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: url(http://www.stackoverflow.com/favicon.ico) 96%/15%
+		no-repeat #eee;
+	border: 1px solid #111;
+}
 /*target Internet Explorer 9 and Internet Explorer 10:*/
-@media screen and (min-width:0\0) { 
-    select {
-        background:none;
-        padding: 5px;
-    }
+@media screen and (min-width:0\0) {
+	select {
+		background: none;
+		padding: 5px;
+	}
 }
 
-
-
 .btn1 {
-    background-color: #2a6496;
-    border: none;
-    color: white;
-    padding: 10px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
+	background-color: #2a6496;
+	border: none;
+	color: white;
+	padding: 10px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 12px;
+	border: none;
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////// */
+html {
+	font-family: "roboto", helvetica;
+	position: relative;
+	height: 100%;
+	font-size: 100%;
+	line-height: 1.5;
+	color: #444;
+}
+
+h2 {
+	margin: 1.75em 0 0;
+	font-size: 5vw;
+}
+
+h3 {
+	font-size: 1.3em;
+}
+
+.v-center {
+	height: 100vh;
+	width: 100%;
+	display: table;
+	position: relative;
+	text-align: center;
+}
+
+.v-center>div {
+	display: table-cell;
+	vertical-align: middle;
+	position: relative;
+	top: -10%;
+}
+
+.btn {
+	font-size: 2.5vmin;
+	padding: 0.15em .75em;
+	/*   background-color: #fff; */
+	border: 1px solid #bbb;
+	/*   color: #333; */
+	text-decoration: none;
+	display: inline;
+	/*   border-radius: 4px; */
+	-webkit-transition: background-color 1s ease;
+	-moz-transition: background-color 1s ease;
+	transition: background-color 1s ease;
+}
+
+.btn
+:hover {
+	background-color: #ddd;
+	-webkit-transition: background-color 1s ease;
+	-moz-transition: background-color 1s ease;
+	transition: background-color 1s ease;
+}
+
+.btn-small {
+	padding: .75em 1em;
+	font-size: 0.8em;
+}
+
+.modal-box {
+	display: none;
+	position: absolute;
+	z-index: 1000;
+	width: 98%;
+	background: white;
+	border-bottom: 1px solid #aaa;
+	border-radius: 4px;
+	box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	background-clip: padding-box;
+}
+
+@media ( min-width : 32em) {
+	.modal-box {
+		width: 70%;
+	}
+}
+
 html {
 	font-family: "roboto", helvetica;
 	position: relative;
@@ -235,22 +315,6 @@ table td {
 
 
 
-	<script type="text/javascript">
-//<![CDATA[
-var theForm = document.forms['form1'];
-if (!theForm) {
-    theForm = document.form1;
-}
-function __doPostBack(eventTarget, eventArgument) {
-    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
-        theForm.__EVENTTARGET.value = eventTarget;
-        theForm.__EVENTARGUMENT.value = eventArgument;
-        theForm.submit();
-    }
-}
-//]]>
-</script>
-
 	<div>
 		<header class="site-header push"> <marquee>Welcome
 			to Payspot</marquee> </header>
@@ -293,12 +357,6 @@ function __doPostBack(eventTarget, eventArgument) {
 			<!-- Menu Button -->
 			<div class="menu-btn">&#9776; Menu</div>
 
-
-			<script type="text/javascript">
-//<![CDATA[
-Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$abc', 'form1', ['tctl00$ContentPlaceHolder1$upd1','ContentPlaceHolder1_upd1','tctl00$ContentPlaceHolder1$msgbox','ContentPlaceHolder1_msgbox','tctl00$ContentPlaceHolder1$UpdatePanel1','ContentPlaceHolder1_UpdatePanel1'], [], [], 90, 'ctl00');
-//]]>
-</script>
 			<!-- rownd circle code Connection DashBoard || Register_Complaint -->
 			<div class="row">
 				<div class=" col-md-4 col-xm-4 col-md-offset-4">
@@ -434,7 +492,7 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$abc', 'fo
 										<th scope="col">Customer Remark</th>
 										<th scope="col">Closing Remark</th>
 										<th scope="col">Action</th>
-<!-- 										<th scope="col">Action</th> -->
+										<!-- 										<th scope="col">Action</th> -->
 									</tr>
 
 									<%
@@ -455,11 +513,11 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$abc', 'fo
 											<td><a id="Complaint" data-modal-id="popup2" href="#"
 												class="btn-primary btn btn-block" name="${user.cust_remark}"
 												value="${user.complaint_no}">Edit</a></td>
-<!-- 											<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_0" -->
-<!-- 												class="btn-primary btn btn-block" -->
-<!-- 												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnktDetail&#39;,&#39;&#39;)">View/Print</a> -->
+											<!-- 											<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_0" -->
+											<!-- 												class="btn-primary btn btn-block" -->
+											<!-- 												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnktDetail&#39;,&#39;&#39;)">View/Print</a> -->
 
-<!-- 											</td> -->
+											<!-- 											</td> -->
 											<%
 												i++;
 											%>
@@ -947,30 +1005,26 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$abc', 'fo
 
 		<div id="popup2" class="modal-box">
 			<header> <a href="#" class="js-modal-close close">×</a>
-			<h3 id="demo"/>
+			<h3 id="demo" />
 			</header>
 			<div class="modal-body">
-				<p id="remark"/>
-					<form id="contact">
-  <div class="container">
-  
-<!--     <input type="text" id="remark"  class="form-control" /><br /> -->
-   <input type='text' id='id1'class="form-control" readonly />
-   <br>
-    <textarea type="text" name="message" placeholder="Message" class="form-control"></textarea>
-    <br>
-   <select name="type">
-   <option value="Open"> Open</option>
-   <option value="Pending"> Pending</option>
-   <option value="Close"> Close</option>
-   
-   </select>
-   <br>
-    <button id="submit" type="submit"class="btn1">
-      Submit!
-    </button>
-  </div>
-</form>
+				<p id="remark" />
+
+				<div class="container">
+					<form id="contact" action="#">
+						<input type='text' id='id1' class="form-control" readonly /> <br>
+						<textarea type="text" name="message" placeholder="Message"
+							class="form-control"></textarea>
+						<br> <select name="type">
+							<option value="Open">Open</option>
+							<option value="Pending">Pending</option>
+							<option value="Close">Close</option>
+
+						</select>
+						 <br> <input value="Submit!" type="submit" class="btn1">
+					</form>
+				</div>
+
 			</div>
 			<footer> <a href="#" class="btn btn-small js-modal-close">Close</a>
 			</footer>

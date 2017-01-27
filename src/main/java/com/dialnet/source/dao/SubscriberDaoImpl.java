@@ -1,10 +1,13 @@
 package com.dialnet.source.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -109,4 +112,26 @@ public class SubscriberDaoImpl implements SubsriberDao {
 		return criteria.list();
 	}
 
+	@Override
+	public List<User> findUserForBillGeneration() {
+		Session sf=dao.openSession();
+		Criteria criteria = sf.createCriteria(User.class); 
+		Criterion rest1= Restrictions.and(Restrictions.eq("con_expiry_date",getDate()));
+		Criterion rest2= Restrictions.and(Restrictions.lt("con_expiry_date",getDate()));
+		criteria.add(Restrictions.or(rest1, rest2));
+		return criteria.list();
+	}
+	public String getDate() {
+		String trnstamp = null;
+		try {
+			SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date now = new Date();
+			String strDate = sdfDate.format(now);
+			// System.out.println(strDate.toString());
+			trnstamp = strDate.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return trnstamp;
+	}
 }

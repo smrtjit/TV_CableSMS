@@ -49,6 +49,8 @@
 				<value>com.dialnet.source.model.AllCollections</value>
 				<value>com.dialnet.source.model.STBStock</value>
 				<value>com.dialnet.source.model.VCStock</value>
+				<value>com.dialnet.source.model.Cust_Invoice</value>
+				
 			</list>
 		</property>
 		<property name="hibernateProperties">
