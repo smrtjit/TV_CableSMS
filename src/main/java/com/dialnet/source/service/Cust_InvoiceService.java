@@ -12,4 +12,6 @@ public interface Cust_InvoiceService {
 	
 	public boolean save(Cust_Invoice cust);
 	
+	public List<Cust_Invoice> getBillList();
+	public Cust_Invoice getByInvoice(String id);
 }

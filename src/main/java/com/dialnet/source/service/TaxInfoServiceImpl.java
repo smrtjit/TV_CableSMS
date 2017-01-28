@@ -16,9 +16,9 @@ public class TaxInfoServiceImpl implements TaxInfoService {
 	@Autowired
 	TaxInfoDao dao;
 	@Override
-	public TaxInformation getInfo() {
+	public TaxInformation getInfo(String id) {
 		// TODO Auto-generated method stub
-		return dao.getInfo();
+		return dao.getInfo(id);
 	}
 
 }

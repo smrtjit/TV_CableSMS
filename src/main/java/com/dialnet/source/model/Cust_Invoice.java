@@ -13,19 +13,26 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Cust_Invoice {
 	
 	@Id
-	@GeneratedValue
 	private String Invoice_No;
 	
+	private String bill_status;
 	public Cust_Invoice() {
 		super();
 	}
 
-	public Cust_Invoice(String invoice_No, String user_Id, String billing_Date, String lastDue_Date, String dueDate,
-			String total_Amount, String package_Name, String package_Cost, String service_Tax, String entertain_Tax,
-			String vAT, String prevoius_Bal, String advance_Amt, String lastPaid_Amt, String totalAmt_AftDueDate,
-			String latePay_Charges, String diascount) {
+	public String getBill_status() {
+		return bill_status;
+	}
+
+
+
+	public Cust_Invoice(String invoice_No, String bill_status, String user_Id, String billing_Date, String lastDue_Date,
+			String dueDate, String total_Amount, String package_Name, String package_Cost, String service_Tax,
+			String entertain_Tax, String vAT, String prevoius_Bal, String advance_Amt, String lastPaid_Amt,
+			String totalAmt_AftDueDate, String latePay_Charges, String diascount, String user_Name, String vc_No) {
 		super();
 		Invoice_No = invoice_No;
+		this.bill_status = bill_status;
 		User_Id = user_Id;
 		Billing_Date = billing_Date;
 		LastDue_Date = lastDue_Date;
@@ -42,6 +49,30 @@ public class Cust_Invoice {
 		TotalAmt_AftDueDate = totalAmt_AftDueDate;
 		LatePay_Charges = latePay_Charges;
 		Diascount = diascount;
+		User_Name = user_Name;
+		Vc_No = vc_No;
+	}
+
+	public void setBill_status(String bill_status) {
+		this.bill_status = bill_status;
+	}
+
+
+
+	public String getUser_Name() {
+		return User_Name;
+	}
+
+	public void setUser_Name(String user_Name) {
+		User_Name = user_Name;
+	}
+
+	public String getVc_No() {
+		return Vc_No;
+	}
+
+	public void setVc_No(String vc_No) {
+		Vc_No = vc_No;
 	}
 
 	public String getInvoice_No() {
@@ -240,10 +271,17 @@ public class Cust_Invoice {
 	@Size(min = 1, max = 150)
 	private String LatePay_Charges;
 	
-	@NotEmpty
+	
 	@Size(min = 1, max = 95)
 	private String Diascount;
 	
+	@NotEmpty
+	@Size(min = 1, max = 150)
+	private String User_Name;
+	
+	@NotEmpty
+	@Size(min = 1, max = 50)
+	private String Vc_No;
 	
 	
 }

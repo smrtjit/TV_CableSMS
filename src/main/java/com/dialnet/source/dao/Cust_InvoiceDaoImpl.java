@@ -14,6 +14,7 @@ import com.dialnet.source.model.AllCollections;
 import com.dialnet.source.model.Cust_Invoice;
 
 
+
 @Repository
 public class Cust_InvoiceDaoImpl implements Cust_InvoiceDao {
 
@@ -58,9 +59,27 @@ public class Cust_InvoiceDaoImpl implements Cust_InvoiceDao {
 	public boolean save(Cust_Invoice cust) {
 		Session sf=dao.openSession();
 		Transaction tx=sf.beginTransaction();
-		sf.save(Cust_Invoice.class);
+		sf.save(cust);
 		tx.commit();
 		return true;
+	}
+
+	@Override
+	public List<Cust_Invoice> getBillList() {
+		Session sf = dao.openSession();
+		Criteria cr = sf.createCriteria(Cust_Invoice.class);
+
+		cr.add(Restrictions.eq("bill_status", "Not Paid"));
+		return cr.list();
+	}
+
+	@Override
+	public Cust_Invoice getByInvoice(String id) {
+		Session sf = dao.openSession();
+		Criteria cr = sf.createCriteria(Cust_Invoice.class);
+
+		cr.add(Restrictions.eq("Invoice_No", id));
+		return (Cust_Invoice)cr.uniqueResult();
 	}
 
 	

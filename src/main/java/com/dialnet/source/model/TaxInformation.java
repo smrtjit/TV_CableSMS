@@ -19,6 +19,7 @@ public class TaxInformation {
 	String Other_Tax;
 	String entertainment_Tax;
 	String lateFee;
+	String lco_id;
 	
 	public TaxInformation() {
 		// TODO Auto-generated constructor stub
@@ -26,8 +27,20 @@ public class TaxInformation {
 	
 	
 
+	public String getLco_id() {
+		return lco_id;
+	}
+
+
+
+	public void setLco_id(String lco_id) {
+		this.lco_id = lco_id;
+	}
+
+
+
 	public TaxInformation(int id, String serviceTax, String vAT, String ammusement_Tax, String other_Tax,
-			String entertainment_Tax, String lateFee) {
+			String entertainment_Tax, String lateFee, String lco_id) {
 		super();
 		this.id = id;
 		this.serviceTax = serviceTax;
@@ -36,6 +49,7 @@ public class TaxInformation {
 		Other_Tax = other_Tax;
 		this.entertainment_Tax = entertainment_Tax;
 		this.lateFee = lateFee;
+		this.lco_id = lco_id;
 	}
 
 

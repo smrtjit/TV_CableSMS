@@ -33,6 +33,11 @@
 		<property name="username" value="root" />
 		<property name="password" value="redhat@123!@#" />
 	</bean>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- maxUploadSize=10MB -->
+		<property name="maxUploadSize" value="10240000" />
+	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 
@@ -50,6 +55,7 @@
 				<value>com.dialnet.source.model.STBStock</value>
 				<value>com.dialnet.source.model.VCStock</value>
 				<value>com.dialnet.source.model.Cust_Invoice</value>
+				<value>com.dialnet.source.model.TaxInformation</value>
 				
 			</list>
 		</property>
@@ -67,5 +73,6 @@
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+
 
 </beans>

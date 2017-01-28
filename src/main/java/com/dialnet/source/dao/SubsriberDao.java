@@ -17,4 +17,7 @@ public interface SubsriberDao {
 	
 	public List<User> findUserForBillGeneration();
 	
+	
+	public boolean updateBillStatus(String user);
+	
 }

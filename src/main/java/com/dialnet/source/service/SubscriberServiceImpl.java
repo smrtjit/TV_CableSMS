@@ -68,6 +68,11 @@ public class SubscriberServiceImpl implements SubscriberService {
 	public List<User> findUserForBillGeneration() {
 		return subsriberdao.findUserForBillGeneration();
 	}
+
+	@Override
+	public boolean updateBillStatus(String user) {
+		return subsriberdao.updateBillStatus(user);
+	}
 	
 
 }

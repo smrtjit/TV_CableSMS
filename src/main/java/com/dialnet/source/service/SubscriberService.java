@@ -15,4 +15,5 @@ public interface SubscriberService {
 	public User findByVCNO(String vcno);
 	public List<User> findByAnyone(String sdate,String edate,String stb_no,String VC_no,String mobile,String status,String pckg);
 	public List<User> findUserForBillGeneration();
+	public boolean updateBillStatus(String user);
 }

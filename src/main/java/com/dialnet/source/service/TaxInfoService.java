@@ -6,5 +6,5 @@ import com.dialnet.source.model.TaxInformation;
 
 public interface TaxInfoService {
 
-	public TaxInformation getInfo();
+	public TaxInformation getInfo(String id);
 }

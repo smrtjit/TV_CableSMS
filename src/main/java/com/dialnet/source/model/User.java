@@ -18,16 +18,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="lco_user_login")
 public class User {
 
-	
-	
-	
-
-	public User(String username, String customer_name, String customer_add, String customer_mobile, String password,
-			String customer_email, String customer_id_no, String customer_photo, String customer_vc_no,
+	public User(long id, String username, String customer_name, String customer_add, String customer_mobile,
+			String password, String customer_email, String customer_id_no, String customer_photo, String customer_vc_no,
 			String customer_stb_no, String customer_waranty_date, String connection_status, String package_name,
 			String pairing_status, String account_balance, String last_payment, String last_recharge_date,
-			String connection_go_live, String timestamp, String con_expiry_date) {
+			String connection_go_live, String timestamp, String con_expiry_date, String bill_status) {
 		super();
+		this.id = id;
 		this.username = username;
 		this.customer_name = customer_name;
 		this.customer_add = customer_add;
@@ -48,6 +45,7 @@ public class User {
 		this.connection_go_live = connection_go_live;
 		this.timestamp = timestamp;
 		this.con_expiry_date = con_expiry_date;
+		this.bill_status = bill_status;
 	}
 
 
@@ -56,6 +54,26 @@ public class User {
 	}
 
 	
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+	public String getBill_status() {
+		return bill_status;
+	}
+
+
+	public void setBill_status(String bill_status) {
+		this.bill_status = bill_status;
+	}
+
+
 	@Id
 	@GeneratedValue
 	private long id;
@@ -106,7 +124,7 @@ public class User {
 	private String connection_go_live;
 	private String timestamp;
 	private String con_expiry_date;
-
+	private String bill_status;
 
 	public String getUsername() {
 		return username;

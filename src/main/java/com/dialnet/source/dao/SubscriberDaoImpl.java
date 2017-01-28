@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -116,11 +117,28 @@ public class SubscriberDaoImpl implements SubsriberDao {
 	public List<User> findUserForBillGeneration() {
 		Session sf=dao.openSession();
 		Criteria criteria = sf.createCriteria(User.class); 
+		criteria.add(Restrictions.eq("bill_status","NO"));
 		Criterion rest1= Restrictions.and(Restrictions.eq("con_expiry_date",getDate()));
 		Criterion rest2= Restrictions.and(Restrictions.lt("con_expiry_date",getDate()));
 		criteria.add(Restrictions.or(rest1, rest2));
 		return criteria.list();
 	}
+	
+	
+	
+	@Override
+	public boolean updateBillStatus(String user) {
+		System.out.println("user for update Bill: "+user);
+		Session sf=dao.openSession();
+		Query q = sf.createQuery("update User set bill_status=:recievedDate where username=:Id");
+		q.setString("recievedDate", "YES");
+		q.setString("Id", user);
+		q.executeUpdate();
+		return true;
+	}
+	
+	
+/////////////////////////////////////////////////////////////For Date////////////////////////////////////////////////////
 	public String getDate() {
 		String trnstamp = null;
 		try {
@@ -134,4 +152,5 @@ public class SubscriberDaoImpl implements SubsriberDao {
 		}
 		return trnstamp;
 	}
+
 }

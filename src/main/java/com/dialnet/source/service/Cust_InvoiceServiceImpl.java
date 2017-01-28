@@ -33,4 +33,16 @@ public class Cust_InvoiceServiceImpl implements Cust_InvoiceService {
 		return cust_invoice_dao.save(cust);
 	}
 
+	@Override
+	public List<Cust_Invoice> getBillList() {
+		
+		return cust_invoice_dao.getBillList();
+	}
+
+	@Override
+	public Cust_Invoice getByInvoice(String id) {
+		// TODO Auto-generated method stub
+		return cust_invoice_dao.getByInvoice(id);
+	}
+
 }

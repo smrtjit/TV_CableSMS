@@ -20,14 +20,12 @@ public class TaxInfoDaoImpl implements TaxInfoDao {
 	SessionFactory dao;
 
 	@Override
-	public TaxInformation getInfo() {
+	public TaxInformation getInfo(String id) {
 		Session sf = dao.openSession();
 		Criteria cr = sf.createCriteria(TaxInformation.class);
-
-		// To get records having salary more than 2000
-		cr.add(Restrictions.eq("id", 1));
+		//cr.add(Restrictions.eq("lco_id", id));
 		TaxInformation product = (TaxInformation)cr.uniqueResult();
-		//System.out.println("user: " + product);
+		System.out.println("Package Code: " + product+",LCO Id: "+id);
 
 		return product;
 	}
