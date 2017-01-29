@@ -421,7 +421,8 @@ public class LCOController {
 	////////////////////////////////Sarbjeet code////////////////////////////////////////////
 
 	@RequestMapping(value = "/processExcel", method = RequestMethod.POST)
-	public String processExcel(Model model, @RequestParam("excelfile") MultipartFile excelfile) {
+	public String processExcel(Model model, @RequestParam("excelfile") MultipartFile excelfile,
+			@RequestParam("user") String id) {
 		try {
 
 			List<BulkRechargeAmount> lstUser = new ArrayList<BulkRechargeAmount>();
@@ -460,9 +461,11 @@ public class LCOController {
 					lstUser.add(user);
 				}
 				model.addAttribute("lstUser", lstUser);
+				model.addAttribute("user", id);
 			}
 			else{
 				model.addAttribute("error", "File is Not Valid");
+				model.addAttribute("user", id);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -472,7 +475,8 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/gf", method = RequestMethod.POST)
-	public String processExcel2003(Model model, @RequestParam("excelfile") MultipartFile excelfile) {
+	public String processExcel2003(Model model, @RequestParam("excelfile") MultipartFile excelfile,
+			@RequestParam("user") String id) {
 		try {
 			List<BulkRechargeAmount> lstUser = new ArrayList<BulkRechargeAmount>();
 			int i = 0;
@@ -503,6 +507,7 @@ public class LCOController {
 				user.setCustomeramountofrecharge((float) row.getCell(6).getNumericCellValue());
 				lstUser.add(user);
 			}
+			model.addAttribute("user", id);
 			model.addAttribute("lstUser", lstUser);
 		} catch (Exception e) {
 			e.printStackTrace();

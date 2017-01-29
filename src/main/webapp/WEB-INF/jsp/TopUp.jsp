@@ -258,6 +258,7 @@ widows: 100%;
 				<div id="bulk" >
 					<div class="row">
 					<form action="processExcel.html" method="post"enctype="multipart/form-data">
+					<input type="hidden" name="user" value="${user }"/>
 						<div class="col-sm-3"></div>
 						<div class="col-sm-3">
 						<input  type="file" name="excelfile"  class="form-control" onchange="example()" id="filename"/><br>

@@ -514,7 +514,7 @@ table#table_id {
 
 									<th scope="col">Recharge Amount</th>
 									<th scope="col">Payment Mode</th>
-									<th scope="col">LM Name</th>
+<!-- 									<th scope="col">LM Name</th> -->
 									<th scope="col">Payment Status</th>
 									<th scope="col">Date_Time</th>
 									<th scope="col">Approval</th>
@@ -533,16 +533,12 @@ table#table_id {
 										<td>${user.cust_Name}</td>
 										<td>${user.cust_mobile}</td>
 										<td>${user.approval_ID}</td>
-
 										<td>${user.collecting_Agent}</td>
 										<td>${user.refernceId}</td>
 										<td>${user.approval_Date}</td>
-
-
-
 										<td>${user.recharge_Amount}</td>
 										<td>${user.payment_Mode}</td>
-										<td>${user.LM_Id}</td>
+<%-- 										<td>${user.LM_Id}</td> --%>
 										<td>${user.payment_Status}</td>
 										<td>${user.trndate}</td>
 

@@ -45,17 +45,21 @@ public class AllCollections {
 	@NotEmpty
 	@Size(min = 1, max = 25)
 	private String Payment_Mode;
-	private String LM_Id;
+	private String Approval_ID;
 	private String Payment_Status;
 	private String RefernceId;
 	private String trndate;
+	private String Collecting_Agent;
+	private String Approval_Date;
 	public AllCollections() {
 		// TODO Auto-generated constructor stub
 	}
 
+
+
 	public AllCollections(String invoice, String vC_No, String cust_mobile, String cust_Name, String current_Pckg,
-			String pckg_Price, String recharge_Amount, String discount, String payment_Mode, String lM_Id,
-			String payment_Status, String refernceId, String trndate) {
+			String pckg_Price, String recharge_Amount, String discount, String payment_Mode, String approval_ID,
+			String payment_Status, String refernceId, String trndate, String collecting_Agent, String approval_Date) {
 		super();
 		Invoice = invoice;
 		VC_No = vC_No;
@@ -66,11 +70,15 @@ public class AllCollections {
 		Recharge_Amount = recharge_Amount;
 		Discount = discount;
 		Payment_Mode = payment_Mode;
-		LM_Id = lM_Id;
+		Approval_ID = approval_ID;
 		Payment_Status = payment_Status;
 		RefernceId = refernceId;
 		this.trndate = trndate;
+		Collecting_Agent = collecting_Agent;
+		Approval_Date = approval_Date;
 	}
+
+
 
 	public String getInvoice() {
 		return Invoice;
@@ -128,12 +136,43 @@ public class AllCollections {
 	public void setPayment_Mode(String payment_Mode) {
 		Payment_Mode = payment_Mode;
 	}
-	public String getLM_Id() {
-		return LM_Id;
+	
+	public String getApproval_ID() {
+		return Approval_ID;
 	}
-	public void setLM_Id(String lM_Id) {
-		LM_Id = lM_Id;
+
+
+
+	public void setApproval_ID(String approval_ID) {
+		Approval_ID = approval_ID;
 	}
+
+
+
+	public String getCollecting_Agent() {
+		return Collecting_Agent;
+	}
+
+
+
+	public void setCollecting_Agent(String collecting_Agent) {
+		Collecting_Agent = collecting_Agent;
+	}
+
+
+
+	public String getApproval_Date() {
+		return Approval_Date;
+	}
+
+
+
+	public void setApproval_Date(String approval_Date) {
+		Approval_Date = approval_Date;
+	}
+
+
+
 	public String getPayment_Status() {
 		return Payment_Status;
 	}
