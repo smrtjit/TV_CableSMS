@@ -1,6 +1,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="tag" uri="/WEB-INF/taglibs/customTaglib.tld"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -133,6 +134,9 @@ widows: 100%;
 		<div id="container">
 			<!-- Menu Button -->
 			<div class="menu-btn">&#9776; Menu</div>
+						<br>
+						<button type="button" class="btnc btn-pink ">Connection </button>
+			
 
 
 			<script type="text/javascript">
@@ -467,7 +471,7 @@ widows: 100%;
 							<div style="margin-bottom: 0px">
 								<p>
 									Total Count : <span id="ContentPlaceHolder1_lblcount"
-										style="font-weight: bold;">${fn:length(userList)}</span>
+										style="font-weight: bold;">${count}</span>
 								</p>
 							</div>
 						</div>
@@ -490,12 +494,9 @@ widows: 100%;
 								</tr>
 
 								<tr>
-									<%
-										int i = 0;
-									%>
-									<c:forEach items="${userList}" var="user">
+								<c:forEach items="${userList}" var="user" varStatus="itr">
 										<tr>
-											<td><%=i%></td>
+											<td>${offset + itr.index +1 }</td>
 											<td>${user.username}</td>
 											<td>${user.customer_vc_no}</td>
 											<td>${user.customer_name}</td>
@@ -508,14 +509,14 @@ widows: 100%;
 												class="btn-primary btn btn-sm btn-block"
 												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
 											</td>
-											<%
-												i++;
-											%>
+											
 										</tr>
 									</c:forEach>
 								
 								</tr>
 							</table>
+									<tag:paginate max="15" offset="${offset}" count="${count}"
+			uri="oldConnections.html?user=${user}" next="&raquo;" previous="&laquo;" />
 						</div>
 
 					</div>

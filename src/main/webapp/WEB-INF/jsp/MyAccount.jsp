@@ -73,13 +73,13 @@
             <div id="container">
                 <!-- Menu Button -->
                 <div class="menu-btn">&#9776; Menu</div>
-
+				<button type="button" class="btnc btn-pink ">My Account </button>
                 
     <hr />
     <div class="row">
-        <div class="col-sm-12">
-            <p style="font-size: 20px"><b><span class="label label-default">LCO Details:</span></b></p>
-        </div>
+<!--         <div class="col-sm-12"> -->
+<!--             <p style="font-size: 20px"><b><span class="label label-default">LCO Details:</span></b></p> -->
+<!--         </div> -->
         <div class="col-sm-12">
             <div class="col-sm-2"></div>
             <div class=" col-sm-5">
@@ -101,10 +101,12 @@
             </div>
         </div>
 
+<!--         <div class="col-sm-12"> -->
+<!--             <p style="font-size: 20px"><b><span class="label label-default">User Details:</span></b></p> -->
+<!--         </div> -->
+					<br><br>
         <div class="col-sm-12">
-            <p style="font-size: 20px"><b><span class="label label-default">User Details:</span></b></p>
-        </div>
-        <div class="col-sm-12">
+       
             <div class="col-sm-2"></div>
             <div class=" col-sm-5">
                 <div class="col-sm-3" style="margin-bottom: 10px">
@@ -152,9 +154,10 @@
             </div>
         </div>
 
-        <div class="col-sm-12">
-            <p style="font-size: 20px"><b><span class="label label-default">BRM Details:</span></b></p>
-        </div>
+<!--         <div class="col-sm-12"> -->
+<!--             <p style="font-size: 20px"><b><span class="label label-default">BRM Details:</span></b></p> -->
+<!--         </div> -->
+				<br><br>
         <div class="col-sm-12">
             <div class="col-sm-2"></div>
             <div class=" col-sm-5">
@@ -177,9 +180,11 @@
         </div>
  
    
-        <div class="col-sm-12">
-            <p style="font-size: 20px"><b><span class="label label-default">Contact Details:</span></b></p>
-        </div>
+<!--         <div class="col-sm-12"> -->
+<!--             <p style="font-size: 20px"><b><span class="label label-default">Contact Details:</span></b></p> -->
+<!--         </div> -->
+
+				<br><br><br><br>
         <div class="col-sm-12">
             <div class="col-sm-2"></div>
             <div class=" col-sm-5">
@@ -199,12 +204,14 @@
                     <input name="ctl00$ContentPlaceHolder1$txtemail" type="text" value="${Email }" readonly="readonly" id="ContentPlaceHolder1_txtemail" class="form-control" />
                 </div>
             </div>
+           
+            
         </div>
+<br><br>
 
-
-        <div class="col-sm-12">
-            <p style="font-size: 20px"><b><span class="label label-default">Address Details:</span></b></p>
-        </div>
+<!--         <div class="col-sm-12"> -->
+<!--             <p style="font-size: 20px"><b><span class="label label-default">Address Details:</span></b></p> -->
+<!--         </div> -->
         <div class="col-sm-12">
             <div class="col-sm-2"></div>
             <div class=" col-sm-5">
@@ -219,13 +226,19 @@
                 <div class="col-sm-3" style="margin-bottom: 10px">
                     <p class="p1">State</p>
                 </div>
-                <div class="col-sm-8" style="margin-bottom: 10px">
-                    <select name="ctl00$ContentPlaceHolder1$ddlstate" id="ContentPlaceHolder1_ddlstate" class="form-control">
-	<option value="0">Select</option>
-	<option value="0">West Bengal</option>
-
-</select>
+               <div class="col-sm-8">
+                    <input name="ctl00$ContentPlaceHolder1$txtemail" type="text" value="${state}" readonly="readonly" id="ContentPlaceHolder1_txtemail" class="form-control" />
                 </div>
+                
+          
+                
+<!--                 <div class="col-sm-8" style="margin-bottom: 10px"> -->
+<!--                     <select name="ctl00$ContentPlaceHolder1$ddlstate" id="ContentPlaceHolder1_ddlstate" class="form-control"> -->
+<!-- 	<option value="0">Select</option> -->
+<!-- 	<option value="0">West Bengal</option> -->
+
+<!-- </select> -->
+<!--                 </div> -->
             </div>
 
             <div class=" col-sm-5">
@@ -238,6 +251,7 @@
 
                 
             </div>
+       		 
         </div>
     </div>
 

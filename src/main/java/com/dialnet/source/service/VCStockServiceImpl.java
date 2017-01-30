@@ -35,5 +35,15 @@ public class VCStockServiceImpl implements VCStockService {
 		return dao.upStatus(vcn, status);
 	}
 
+	@Override
+	public List<VCStock> list(Integer offset, Integer maxResults) {
+		return dao.list(offset, maxResults);
+	}
+
+	@Override
+	public Long count() {
+		return dao.count();
+	}
+
 	
 }

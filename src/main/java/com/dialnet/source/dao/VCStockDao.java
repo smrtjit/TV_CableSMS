@@ -13,4 +13,8 @@ public List<VCStock> getAllVCStock();
 	public VCStock getByStatus(String stutus);
 	
 	public int upStatus(String vcn,String status);
+	
+	public List<VCStock> list(Integer offset, Integer maxResults);
+
+	public Long count();
 }

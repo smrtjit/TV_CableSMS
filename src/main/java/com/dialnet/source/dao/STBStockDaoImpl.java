@@ -6,23 +6,22 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dialnet.source.model.STBStock;
 
-
-
 @Repository
 public class STBStockDaoImpl implements STBStockDao {
 
 	@Autowired
 	SessionFactory dao;
-	
+
 	@Override
 	public List<STBStock> getAllVCStock() {
-		Session sf=dao.openSession();
+		Session sf = dao.openSession();
 		return (List<STBStock>) sf.createCriteria(STBStock.class).list();
 	}
 
@@ -33,8 +32,8 @@ public class STBStockDaoImpl implements STBStockDao {
 
 		// To get records having salary more than 2000
 		cr.add(Restrictions.eq("stb_box_no", stb));
-		STBStock product = (STBStock)cr.uniqueResult();
-		//System.out.println("user: " + product);
+		STBStock product = (STBStock) cr.uniqueResult();
+		// System.out.println("user: " + product);
 
 		return product;
 	}
@@ -46,8 +45,8 @@ public class STBStockDaoImpl implements STBStockDao {
 
 		// To get records having salary more than 2000
 		cr.add(Restrictions.eq("current_status", status));
-		STBStock product = (STBStock)cr.uniqueResult();
-		//System.out.println("user: " + product);
+		STBStock product = (STBStock) cr.uniqueResult();
+		// System.out.println("user: " + product);
 
 		return product;
 	}
@@ -55,12 +54,27 @@ public class STBStockDaoImpl implements STBStockDao {
 	@Override
 	public int upSTB(String stb, String status) {
 		Session sf = dao.openSession();
-		Query query = sf.createSQLQuery("update lco_stb_box set current_status = :docname" + " where stb_box_no = :docId");
-		query.setParameter("docname",status);
+		Query query = sf
+				.createSQLQuery("update lco_stb_box set current_status = :docname" + " where stb_box_no = :docId");
+		query.setParameter("docname", status);
 		query.setParameter("docId", stb);
 		int result = query.executeUpdate();
 		sf.beginTransaction().commit();
 		return result;
+	}
+
+	
+	/////////////////////////////////////////////////////////For  Pagination/////////////////////////////////////////////////////
+
+	public List<STBStock> list(Integer offset, Integer maxResults) {
+		Session sf = dao.openSession();
+		return sf.createCriteria(STBStock.class).setFirstResult(offset != null ? offset : 0)
+				.setMaxResults(maxResults != null ? maxResults : 10).list();
+	}
+
+	public Long count() {
+		Session sf = dao.openSession();
+		return (Long) sf.createCriteria(STBStock.class).setProjection(Projections.rowCount()).uniqueResult();
 	}
 
 }

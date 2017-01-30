@@ -25,6 +25,9 @@
 <link
 	href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.css"
 	rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="assets/css/bill.css" />
+<!-- 	<link rel="stylesheet" href="assets/css/invoiceno.css" /> -->
+	
 <style>
 html {
 	font-family: "roboto", helvetica;
@@ -34,7 +37,11 @@ html {
 	line-height: 1.5;
 	color: #444;
 }
-
+.modal-footer {
+	padding: 2px 16px;
+	background-color: #5cb85c;
+	color: white;
+}
 h2 {
 	margin: 1.75em 0 0;
 	font-size: 5vw;
@@ -51,7 +58,19 @@ h3 {
 	position: relative;
 	text-align: center;
 }
-
+.btn-color{
+	 font-size: 2vmin;
+	padding: 0.25em .75em;
+	background-color: #428bca;
+	border: 1px solid #bbb;
+	color: #333;
+	text-decoration: none;
+	display: inline;
+	border-radius: 4px;
+	-webkit-transition: background-color 1s ease;
+	-moz-transition: background-color 1s ease;
+	transition: background-color 1s ease;
+}
 .v-center>div {
 	display: table-cell;
 	vertical-align: middle;
@@ -60,7 +79,7 @@ h3 {
 }
 
 .btn {
-	font-size: 3vmin;
+	font-size: 2vmin;
 	padding: 0.25em .75em;
 	background-color: #fff;
 	border: 1px solid #bbb;
@@ -114,9 +133,7 @@ h3 {
 	margin: 0;
 }
 
-.modal-box .modal-body {
-	padding: 2em 1.5em;
-}
+
 
 .modal-box footer, .modal-box .modal-footer {
 	padding: 1em;
@@ -158,58 +175,79 @@ a.close:hover {
 <script>
 var value;
 $(function(){
-
 var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
-
 	$('a[data-modal-id]').click(function(e) {
-	 value = $(this).attr('value');
-	 e.preventDefault();
+		 value = $(this).attr('value');
 		
+		 e.preventDefault();
 		 $.ajax({  
-             type : 'GET', 
-             url: 'invoice_service.html?user=<%= request.getParameter("user") %>&value=val',
-             data: {
-            	 Invoice_no: value
-             },
-             success: function (data) {
-                 console.log('response=', data);
-             }
-             
-             
-             
-             
-<%--              url : "invoice_service.html?user=<%= request.getParameter("user") %>",  --%>
-//              data: { value_id: value }		 
-            
-             
-           
+    	         type : 'GET', 
+    	         url: 'invoice_service.html?user=<%= request.getParameter("user") %>&value=val',
+       		      data: {
+            		 Invoice_no: value
+           		  },
+             	success: function (data) {
+                console.log('response=', data);
+              	var myVar = "${cust_invoice.invoice_No}";
+              	alert(myVar);
+ 	            }
    	      });
-		 //alert(value);
-    $("body").append(appendthis);
-    $(".modal-overlay").fadeTo(500, 0.7);
-    //$(".js-modalbox").fadeIn(500);
-		var modalBox = $(this).attr('data-modal-id');
+	
+    	$("body").append(appendthis);
+   		$(".modal-overlay").fadeTo(500, 0.7);
+    	var modalBox = $(this).attr('data-modal-id');
 		$('#'+modalBox).fadeIn($(this).data());
 	});  
-  
-  
-$(".js-modal-close, .modal-overlay").click(function() {
-    $(".modal-box, .modal-overlay").fadeOut(500, function() {
-        $(".modal-overlay").remove();
-    });
- 
+    $(".js-modal-close, .modal-overlay").click(function() {
+    	$(".modal-box, .modal-overlay").fadeOut(500, function() {
+    	    $(".modal-overlay").remove();
+   		 });
+
+	});
+	$(window).resize(function() {
+   		 $(".modal-box").css({
+       		 top: ($(window).height() - $(".modal-box").outerHeight()) / 2,
+       		 left: ($(window).width() - $(".modal-box").outerWidth()) / 2
+    	});
+	});
+ 	$(window).resize();
 });
- 
-$(window).resize(function() {
-    $(".modal-box").css({
-        top: ($(window).height() - $(".modal-box").outerHeight()) / 2,
-        left: ($(window).width() - $(".modal-box").outerWidth()) / 2
-    });
-});
- 
-$(window).resize();
- 
-});
+</script>
+<script>
+	$(function() {
+
+		var appendthis = ("<div class='modal-overlay js-modal-close'></div>");
+		
+		$('a[data-modal-link]').click(function(e) {
+			
+			var invoice = $(this).attr('value');
+// 			alert(invoice);
+			document.getElementById("inid").innerHTML ="Invoice Number: "+invoice;
+			e.preventDefault();
+			$("body").append(appendthis);
+			$(".modal-overlay").fadeTo(500, 0.7);
+			//$(".js-modalbox").fadeIn(500);
+			var modalBox = $(this).attr('data-modal-link');
+			$('#' + modalBox).fadeIn($(this).data());
+		});
+
+		$(".js-modal-close, .modal-overlay").click(function() {
+			$(".modal-box, .modal-overlay").fadeOut(500, function() {
+				$(".modal-overlay").remove();
+			});
+
+		});
+
+		$(window).resize(function() {
+			$(".modal-box").css({
+				top : ($(window).height() - $(".modal-box").outerHeight()) / 2,
+				left : ($(window).width() - $(".modal-box").outerWidth()) / 2
+			});
+		});
+
+		$(window).resize();
+
+	});
 </script>
 <script type="text/javascript">
 
@@ -226,110 +264,9 @@ $(window).resize();
 
 </script>
 <!-- jQuery -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
-
-<style>
-/* The Modal (background) */
-.modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	padding-top: 100px; /* Location of the box */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-	position: relative;
-	background-color: #fefefe;
-	margin: auto;
-	padding: 0;
-	border: 1px solid #888;
-	width: 80%;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
-	-webkit-animation-name: animatetop;
-	-webkit-animation-duration: 0.4s;
-	animation-name: animatetop;
-	animation-duration: 0.4s
-}
-
-/* Add Animation */
-@
--webkit-keyframes animatetop {
-	from {top: -300px;
-	opacity: 0
-}
-
-to {
-	top: 0;
-	opacity: 1
-}
-
-}
-@
-keyframes animatetop {
-	from {top: -300px;
-	opacity: 0
-}
-
-to {
-	top: 0;
-	opacity: 1
-}
-
-}
-
-/* The Close Button */
-.close {
-	color: white;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover, .close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.modal-header {
-	padding: 2px 16px;
-	background-color: #5cb85c;
-	color: white;
-}
-
-.modal-body {
-	padding: 2px 16px;
-}
-
-.modal-footer {
-	padding: 2px 16px;
-	background-color: #5cb85c;
-	color: white;
-}
-</style>
-<style type="text/css">
-table#table_id {
-	background-color: #d5f7ce;
-}
-
-.nofound {
-	color: red;
-	font-size: 3ex;
-	margin-left: 350px;
-	widows: 100%;
-}
-</style>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<!-- 	<link rel="stylesheet" href="assets/css/invoiceno.css" /> -->
+	
 </head>
 <body
 	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
@@ -343,7 +280,6 @@ table#table_id {
 
 
 	<script type="text/javascript">
-			//<![CDATA[
 			var theForm = document.forms['form1'];
 			if (!theForm) {
 				theForm = document.form1;
@@ -355,7 +291,6 @@ table#table_id {
 					theForm.submit();
 				}
 			}
-			//]]>
 		</script>
 
 
@@ -402,15 +337,24 @@ table#table_id {
 
 		<!-- Site Overlay -->
 		<div class="site-overlay"></div>
-
+		
+					<div class="col-sm-3"></div>
+					<div class="col-sm-9" style="margin-top: 70px">
+						
+					</div>
+				</div>
+		
+	
 		<!-- Your Content -->
+		
 		<div id="container">
 			<!-- Menu Button -->
+			<div class="row">
 			<div class="menu-btn">&#9776; Menu</div>
-
-
+			<button type="button" class="btnc btn-pink ">Collection </button>
+			
+</div>
 			<script type="text/javascript">
-					//<![CDATA[
 					Sys.WebForms.PageRequestManager._initialize(
 							'ctl00$ContentPlaceHolder1$ScriptManager1',
 							'form1', [ 'tctl00$ContentPlaceHolder1$upd',
@@ -418,7 +362,6 @@ table#table_id {
 									'tctl00$ContentPlaceHolder1$msgbox',
 									'ContentPlaceHolder1_msgbox' ], [], [], 90,
 							'ctl00');
-					//]]>
 				</script>
 
 			<hr />
@@ -468,14 +411,20 @@ table#table_id {
 						</div>
 
 					</div>
-
-					<div class="col-sm-2">
+					<div class="col-sm-2  ">
 						<div style="margin-bottom: 10px">
+							<input name="pckg" type="text" id="ContentPlaceHolder1_txtpkg"
+								tabindex="2" class="form-control" placeholder="Status" />
+						</div>
+
+					</div>
+					<div class="col-sm-2 pull-right">
+						<div style="margin-bottom: 10px  ">
 
 							<input type="submit"
 								name="ctl00$ContentPlaceHolder1$btn_search_request"
 								value="Search" id="ContentPlaceHolder1_btn_search_request"
-								tabindex="30" class="btn-primary btn btn-block" />
+								tabindex="30" class="btn-primary btn-color btn-block pull-right" />
 
 						</div>
 
@@ -518,8 +467,7 @@ table#table_id {
 									<th scope="col">Payment Status</th>
 									<th scope="col">Date_Time</th>
 									<th scope="col">Approval</th>
-									<th scope="col">Action</th>
-								</tr>
+									</tr>
 
 								<%
 									int i=0;
@@ -528,7 +476,8 @@ table#table_id {
 									<tr>
 										<td><%= i %></td>
 
-										<td>${user.invoice}</td>
+										<td><a href="#" value=${user.invoice}
+												data-modal-link="popup3">${user.invoice}</a></td>
 										<td>${user.VC_No}</td>
 										<td>${user.cust_Name}</td>
 										<td>${user.cust_mobile}</td>
@@ -545,18 +494,12 @@ table#table_id {
 
 										<td>
 											<%-- 								<input type="button" name="${user.invoice}" value="Edit"class="btn-primary btn btn-block"  id="" onclick="myBtn();"/> --%>
-											<a class="js-open-modal btn" href="#" value="${user.invoice}"
-											data-modal-id="popup2"  >Edit</a>
+											<a  class="js-open-modal btn" href="#" value="${user.invoice}"
+											data-modal-id="popup2"  ><img src="assets/img/edit.png" onClick=" return false;"/></a>
 
 										</td>
-										<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_0"
-											class="btn-primary btn btn-block"
-											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnktDetail&#39;,&#39;&#39;)">View/Print</a>
-
-										</td>
-										<%
-									i++;
-								%>
+									
+										<% i++;	%>
 									</tr>
 								</c:forEach>
 
@@ -627,30 +570,196 @@ table#table_id {
 
 		</div>
 
+	<div id="popup3" class="modal-box">
+		
+			<a href="#" class="js-modal-close close">×</a>
 
-		<div id="popup2" class="modal-box">
+				<div class="modal-body">
+					<div class="modal-content">
+						<div class="modal-header" style="background-color: #288484">
+							<button type="button" class="close" data-dismiss="modal"></button>
+							<h4 align="center" class="modal-title">
+								<b style="color: white" id="inid"></b>
+							</h4>
+						</div>
+
+
+						<div id="ContentPlaceHolder1_msgbox">
+
+							<div id="ContentPlaceHolder1_pnlPrint">
+
+
+
+								<br />
+								<div id="print_ticket">
+									<div class="detail">
+
+											<table style="width: 95%;">
+												<tr>
+													<td>
+														<p>
+																<b> <span id="ContentPlaceHolder1_lblname"></span></b>
+															</p>
+															<p>
+																<span id="ContentPlaceHolder1_lbladd1"></span>
+															</p>
+															<p>
+																<span id="ContentPlaceHolder1_lbladd2"></span>
+															</p>
+
+													</td>
+													<td>
+														<table style="width: 100%;">
+																<tr>
+																	<td style="border: ridge">Account No</td>
+																	<td style="border: ridge"><span
+																		id="ContentPlaceHolder1_lblac"></span></td>
+																</tr>
+																<tr>
+																	<td style="border: ridge">Bill Number</td>
+																	<td style="border: ridge"><span
+																		id="ContentPlaceHolder1_lblbillno"></span></td>
+																</tr>
+
+																<tr>
+																	<td style="border: ridge">Billing Date</td>
+																	<td style="border: ridge"><span
+																		id="ContentPlaceHolder1_lblbilldate"></span></td>
+																</tr>
+																<tr>
+																	<td style="border: ridge">Due Date</td>
+																	<td style="border: ridge"><span
+																		id="ContentPlaceHolder1_lblduedate"></span></td>
+																</tr>
+															</table>
+														
+													</td>
+												</tr>
+											</table>
+										</div>
+
+									<br />
+									<div class="col-md-12" style="background-color: #288484">
+										<p style="color: white" align="center">Make Online Payment
+											and manage your account</p>
+									</div>
+									<div class="col-md-12">
+										<table style="border: ridge">
+											<tr>
+												<td style="border: ridge; width: 210px"><b>Previous</b></td>
+												<td style="border: ridge; width: 210px"><b>Last
+														Payment</b></td>
+												<td style="border: ridge; width: 210px">Advance<b></b></td>
+												<td style="border: ridge; width: 210px"><b>Bill
+														Amount </b></td>
+												<td style="border: ridge; width: 210px"><b>Internet
+														User Id</b></td>
+
+											</tr>
+											<tr>
+												<td style="border: ridge; width: 210px"><b>RS 0</b></td>
+												<td style="border: ridge; width: 210px"><b>RS 0</b></td>
+												<td style="border: ridge; width: 210px">RS 0<b></b></td>
+												<td style="border: ridge; width: 210px"><b>RS 520</b></td>
+												<td style="border: ridge; width: 210px"><b>NA</b></td>
+											</tr>
+										</table>
+									</div>
+									<br />
+									<div class="col-md-12">
+										<div class="col-md-12">
+											<table style="border: ridge">
+												<tr>
+													<td style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Account
+															details</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>Amount</b></td>
+												</tr>
+												
+
+
+												<tr>
+													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;">(1)Service
+														Tax</td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;">Rs 0.00</td>
+												</tr>
+												<tr>
+													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;">(2)Entertainment
+														Tax</td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;">Rs 0</td>
+												</tr>
+
+												<tr>
+													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Sub
+															Total</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>RS 520</b></td>
+												</tr>
+
+												<tr>
+													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;">Previous
+														Balance</td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;">Rs 0</td>
+												</tr>
+
+												<tr>
+													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Discount</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>Rs</b></td>
+												</tr>
+
+
+												<tr>
+													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Total</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>Rs 520</b></td>
+												</tr>
+												<tr>
+													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Late
+															Payment Charges</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>Rs 50</b></td>
+												</tr>
+
+												<tr>
+													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Payable
+															after due date</b></td>
+													<td style="border: ridge;width: 200px;padding: 5px 5px 5px 5px;"><b>Rs 570</b></td>
+												</tr>
+
+											</table>
+
+
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" id="btnprint" class="btn btn-small js-modal-close"
+								onclick="return PrintPanel();">Print</button>
+							<a href="#" class="btn btn-small js-modal-close">Close</a>
+
+						</div>
+
+					</div>
+				</div>
+				
+		</div>
+		
+		
+	<div id="popup2" class="modal-box">
 			<header>
 				<a href="#" class="js-modal-close close">×</a>
-				<h3>Modal Popup</h3>
+				<h3> Invoice Number :<label for="form1"class=""> ${cust_invoice.invoice_No }</label></h3>
 			</header>
-			<div class="modal-body">
+			<div class="modal-body" style="padding-left:20px">
 				<!--    paste here -->
 	<form>
 										<input type="hidden" name="user" value="${user }" />
 										<div>
-											<div class="form-inline marginBottom">
-												<div class="md-form">
-													<label for="form1" class="">Date :</label> <input
-														type="text" style="width: 30%; margin-left: 11%"
-														id="form1" placeholder="Complaint Type"
-														class="form-control input1"> <label for="form1"
-														class=""> Invoice :</label> <input type="text"
-														style="width: 30%; margin-left: 6%" id="form1"
-														placeholder="${cust_invoice.invoice_No }" class="form-control input1">
-
-												</div>
-											</div>
-											<br>
 											<div class="form-inline marginBottom">
 												<div class="md-form">
 													<label for="form1" class="">From :</label> <input
@@ -706,7 +815,7 @@ table#table_id {
 														type="text" style="width: 30%; margin-left: 6%" id="form1"
 														placeholder="Complaint Type" class="form-control input1">
 													<label for="form1" class="">Reference ID :</label> <input
-														type="text" style="width: 30%; margin-left: 2%" id="form1"
+														type="text" style="width: 30%; margin-left: 3%" id="form1"
 														placeholder="Complaint Type" class="form-control input1">
 
 												</div>
@@ -731,11 +840,8 @@ table#table_id {
 							
 							</div>
 			</div>
-			<footer>
-				<a href="#" class="btn btn-small js-modal-close">Close</a>
-			</footer>
+			
 		</div>
-
 		<!-- Pushy JS -->
 
 		<script src="assets/js/pushy.min.js"></script>

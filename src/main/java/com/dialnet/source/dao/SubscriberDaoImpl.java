@@ -9,12 +9,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dialnet.source.model.User;
+
 
 @Transactional
 @Repository
@@ -136,7 +138,50 @@ public class SubscriberDaoImpl implements SubsriberDao {
 		q.executeUpdate();
 		return true;
 	}
+/////////////////////////////////////////////////////////For Pagination/////////////////////////////////////////////////////
 	
+	public List<User> list(Integer offset, Integer maxResults){
+		Session sf=dao.openSession();
+		return sf.createCriteria(User.class)
+				.setFirstResult(offset!=null?offset:0)
+				.setMaxResults(maxResults!=null?maxResults:10)
+				.list();
+	}
+	
+	
+	public Long count(){
+		Session sf=dao.openSession();
+		return (Long)sf.createCriteria(User.class)
+				.setProjection(Projections.rowCount())
+				.uniqueResult();
+	}
+	
+	
+	public List<User> listForBill(Integer offset, Integer maxResults){
+		Session sf=dao.openSession();
+		Criteria criteria = sf.createCriteria(User.class); 
+		criteria.add(Restrictions.eq("bill_status","NO"));
+		Criterion rest1= Restrictions.and(Restrictions.eq("con_expiry_date",getDate()));
+		Criterion rest2= Restrictions.and(Restrictions.lt("con_expiry_date",getDate()));
+		criteria.add(Restrictions.or(rest1, rest2));
+		
+		return criteria.setFirstResult(offset!=null?offset:0)
+		.setMaxResults(maxResults!=null?maxResults:10).list();
+		
+	}
+	
+	
+	public Long countForBill(){
+		Session sf=dao.openSession();
+		Criteria criteria = sf.createCriteria(User.class); 
+		criteria.add(Restrictions.eq("bill_status","NO"));
+		Criterion rest1= Restrictions.and(Restrictions.eq("con_expiry_date",getDate()));
+		Criterion rest2= Restrictions.and(Restrictions.lt("con_expiry_date",getDate()));
+		criteria.add(Restrictions.or(rest1, rest2));
+		return (Long)criteria
+				.setProjection(Projections.rowCount())
+				.uniqueResult();
+	}
 	
 /////////////////////////////////////////////////////////////For Date////////////////////////////////////////////////////
 	public String getDate() {

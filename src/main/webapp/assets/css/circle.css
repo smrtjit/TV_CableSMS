@@ -57,10 +57,15 @@ table#ContentPlaceHolder1_rbselect {
   color:white;
 }
 
-
+.btn-pink {
+  color: #ffffff;
+  background-color: #ca42a6;
+  border-color: #357ebd;
+}
 .btnc {
+	  margin: -121px 450px; 
     display: inline-block;
-    padding: 60px 25px;
+    padding: 6px 200px;
     margin-bottom: 0;
     font-size: 17px;
     font-weight: normal;
@@ -77,6 +82,56 @@ table#ContentPlaceHolder1_rbselect {
     -o-user-select: none;
     user-select: none;
 }
+
+.btn-home {
+  color: #ffffff;
+    background-color: #42cab7;
+  border-color: #357ebd;
+}
+
+
+.btnhome {
+    margin: -74px 350px;
+    display: inline-block;
+    padding: 0px 200px;
+    margin-bottom: 0;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 98px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+} 
+
+.buttongol {
+    margin: px 23px;
+    display: inline-block;
+    padding: 80px 50px;
+    margin-bottom: 0;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 98px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
 
 
 .badge {

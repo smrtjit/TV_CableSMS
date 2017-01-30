@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ taglib prefix="tag" uri="/WEB-INF/taglibs/customTaglib.tld"%>
 
 
 <!DOCTYPE html>
@@ -154,18 +154,71 @@
 			</div>
 			<hr />
 			<div id="stb">
+				<form action="#">
+					<input type="hidden" name="user" value="${user }" />
 
-				<div class="col-sm-12">
-					<div class="col-sm-12">
-						<div style="margin-bottom: 0px">
-							<p class="p1">STB Box</p>
-							<p>
-								Total No.of Data Uploaded : <span
-									id="ContentPlaceHolder1_lblStbCount" style="font-weight: bold;">${fn:length(stbList)}</span>
-							</p>
+					<div class="col-sm-2">
+						<div style="margin-bottom: 10px">
+							<input name="stb_num" type="text"
+								id="ContentPlaceHolder1_txttodate" tabindex="1"
+								class="form-control" placeholder="Setup Box Number" />
+						</div>
+
+					</div>
+
+					<div class="col-sm-2">
+						<div style="margin-bottom: 10px">
+
+							<input name="brand" type="text"
+								id="ContentPlaceHolder1_txtfromdate" tabindex="2"
+								class="form-control" placeholder="By Brand" />
+
 						</div>
 					</div>
 
+					<div class="col-sm-2">
+						<div style="margin-bottom: 10px">
+
+							<input name="mso" type="text" id="ContentPlaceHolder1_txtvcno"
+								tabindex="2" class="form-control" placeholder="By MSO." />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div style="margin-bottom: 10px">
+							<input name="Status" type="text"
+								id="ContentPlaceHolder1_txtmobile" tabindex="1"
+								class="form-control" placeholder="Status" />
+
+						</div>
+
+					</div>
+				
+
+					<div class="col-sm-2">
+						<div style="margin-bottom: 10px">
+
+							<input type="submit"
+								name="ctl00$ContentPlaceHolder1$btn_search_request"
+								value="Search" id="ContentPlaceHolder1_btn_search_request"
+								tabindex="30" class="btn-primary btn btn-block" />
+
+						</div>
+
+					</div>
+					<div class="nofound">${error}</div>
+				</form>
+				
+				<div class="col-sm-12">
+					<div class="col-sm-12">
+						<div style="margin-bottom: 0px">
+							
+							<p>
+								Total No.of Data Uploaded : <span
+									id="ContentPlaceHolder1_lblStbCount" style="font-weight: bold;">${countForSTB}</span>
+							</p>
+						</div>
+					</div>
+</div>
 					<div class=" table-responsive">
 						<div>
 							<table class="table table-striped jambo_table bulk_action"
@@ -184,17 +237,13 @@
 									<!-- 										<th scope="col">&nbsp;</th> -->
 									<!-- 										<th scope="col">&nbsp;</th> -->
 								</tr>
-
-								<%
-									int i = 0;
-								%>
-								<c:forEach items="${stbList}" var="user1">
+									<c:forEach items="${stbList}" var="user1" varStatus="itr">
 								
 									<tr>
 									<form action="stbUpdateLCO.html">
 									<input type="hidden" name="user" value="${user}"/>
 									<input type="hidden" name="STB" value="${user1.stb_box_no}"/>
-										<td><%=i%></td>
+										<td>${offsetForSTB + itr.index +1 }</td>
 										<td>${user1.stb_box_no}</td>
 										<td>${user1.company}</td>
 										<td>${user1.mso}</td>
@@ -213,9 +262,6 @@
 											value="Edit" class="aspNetDisabled btn btn-primary" />
 										</td>
 
-										<%
-											i++;
-										%>
 										</form>
 									</tr>
 									
@@ -223,20 +269,72 @@
 
 
 							</table>
+								<tag:paginate max="15" offset="${offsetForSTB}" count="${countForSTB}" uri="lcotock.html?user=${user}" next="&raquo;" previous="&laquo;" />
 						</div>
 					</div>
 				</div>
 
-			</div>
+			
 
 			<div id="vc" style="display: none">
+			<form action="#">
+					<input type="hidden" name="user" value="${user }" />
+
+					<div class="col-sm-2">
+						<div style="margin-bottom: 10px">
+							<input name="vc_num" type="text"
+								class="form-control" placeholder="VC Number" />
+						</div>
+
+					</div>
+
+					<div class="col-sm-2">
+						<div style="margin-bottom: 10px">
+
+							<input name="vcbrand" type="text"
+								class="form-control" placeholder="By Brand" />
+
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div style="margin-bottom: 10px">
+
+							<input name="vcmso" type="text" 
+								tabindex="2" class="form-control" placeholder="By MSO." />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div style="margin-bottom: 10px">
+							<input name="vcStatus" type="text"
+								 tabindex="1"
+								class="form-control" placeholder="Status" />
+
+						</div>
+
+					</div>
+				
+
+					<div class="col-sm-2">
+						<div style="margin-bottom: 10px">
+
+							<input type="submit"
+								name="ctl00$ContentPlaceHolder1$btn_search_request"
+								value="Search" id="ContentPlaceHolder1_btn_search_request"
+								tabindex="30" class="btn-primary btn btn-block" />
+
+						</div>
+
+					</div>
+					<div class="nofound">${error}</div>
+				</form>
 				<div class="col-sm-12">
 					<div class="col-sm-12">
 						<div style="margin-bottom: 0px">
-							<p class="p1">VC No.</p>
+						
 							<p>
 								Total No.of Data Uploaded : <span
-									id="ContentPlaceHolder1_lblVC_Count" style="font-weight: bold;">${fn:length(vcList)}</span>
+									id="ContentPlaceHolder1_lblVC_Count" style="font-weight: bold;">${countForVC}</span>
 							</p>
 						</div>
 					</div>
@@ -258,18 +356,12 @@
 <!-- 									<th scope="col">&nbsp;</th> -->
 <!-- 									<th scope="col">&nbsp;</th> -->
 								</tr>
-								
-									
-									
-								<%
-									int i1 = 0;
-								%>
-								<c:forEach items="${vcList}" var="data">
+								<c:forEach items="${vcList}" var="data" varStatus="itr">
 								<form name="theForm" action="updateVCStatus.html">
 								<input type="hidden" name="user" value="${user}"/>
 									<tr>
 									<input type="hidden" name="VC_No" value="${data.vc_no}"/>
-										<td><%=i1%></td>
+									<td>${offsetForVC + itr.index +1 }</td>
 										<td>${data.vc_no}</td>
 										<td>${data.company}</td>
 										<td>${data.mso}</td>
@@ -286,16 +378,12 @@
 										<input type="submit"value="Submit" 
 										class="aspNetDisabled btn btn-primary" />
 										</td>
-
-										<%
-											i1++;
-										%>
-										
 									</tr>
 									</form>
 								</c:forEach>
 								
 							</table>
+							<tag:paginate max="15" offset="${offsetForVC}" count="${countForVC}" uri="lcostock.html?user=${user}" next="&raquo;" previous="&laquo;" />
 						</div>
 					</div>
 				</div>

@@ -16,4 +16,15 @@ public interface SubscriberService {
 	public List<User> findByAnyone(String sdate,String edate,String stb_no,String VC_no,String mobile,String status,String pckg);
 	public List<User> findUserForBillGeneration();
 	public boolean updateBillStatus(String user);
+	
+	/////////////////For Pagination/////////////////////////
+	
+public List<User> list(Integer offset, Integer maxResults);
+	
+	public Long count();
+	
+	
+public List<User> listForBill(Integer offset, Integer maxResults);
+	
+	public Long countForBill();
 }

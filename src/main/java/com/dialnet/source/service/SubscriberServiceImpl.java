@@ -73,6 +73,30 @@ public class SubscriberServiceImpl implements SubscriberService {
 	public boolean updateBillStatus(String user) {
 		return subsriberdao.updateBillStatus(user);
 	}
+
+	@Override
+	public List<User> list(Integer offset, Integer maxResults) {
+		
+		return subsriberdao.list(offset, maxResults);
+	}
+
+	@Override
+	public Long count() {
+		
+		return subsriberdao.count();
+	}
+
+	@Override
+	public List<User> listForBill(Integer offset, Integer maxResults) {
+		// TODO Auto-generated method stub
+		return subsriberdao.listForBill(offset, maxResults);
+	}
+
+	@Override
+	public Long countForBill() {
+		// TODO Auto-generated method stub
+		return subsriberdao.countForBill();
+	}
 	
 
 }

@@ -3,7 +3,7 @@
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-
+<%@ taglib prefix="tag" uri="/WEB-INF/taglibs/customTaglib.tld"%>
 
 <!DOCTYPE html>
 
@@ -31,6 +31,8 @@
 	href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.css"
 	rel="stylesheet" type="text/css">
 <style>
+
+
 html {
 	font-family: "roboto", helvetica;
 	position: relative;
@@ -177,6 +179,17 @@ text-align: right;
 		$('a[data-modal-id]').click(function(e) {
 			var invoice = $(this).attr('value');
 // 			alert(invoice);
+			 $.ajax({  
+            type : 'GET', 
+            url: 'printBill.html',
+            data: {
+            	'invoice': invoice,
+            	'user': ${user}
+            },
+            success: function (data) {
+            	 alert("hello: "+data.Detail.Total_Amount);
+            }
+        });
 			document.getElementById("inid").innerHTML ="Invoice Number: "+invoice;
 			e.preventDefault();
 			$("body").append(appendthis);
@@ -328,12 +341,15 @@ text-align: right;
 		<div id="container">
 			<!-- Menu Button -->
 			<div class="menu-btn">&#9776; Menu</div>
+			<button type="button" class="btnc btn-pink ">Bulk Billing </button>
 
 
 			<div class="row">
+			
+
 				<div
 					style="margin-left: auto; margin-right: auto; margin-top: -10px; width: 25em">
-
+					
 					<table id="ContentPlaceHolder1_rbselect" class="form-control">
 						<tr>
 							<td><span class="radio-inline"><input
@@ -356,10 +372,10 @@ text-align: right;
 				<div class="col-sm-12">
 					<div class="col-sm-12">
 						<div style="margin-bottom: 0px">
-							<p class="p1">STB Box</p>
+							
 							<p>
 								Total No.of Data Uploaded : <span
-									id="ContentPlaceHolder1_lblStbCount" style="font-weight: bold;">${fn:length(BillsDetail)}</span>
+									id="ContentPlaceHolder1_lblStbCount" style="font-weight: bold;">${count}</span>
 							</p>
 						</div>
 					</div>
@@ -384,14 +400,11 @@ text-align: right;
 								</tr>
 
 								</tr>
-								<%
-									int i = 0;
-								%>
-								<c:forEach items="${BillsDetail}" var="bill">
+								<c:forEach items="${BillsDetail}" var="bill" varStatus="itr">
 
 									<tr>
 										<form action="stbUpdateLCO.html">
-											<td><%=i%></td>
+												<td>${offset + itr.index +1 }</td>
 											<td>${bill.invoice_No}</td>
 											<td>${bill.vc_No}</td>
 											<td>${bill.user_Id}</td>
@@ -407,15 +420,13 @@ text-align: right;
 												data-modal-id="popup2">Download/View Bill</a>
 											</td>
 
-											<%
-												i++;
-											%>
+											
 										</form>
 									</tr>
 
 								</c:forEach>
 							</table>
-
+					<tag:paginate max="15" offset="${offset}" count="${count}" uri="lcoBilling.html?user=${user}" next="&raquo;" previous="&laquo;" />
 						</div>
 					</div>
 				</div>
@@ -429,7 +440,7 @@ text-align: right;
 							<p class="p1">VC No.</p>
 							<p>
 								Total No.of Data Uploaded : <span
-									id="ContentPlaceHolder1_lblVC_Count" style="font-weight: bold;">${fn:length(BillUser)}</span>
+									id="ContentPlaceHolder1_lblVC_Count" style="font-weight: bold;">${countForBill}</span>
 							</p>
 						</div>
 					</div>
@@ -452,14 +463,12 @@ text-align: right;
 									<th scope="col">Action</th>
 								</tr>
 
-								<%
-									int ii = 0;
-								%>
-								<c:forEach items="${BillUser}" var="user1">
+							
+								<c:forEach items="${BillUser}" var="user1" varStatus="itr">
 
 									<tr>
 										<form action="stbUpdateLCO.html">
-											<td><%=ii%></td>
+												<td>${offsetForBill + itr.index +1 }</td>
 											<td>${user1.username}</td>
 											<td>${user1.customer_name}</td>
 											<td>${user1.customer_mobile}</td>
@@ -471,16 +480,13 @@ text-align: right;
 												href="createSingleBill.html?user=${user }&CustId=${user1.username}">
 													Generate Bill</a></td>
 
-											<%
-												ii++;
-											%>
 										</form>
 									</tr>
 
 								</c:forEach>
 
 							</table>
-
+								<tag:paginate max="15" offset="${offsetForBill}" count="${countForBill}" uri="lcoBilling.html?user=${user}" next="&raquo;" previous="&laquo;" />
 						</div>
 					</div>
 				</div>
@@ -690,8 +696,7 @@ text-align: right;
 
 						</div>
 						<div class="modal-footer">
-							<button type="button" id="btnprint" class="btn btn-primary"
-								onclick="return PrintPanel();">Print</button>
+							<a href="#" class="btn btn-small js-modal-close" onclick="return PrintPanel();">Print</a>
 							<a href="#" class="btn btn-small js-modal-close">Close</a>
 
 						</div>
@@ -700,6 +705,21 @@ text-align: right;
 				</div>
 				
 		</div>
+		<script type="text/javascript">
+		 function PrintPanel() {
+	            var panel = document.getElementById("popup2");
+	            var printWindow = window.open('', '', 'height=400,width=850');
+	            printWindow.document.write('<html><head><title>Generate Bill</title>');
+	            printWindow.document.write('</head><body >');
+	            printWindow.document.write(panel.innerHTML);
+	            printWindow.document.write('</body></html>');
+	            printWindow.document.close();
+	            setTimeout(function () {
+	                printWindow.print();
+	            }, 500);
+	            return false;
+	        }</script>
+		
 		<!-- Pushy JS -->
 
 		<script src="assets/js/pushy.min.js"></script>

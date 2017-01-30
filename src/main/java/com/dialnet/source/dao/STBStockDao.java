@@ -14,4 +14,8 @@ public interface STBStockDao {
 	public STBStock getByStatus(String stutus);
 	
 	public int upSTB(String stb,String status);
+	
+	public List<STBStock> list(Integer offset, Integer maxResults);
+	
+	public Long count();
 }

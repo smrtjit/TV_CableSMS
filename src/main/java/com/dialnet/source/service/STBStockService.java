@@ -6,11 +6,15 @@ import com.dialnet.source.model.STBStock;
 
 public interface STBStockService {
 
-public List<STBStock> getAllVCStock();
-	
+	public List<STBStock> getAllVCStock();
+
 	public STBStock getBySTBNo(String stb);
-	
+
 	public STBStock getByStatus(String stutus);
-	
-	public int upSTB(String stb,String status);
+
+	public int upSTB(String stb, String status);
+
+	public List<STBStock> list(Integer offset, Integer maxResults);
+
+	public Long count();
 }

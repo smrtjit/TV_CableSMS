@@ -18,4 +18,6 @@ public interface Cust_InvoiceDao {
 	
 	public Cust_Invoice getByInvoice(String id);
 	
+	public List<Cust_Invoice> list(Integer offset, Integer maxResults);
+	public Long count();
 }

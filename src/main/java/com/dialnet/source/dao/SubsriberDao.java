@@ -20,4 +20,14 @@ public interface SubsriberDao {
 	
 	public boolean updateBillStatus(String user);
 	
+	//////////////////For Pagination//////////////
+	
+	public List<User> list(Integer offset, Integer maxResults);
+	
+	public Long count();
+	
+	public List<User> listForBill(Integer offset, Integer maxResults);
+	
+	public Long countForBill();
+	
 }

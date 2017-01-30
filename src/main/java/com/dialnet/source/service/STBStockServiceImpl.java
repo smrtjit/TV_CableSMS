@@ -34,4 +34,14 @@ public class STBStockServiceImpl implements STBStockService {
 		return dao.upSTB(stb, status);
 	}
 
+	@Override
+	public List<STBStock> list(Integer offset, Integer maxResults) {
+		return dao.list(offset, maxResults);
+	}
+
+	@Override
+	public Long count() {
+		return dao.count();
+	}
+
 }

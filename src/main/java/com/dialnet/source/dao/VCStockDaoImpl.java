@@ -6,9 +6,12 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 
 import com.dialnet.source.model.VCStock;
 
@@ -63,4 +66,21 @@ public class VCStockDaoImpl implements VCStockDao {
 		return result;
 	}
 
+	////////////////////////////////////////////For Pagination////////////////////////////////////////////
+	
+	public List<VCStock> list(Integer offset, Integer maxResults){
+		Session sf=dao.openSession();
+		return sf.createCriteria(VCStock.class)
+				.setFirstResult(offset!=null?offset:0)
+				.setMaxResults(maxResults!=null?maxResults:10)
+				.list();
+	}
+	
+	
+	public Long count(){
+		Session sf=dao.openSession();
+		return (Long)sf.createCriteria(VCStock.class)
+				.setProjection(Projections.rowCount())
+				.uniqueResult();
+	}
 }

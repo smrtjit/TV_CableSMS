@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -64,6 +65,9 @@ public class LCOController {
 	@Autowired
 	public SubscriberService userService;
 
+
+
+	
 	@Autowired
 	public AllComplaintService LCOComplaintRepository;
 
@@ -95,24 +99,27 @@ public class LCOController {
 		return "lcologin";
 	}
 
+
+
 	@RequestMapping(value = "/lcologin", method = RequestMethod.POST)
 	public ModelAndView login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result,
-			ModelMap map, RedirectAttributes redir) {
-		if (result.hasErrors()) {
-			// return "lcologin";
-			return new ModelAndView("lcologin", "error", "There is some Errors");
+	ModelMap map, RedirectAttributes redir) {
+	if (result.hasErrors()) {
+	// return "lcologin";
+	return new ModelAndView("lcologin", "error", "There is some Errors");
 
-		} else {
-			boolean found = lcoService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
-			String user = studentLogin.getUserName();
-			if (found) {
-				ModelAndView modelAndView = new ModelAndView();
-				modelAndView.setViewName("redirect:allLCOComplain.html?user=" + user);
-				return modelAndView;
-			} else {
-				return new ModelAndView("lcologin", "error", "Invalid Username or Password!!!");
-			}
-		}
+	} else {
+	boolean found = lcoService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
+	String user = studentLogin.getUserName();
+	if (found) {
+	map.addAttribute("user", user);
+	ModelAndView modelAndView = new ModelAndView("LCOHome",map);
+
+	return modelAndView;
+	} else {
+	return new ModelAndView("lcologin", "error", "Invalid Username or Password!!!");
+	}
+	}
 
 	}
 
@@ -133,12 +140,15 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/oldConnections", method = RequestMethod.GET)
-	public ModelAndView CustRecharge(ModelMap map, @RequestParam("user") String user) {
+	public ModelAndView CustRecharge(ModelMap map, @RequestParam("user") String user,Integer offset, Integer maxResults) {
+		
+		
 		User userForm = new User();
 		map.addAttribute("subForm", userForm);
 		List<String> al = pckgservice.getAllPckgNames();
 		map.addAttribute("pckInfo", al);
-		List<User> userList = userService.getAll();
+		List<User> userList = userService.list(offset,maxResults);
+		System.out.println("calling oldConnections : "+offset+","+maxResults+","+userList.size());
 		/*
 		 * for (User temp : userList) {
 		 * System.out.println("User Name: "+temp.getUsername()+",Mobile No.: "
@@ -146,6 +156,8 @@ public class LCOController {
 		 * 
 		 * }
 		 */
+		map.addAttribute("count", userService.count());
+		map.addAttribute("offset", offset);
 		map.addAttribute("userList", userList);
 		map.addAttribute("user", user);
 		return new ModelAndView("Connection", map);
@@ -181,6 +193,7 @@ public class LCOController {
 			model.addObject("Account", found.getAccount_no());
 			model.addObject("Email", found.getEmaiil());
 			model.addObject("City", found.getCity());
+			model.addObject("state", found.getState());
 			return model;
 		}
 
@@ -233,10 +246,17 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/lcoBilling", method = RequestMethod.GET)
-	public ModelAndView lcoBilling(ModelMap map, @RequestParam("user") String user) {
+	public ModelAndView lcoBilling(ModelMap map, @RequestParam("user") String user,Integer offset, Integer maxResults ) {
 
-		List<User> tmp = userService.findUserForBillGeneration();
-		List<Cust_Invoice> custtmp=invoice.getBillList();
+		List<User> tmp = userService.listForBill(offset, maxResults);
+		List<Cust_Invoice> custtmp=invoice.list(offset, maxResults);
+		
+		map.addAttribute("countForBill", userService.countForBill());
+		map.addAttribute("offsetForBill", offset);
+		
+		
+		map.addAttribute("count", invoice.count());
+		map.addAttribute("offset", offset);
 		map.addAttribute("BillsDetail", custtmp);
 		map.addAttribute("BillUser", tmp);
 		map.addAttribute("user", user);
@@ -360,10 +380,15 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/lcostock", method = RequestMethod.GET)
-	public String lcoStock(@RequestParam("user") String user, Model model) {
+	public String lcoStock(@RequestParam("user") String user, Model model,Integer offset, Integer maxResults) {
 
-		List<STBStock> tmp = stbService.getAllVCStock();
-		List<VCStock> tmp1 = vcService.getAllVCStock();
+		List<STBStock> tmp = stbService.list(offset, maxResults);
+		model.addAttribute("countForSTB", stbService.count());
+		model.addAttribute("offsetForSTB", offset);
+		
+		List<VCStock> tmp1 = vcService.list(offset, maxResults);
+		model.addAttribute("countForVC", vcService.count());
+		model.addAttribute("offsetForVC", offset);
 		/*
 		 * System.out.println("LCO Stock size: "+tmp.size()); for(STBStock st:
 		 * tmp){
@@ -405,17 +430,32 @@ public class LCOController {
 	}
 	
 	
-	
+	@ResponseBody
 	@RequestMapping(value = "/printBill", method = RequestMethod.GET)
-	public String printBill(@RequestParam("user") String user, @RequestParam("invoice") String invoiceid,
-			 Model model) {
-		System.out.println("Invoice Details check data: " + invoice  + "," + user);
+	public ModelAndView printBill(@RequestParam("user") String user, @RequestParam("invoice") String invoiceid,
+			 ModelMap model) {
+		System.out.println("Invoice Details check data: " + invoiceid  + "," + user);
 		Cust_Invoice result = invoice.getByInvoice(invoiceid);
 		System.out.println("Result: " + result.getInvoice_No());
 		model.addAttribute("user", user);
 		model.addAttribute("Detail", result);
-		return "redirect:lcostock.html";
+		return new ModelAndView("redirect:lcoBilling.html", model);
 	}
+	
+	
+	@RequestMapping(value="/invoice_service", method=RequestMethod.GET)
+	public String custInvoice(@RequestParam("user") String user,Model model,@RequestParam("Invoice_no") String invoice_No) {	
+	System.out.println("\n****************invoice_service_Statrt**********************\t"+invoice_No);
+	Cust_Invoice tmp1=invoice.getByInvoice(invoice_No);
+	System.out.println("************************************** \t"+tmp1.getUser_Name());
+	model.addAttribute("cust_invoice",tmp1);
+
+	return "Collection";
+	}
+
+
+
+	
 	
 	
 	////////////////////////////////Sarbjeet code////////////////////////////////////////////
@@ -515,6 +555,9 @@ public class LCOController {
 		return "TopUp";
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+
 
 	////////////////////////////////// Date and Password Generation
 	////////////////////////////////// functions///////////////////////////////////

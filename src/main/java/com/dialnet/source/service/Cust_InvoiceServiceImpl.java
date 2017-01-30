@@ -45,4 +45,16 @@ public class Cust_InvoiceServiceImpl implements Cust_InvoiceService {
 		return cust_invoice_dao.getByInvoice(id);
 	}
 
+	@Override
+	public List<Cust_Invoice> list(Integer offset, Integer maxResults) {
+		
+		return cust_invoice_dao.list(offset, maxResults);
+	}
+
+	@Override
+	public Long count() {
+		
+		return cust_invoice_dao.count();
+	}
+
 }
