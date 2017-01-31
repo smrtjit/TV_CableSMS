@@ -1,6 +1,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="tag" uri="/WEB-INF/taglibs/customTaglib.tld"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
@@ -63,7 +63,7 @@ h3 {
 	padding: 0.25em .75em;
 	background-color: #428bca;
 	border: 1px solid #bbb;
-	color: #333;
+	color: #eeeeee;
 	text-decoration: none;
 	display: inline;
 	border-radius: 4px;
@@ -186,10 +186,19 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
        		      data: {
             		 Invoice_no: value
            		  },
+           		dataType: 'json',
+           		cache: false,
+				beforeSend: function(xhr) 
+                            {
+                                xhr.setRequestHeader("Accept", "application/json");  
+                                xhr.setRequestHeader("Content-Type", "application/json");  
+                            },
              	success: function (data) {
-                console.log('response=', data);
-              	var myVar = "${cust_invoice.invoice_No}";
-              	alert(myVar);
+                alert("success");
+                alert(data);
+ 	            },
+ 	            error: function(e){
+ 	            	alert(e);
  	            }
    	      });
 	
@@ -221,7 +230,30 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 		$('a[data-modal-link]').click(function(e) {
 			
 			var invoice = $(this).attr('value');
-// 			alert(invoice);
+			$.ajax({  
+	            type : 'GET', 
+	            url: 'printBill.html',
+	            data: {
+	            	'invoice': invoice,
+	            	'user': ${ user}
+	            },
+	            dataType: 'json',
+	       		cache: false,
+				beforeSend: function(xhr) 
+	                        {
+	                            xhr.setRequestHeader("Accept", "application/json");  
+	                            xhr.setRequestHeader("Content-Type", "application/json");  
+	                        },
+	         	success: function (data) {
+	             setData(data);
+	           // alert(data.Billing_Date);
+		            },
+		            error: function(e){
+		            	alert(e);
+		            }
+	            
+	        });
+			//alert(invoice);
 			document.getElementById("inid").innerHTML ="Invoice Number: "+invoice;
 			e.preventDefault();
 			$("body").append(appendthis);
@@ -248,6 +280,48 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 		$(window).resize();
 
 	});
+	
+	
+	function setData( data){
+		var accNumber=data.User_Id;
+		var billNo=data.Invoice_No;
+		var billDate=data.Billing_Date;
+		var dueDate=data.DueDate;
+		var previous=data.Prevoius_Bal;
+		var lastPay=data.LastPaid_Amt;
+		var advance=data.Advance_Amt;
+		var billAmt=data.Total_Amount;
+		var serviceTax=data.Service_Tax;
+		var entTax=data.Entertain_Tax;
+		var PreviousBal=data.Prevoius_Bal;
+		var Disount=data.Diascount;
+		var lateCharge=data.LatePay_Charges;
+		var lateAmt=data.TotalAmt_AftDueDate;
+
+
+		document.getElementById("accno").innerHTML =accNumber;
+		document.getElementById("bill").innerHTML =billNo;
+		document.getElementById("bill_d").innerHTML =billDate;
+		document.getElementById("due").innerHTML =dueDate;
+		document.getElementById("pre").innerHTML =previous;
+		document.getElementById("last").innerHTML =lastPay;
+		document.getElementById("ad").innerHTML =advance;
+		document.getElementById("bill_a").innerHTML =billAmt;
+		document.getElementById("st").innerHTML =serviceTax;
+		document.getElementById("et").innerHTML =entTax;
+		document.getElementById("pb").innerHTML =PreviousBal;
+		document.getElementById("dis").innerHTML =Disount;
+		document.getElementById("lpc").innerHTML =lateCharge;
+		document.getElementById("lpa").innerHTML =lateAmt;
+		document.getElementById("tot").innerHTML =billAmt;
+		document.getElementById("stt").innerHTML =billAmt;
+// 		document.getElementById("accno").innerHTML =Disount;
+// 		document.getElementById("accno").innerHTML =lateCharge;
+// 		document.getElementById("accno").innerHTML =lateAmt;
+// 		document.getElementById("accno").innerHTML =accNumber;
+		
+		
+	}
 </script>
 <script type="text/javascript">
 
@@ -302,9 +376,8 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 		<nav class="pushy pushy-left">
 			<ul>
 				<!--menu iteam code -->
-				<li class="pushy-link"><a href="#"
-					style="background: OLDLACE; color: black"><h5>${user}</h5>
-						</font></a></li>
+				<li class="pushy-link"><a href="LCOHome.html?user=${user}"
+style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 				<li class="pushy-link"><a
 					href="allLCOCollection.html?user=${user}">Collection</a></li>
 				<li class="pushy-link"><a
@@ -365,8 +438,8 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 				</script>
 
 			<hr />
-			<div class="row">
-				<form action="searchByanyOne.html">
+			<div class="col-sm-12" style="width: 100%;height: 75px;">
+			<form action="searchCollectionLCO.html">
 					<input type="hidden" name="user" value="${user }" />
 
 					<div class="col-sm-2">
@@ -406,14 +479,14 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 					</div>
 					<div class="col-sm-2">
 						<div style="margin-bottom: 10px">
-							<input name="pckg" type="text" id="ContentPlaceHolder1_txtpkg"
+							<input name="agent" type="text" id="ContentPlaceHolder1_txtpkg"
 								tabindex="2" class="form-control" placeholder="Agent Id" />
 						</div>
 
 					</div>
 					<div class="col-sm-2  ">
 						<div style="margin-bottom: 10px">
-							<input name="pckg" type="text" id="ContentPlaceHolder1_txtpkg"
+							<input name=status type="text" id="ContentPlaceHolder1_txtpkg"
 								tabindex="2" class="form-control" placeholder="Status" />
 						</div>
 
@@ -422,8 +495,6 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 						<div style="margin-bottom: 10px  ">
 
 							<input type="submit"
-								name="ctl00$ContentPlaceHolder1$btn_search_request"
-								value="Search" id="ContentPlaceHolder1_btn_search_request"
 								tabindex="30" class="btn-primary btn-color btn-block pull-right" />
 
 						</div>
@@ -431,6 +502,9 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 					</div>
 					<div class="nofound">${error}</div>
 				</form>
+				</div>
+			<div class="row">
+				
 				<div class="col-sm-12">
 					<div class="col-sm-12">
 						<hr />
@@ -468,13 +542,9 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 									<th scope="col">Date_Time</th>
 									<th scope="col">Approval</th>
 									</tr>
-
-								<%
-									int i=0;
-								%>
-								<c:forEach items="${userList}" var="user">
+									<c:forEach items="${userList}" var="user"  varStatus="itr">
 									<tr>
-										<td><%= i %></td>
+										<td>${offset + itr.index +1 }</td>
 
 										<td><a href="#" value=${user.invoice}
 												data-modal-link="popup3">${user.invoice}</a></td>
@@ -499,11 +569,23 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 
 										</td>
 									
-										<% i++;	%>
 									</tr>
 								</c:forEach>
 
 							</table>
+							<%
+							String finalQuery="";
+							String []token= request.getQueryString().split("&");
+							for(int i=0;i<token.length;i++){
+								if(token[i].startsWith("offset")){
+									System.out.println("offset Find");
+								}else
+								finalQuery=finalQuery+token[i]+"&";
+							}
+							String main=request.getAttribute("javax.servlet.forward.request_uri").toString()+"?"+finalQuery.substring(0, finalQuery.length()-1);
+							System.out.println("Query Link in jsp: "+main);
+							%>
+							<tag:paginate max="15" offset="${offset}" count="${count}" uri="<%= main%>" next="&raquo;" previous="&laquo;" />
 						</div>
 
 					</div>
@@ -613,23 +695,23 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 																<tr>
 																	<td style="border: ridge">Account No</td>
 																	<td style="border: ridge"><span
-																		id="ContentPlaceHolder1_lblac"></span></td>
+																		id="accno"></span></td>
 																</tr>
 																<tr>
 																	<td style="border: ridge">Bill Number</td>
 																	<td style="border: ridge"><span
-																		id="ContentPlaceHolder1_lblbillno"></span></td>
+																		id="bill"></span></td>
 																</tr>
 
 																<tr>
 																	<td style="border: ridge">Billing Date</td>
 																	<td style="border: ridge"><span
-																		id="ContentPlaceHolder1_lblbilldate"></span></td>
+																		id="bill_d"></span></td>
 																</tr>
 																<tr>
 																	<td style="border: ridge">Due Date</td>
 																	<td style="border: ridge"><span
-																		id="ContentPlaceHolder1_lblduedate"></span></td>
+																		id="due"></span></td>
 																</tr>
 															</table>
 														
@@ -657,11 +739,11 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 
 											</tr>
 											<tr>
-												<td style="border: ridge; width: 210px"><b>RS 0</b></td>
-												<td style="border: ridge; width: 210px"><b>RS 0</b></td>
-												<td style="border: ridge; width: 210px">RS 0<b></b></td>
-												<td style="border: ridge; width: 210px"><b>RS 520</b></td>
-												<td style="border: ridge; width: 210px"><b>NA</b></td>
+												<td style="border: ridge; width: 210px"><b id="pre">RS 0</b></td>
+												<td style="border: ridge; width: 210px"><b id="last">RS 0</b></td>
+												<td style="border: ridge; width: 210px"><b id="ad"></b></td>
+												<td style="border: ridge; width: 210px"><b id="bill_a">RS 520</b></td>
+												<td style="border: ridge; width: 210px"><b id="in">NA</b></td>
 											</tr>
 										</table>
 									</div>
@@ -680,46 +762,46 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;">(1)Service
 														Tax</td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;">Rs 0.00</td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;" id="st">Rs 0.00</td>
 												</tr>
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;">(2)Entertainment
 														Tax</td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;">Rs 0</td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"  id="et">Rs 0</td>
 												</tr>
 
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Sub
 															Total</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>RS 520</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;" id="stt"><b>RS 520</b></td>
 												</tr>
 
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;">Previous
 														Balance</td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;">Rs 0</td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;" id="pb">Rs 0</td>
 												</tr>
 
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Discount</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>Rs</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;" ><b id="dis">Rs</b></td>
 												</tr>
 
 
 												<tr>
-													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Total</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>Rs 520</b></td>
+													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b >Total</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b id="tot">Rs 520</b></td>
 												</tr>
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Late
 															Payment Charges</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>Rs 50</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b id="lpc">Rs 50</b></td>
 												</tr>
 
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Payable
 															after due date</b></td>
-													<td style="border: ridge;width: 200px;padding: 5px 5px 5px 5px;"><b>Rs 570</b></td>
+													<td style="border: ridge;width: 200px;padding: 5px 5px 5px 5px;"><b id="lpa">Rs 570</b></td>
 												</tr>
 
 											</table>
@@ -738,8 +820,7 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 
 						</div>
 						<div class="modal-footer">
-							<button type="button" id="btnprint" class="btn btn-small js-modal-close"
-								onclick="return PrintPanel();">Print</button>
+							<a href="#" class="btn btn-small js-modal-close" onclick="return PrintPanel();">Print</a>
 							<a href="#" class="btn btn-small js-modal-close">Close</a>
 
 						</div>

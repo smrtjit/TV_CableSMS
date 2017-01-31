@@ -54,6 +54,7 @@ import com.dialnet.source.service.STBStockService;
 import com.dialnet.source.service.SubscriberService;
 import com.dialnet.source.service.TaxInfoService;
 import com.dialnet.source.service.VCStockService;
+import com.google.gson.Gson;
 
 @Controller
 @SessionAttributes("lcoLogin")
@@ -65,9 +66,6 @@ public class LCOController {
 	@Autowired
 	public SubscriberService userService;
 
-
-
-	
 	@Autowired
 	public AllComplaintService LCOComplaintRepository;
 
@@ -99,33 +97,44 @@ public class LCOController {
 		return "lcologin";
 	}
 
-
-
 	@RequestMapping(value = "/lcologin", method = RequestMethod.POST)
-	public ModelAndView login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result,
-	ModelMap map, RedirectAttributes redir) {
-	if (result.hasErrors()) {
-	// return "lcologin";
-	return new ModelAndView("lcologin", "error", "There is some Errors");
+	public String login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result,
+			ModelMap map, RedirectAttributes redir) {
+		if (result.hasErrors()) {
+			// return "lcologin";
+			map.addAttribute("error",  "There is some Errors");
+			//return new ModelAndView("lcologin", "error", "There is some Errors");
+			return "lcologin";
 
-	} else {
-	boolean found = lcoService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
-	String user = studentLogin.getUserName();
-	if (found) {
-	map.addAttribute("user", user);
-	ModelAndView modelAndView = new ModelAndView("LCOHome",map);
+		} else {
+			boolean found = lcoService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
+			String user = studentLogin.getUserName();
+			if (found) {
+				map.addAttribute("user", user);
+				//return new ModelAndView("redirect:LCOHome.html", map);
+				return "redirect:LCOHome.html?user="+user;
+			} else {
+				map.addAttribute("error","Invalid Username or Password!!!");
+				//return new ModelAndView("lcologin", "error", "Invalid Username or Password!!!");
+				return "lcologin";
+			}
+		}
 
-	return modelAndView;
-	} else {
-	return new ModelAndView("lcologin", "error", "Invalid Username or Password!!!");
 	}
-	}
-
-	}
+	
+	 @RequestMapping(value = "/LCOHome", method = RequestMethod.GET)
+	 public String lcohome(ModelMap map, @RequestParam("user") String user) {
+	 map.addAttribute("user", user);
+	 return "LCOHome";
+	 }
 
 	@RequestMapping(value = "/allLCOCollection", method = RequestMethod.GET)
-	public ModelAndView allLCOCollection(ModelMap map, @RequestParam("user") String user) {
-		List<AllCollections> userList = LCOCollectionRepository.getAll();
+	public ModelAndView allLCOCollection(ModelMap map, @RequestParam("user") String user, Integer offset,
+			Integer maxResults) {
+		List<AllCollections> userList = LCOCollectionRepository.list(offset, maxResults);
+
+		map.addAttribute("count", LCOCollectionRepository.count());
+		map.addAttribute("offset", offset);
 		/*
 		 * for (AllCollections temp : userList) {
 		 * System.out.println("User Name: "+temp.getCust_Name()+",Invoice No.: "
@@ -140,15 +149,15 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/oldConnections", method = RequestMethod.GET)
-	public ModelAndView CustRecharge(ModelMap map, @RequestParam("user") String user,Integer offset, Integer maxResults) {
-		
-		
+	public ModelAndView CustRecharge(ModelMap map, @RequestParam("user") String user, Integer offset,
+			Integer maxResults) {
+
 		User userForm = new User();
 		map.addAttribute("subForm", userForm);
 		List<String> al = pckgservice.getAllPckgNames();
 		map.addAttribute("pckInfo", al);
-		List<User> userList = userService.list(offset,maxResults);
-		System.out.println("calling oldConnections : "+offset+","+maxResults+","+userList.size());
+		List<User> userList = userService.list(offset, maxResults);
+		System.out.println("calling oldConnections : " + offset + "," + maxResults + "," + userList.size());
 		/*
 		 * for (User temp : userList) {
 		 * System.out.println("User Name: "+temp.getUsername()+",Mobile No.: "
@@ -246,15 +255,15 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/lcoBilling", method = RequestMethod.GET)
-	public ModelAndView lcoBilling(ModelMap map, @RequestParam("user") String user,Integer offset, Integer maxResults ) {
+	public ModelAndView lcoBilling(ModelMap map, @RequestParam("user") String user, Integer offset,
+			Integer maxResults) {
 
 		List<User> tmp = userService.listForBill(offset, maxResults);
-		List<Cust_Invoice> custtmp=invoice.list(offset, maxResults);
-		
+		List<Cust_Invoice> custtmp = invoice.list(offset, maxResults);
+
 		map.addAttribute("countForBill", userService.countForBill());
 		map.addAttribute("offsetForBill", offset);
-		
-		
+
 		map.addAttribute("count", invoice.count());
 		map.addAttribute("offset", offset);
 		map.addAttribute("BillsDetail", custtmp);
@@ -297,20 +306,26 @@ public class LCOController {
 		return new ModelAndView("TopUp", map);
 	}
 
-	@RequestMapping(value = "/searchByanyOne", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchCollectionLCO", method = RequestMethod.GET)
 	public ModelAndView searchByanyOne(ModelMap map, @RequestParam("user") String user,
 			@RequestParam("VC_No") String VC_No, @RequestParam("fdate") String fdate,
 			@RequestParam("edate") String edate, @RequestParam("mobile") String mobile,
-			@RequestParam("pckg") String pckg) {
+			@RequestParam("status") String status, @RequestParam("agent") String agent, Integer offset,
+			Integer maxResults) {
 		map.addAttribute("user", user);
 		System.out.println("VC no: " + VC_No);
-		List<AllCollections> tmp = LCOCollectionRepository.getByAnyOne(fdate, edate, VC_No, mobile, pckg);
+		List<AllCollections> tmp = LCOCollectionRepository.getByAnyOne(fdate, edate, VC_No, mobile, status, agent,
+				offset, maxResults);
+
 		System.out.println("tmp.size()***************: " + tmp.size());
 		if (tmp.size() < 1) {
 			map.addAttribute("error", "No Data Found!!!");
 			System.out.println("No Data Found........................");
 		} else {
 			map.addAttribute("userList", tmp);
+			map.addAttribute("count",
+					LCOCollectionRepository.countForSearch(fdate, edate, VC_No, mobile, status, agent));
+			map.addAttribute("offset", offset);
 		}
 
 		return new ModelAndView("Collection", map);
@@ -380,12 +395,12 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/lcostock", method = RequestMethod.GET)
-	public String lcoStock(@RequestParam("user") String user, Model model,Integer offset, Integer maxResults) {
+	public String lcoStock(@RequestParam("user") String user, Model model, Integer offset, Integer maxResults) {
 
 		List<STBStock> tmp = stbService.list(offset, maxResults);
 		model.addAttribute("countForSTB", stbService.count());
 		model.addAttribute("offsetForSTB", offset);
-		
+
 		List<VCStock> tmp1 = vcService.list(offset, maxResults);
 		model.addAttribute("countForVC", vcService.count());
 		model.addAttribute("offsetForVC", offset);
@@ -428,37 +443,34 @@ public class LCOController {
 		model.addAttribute("user", user);
 		return "redirect:lcoBilling.html";
 	}
-	
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/printBill", method = RequestMethod.GET)
-	public ModelAndView printBill(@RequestParam("user") String user, @RequestParam("invoice") String invoiceid,
-			 ModelMap model) {
-		System.out.println("Invoice Details check data: " + invoiceid  + "," + user);
+	public String printBill(@RequestParam("user") String user, @RequestParam("invoice") String invoiceid,
+			ModelMap model) {
+		System.out.println("Invoice Details check data: " + invoiceid + "," + user);
 		Cust_Invoice result = invoice.getByInvoice(invoiceid);
 		System.out.println("Result: " + result.getInvoice_No());
+		Gson gson = new Gson();
+		String json = gson.toJson(result);
 		model.addAttribute("user", user);
-		model.addAttribute("Detail", result);
-		return new ModelAndView("redirect:lcoBilling.html", model);
-	}
-	
-	
-	@RequestMapping(value="/invoice_service", method=RequestMethod.GET)
-	public String custInvoice(@RequestParam("user") String user,Model model,@RequestParam("Invoice_no") String invoice_No) {	
-	System.out.println("\n****************invoice_service_Statrt**********************\t"+invoice_No);
-	Cust_Invoice tmp1=invoice.getByInvoice(invoice_No);
-	System.out.println("************************************** \t"+tmp1.getUser_Name());
-	model.addAttribute("cust_invoice",tmp1);
-
-	return "Collection";
+		return json;
+		// return new ModelAndView(json);
 	}
 
+	@RequestMapping(value = "/invoice_service", method = RequestMethod.GET)
+	public String custInvoice(@RequestParam("user") String user, Model model,
+			@RequestParam("Invoice_no") String invoice_No) {
+		System.out.println("\n****************invoice_service_Statrt**********************\t" + invoice_No);
+		Cust_Invoice tmp1 = invoice.getByInvoice(invoice_No);
+		System.out.println("************************************** \t" + tmp1.getUser_Name());
+		model.addAttribute("cust_invoice", tmp1);
 
+		return "Collection";
+	}
 
-	
-	
-	
-	////////////////////////////////Sarbjeet code////////////////////////////////////////////
+	//////////////////////////////// Sarbjeet
+	//////////////////////////////// code////////////////////////////////////////////
 
 	@RequestMapping(value = "/processExcel", method = RequestMethod.POST)
 	public String processExcel(Model model, @RequestParam("excelfile") MultipartFile excelfile,
@@ -502,8 +514,7 @@ public class LCOController {
 				}
 				model.addAttribute("lstUser", lstUser);
 				model.addAttribute("user", id);
-			}
-			else{
+			} else {
 				model.addAttribute("error", "File is Not Valid");
 				model.addAttribute("user", id);
 			}
@@ -555,9 +566,6 @@ public class LCOController {
 		return "TopUp";
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
-
 
 	////////////////////////////////// Date and Password Generation
 	////////////////////////////////// functions///////////////////////////////////
@@ -597,12 +605,14 @@ public class LCOController {
 		PackageInfo pck = pckgservice.getByID(tmp.getPackage_name());
 
 		TaxInformation tx = taxService.getInfo(user);
-		//System.out.println("Tax Amount: " + tx.getAmmusement_Tax() + "," + tx.getServiceTax());
+		// System.out.println("Tax Amount: " + tx.getAmmusement_Tax() + "," +
+		// tx.getServiceTax());
 		int cost = Integer.parseInt(pck.getPrice());
 		int costPerDay = cost / 30;
 		long interval = dayCalculate(tmp.getLast_recharge_date(), tmp.getCon_expiry_date());
 		float primaryAmt = costPerDay * interval;
-		//System.out.println("primaryAmt: "+primaryAmt+"costPerDay: "+costPerDay);
+		// System.out.println("primaryAmt: "+primaryAmt+"costPerDay:
+		// "+costPerDay);
 		float serviceTax = (primaryAmt * Float.parseFloat(tx.getServiceTax())) / 100;
 		float entTax = (primaryAmt * Float.parseFloat(tx.getEntertainment_Tax())) / 100;
 		float amsTax = (primaryAmt * Float.parseFloat(tx.getAmmusement_Tax())) / 100;
@@ -611,9 +621,9 @@ public class LCOController {
 		float ltfee = Float.parseFloat(tx.getLateFee());
 
 		float totalAmt = primaryAmt + serviceTax + entTax + amsTax + otherTax;
-		//System.out.println("Total Amout: "+totalAmt);
+		// System.out.println("Total Amout: "+totalAmt);
 		float totalAmtafdue = primaryAmt + serviceTax + entTax + amsTax + otherTax + ltfee;
-		//System.out.println("Total Amout after Due Date: "+totalAmtafdue);
+		// System.out.println("Total Amout after Due Date: "+totalAmtafdue);
 		float advance_Amt = totalAmt - Integer.parseInt(tmp.getLast_payment());
 		Cust_Invoice custIn = new Cust_Invoice();
 		custIn.setInvoice_No(invoiceId);
@@ -634,7 +644,7 @@ public class LCOController {
 		custIn.setDiascount("0");
 		custIn.setInvoice_No(invoiceId);
 		custIn.setTotalAmt_AftDueDate(totalAmtafdue + "");
-		
+
 		custIn.setUser_Name(tmp.getCustomer_name());
 		custIn.setVc_No(tmp.getCustomer_vc_no());
 		custIn.setBill_status("Not Paid");
@@ -645,14 +655,14 @@ public class LCOController {
 
 	public long dayCalculate(String fdate, String edate) {
 		long diff = 0;
-		//System.out.println("Dates: "+fdate+","+edate);
+		// System.out.println("Dates: "+fdate+","+edate);
 		try {
 			SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date date1 = myFormat.parse(fdate);
 			Date date2 = myFormat.parse(edate);
 			diff = date2.getTime() - date1.getTime();
-			diff=TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-			//System.out.println("interval: "+diff);
+			diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+			// System.out.println("interval: "+diff);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

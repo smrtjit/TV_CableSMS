@@ -38,6 +38,27 @@ table#ContentPlaceHolder1_gvdash {
 table td {
 	width: 400px;
 }
+
+.btndashborad {
+    margin: -68px 450px;
+    display: inline-block;
+    padding: 6px 200px;
+    margin-bottom: 0;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 98px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
 </style>
 </head>
 <body
@@ -104,7 +125,7 @@ table td {
 			<!-- Menu Button -->
 			<div class="menu-btn">&#9776; Menu</div>
 
-
+				<button type="button" class="btndashborad btn-pink ">Manage Account </button>
 			<script type="text/javascript">
 				//<![CDATA[
 				Sys.WebForms.PageRequestManager._initialize(

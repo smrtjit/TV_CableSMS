@@ -50,6 +50,28 @@ widows: 100%;
 
 
 }
+
+
+.btndashborad {
+    margin: -68px 450px;
+    display: inline-block;
+    padding: 6px 200px;
+    margin-bottom: 0;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 98px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
 </style>
 </head>
 <body
@@ -98,8 +120,8 @@ widows: 100%;
 		<nav class="pushy pushy-left">
 		<ul>
 			<!--menu iteam code -->
-			<li class="pushy-link"><a href="#"
-				style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
+			<li class="pushy-link"><a href="LCOHome.html?user=${user}"
+style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 			<li class="pushy-link"><a
 				href="allLCOCollection.html?user=${user}">Collection</a></li>
 			<li class="pushy-link"><a
@@ -134,8 +156,7 @@ widows: 100%;
 		<div id="container">
 			<!-- Menu Button -->
 			<div class="menu-btn">&#9776; Menu</div>
-						<br>
-						<button type="button" class="btnc btn-pink ">Connection </button>
+				<button type="button" class="btndashborad btn-pink ">Connection </button>
 			
 
 

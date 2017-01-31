@@ -186,9 +186,21 @@ text-align: right;
             	'invoice': invoice,
             	'user': ${user}
             },
-            success: function (data) {
-            	 alert("hello: "+data.Detail.Total_Amount);
-            }
+            dataType: 'json',
+       		cache: false,
+			beforeSend: function(xhr) 
+                        {
+                            xhr.setRequestHeader("Accept", "application/json");  
+                            xhr.setRequestHeader("Content-Type", "application/json");  
+                        },
+         	success: function (data) {
+             setData(data);
+           // alert(data.Billing_Date);
+	            },
+	            error: function(e){
+	            	alert(e);
+	            }
+            
         });
 			document.getElementById("inid").innerHTML ="Invoice Number: "+invoice;
 			e.preventDefault();
@@ -216,6 +228,47 @@ text-align: right;
 		$(window).resize();
 
 	});
+	
+	function setData( data){
+		var accNumber=data.User_Id;
+		var billNo=data.Invoice_No;
+		var billDate=data.Billing_Date;
+		var dueDate=data.DueDate;
+		var previous=data.Prevoius_Bal;
+		var lastPay=data.LastPaid_Amt;
+		var advance=data.Advance_Amt;
+		var billAmt=data.Total_Amount;
+		var serviceTax=data.Service_Tax;
+		var entTax=data.Entertain_Tax;
+		var PreviousBal=data.Prevoius_Bal;
+		var Disount=data.Diascount;
+		var lateCharge=data.LatePay_Charges;
+		var lateAmt=data.TotalAmt_AftDueDate;
+
+
+		document.getElementById("accno").innerHTML =accNumber;
+		document.getElementById("bill").innerHTML =billNo;
+		document.getElementById("bill_d").innerHTML =billDate;
+		document.getElementById("due").innerHTML =dueDate;
+		document.getElementById("pre").innerHTML =previous;
+		document.getElementById("last").innerHTML =lastPay;
+		document.getElementById("ad").innerHTML =advance;
+		document.getElementById("bill_a").innerHTML =billAmt;
+		document.getElementById("st").innerHTML =serviceTax;
+		document.getElementById("et").innerHTML =entTax;
+		document.getElementById("pb").innerHTML =PreviousBal;
+		document.getElementById("dis").innerHTML =Disount;
+		document.getElementById("lpc").innerHTML =lateCharge;
+		document.getElementById("lpa").innerHTML =lateAmt;
+		document.getElementById("tot").innerHTML =billAmt;
+		document.getElementById("stt").innerHTML =billAmt;
+// 		document.getElementById("accno").innerHTML =Disount;
+// 		document.getElementById("accno").innerHTML =lateCharge;
+// 		document.getElementById("accno").innerHTML =lateAmt;
+// 		document.getElementById("accno").innerHTML =accNumber;
+		
+		
+	}
 </script>
 <script type="text/javascript">
 	var _gaq = _gaq || [];
@@ -308,8 +361,8 @@ text-align: right;
 		<nav class="pushy pushy-left">
 			<ul>
 
-				<li class="pushy-link"><a href="#"
-					style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
+				<li class="pushy-link"><a href="LCOHome.html?user=${user}"
+style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 				<li class="pushy-link"><a
 					href="allLCOCollection.html?user=${user}">Collection</a></li>
 				<li class="pushy-link"><a
@@ -571,23 +624,23 @@ text-align: right;
 																<tr>
 																	<td style="border: ridge">Account No</td>
 																	<td style="border: ridge"><span
-																		id="ContentPlaceHolder1_lblac"></span></td>
+																		id="accno"></span></td>
 																</tr>
 																<tr>
 																	<td style="border: ridge">Bill Number</td>
 																	<td style="border: ridge"><span
-																		id="ContentPlaceHolder1_lblbillno"></span></td>
+																		id="bill"></span></td>
 																</tr>
 
 																<tr>
 																	<td style="border: ridge">Billing Date</td>
 																	<td style="border: ridge"><span
-																		id="ContentPlaceHolder1_lblbilldate"></span></td>
+																		id="bill_d"></span></td>
 																</tr>
 																<tr>
 																	<td style="border: ridge">Due Date</td>
 																	<td style="border: ridge"><span
-																		id="ContentPlaceHolder1_lblduedate"></span></td>
+																		id="due"></span></td>
 																</tr>
 															</table>
 														
@@ -615,11 +668,11 @@ text-align: right;
 
 											</tr>
 											<tr>
-												<td style="border: ridge; width: 210px"><b>RS 0</b></td>
-												<td style="border: ridge; width: 210px"><b>RS 0</b></td>
-												<td style="border: ridge; width: 210px">RS 0<b></b></td>
-												<td style="border: ridge; width: 210px"><b>RS 520</b></td>
-												<td style="border: ridge; width: 210px"><b>NA</b></td>
+												<td style="border: ridge; width: 210px"><b id="pre">RS 0</b></td>
+												<td style="border: ridge; width: 210px"><b id="last">RS 0</b></td>
+												<td style="border: ridge; width: 210px"><b id="ad"></b></td>
+												<td style="border: ridge; width: 210px"><b id="bill_a">RS 520</b></td>
+												<td style="border: ridge; width: 210px"><b id="in">NA</b></td>
 											</tr>
 										</table>
 									</div>
@@ -638,46 +691,46 @@ text-align: right;
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;">(1)Service
 														Tax</td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;">Rs 0.00</td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;" id="st">Rs 0.00</td>
 												</tr>
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;">(2)Entertainment
 														Tax</td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;">Rs 0</td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"  id="et">Rs 0</td>
 												</tr>
 
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Sub
 															Total</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>RS 520</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;" id="stt"><b>RS 520</b></td>
 												</tr>
 
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;">Previous
 														Balance</td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;">Rs 0</td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;" id="pb">Rs 0</td>
 												</tr>
 
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Discount</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>Rs</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;" ><b id="dis">Rs</b></td>
 												</tr>
 
 
 												<tr>
-													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Total</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>Rs 520</b></td>
+													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b >Total</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b id="tot">Rs 520</b></td>
 												</tr>
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Late
 															Payment Charges</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>Rs 50</b></td>
+													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b id="lpc">Rs 50</b></td>
 												</tr>
 
 												<tr>
 													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Payable
 															after due date</b></td>
-													<td style="border: ridge;width: 200px;padding: 5px 5px 5px 5px;"><b>Rs 570</b></td>
+													<td style="border: ridge;width: 200px;padding: 5px 5px 5px 5px;"><b id="lpa">Rs 570</b></td>
 												</tr>
 
 											</table>

@@ -31,7 +31,7 @@
 	font-weight: bold;
 }
 </style>
-<title>Customer Login</title>
+<title>Lco Login</title>
 </head>
 <body>
 	<script src="jquery-1.8.3.js">
@@ -119,8 +119,8 @@
 								
 								<div class="col-lg-9 col-lg-offset-3">
 <!-- 									<button class="btn btn-default">Cancel</button> -->
-									<input type="reset" value="Cancel" class="btn btn-default"/>
 									<button class="btn btn-primary">Login</button>
+									<input type="reset" value="Cancel" class="btn btn-default"/>
 								</div>
 
 							</fieldset>

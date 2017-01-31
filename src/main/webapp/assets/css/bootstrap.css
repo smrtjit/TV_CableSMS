@@ -342,7 +342,7 @@ a {
 a:hover,
 a:focus {
   color: #2a6496;
-  text-decoration: underline;
+/*   text-decoration: underline; */
 }
 
 a:focus {
@@ -5742,8 +5742,8 @@ body.modal-open,
   .modal-dialog {
     right: auto;
     left: 50%;
-    width: 600px;
-    padding-top: 30px;
+    width: 1025px;
+    padding-top: 85px;
     padding-bottom: 30px;
   }
   .modal-content {

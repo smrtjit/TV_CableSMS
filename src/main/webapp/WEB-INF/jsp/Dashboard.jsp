@@ -300,6 +300,28 @@ table#ContentPlaceHolder1_gvdash {
 table td {
 	width: 400px;
 }
+
+
+.btndashborad {
+    margin: -68px 450px;
+    display: inline-block;
+    padding: 6px 200px;
+    margin-bottom: 0;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 98px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
 </style>
 
 </head>
@@ -322,7 +344,7 @@ table td {
 		<nav class="pushy pushy-left">
 		<ul>
 			<!--menu iteam code -->
-			<li class="pushy-link"><a href="#"
+			<li class="pushy-link"><a href="LCOHome.html?user=${user}"
 				style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 			<li class="pushy-link"><a
 				href="allLCOCollection.html?user=${user}">Collection</a></li>
@@ -356,6 +378,8 @@ table td {
 		<div id="container">
 			<!-- Menu Button -->
 			<div class="menu-btn">&#9776; Menu</div>
+			<button type="button" class="btndashborad btn-pink ">Complaint
+			</button>
 
 			<!-- rownd circle code Connection DashBoard || Register_Complaint -->
 			<div class="row">
@@ -364,40 +388,21 @@ table td {
 						<tr>
 							<td><span class="radio-inline"><input
 									id="ContentPlaceHolder1_rbselect_0" type="radio"
-									name="ctl00$ContentPlaceHolder1$rbselect" value="0" /><label
-									for="ContentPlaceHolder1_rbselect_0">DashBoard</label></span></td>
+									name="ctl00$ContentPlaceHolder1$rbselect" value="0"
+									checked="checked /><label
+									for="ContentPlaceHolder1_rbselect_0" ">Complaint-Dashboard</label></span></td>
 							<td><span class="radio-inline"><input
 									id="ContentPlaceHolder1_rbselect_1" type="radio"
 									name="ctl00$ContentPlaceHolder1$rbselect" value="1" /><label
-									for="ContentPlaceHolder1_rbselect_1">Register_Complaint</label></span></td>
+									for="ContentPlaceHolder1_rbselect_1">Register-Complaint</label></span></td>
 						</tr>
 					</table>
 				</div>
 			</div>
 
 			<hr />
-			<!-- rownd circle code Connection -->
-			<div id="counter" class="container">
-				<div class="row">
-					<div class="col-sm-3"></div>
-					<div class="col-sm-9" style="margin-top: 70px">
-						<button type="button" class="btnc btn-primary">
-							Connection<span class="badge">7</span>
-						</button>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<button type="button" class="btnc btn-success">
-							Complaint<span class="badge">3</span>
-						</button>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<button type="button" class="btnc btn-danger">
-							Transaction<span class="badge">5</span>
-						</button>
-					</div>
-				</div>
 
-			</div>
-
-			<div id="dash" style="display: none">
+			<div id="dash">
 				<div id="ContentPlaceHolder1_upd1">
 
 
@@ -481,18 +486,16 @@ table td {
 									id="ContentPlaceHolder1_gvdash"
 									style="width: 100%; border-collapse: collapse;">
 									<tr>
-										<th scope="col">SN</th>
+										<th width="5%" scope="col">SN</th>
 										<th scope="col">Complaint ID</th>
-										<th scope="col">Customer VCNO.</th>
+										<th scope="col">VC NO</th>
 										<th scope="col">Customer Name</th>
-										<th scope="col">Customer Address</th>
-										<th scope="col">Customer Mobile</th>
-										<th scope="col">Type of Complaint</th>
+										<th scope="col">Address</th>
+										<th scope="col">Mobile</th>
+										<th scope="col">Complaint Type</th>
 										<th scope="col">Current Status</th>
-										<th scope="col">Customer Remark</th>
-										<th scope="col">Closing Remark</th>
-										<th scope="col">Action</th>
-										<!-- 										<th scope="col">Action</th> -->
+										<!-- 										<th scope="col">Customer Remark</th> -->
+										<!-- 										<th scope="col">Closing Remark</th> -->
 									</tr>
 
 									<%
@@ -501,23 +504,16 @@ table td {
 									<c:forEach items="${userList}" var="user">
 										<tr>
 											<td><%=i%></td>
-											<td>${user.complaint_no}</td>
+											<td><a href="#" value="${user.complaint_no}#${user.customer_vcno}#${user.customer_name}#${user.customer_mobile}#${user.cust_remark}"
+												data-modal-id="popup2">${user.complaint_no}</a></td>
 											<td>${user.customer_vcno}</td>
 											<td>${user.customer_name}</td>
 											<td>${user.customer_add}</td>
 											<td>${user.customer_mobile}</td>
 											<td>${user.complaint_type}</td>
 											<td>${user.complaint_status}</td>
-											<td>${user.cust_remark}</td>
-											<td>${user.closing_remark}</td>
-											<td><a id="Complaint" data-modal-id="popup2" href="#"
-												class="btn-primary btn btn-block" name="${user.cust_remark}"
-												value="${user.complaint_no}">Edit</a></td>
-											<!-- 											<td><a id="ContentPlaceHolder1_gvdash_LnktDetail_0" -->
-											<!-- 												class="btn-primary btn btn-block" -->
-											<!-- 												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnktDetail&#39;,&#39;&#39;)">View/Print</a> -->
-
-											<!-- 											</td> -->
+											<%-- 											<td>${user.cust_remark}</td> --%>
+											<%-- 											<td>${user.closing_remark}</td> --%>
 											<%
 												i++;
 											%>
@@ -542,8 +538,8 @@ table td {
 
 				<div class="row">
 
-					<div class="col-sm-2">
-						<div style="margin-bottom: 10px">
+					<div class="col-sm-3">
+						<div style="margin-bottom: 40px">
 							<input name="ctl00$ContentPlaceHolder1$txtvcno2" type="text"
 								onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$txtvcno2\&#39;,\&#39;\&#39;)&#39;, 0)"
 								onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;"
@@ -553,15 +549,15 @@ table td {
 						</div>
 
 					</div>
-					<div class="col-sm-1">
-						<div style="margin-bottom: 10px">
-							<p style="margin-left: 20px">OR</p>
+					<div class="col-sm-1"  style="padding-left:50px"> 
+ 						<div >
+ 							<p style="margin-left: px"><h5>OR</h5></p>
 
-						</div>
+ 						</div> 
 
-					</div>
-					<div class="col-sm-2">
-						<div style="margin-bottom: 10px">
+ 					</div> 
+					<div class="col-sm-3">
+						<div style="margin-bottom: 40px">
 
 							<input name="ctl00$ContentPlaceHolder1$txtmobileno" type="text"
 								onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$txtmobileno\&#39;,\&#39;\&#39;)&#39;, 0)"
@@ -572,8 +568,8 @@ table td {
 						</div>
 					</div>
 
-					<div class="col-sm-2">
-						<div style="margin-bottom: 20px">
+					<div class="col-sm-3">
+						<div style="margin-bottom: 40px">
 							<select name="ctl00$ContentPlaceHolder1$ddlcomplaint"
 								id="ContentPlaceHolder1_ddlcomplaint" tabindex="11"
 								class="form-control" placeholder="Responsibility">
@@ -590,16 +586,16 @@ table td {
 						</div>
 					</div>
 
-					<div class="col-sm-2">
-						<textarea name="ctl00$ContentPlaceHolder1$txtrmark" rows="2"
-							cols="20" id="ContentPlaceHolder1_txtrmark" class="form-control"
-							placeholder="Add Remark">
-</textarea>
+					<div class="col-sm-10" >
+						<textarea name="ctl00$ContentPlaceHolder1$txtrmark" rows="3"
+							cols="100" id="ContentPlaceHolder1_txtrmark" class="form-control"
+							placeholder="Add Remark"  >
+					</textarea>
 
-					</div>
-					<div class="col-sm-2">
+					</div><br>
+					<div class="col-sm-2" style="padding-left:20px">
 						<div style="margin-bottom: 10px">
-
+								<br>	<br>
 							<input type="submit" name="ctl00$ContentPlaceHolder1$btn_addUser"
 								value="Lock Complaint" id="ContentPlaceHolder1_btn_addUser"
 								tabindex="12" class="btn-primary btn btn-block" />
@@ -967,10 +963,25 @@ table td {
 
 						$('a[data-modal-id]').click(function(e) {
 							var url = $(this).attr('value');
-							var cust_remark = $(this).attr('name');
-							document.getElementById("demo").innerHTML ="Complaint Number: "+url;
-							document.getElementById("remark").value =cust_remark;
-							document.getElementById('id1').value=cust_remark;
+// 							document.getElementById("demo").innerHTML ="Complaint Number: "+url;
+							 
+							 var fields = url.split('#');
+							 var id = 'Complaint Id: '+ fields[0];;
+								
+							 var customer_vcno = fields[1];
+							 var  customer_name= fields[2];
+							 var  customer_mobile= fields[3];
+							 var  cust_remark= fields[4];
+						
+							
+							document.getElementById('id1').innerHTML=id;
+							document.getElementById('vcno').value=customer_vcno;
+							document.getElementById('customername').value=customer_name;
+							document.getElementById('mobile').value=customer_mobile;
+							document.getElementById('rem').defaultValue  =cust_remark;
+							
+						
+													
 							//alert(url);
 						e.preventDefault();
   						  $("body").append(appendthis);
@@ -1005,29 +1016,44 @@ table td {
 
 		<div id="popup2" class="modal-box">
 			<header> <a href="#" class="js-modal-close close">×</a>
-			<h3 id="demo" />
+			<h3 id="id1" />
 			</header>
 			<div class="modal-body">
 				<p id="remark" />
 
 				<div class="container">
 					<form id="contact" action="#">
-						<input type='text' id='id1' class="form-control" readonly /> <br>
-						<textarea type="text" name="message" placeholder="Message"
-							class="form-control"></textarea>
-						<br> <select name="type">
-							<option value="Open">Open</option>
-							<option value="Pending">Pending</option>
-							<option value="Close">Close</option>
-
-						</select>
-						 <br> <input value="Submit!" type="submit" class="btn1">
-					</form>
+					
+					<div class="form-inline marginBottom">
+						<div class="md-form">
+						<div>
+							<input type='text' id='vcno'  style="width: 30%; margin-left: 0%" class="form-control" readonly /> 
+							<input type='text' id='customername'  style="width: 30%; margin-left: 4.5%"class="form-control" readonly /> 
+							<input type='text' id='mobile'  style="width: 30%; margin-left: 4.5%"class="form-control" readonly /> 
+						</div>
+							<br>
+							<textarea type="text" id='rem'  name="remark" class="form-control" readonly style="overflow:auto;resize:none"></textarea>
+						</div>
+							<br>
+						<div>
+							<textarea type="text" name="message" placeholder="Message"class="form-control" style="overflow:auto;resize:none"></textarea><br> 
+						</div>
+							<br>
+						<div>
+							<select name="type"><option value="Open">Open</option>
+										<option value="Pending">Pending</option>
+										<option value="Close">Close</option>
+							</select>
+						</div>
+							<br>
+					 			 <input value="Submit!" type="submit" class="btn1">
+					 	</div>
+				  </div>
+				</form>
 				</div>
 
 			</div>
-			<footer> <a href="#" class="btn btn-small js-modal-close">Close</a>
-			</footer>
+			
 		</div>
 
 		<!-- Pushy JS -->

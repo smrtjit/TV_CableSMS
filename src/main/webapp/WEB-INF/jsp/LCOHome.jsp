@@ -356,7 +356,7 @@ table td {
 		<div id="container">
 			<!-- Menu Button -->
 			<div class="menu-btn">&#9776; Menu</div>
-			<button type="button" class="btnhome btn-home  "><font size="6"><b>Wellcome To Payspot</b> </font></button>
+			<button type="button" class="btnhome btn-home  "><font size="6"><b>Welcome To Payspot</b> </font></button>
 			
 
 			<hr />
@@ -365,17 +365,13 @@ table td {
 				<div class="row">
 					<div class="col-sm-3"></div>
 					<div class="col-sm-9" style="margin-top: 70px">
-						<button type="button" class="buttongol btn-primary">
-							Connection<span class="badge">7</span >
-						</button>
+						<a href="oldConnections.html?user=${user}"  class="buttongol btn-primary" >Connection<span class="badge">7</span ></a>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<button type="button" class="buttongol btn-success">
-							Complaint<span class="badge">3</span>
-						</button>
+						<a href="allLCOComplain.html?user=${user}"  class="buttongol btn-success" >Complaint<span class="badge">3</span></a>
+						
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<button type="button" class="buttongol btn-danger">
-							Transaction<span class="badge">5</span>
-						</button>
+						<a href="allLCOCollection.html?user=${user}"  class="buttongol btn-danger" >Collection<span class="badge">5</span></a>
+						
 					</div>
 				</div>
 

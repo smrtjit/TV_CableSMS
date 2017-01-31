@@ -42,6 +42,27 @@ hr {
 table td {
 	width: 400px;
 }
+
+.btndashborad {
+    margin: -68px 450px;
+    display: inline-block;
+    padding: 6px 200px;
+    margin-bottom: 0;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 98px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
 </style>
 </head>
 <body
@@ -92,7 +113,8 @@ table td {
 			<ul>
 
 				<!--menu iteam code -->
-				<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5><%= request.getParameter("user") %></h5></font></a></li>
+			<li class="pushy-link"><a href="LCOHome.html?user=${user}"
+style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 				<li class="pushy-link"><a href="allLCOCollection.html?user=<%= request.getParameter("user") %>">Collection</a></li>
 				<li class="pushy-link"><a href="allLCOComplain.html?user=<%= request.getParameter("user") %>">Complaint</a></li>
 				<li class="pushy-link"><a href="oldConnections.html?user=<%= request.getParameter("user") %>">Connection</a></li>
@@ -118,7 +140,7 @@ table td {
 			<div id="container">
 				<!-- Menu Button -->
 				<div class="menu-btn">&#9776; Menu</div>
-
+				<button type="button" class="btndashborad btn-pink ">Create New User </button>
 
 				<script type="text/javascript">
 					//<![CDATA[

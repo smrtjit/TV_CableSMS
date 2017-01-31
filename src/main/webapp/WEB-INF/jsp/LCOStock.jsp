@@ -30,10 +30,55 @@
 
 
 <style type="text/css">
+.btn-primary-color {
+    color: #ffffff;
+    background-color: #f5f5f5;
+    border-color: #357ebd;
+}
 .p1 {
 	font-style: initial;
 	font-weight: bold;
 	font-size: 16px;
+}
+.btn-my{
+display: inline-block;
+    padding: 4px 14px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.btndashborad {
+    margin: -68px 450px;
+    display: inline-block;
+    padding: 6px 200px;
+    margin-bottom: 0;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 98px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 </style>
 
@@ -96,9 +141,8 @@
 		<nav class="pushy pushy-left">
 			<ul>
 
-				<li class="pushy-link"><a href="#"
-					style="background: OLDLACE; color: black"><h5>${user}</h5>
-						</font></a></li>
+				<li class="pushy-link"><a href="LCOHome.html?user=${user}"
+				style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 				<li class="pushy-link"><a
 					href="allLCOCollection.html?user=${user}">Collection</a></li>
 				<li class="pushy-link"><a
@@ -130,7 +174,7 @@
 		<div id="container">
 			<!-- Menu Button -->
 			<div class="menu-btn">&#9776; Menu</div>
-
+			<button type="button" class="btndashborad btn-pink ">Stock </button>
 
 			<div class="row">
 				<div
@@ -157,7 +201,7 @@
 				<form action="#">
 					<input type="hidden" name="user" value="${user }" />
 
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<div style="margin-bottom: 10px">
 							<input name="stb_num" type="text"
 								id="ContentPlaceHolder1_txttodate" tabindex="1"
@@ -166,7 +210,7 @@
 
 					</div>
 
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<div style="margin-bottom: 10px">
 
 							<input name="brand" type="text"
@@ -176,14 +220,14 @@
 						</div>
 					</div>
 
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<div style="margin-bottom: 10px">
 
 							<input name="mso" type="text" id="ContentPlaceHolder1_txtvcno"
 								tabindex="2" class="form-control" placeholder="By MSO." />
 						</div>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<div style="margin-bottom: 10px">
 							<input name="Status" type="text"
 								id="ContentPlaceHolder1_txtmobile" tabindex="1"
@@ -194,8 +238,8 @@
 					</div>
 				
 
-					<div class="col-sm-2">
-						<div style="margin-bottom: 10px">
+					<div class="col-sm-2 pull-right">
+						<div style="margin-bottom: 10px ">
 
 							<input type="submit"
 								name="ctl00$ContentPlaceHolder1$btn_search_request"
@@ -205,12 +249,12 @@
 						</div>
 
 					</div>
-					<div class="nofound">${error}</div>
+					<div class="nofound">${error}</div><br>
 				</form>
 				
-				<div class="col-sm-12">
-					<div class="col-sm-12">
-						<div style="margin-bottom: 0px">
+					
+					<div class="col-sm-5">
+						<div style="margin-bottom: 30px">
 							
 							<p>
 								Total No.of Data Uploaded : <span
@@ -218,7 +262,8 @@
 							</p>
 						</div>
 					</div>
-</div>
+					<br>
+			
 					<div class=" table-responsive">
 						<div>
 							<table class="table table-striped jambo_table bulk_action"
@@ -226,7 +271,7 @@
 								id="ContentPlaceHolder1_grdSTB"
 								style="width: 100%; border-collapse: collapse;">
 								<tr>
-									<th scope="col">SN</th>
+									<th width="5%" scope="col">SN</th>
 									<th scope="col">Customer STB No</th>
 									<th scope="col">Brand</th>
 									<th scope="col">MSO</th>
@@ -252,24 +297,36 @@
 										<td>${user1.current_status}</td>
 
 										<td>
-										<select name="stbStatus">
+										<select name="stbStatus" style="  padding:6px; width: 110px;">
 										<option value="Live">Live</option>
 										<option value="Faulty">Faulty</option>
 										<option value="OffLine">OffLine</option>
 										</select>
-										<input type="submit"
-											name="ctl00$ContentPlaceHolder1$grdVC$ctl03$btnEdit"
-											value="Edit" class="aspNetDisabled btn btn-primary" />
+										
+										<input type="submit" name="ctl00$ContentPlaceHolder1$grdVC$ctl03$btnEdit" 
+											value="" class="aspNetDisabled btn-my btn-primary-color"  style="background-image:url('assets/img/edit2.png') " />
+									
 										</td>
 
 										</form>
 									</tr>
 									
 								</c:forEach>
-
-
+								<%
+								String finalQuery="";
+							String []token= request.getQueryString().split("&");
+							for(int i=0;i<token.length;i++){
+								if(token[i].startsWith("offset")){
+									System.out.println("offset Find");
+								}else
+								finalQuery=finalQuery+token[i]+"&";
+							}
+							String main=request.getAttribute("javax.servlet.forward.request_uri").toString()+"?"+finalQuery.substring(0, finalQuery.length()-1);
+							System.out.println("Query Link in jsp: "+main);
+							%>
+							
 							</table>
-								<tag:paginate max="15" offset="${offsetForSTB}" count="${countForSTB}" uri="lcotock.html?user=${user}" next="&raquo;" previous="&laquo;" />
+								<tag:paginate max="15" offset="${offsetForSTB}" count="${countForSTB}" uri="<%= main%>"  next="&raquo;" previous="&laquo;" />
 						</div>
 					</div>
 				</div>
@@ -280,7 +337,7 @@
 			<form action="#">
 					<input type="hidden" name="user" value="${user }" />
 
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<div style="margin-bottom: 10px">
 							<input name="vc_num" type="text"
 								class="form-control" placeholder="VC Number" />
@@ -288,7 +345,7 @@
 
 					</div>
 
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<div style="margin-bottom: 10px">
 
 							<input name="vcbrand" type="text"
@@ -297,14 +354,14 @@
 						</div>
 					</div>
 
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<div style="margin-bottom: 10px">
 
 							<input name="vcmso" type="text" 
 								tabindex="2" class="form-control" placeholder="By MSO." />
 						</div>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<div style="margin-bottom: 10px">
 							<input name="vcStatus" type="text"
 								 tabindex="1"
@@ -315,7 +372,7 @@
 					</div>
 				
 
-					<div class="col-sm-2">
+					<div class="col-sm-2 pull-right">
 						<div style="margin-bottom: 10px">
 
 							<input type="submit"
@@ -329,8 +386,8 @@
 					<div class="nofound">${error}</div>
 				</form>
 				<div class="col-sm-12">
-					<div class="col-sm-12">
-						<div style="margin-bottom: 0px">
+						<div class="col-sm-12">
+						<div style="margin-bottom: 30px">
 						
 							<p>
 								Total No.of Data Uploaded : <span
@@ -339,13 +396,14 @@
 						</div>
 					</div>
 					<div class=" table-responsive">
+				
 						<div>
 							<table class="table table-striped jambo_table bulk_action"
 								cellspacing="0" rules="all" border="1"
 								id="ContentPlaceHolder1_grdVC"
 								style="width: 100%; border-collapse: collapse;">
 								<tr>
-									<th scope="col">SN</th>
+									<th width="5%" scope="col">SN</th>
 									<th scope="col">Customer VC No</th>
 									<th scope="col">Brand</th>
 									<th scope="col">MSO</th>
@@ -361,7 +419,7 @@
 								<input type="hidden" name="user" value="${user}"/>
 									<tr>
 									<input type="hidden" name="VC_No" value="${data.vc_no}"/>
-									<td>${offsetForVC + itr.index +1 }</td>
+									<td >${offsetForVC + itr.index +1 }</td>
 										<td>${data.vc_no}</td>
 										<td>${data.company}</td>
 										<td>${data.mso}</td>
@@ -369,21 +427,24 @@
 										<td>${data.exp_date}</td>
 										<td>${data.current_status}</td>
 
+										
 										<td>
-										<select name="vcStatus">
+										<select name="stbStatus" style="  padding:6px; width: 110px;">
 										<option value="Live">Live</option>
 										<option value="Faulty">Faulty</option>
 										<option value="OffLine">OffLine</option>
 										</select>
-										<input type="submit"value="Submit" 
-										class="aspNetDisabled btn btn-primary" />
+										
+										<input type="submit" name="ctl00$ContentPlaceHolder1$grdVC$ctl03$btnEdit" 
+											value="" class="aspNetDisabled btn-my btn-primary-color"  style="background-image:url('assets/img/edit2.png') " />
+									
 										</td>
 									</tr>
 									</form>
 								</c:forEach>
 								
 							</table>
-							<tag:paginate max="15" offset="${offsetForVC}" count="${countForVC}" uri="lcostock.html?user=${user}" next="&raquo;" previous="&laquo;" />
+							<tag:paginate max="15" offset="${offsetForVC}" count="${countForVC}" uri="<%= main%>"  next="&raquo;" previous="&laquo;" />
 						</div>
 					</div>
 				</div>

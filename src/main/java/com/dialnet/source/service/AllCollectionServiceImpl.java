@@ -23,8 +23,25 @@ public class AllCollectionServiceImpl implements AllCollectionService {
 	}
 
 	@Override
-	public List<AllCollections> getByAnyOne(String sdate, String edate, String VC_no, String mobile, String pckg) {
-	return dao.getByAnyOne(sdate, edate, VC_no, mobile, pckg);
+	public List<AllCollections> getByAnyOne(String sdate, String edate, String VC_no, String mobile, String status,String agent,Integer offset, Integer maxResults) {
+	return dao.getByAnyOne(sdate, edate, VC_no, mobile, status,agent, offset,maxResults);
+	}
+
+	@Override
+	public List<AllCollections> list(Integer offset, Integer maxResults) {
+
+		return dao.list(offset, maxResults);
+	}
+
+	@Override
+	public Long count() {
+		return dao.count();
+	}
+
+	@Override
+	public Long countForSearch(String sdate, String edate, String VC_no, String mobile, String status, String agent) {
+		
+		return dao.countForSearch(sdate, edate, VC_no, mobile, status, agent);
 	}
 
 }

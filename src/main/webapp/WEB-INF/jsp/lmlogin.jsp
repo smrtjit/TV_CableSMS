@@ -22,8 +22,8 @@
 	padding: 8px;
 	margin: 16px;
 }
-.error{
 
+.error {
 	padding: 8px;
 	margin: 16px;
 	color: #ff0000;
@@ -31,7 +31,7 @@
 	font-weight: bold;
 }
 </style>
-<title>Customer Login</title>
+<title>Line Man Login</title>
 </head>
 <body>
 	<script src="jquery-1.8.3.js">
@@ -60,7 +60,7 @@
 				<li><a href="/TV_CableSMS">Home</a></li>
 				<li><a href="lcologin.html">Operator Login</a></li>
 				<li class="active"><a href="userlogin.html">Customer Login</a></li>
-				<li ><a href="lmlogin.html">LM Login</a></li>
+				<li><a href="lmlogin.html">LM Login</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Explore<b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -111,16 +111,22 @@
 											path="password" id="passwordInput" placeholder="Password" />
 										<form:errors path="password" cssClass="error" />
 									</div>
-									<div Class="error" >${error}<%if(request.getParameter("error")!=null){%>
-										<%= request.getParameter("error") %>
-										
-								<%	} %></div>
+									<div Class="error">${error}<%
+										if (request.getParameter("error") != null) {
+									%>
+										<%=request.getParameter("error")%>
+
+										<%
+											}
+										%>
+									</div>
 								</div>
-								
+
 								<div class="col-lg-9 col-lg-offset-3">
-<!-- 									<button class="btn btn-default">Cancel</button> -->
-									<input type="reset" value="Cancel" class="btn btn-default"/>
+									<!-- 									<button class="btn btn-default">Cancel</button> -->
 									<button class="btn btn-primary">Login</button>
+									<input type="reset" value="Cancel" class="btn btn-default" />
+
 								</div>
 
 							</fieldset>

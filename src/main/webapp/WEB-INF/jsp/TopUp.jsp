@@ -57,6 +57,28 @@ widows: 100%;
 
 
 }
+
+
+.btndashborad {
+    margin: -68px 450px;
+    display: inline-block;
+    padding: 6px 200px;
+    margin-bottom: 0;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 98px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
 </style>
 </head>
 <body
@@ -72,28 +94,37 @@ widows: 100%;
 	
 		<div>
 			<header class="site-header push"> <marquee>Welcome
-				to Cable TV Show</marquee> </header>
-			<!-- Pushy Menu -->
-			<nav class="pushy pushy-left">
-			<ul>
-<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5>${user}</h5></font></a></li>
-				<li class="pushy-link"><a href="allLCOCollection.html?user=${user}">Collection</a></li>
-				<li class="pushy-link"><a href="allLCOComplain.html?user=${user} ">Complaint</a></li>
-				<li class="pushy-link"><a href="oldConnections.html?user=${user}">Connection</a></li>
-				<li class="pushy-link"><a href="OldUserInfo.html?user=<%= request.getParameter("user") %>">Create User</a></li>
-<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-				<li class="pushy-link"><a href="lcoTopUp.html?user=${user}">Top-UP</a></li>
-				<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
-				<li class="pushy-link"><a href="lcoaccountMgmt.html?user=${user}">Account Management</a></li>
-<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
-				<li class="pushy-link"><a href="lcostock.html?user=${user}"">Stock</a></li>
-<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a href="LCODetail.html?user=${user}">My Account</a></li>
-				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
-			</ul>
-			</nav>
+			to Payspot</marquee> </header>
+		<!-- Pushy Menu -->
+		<nav class="pushy pushy-left">
+		<ul>
+			<!--menu iteam code -->
+			<li class="pushy-link"><a href="LCOHome.html?user=${user}"
+				style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
+			<li class="pushy-link"><a
+				href="allLCOCollection.html?user=${user}">Collection</a></li>
+			<li class="pushy-link"><a
+				href="allLCOComplain.html?user=${user} ">Complaint</a></li>
+			<li class="pushy-link"><a
+				href="oldConnections.html?user=${user}">Connection</a></li>
+			<li class="pushy-link"><a
+				href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
+					User</a></li>
+			<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
+			<li class="pushy-link"><a href="lcoTopUp.html?user=${user}">Top-UP</a></li>
+			<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
+			<li class="pushy-link"><a
+				href="lcoaccountMgmt.html?user=${user}">Account Management</a></li>
 
+			<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
+			<li class="pushy-link"><a href="lcostock.html?user=${user}">Stock</a></li>
+			<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
+			<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
+			<li class="pushy-link"><a href="LCODetail.html?user=${user}">My
+					Account</a></li>
+			<li class="pushy-link"><a href="logout.html">Log Out</a></li>
+		</ul>
+		</nav>
 			<!-- Site Overlay -->
 			<div class="site-overlay"></div>
 
@@ -101,7 +132,7 @@ widows: 100%;
 			<div id="container">
 				<!-- Menu Button -->
 				<div class="menu-btn">&#9776; Menu</div>
-
+				<button type="button" class="btndashborad btn-pink ">Topup </button>
 
 				<div class="row">
 					<div class=" col-md-4 col-md-offset-4">
@@ -312,7 +343,33 @@ widows: 100%;
 						<div class="col-sm-2">
 							<input type="submit" name="#"value="Submit" id="#"	tabindex="12" class="btn-danger btn btn-block" />
 						</div>
-								
+						<div class="row" >
+						<div  class="col-sm-2  pull-right">
+							<div class="container">
+							<input type="button" value="Template"class="btn-primary btn btn-block"  id="myBtn"/>
+							  <div class="modal fade" id="myModal" role="dialog">
+							  <div class="modal-dialog">
+						      <div class="modal-content">
+							    <div class="modal-header" >
+						    	  <button type="button" class="close" data-dismiss="modal">&times;</button>
+						    			</div>
+							   			 <div class="modal-body" style="padding:1px 1px;">
+							 			      <img id="myImg" src="assets/img/bulktemplate.png" alt="Trolltunga, Norway" width="1000" height="600">
+								        </div>
+									    </div>
+									    </div>
+									  	</div> 
+							</div>
+										<script>
+										$(document).ready(function(){
+										    $("#myBtn").click(function(){
+										        $("#myModal").modal();
+										    });
+										});
+										</script>
+																			
+										</div>
+									</div>						
 						
 					</div>
 					<hr />
@@ -325,35 +382,15 @@ widows: 100%;
 									<div class="row" >
 										<div  class="col-sm-2  pull-right">
 											<div class="container">
-												<input type="button" value="Template"class="btn-primary btn btn-block"  id="myBtn"/>
-												  <div class="modal fade" id="myModal" role="dialog">
-										  			  <div class="modal-dialog">
-										   			      <div class="modal-content">
-										    			    <div class="modal-header" >
-										        				  <button type="button" class="close" data-dismiss="modal">&times;</button>
-										       				</div>
-										       			 <div class="modal-body" style="padding:10px 10px;">
-										   			      <img id="myImg" src="assets/img/bulktemplate.png" alt="Trolltunga, Norway" width="1000" height="600">
-												        </div>
-												    </div>
-											    </div>
-										  	</div> 
-										</div>
-										<script>
-										$(document).ready(function(){
-										    $("#myBtn").click(function(){
-										        $("#myModal").modal();
-										    });
-										});
-										</script>
-																			
+											<a href="lcoTopUp.html?user=${user}">Clear All</a>
+											</div> 
 										</div>
 									</div>
 								</p>
 								
 								<table class="table table-striped table-bordered table-hover fontsize" cellspacing="0" rules="all" border="1" id="ContentPlaceHolder1_gvdash" style="width:100%;border-collapse:collapse;">
 									<tr>
-										<th scope="col">SN</th><th scope="col">Customer_ID</th><th scope="col">Customer_Name</th><th scope="col">Customer_Address</th><th scope="col">Customer_Package_Name</th><th scope="col">Connection_Mobile_Number</th><th scope="col">Customer_Email_ID</th><th scope="col">Customer_Recharge_Amount</th>
+										<th scope="col">SN</th><th scope="col">Customer ID</th><th scope="col">Name</th><th scope="col">Address</th><th scope="col">Package Name</th><th scope="col">Mobile</th><th scope="col">Email</th><th scope="col">Amount</th>
 									</tr>
 									
 									<tr>
@@ -376,14 +413,7 @@ widows: 100%;
 									</tr>
 								</table>
 								<h3><b><font color="red">${error}</font><b></b></h3>
-							<div class="row" >
-										<div  class="col-sm-2  pull-right">
-											<div class="container">
-											<a href="lcoTopUp.html?user=${user}">Clear</a>
-<!-- 												<input type="button" value="Cancel"class="btn-primary btn btn-block"  id="myBtn"/> -->
-											</div> 
-										</div>
-									</div>
+									
 							</div>
 						</div>
 
