@@ -555,16 +555,78 @@ table td {
 
 
 				<div class="row">
-
+<!-- 				keypress event stop onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;" -->
 					<div class="col-sm-3">
 						<div style="margin-bottom: 40px">
-							<input name="ctl00$ContentPlaceHolder1$txtvcno2" type="text"
-								onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$txtvcno2\&#39;,\&#39;\&#39;)&#39;, 0)"
-								onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;"
-								id="ContentPlaceHolder1_txtvcno2" tabindex="1"
+							<input id="findvalue" type="text" value="" onchange=""
+								tabindex="1"
 								class="form-control" placeholder="VC Number" />
-
+								<script>
+								$("#findvalue").keyup( function() {
+								    var vcno = $("#findvalue").val();
+								    document.getElementById("mobile").value ="";
+								    $.ajax({  
+							            type : 'GET', 
+							            url: 'findvcno.html',
+							            data: {
+							            	'vcno': vcno,
+							            	'user':  ${ user}
+							            },
+							            dataType: 'json',
+							       		cache: false,
+										beforeSend: function(xhr) 
+							                        {
+							                            xhr.setRequestHeader("Accept", "application/json");  
+							                            xhr.setRequestHeader("Content-Type", "application/json");  
+							                        },
+							         				success: function (data) {
+							         					 setData( data);
+							           						
+								            },
+								            error: function(e){
+								            	
+								            }
+							            
+							        });
+								   
+								});
+								function setData( data){
+									
+									var name=data.customer_name;
+									var Mobile=data.customer_mobile;
+									var Email=data.customer_email;
+									var address=data.customer_add;
+									var vcno=data.customer_vc_no;
+									var stbno=data.customer_stb_no;
+									var vtydate=data.customer_waranty_date;
+									var connstatus=data.connection_status;
+									var packname=data.package_name;
+									var amountblance=data.account_balance;
+									var lstpayment=data.last_payment;
+									var rechdate=data.last_recharge_date;
+									document.getElementById("name").value =name;
+									document.getElementById("Mobile").value =Mobile;
+									document.getElementById("Email").value =Email;
+									document.getElementById("address").value =address;
+									document.getElementById("vcno").value =vcno;
+									
+									document.getElementById("stbno").value =stbno;
+									document.getElementById("vtydate").value =vtydate;
+									document.getElementById("connstatus").value =connstatus;
+									document.getElementById("packname").value =packname;
+									document.getElementById("amountblance").defaultValue =amountblance;
+									document.getElementById("lstpayment").defaultValue =lstpayment;
+									document.getElementById("rechdate").defaultValue =rechdate;
+									//alert(cname+","+pass+","+add+","+balance);
+									
+									
+								}
+											 	 
+						  </script>
 						</div>
+						
+						
+				 
 
 					</div>
 					<div class="col-sm-1"  style="padding-left:50px"> 
@@ -576,12 +638,42 @@ table td {
  					</div> 
 					<div class="col-sm-3">
 						<div style="margin-bottom: 40px">
-
-							<input name="ctl00$ContentPlaceHolder1$txtmobileno" type="text"
-								onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$txtmobileno\&#39;,\&#39;\&#39;)&#39;, 0)"
-								onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;"
-								id="ContentPlaceHolder1_txtmobileno" tabindex="2"
+							<input id="findbymobile" type="text" value="" onchange=""
+								tabindex="1"
 								class="form-control" placeholder="Mobile Number" />
+								<script>
+								$("#findbymobile").keyup( function() {
+								    var vcno = $("#findbymobile").val();
+								    document.getElementById("findvalue").value ="";
+								    $.ajax({  
+							            type : 'GET', 
+							            url: 'findvcnoByMob.html',
+							            data: {
+							            	'mobile': vcno,
+							            	'user':  ${ user}
+							            },
+							            dataType: 'json',
+							       		cache: false,
+										beforeSend: function(xhr) 
+							                        {
+							                            xhr.setRequestHeader("Accept", "application/json");  
+							                            xhr.setRequestHeader("Content-Type", "application/json");  
+							                        },
+							         				success: function (data) {
+							         					 setData( data);
+						           						
+								            },
+								            error: function(e){
+								            	
+								            }
+							            
+							        });
+								   
+								});
+								
+											 	 
+						  </script>
+						
 
 						</div>
 					</div>
@@ -629,8 +721,8 @@ table td {
 
 						<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
-								<input name="ctl00$ContentPlaceHolder1$txtcustname" type="text"
-									id="ContentPlaceHolder1_txtcustname" disabled="disabled"
+								<input name="name" type="text"
+									id="name" disabled="disabled"
 									tabindex="2" class="aspNetDisabled form-control"
 									placeholder="Customer Name" />
 
@@ -639,8 +731,8 @@ table td {
 
 						<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
-								<input name="ctl00$ContentPlaceHolder1$txtcustadd" type="text"
-									id="ContentPlaceHolder1_txtcustadd" disabled="disabled"
+								<input name="address" type="text"
+									id="address" disabled="disabled"
 									tabindex="2" class="aspNetDisabled form-control"
 									placeholder="Customer Address" />
 
@@ -650,8 +742,8 @@ table td {
 						<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
 
-								<input name="ctl00$ContentPlaceHolder1$txtcustmobilenumber"
-									type="text" id="ContentPlaceHolder1_txtcustmobilenumber"
+								<input name="Mobile"
+									type="text" id="Mobile"
 									disabled="disabled" tabindex="3"
 									class="aspNetDisabled form-control"
 									placeholder="Customer Mobile No." />
@@ -662,8 +754,8 @@ table td {
 						<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
 
-								<input name="ctl00$ContentPlaceHolder1$txtcustEmailid"
-									type="text" id="ContentPlaceHolder1_txtcustEmailid"
+								<input name="Email"
+									type="text" id="Email"
 									disabled="disabled" tabindex="3"
 									class="aspNetDisabled form-control"
 									placeholder="Customer Email-ID" />
@@ -674,8 +766,8 @@ table td {
 						<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
 
-								<input name="ctl00$ContentPlaceHolder1$txtcustvcno" type="text"
-									id="ContentPlaceHolder1_txtcustvcno" disabled="disabled"
+								<input name="vcno" type="text"
+									id="vcno" disabled="disabled"
 									tabindex="3" class="aspNetDisabled form-control"
 									placeholder="Customer VC No." />
 
@@ -685,8 +777,8 @@ table td {
 						<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
 
-								<input name="ctl00$ContentPlaceHolder1$txtcustsbtno" type="text"
-									id="ContentPlaceHolder1_txtcustsbtno" disabled="disabled"
+								<input name="stbno" type="text"
+									id="stbno" disabled="disabled"
 									tabindex="3" class="aspNetDisabled form-control"
 									placeholder="Customer STB No," />
 
@@ -696,8 +788,8 @@ table td {
 						<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
 
-								<input name="ctl00$ContentPlaceHolder1$txtcustwarantydate"
-									type="text" id="ContentPlaceHolder1_txtcustwarantydate"
+								<input name="vtydate"
+									type="text" id="vtydate"
 									disabled="disabled" tabindex="3"
 									class="aspNetDisabled form-control"
 									placeholder="VC Warranty Date" />
@@ -708,8 +800,8 @@ table td {
 						<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
 
-								<input name="ctl00$ContentPlaceHolder1$txtcustconnection"
-									type="text" id="ContentPlaceHolder1_txtcustconnection"
+								<input name="connstatus"
+									type="text" id="connstatus"
 									disabled="disabled" tabindex="3"
 									class="aspNetDisabled form-control"
 									placeholder="Connection Status" />
@@ -720,8 +812,8 @@ table td {
 						<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
 
-								<input name="ctl00$ContentPlaceHolder1$txtcustpackege"
-									type="text" id="ContentPlaceHolder1_txtcustpackege"
+								<input name="packname"
+									type="text" id="packname"
 									disabled="disabled" tabindex="3"
 									class="aspNetDisabled form-control" placeholder="Package Name" />
 
@@ -731,8 +823,8 @@ table td {
 						<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
 
-								<input name="ctl00$ContentPlaceHolder1$txtcustbal" type="text"
-									id="ContentPlaceHolder1_txtcustbal" disabled="disabled"
+								<input name="amountblance" type="text"
+									id="amountblance" disabled="disabled"
 									tabindex="3" class="aspNetDisabled form-control"
 									placeholder="Account Balance" />
 
@@ -742,8 +834,8 @@ table td {
 						<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
 
-								<input name="ctl00$ContentPlaceHolder1$txtcustlastpay"
-									type="text" id="ContentPlaceHolder1_txtcustlastpay"
+								<input name="lstpayment"
+									type="text" id="lstpayment"
 									disabled="disabled" tabindex="3"
 									class="aspNetDisabled form-control" placeholder="Last Payment" />
 
@@ -753,8 +845,8 @@ table td {
 						<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
 
-								<input name="ctl00$ContentPlaceHolder1$txtlastrechargedate"
-									type="text" id="ContentPlaceHolder1_txtlastrechargedate"
+								<input name="rechdate"
+									type="text" id="rechdate"
 									disabled="disabled" tabindex="3"
 									class="aspNetDisabled form-control"
 									placeholder="Last Recharge Date" />

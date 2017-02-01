@@ -98,12 +98,13 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/lcologin", method = RequestMethod.POST)
-	public String login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result,
-			ModelMap map, RedirectAttributes redir) {
+	public String login(@Valid @ModelAttribute("lcoLogin") UserLogin studentLogin, BindingResult result, ModelMap map,
+			RedirectAttributes redir) {
 		if (result.hasErrors()) {
 			// return "lcologin";
-			map.addAttribute("error",  "There is some Errors");
-			//return new ModelAndView("lcologin", "error", "There is some Errors");
+			map.addAttribute("error", "There is some Errors");
+			// return new ModelAndView("lcologin", "error", "There is some
+			// Errors");
 			return "lcologin";
 
 		} else {
@@ -111,22 +112,23 @@ public class LCOController {
 			String user = studentLogin.getUserName();
 			if (found) {
 				map.addAttribute("user", user);
-				//return new ModelAndView("redirect:LCOHome.html", map);
-				return "redirect:LCOHome.html?user="+user;
+				// return new ModelAndView("redirect:LCOHome.html", map);
+				return "redirect:LCOHome.html?user=" + user;
 			} else {
-				map.addAttribute("error","Invalid Username or Password!!!");
-				//return new ModelAndView("lcologin", "error", "Invalid Username or Password!!!");
+				map.addAttribute("error", "Invalid Username or Password!!!");
+				// return new ModelAndView("lcologin", "error", "Invalid
+				// Username or Password!!!");
 				return "lcologin";
 			}
 		}
 
 	}
-	
-	 @RequestMapping(value = "/LCOHome", method = RequestMethod.GET)
-	 public String lcohome(ModelMap map, @RequestParam("user") String user) {
-	 map.addAttribute("user", user);
-	 return "LCOHome";
-	 }
+
+	@RequestMapping(value = "/LCOHome", method = RequestMethod.GET)
+	public String lcohome(ModelMap map, @RequestParam("user") String user) {
+		map.addAttribute("user", user);
+		return "LCOHome";
+	}
 
 	@RequestMapping(value = "/allLCOCollection", method = RequestMethod.GET)
 	public ModelAndView allLCOCollection(ModelMap map, @RequestParam("user") String user, Integer offset,
@@ -209,7 +211,7 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/allLCOComplain", method = RequestMethod.GET)
-	public ModelAndView allLCOComplain(ModelMap map, @RequestParam("user") String user,Integer offset,
+	public ModelAndView allLCOComplain(ModelMap map, @RequestParam("user") String user, Integer offset,
 			Integer maxResults) {
 
 		List<AllComplaints> userList = LCOComplaintRepository.list(offset, maxResults);
@@ -230,7 +232,8 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/OldUserInfo", method = RequestMethod.GET)
-	public ModelAndView OldUserInfo(ModelMap map, @RequestParam("user") String user) {
+	public ModelAndView OldUserInfo(ModelMap map, @RequestParam("user") String user, Integer offset,
+			Integer maxResults) {
 		System.out.println("Old User Info Called");
 		LMUser userForm = new LMUser();
 		map.addAttribute("userForm", userForm);
@@ -240,11 +243,10 @@ public class LCOController {
 		departments.add("Local Fault Repair");
 		departments.add("Others");
 
-		List<LMUser> userList = lmuserservice.getAll();
-		System.out.println("Old User Info Called userList size: " + userList.size());
-		for (LMUser temp : userList) {
-			System.out.println("Old User Info Name: " + temp.getUsername() + ",Mobile: " + temp.getMobile());
-		}
+		List<LMUser> userList = lmuserservice.list(offset, maxResults);
+		map.addAttribute("count", lmuserservice.count());
+		map.addAttribute("offset", offset);
+
 		map.addAttribute("resp", departments);
 		map.addAttribute("userList", userList);
 		map.addAttribute("id", user);
@@ -372,17 +374,17 @@ public class LCOController {
 			@ModelAttribute("subForm") User sub, @RequestParam("VC_No") String VC_No,
 			@RequestParam("fdate") String fdate, @RequestParam("edate") String edate,
 			@RequestParam("mobile") String mobile, @RequestParam("status") String status,
-			@RequestParam("stb_no") String stb, @RequestParam("pckg") String pckg,Integer offset,
-			Integer maxResults) {
+			@RequestParam("stb_no") String stb, @RequestParam("pckg") String pckg, Integer offset, Integer maxResults) {
 		User userForm = new User();
 		map.addAttribute("subForm", userForm);
 		map.addAttribute("user", user);
 		List<String> al = pckgservice.getAllPckgNames();
 		map.addAttribute("pckInfo", al);
 		System.out.println("status in searchLCOConByLCO: " + status);
-		if(status.equals("0"))
-			status="";
-		List<User> tmp = userService.userListForSearch(fdate, edate, stb, VC_No, mobile, status, pckg, offset, maxResults);
+		if (status.equals("0"))
+			status = "";
+		List<User> tmp = userService.userListForSearch(fdate, edate, stb, VC_No, mobile, status, pckg, offset,
+				maxResults);
 		System.out.println("tmp.size()***************: " + tmp.size());
 		if (tmp.size() < 1) {
 			map.addAttribute("error", "No Data Found!!!");
@@ -573,7 +575,64 @@ public class LCOController {
 		}
 		return "TopUp";
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "/findvcno", method = RequestMethod.GET)
+	public String findVcNumber(@RequestParam("user") String user, Model model, @RequestParam("vcno") String vcno) {
+		System.out.println("\n**************** Find Value **********************\t" + vcno);
+		User tmp1 = userService.findByVCNO(vcno);
+
+		Gson gson = new Gson();
+		String json = gson.toJson(tmp1);
+		model.addAttribute("user", user);
+		return json;
+		// return new ModelAndView(json);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/findvcnoByMob", method = RequestMethod.GET)
+	public String findvcnoByMob(@RequestParam("user") String user, Model model, @RequestParam("mobile") String vcno) {
+		System.out.println("\n**************** Find Value **********************\t" + vcno);
+		User tmp1 = userService.findByMobile(vcno);
+
+		Gson gson = new Gson();
+		String json = gson.toJson(tmp1);
+		model.addAttribute("user", user);
+		return json;
+		// return new ModelAndView(json);
+	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////// Search for All Complaints By
+	/////////////////////////////////////// LCO///////////////////////////////
+
+	@RequestMapping(value = "/searchComplaint", method = RequestMethod.GET)
+	public ModelAndView searchComplaint(ModelMap map, @RequestParam("user") String user,
+			@RequestParam("VC_No") String VC_No, @RequestParam("fdate") String fdate,
+			@RequestParam("edate") String edate, @RequestParam("mobile") String mobile,
+			@RequestParam("status") String status, Integer offset, Integer maxResults) {
+		map.addAttribute("user", user);
+		System.out.println("VC no: " + VC_No + "user: " + user);
+		List<AllComplaints> tmp = LCOComplaintRepository.listForSearch(fdate, edate, VC_No, mobile, status, offset,
+				maxResults);
+
+		System.out.println("tmp.size()***************: " + tmp.size());
+		if (tmp.size() < 1) {
+			map.addAttribute("error", "No Data Found!!!");
+			System.out.println("No Data Found........................");
+		} else {
+			map.addAttribute("userList", tmp);
+			map.addAttribute("count", LCOComplaintRepository.countForSearch(fdate, edate, VC_No, mobile, status));
+			map.addAttribute("offset", offset);
+		}
+
+		return new ModelAndView("Dashboard", map);
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////// show Customer
+	////////////////////////////////////////////////////////// Information//////////////////////
 	@ResponseBody
 	@RequestMapping(value = "/showCustInfo", method = RequestMethod.GET)
 	public String showCustInfo(@RequestParam("user") String user, @RequestParam("id") String invoiceid,
@@ -587,41 +646,34 @@ public class LCOController {
 		return json;
 		// return new ModelAndView(json);
 	}
-	
-	
-	///////////////////////////////////////Search for All Complaints By LCO///////////////////////////////
-	
-	@RequestMapping(value = "/searchComplaint", method = RequestMethod.GET)
-	public ModelAndView searchComplaint(ModelMap map, @RequestParam("user") String user,
-			@RequestParam("VC_No") String VC_No, @RequestParam("fdate") String fdate,
-			@RequestParam("edate") String edate, @RequestParam("mobile") String mobile,
-			@RequestParam("status") String status, Integer offset,
-			Integer maxResults) {
-		map.addAttribute("user", user);
-		System.out.println("VC no: " + VC_No+"user: "+user);
-		List<AllComplaints> tmp = LCOComplaintRepository.listForSearch(fdate, edate, VC_No, mobile, status, offset, maxResults);
 
-		System.out.println("tmp.size()***************: " + tmp.size());
-		if (tmp.size() < 1) {
-			map.addAttribute("error", "No Data Found!!!");
-			System.out.println("No Data Found........................");
-		} else {
-			map.addAttribute("userList", tmp);
-			map.addAttribute("count",
-					LCOComplaintRepository.countForSearch(fdate, edate, VC_No, mobile, status));
-			map.addAttribute("offset", offset);
-		}
-
-		return new ModelAndView("Dashboard", map);
-	}
-	
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	//////////////////////////////////////////////////////////show Customer Information//////////////////////
-	
-	
-	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@RequestMapping(value = "/searchLMByLCO", method = RequestMethod.GET)
+	public String searchLCOUserByLCO(@RequestParam("user") String user, Model model, Integer offset, Integer maxResults,
+			@RequestParam("empid") String emp, @RequestParam("username") String id, @RequestParam("desig") String desig,
+			@RequestParam("mobile") String mobile) {
+		LMUser userForm = new LMUser();
+		model.addAttribute("userForm", userForm);
+		ArrayList<String> departments = new ArrayList<String>();
+		departments.add("Select Repsonsibility");
+		departments.add("Collection");
+		departments.add("Local Fault Repair");
+		departments.add("Others");
+		model.addAttribute("resp", departments);
+		List<LMUser> tmp = lmuserservice.userListForSearch(emp, id, desig, mobile, offset, maxResults);
+		if (tmp.size() > 0) {
+			System.out.println("Data Found size:........................" + tmp.size());
+			model.addAttribute("count", lmuserservice.countForSearch(emp, id, desig, mobile));
+			model.addAttribute("offset", offset);
+		} else {
+			model.addAttribute("error", "No Data Found!!!");
+			System.out.println("No Data Found........................");
+		}
+		model.addAttribute("userList", tmp);
+		model.addAttribute("user", user);
+		return "NewUser";
+	}
 
 	////////////////////////////////// Date and Password Generation
 	////////////////////////////////// functions///////////////////////////////////

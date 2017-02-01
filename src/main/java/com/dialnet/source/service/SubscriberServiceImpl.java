@@ -111,6 +111,12 @@ public class SubscriberServiceImpl implements SubscriberService {
 		// TODO Auto-generated method stub
 		return subsriberdao.countForSearch(sdate, edate, stb_no, VC_no, mobile, status, pckg);
 	}
+
+	@Override
+	public User findByMobile(String vcno) {
+		// TODO Auto-generated method stub
+		return subsriberdao.findByMobile(vcno);
+	}
 	
 
 }

@@ -55,4 +55,29 @@ public class LMUserServiceImpl implements LMUserService {
 			return false;	
 	}
 
+	@Override
+	public List<LMUser> list(Integer offset, Integer maxResults) {
+		// TODO Auto-generated method stub
+		return dao.list(offset, maxResults);
+	}
+
+	@Override
+	public Long count() {
+		// TODO Auto-generated method stub
+		return dao.count();
+	}
+
+	@Override
+	public List userListForSearch(String empid, String username, String desig, String mobile, Integer offset,
+			Integer maxResults) {
+		// TODO Auto-generated method stub
+		return dao.userListForSearch(empid, username, desig, mobile, offset, maxResults);
+	}
+
+	@Override
+	public Long countForSearch(String empid, String username, String desig, String mobile) {
+		// TODO Auto-generated method stub
+		return dao.countForSearch(empid, username, desig, mobile);
+	}
+
 }

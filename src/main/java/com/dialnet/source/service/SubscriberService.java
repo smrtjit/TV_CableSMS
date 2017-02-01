@@ -19,6 +19,7 @@ public interface SubscriberService {
 	public List getAll();
 
 	public User findByVCNO(String vcno);
+	public User findByMobile(String vcno);
 
 	public List<User> findByAnyone(String sdate, String edate, String stb_no, String VC_no, String mobile,
 			String status, String pckg);

@@ -1,6 +1,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="tag" uri="/WEB-INF/taglibs/customTaglib.tld"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -42,7 +43,12 @@ hr {
 table td {
 	width: 400px;
 }
-
+.nofound {
+	color: red;
+	font-size: 3ex;
+	margin-left: 350px;
+	widows: 100%;
+}
 .btndashborad {
 	margin: -68px 450px;
 	display: inline-block;
@@ -172,20 +178,21 @@ table td {
 				<table id="ContentPlaceHolder1_rbselect" class="form-control"
 					style="border-style: Double; font-size: Small; width: 300px;">
 					<tr>
+						
+						<td><span class="radio-inline"><input
+								id="ContentPlaceHolder1_rbselect_1" type="radio" checked="checked"
+								name="ctl00$ContentPlaceHolder1$rbselect" value="1" /><label
+								for="ContentPlaceHolder1_rbselect_1">Show User</label></span></td>
 						<td><span class="radio-inline"><input
 								id="ContentPlaceHolder1_rbselect_0" type="radio"
 								name="ctl00$ContentPlaceHolder1$rbselect" value="0"
-								checked="checked" /><label for="ContentPlaceHolder1_rbselect_0">User
+								 /><label for="ContentPlaceHolder1_rbselect_0">User
 									Registration</label></span></td>
-						<td><span class="radio-inline"><input
-								id="ContentPlaceHolder1_rbselect_1" type="radio"
-								name="ctl00$ContentPlaceHolder1$rbselect" value="1" /><label
-								for="ContentPlaceHolder1_rbselect_1">Show User</label></span></td>
 					</tr>
 				</table>
 			</div>
 			<hr />
-			<div id="cuser">
+			<div id="cuser" style="display: none">
 
 
 
@@ -377,16 +384,6 @@ table td {
 								</div>
 							</div>
 							
-
-
-
-
-
-
-
-							
-
-							
 							<div class="col-sm-10" style="margin-bottom: 30px">
 								<div>
 									<div class="col-sm-3"></div>
@@ -424,8 +421,66 @@ table td {
 
 			</div>
 
-			<div id="suser" style="display: none">
-				<p class="p1">Show User Registration</p>
+			<div id="suser" >
+			<div id="ContentPlaceHolder1_upd1">
+
+					<div class="row">
+						<form:form action="searchLMByLCO.html" method="get">
+							<input type="hidden" name="user" value="<%=request.getParameter("user")%>" />
+						<div class="col-sm-3" style="width: 20%">
+								<div style="margin-bottom: 10px">
+
+									<input name="empid" type="text"
+										id="ContentPlaceHolder1_txtvcno" tabindex="4"
+										class="form-control" placeholder="Employee ID" />
+								</div>
+							</div>
+							<div class="col-sm-3" style="width: 20%">
+								<div style="margin-bottom: 10px">
+									<input name="username" type="text"
+										id="ContentPlaceHolder1_txtmobile" tabindex="5"
+										class="form-control" placeholder="Username" />
+
+								</div>
+
+							</div>
+							<div class="col-sm-3" style="width: 20%">
+								<div style="margin-bottom: 10px">
+									<input name="desig" type="text"
+										id="ContentPlaceHolder1_txtmobile" tabindex="5"
+										class="form-control" placeholder="Designation" />
+
+								</div>
+
+							</div>
+							<div class="col-sm-3" style="width: 20%">
+								<div style="margin-bottom: 10px">
+									<input name="mobile" type="text"
+										id="ContentPlaceHolder1_txtpackage" tabindex="7"
+										class="form-control" placeholder="Mobile No." />
+
+								</div>
+
+							</div>
+
+
+							<div class="col-sm-3" style="width: 20%">
+								<input type="submit" value="Search"
+										tabindex="30" class="btn-primary btn-color btn-block pull-left"/>
+
+							</div>
+							<div class="nofound">${error}</div>
+						</form:form>
+
+					</div>
+				<div class="col-sm-12">
+							<div style="margin-bottom: 0px">
+								<p>
+									Total Count : <span id="ContentPlaceHolder1_lblcount"
+										style="font-weight: bold;">${count}</span>
+								</p>
+							</div>
+						</div>
 				<div class="row">
 					<div id="ContentPlaceHolder1_upd1">
 
@@ -437,23 +492,20 @@ table td {
 								id="ContentPlaceHolder1_gvuser"
 								style="width: 100%; border-collapse: collapse;">
 								<tr>
-									<th scope="col">SN</th>
-									<th scope="col">Emp. ID</th>
+									<th scope="col">S No.</th>
+									<th scope="col">Employee ID</th>
 									<th scope="col">Username</th>
-									<th scope="col">Desig.</th>
-									<th scope="col">Full Name</th>
+									<th scope="col">Designation</th>
+									<th scope="col"> Name</th>
 									<th scope="col">Mobile No.</th>
 									<th scope="col">Landline No.</th>
 									<th scope="col">Email ID</th>
 									<th scope="col">Role</th>
 									<!-- 										<th scope="col">Action</th> -->
 								</tr>
-								<%
-									int i = 0;
-								%>
-								<c:forEach items="${userList}" var="user">
+									<c:forEach items="${userList}" var="user"  varStatus="itr">
 									<tr>
-										<td><%=i%></td>
+										<td style="width: 5%;">${offset + itr.index +1 }</td>
 										<td>${user.id}</td>
 										<td>${user.username}</td>
 										<td>${user.designation}</td>
@@ -466,14 +518,27 @@ table td {
 										<!-- 											class="btn-primary btn btn-block" -->
 										<!-- 											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvuser$ctl02$LnktDetail&#39;,&#39;&#39;)">View/Print</a> -->
 										<!-- 										</td> -->
-										<%
-											i++;
-										%>
+										
 									</tr>
 								</c:forEach>
 
 
 							</table>
+								<%
+								String finalQuery = "";
+									String[] token = request.getQueryString().split("&");
+									for (int i = 0; i < token.length; i++) {
+										if (token[i].startsWith("offset")) {
+											System.out.println("offset Find");
+										} else
+											finalQuery = finalQuery + token[i] + "&";
+									}
+									String main = request.getAttribute("javax.servlet.forward.request_uri").toString() + "?"
+											+ finalQuery.substring(0, finalQuery.length() - 1);
+									System.out.println("Query Link in jsp: " + main);
+							%>
+							<tag:paginate max="15" offset="${offset}" count="${count}"
+								uri="<%= main%>" next="&raquo;" previous="&laquo;" />
 						</div>
 
 					</div>

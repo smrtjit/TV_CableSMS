@@ -68,6 +68,20 @@ public class SubscriberDaoImpl implements SubsriberDao {
 		return product;
 	}
 
+	
+	public User findByMobile(String vcno) {
+		Session sf = dao.openSession();
+		Criteria cr = sf.createCriteria(User.class);
+
+		// To get records having salary more than 2000
+		cr.add(Restrictions.eq("customer_mobile", vcno));
+		User product = (User)cr.uniqueResult();
+		//System.out.println("user: " + product);
+
+		return product;
+	}
+	
+	
 	@Override
 	public List<User> findByAnyone(String sdate, String edate, String stb_no, String VC_no, String mobile,
 			String status, String pckg) {
