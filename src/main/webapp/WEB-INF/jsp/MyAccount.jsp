@@ -47,7 +47,7 @@
                 <ul>
                     
                    <!--menu iteam code -->
-		<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5>${user}</h5></font></a></li>
+				<li class="pushy-link"><a href="LCOHome.html?user=${user}" style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 				<li class="pushy-link"><a href="allLCOCollection.html?user=${user}">Collection</a></li>
 				<li class="pushy-link"><a href="allLCOComplain.html?user=${user} ">Complaint</a></li>
 				<li class="pushy-link"><a href="oldConnections.html?user=<%= request.getParameter("user") %>">Connection</a></li>
@@ -77,9 +77,7 @@
                 
     <hr />
     <div class="row">
-<!--         <div class="col-sm-12"> -->
-<!--             <p style="font-size: 20px"><b><span class="label label-default">LCO Details:</span></b></p> -->
-<!--         </div> -->
+
         <div class="col-sm-12">
             <div class="col-sm-2"></div>
             <div class=" col-sm-5">
@@ -101,9 +99,7 @@
             </div>
         </div>
 
-<!--         <div class="col-sm-12"> -->
-<!--             <p style="font-size: 20px"><b><span class="label label-default">User Details:</span></b></p> -->
-<!--         </div> -->
+
 					<br><br>
         <div class="col-sm-12">
        
@@ -118,10 +114,12 @@
                 <div class="col-sm-3" style="margin-bottom: 10px">
                     <p class="p1">Middle Name</p>
                 </div>
-                <div class="col-sm-8" style="margin-bottom: 10px">
-                    <input name="ctl00$ContentPlaceHolder1$txtmname" type="text" value="${MiddleName }" readonly="readonly" id="ContentPlaceHolder1_txtmname" class="form-control" />
-                </div>
-                <div class="col-sm-3" style="margin-bottom: 10px">
+						<div class="col-sm-8" style="margin-bottom: 10px">
+							<input name="ctl00$ContentPlaceHolder1$txtmname" type="text"
+								value="${MiddleName }" readonly="readonly"
+								id="ContentPlaceHolder1_txtmname" class="form-control" />
+						</div>
+						<div class="col-sm-3" style="margin-bottom: 10px">
                     <p class="p1">JV No.</p>
                 </div>
                 <div class="col-sm-8" style="margin-bottom: 10px">
@@ -161,7 +159,7 @@
         <div class="col-sm-12">
             <div class="col-sm-2"></div>
             <div class=" col-sm-5">
-                <div class="col-sm-3">
+                <div class="col-sm-3" >
                     <p class="p1">BRM POID</p>
                 </div>
                 <div class="col-sm-8">
@@ -169,38 +167,32 @@
                 </div>
             </div>
 
-            <div class=" col-sm-5">
-                <div class="col-sm-3">
+			 <div class=" col-sm-5">
+                <div class="col-sm-3" style="margin-bottom: 10px">
                     <p class="p1">Account No.</p>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-8" style="margin-bottom: 10px">
                     <input name="ctl00$ContentPlaceHolder1$txtaccount" type="text" value="${Account }" readonly="readonly" id="ContentPlaceHolder1_txtaccount" class="form-control" />
                 </div>
             </div>
         </div>
- 
-   
-<!--         <div class="col-sm-12"> -->
-<!--             <p style="font-size: 20px"><b><span class="label label-default">Contact Details:</span></b></p> -->
-<!--         </div> -->
 
-				<br><br><br><br>
-        <div class="col-sm-12">
+       <div class="col-sm-12">
             <div class="col-sm-2"></div>
             <div class=" col-sm-5">
-                <div class="col-sm-3">
+                <div class="col-sm-3" style="margin-bottom: 10px">
                     <p class="p1">Mobile No.</p>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-8" style="margin-bottom: 10px">
                     <input name="ctl00$ContentPlaceHolder1$txtmobile" type="text" value="${Mobile }" readonly="readonly" id="ContentPlaceHolder1_txtmobile" class="form-control" />
                 </div>
             </div>
 
             <div class=" col-sm-5">
-                <div class="col-sm-3">
+                <div class="col-sm-3" style="margin-bottom: 10px">
                     <p class="p1">Email Id</p>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-8" style="margin-bottom: 10px">
                     <input name="ctl00$ContentPlaceHolder1$txtemail" type="text" value="${Email }" readonly="readonly" id="ContentPlaceHolder1_txtemail" class="form-control" />
                 </div>
             </div>
@@ -219,26 +211,10 @@
                     <p class="p1">Address</p>
                 </div>
                 <div class="col-sm-8" style="margin-bottom: 10px">
-                    <textarea name="ctl00$ContentPlaceHolder1$txtadd" rows="2" cols="20" readonly="readonly" id="ContentPlaceHolder1_txtadd" class="form-control">
+                    <textarea name="ctl00$ContentPlaceHolder1$txtadd" rows="3" cols="20" style="overflow:auto;resize:none;" readonly="readonly" id="ContentPlaceHolder1_txtadd" class="form-control">
  ${Add} </textarea>
                 </div>
 
-                <div class="col-sm-3" style="margin-bottom: 10px">
-                    <p class="p1">State</p>
-                </div>
-               <div class="col-sm-8">
-                    <input name="ctl00$ContentPlaceHolder1$txtemail" type="text" value="${state}" readonly="readonly" id="ContentPlaceHolder1_txtemail" class="form-control" />
-                </div>
-                
-          
-                
-<!--                 <div class="col-sm-8" style="margin-bottom: 10px"> -->
-<!--                     <select name="ctl00$ContentPlaceHolder1$ddlstate" id="ContentPlaceHolder1_ddlstate" class="form-control"> -->
-<!-- 	<option value="0">Select</option> -->
-<!-- 	<option value="0">West Bengal</option> -->
-
-<!-- </select> -->
-<!--                 </div> -->
             </div>
 
             <div class=" col-sm-5">
@@ -248,8 +224,12 @@
                 <div class="col-sm-8" style="margin-bottom: 10px">
                     <input name="ctl00$ContentPlaceHolder1$txtcity" type="text" value="${City}" readonly="readonly" id="ContentPlaceHolder1_txtcity" class="form-control" />
                 </div>
-
-                
+				<div class="col-sm-3" style="margin-bottom: 10px">
+                    <p class="p1">State</p>
+                </div>
+                <div class="col-sm-8">
+                    <input name="ctl00$ContentPlaceHolder1$txtemail" type="text" value="${state}" readonly="readonly" id="ContentPlaceHolder1_txtemail" class="form-control" />
+                </div>
             </div>
        		 
         </div>

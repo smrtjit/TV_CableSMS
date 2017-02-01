@@ -48,4 +48,29 @@ public class AllComplaintserviceImpl implements AllComplaintService {
 		return allcomplaintdao.getByAnyOne(sdate, edate, VC_no, mobile, status);
 	}
 
+	@Override
+	public List<AllComplaints> list(Integer offset, Integer maxResults) {
+		// TODO Auto-generated method stub
+		return allcomplaintdao.list(offset, maxResults);
+	}
+
+	@Override
+	public Long count() {
+		// TODO Auto-generated method stub
+		return allcomplaintdao.count();
+	}
+
+	@Override
+	public Long countForSearch(String sdate, String edate, String VC_no, String mobile, String status) {
+		// TODO Auto-generated method stub
+		return allcomplaintdao.countForSearch(sdate, edate, VC_no, mobile, status);
+	}
+
+	@Override
+	public List<AllComplaints> listForSearch(String sdate, String edate, String VC_no, String mobile, String status,
+			Integer offset, Integer maxResults) {
+		// TODO Auto-generated method stub
+		return allcomplaintdao.listForSearch(sdate, edate, VC_no, mobile, status, offset, maxResults);
+	}
+
 }

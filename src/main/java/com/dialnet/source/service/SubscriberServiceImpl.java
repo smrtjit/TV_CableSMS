@@ -97,6 +97,20 @@ public class SubscriberServiceImpl implements SubscriberService {
 		// TODO Auto-generated method stub
 		return subsriberdao.countForBill();
 	}
+
+	@Override
+	public List userListForSearch(String sdate, String edate, String stb_no, String VC_no, String mobile, String status,
+			String pckg, Integer offset, Integer maxResults) {
+		// TODO Auto-generated method stub
+		return subsriberdao.userListForSearch(sdate, edate, stb_no, VC_no, mobile, status, pckg, offset, maxResults);
+	}
+
+	@Override
+	public Long countForSearch(String sdate, String edate, String stb_no, String VC_no, String mobile, String status,
+			String pckg) {
+		// TODO Auto-generated method stub
+		return subsriberdao.countForSearch(sdate, edate, stb_no, VC_no, mobile, status, pckg);
+	}
 	
 
 }

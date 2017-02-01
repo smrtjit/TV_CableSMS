@@ -183,6 +183,105 @@ public class SubscriberDaoImpl implements SubsriberDao {
 				.uniqueResult();
 	}
 	
+	
+	
+	public List userListForSearch(String sdate, String edate, String stb_no, String VC_no, String mobile,
+			String status, String pckg,Integer offset, Integer maxResults) {
+		Session sf=dao.openSession();
+		Criteria criteria = sf.createCriteria(User.class); 
+		if(sdate==null || sdate.equalsIgnoreCase("")){
+			System.out.println("sdate is not available");
+		}
+		else{
+			criteria.add(Restrictions.gt("timestamp",sdate+" 00:00:00"));
+		}
+		
+		if(edate==null || edate.equalsIgnoreCase(""))
+			System.out.println("edate is not available");
+		else{
+			criteria.add(Restrictions.lt("timestamp",edate+" 59:59:59"));
+		}
+		
+		if(VC_no==null || VC_no.equalsIgnoreCase(""))
+			System.out.println("VC_no is not available");
+		else{
+			criteria.add(Restrictions.eq("customer_vc_no",VC_no));
+		}
+		
+		if(mobile==null || mobile.equalsIgnoreCase(""))
+			System.out.println("mobile is not available");
+		else
+		criteria.add(Restrictions.eq("customer_mobile",mobile));
+		if(pckg==null || pckg.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("package_name",pckg));
+		
+		if(status==null || status.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("connection_status",status));
+		
+		if(stb_no==null || stb_no.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("customer_stb_no",stb_no));
+		return criteria
+				.setFirstResult(offset!=null?offset:0)
+				.setMaxResults(maxResults!=null?maxResults:10)
+				.list();
+	}
+	
+	
+	public Long countForSearch(String sdate, String edate, String stb_no, String VC_no, String mobile,
+			String status, String pckg){
+		Session sf=dao.openSession();
+		Criteria criteria = sf.createCriteria(User.class); 
+		if(sdate==null || sdate.equalsIgnoreCase("")){
+			System.out.println("sdate is not available");
+		}
+		else{
+			criteria.add(Restrictions.gt("timestamp",sdate+" 00:00:00"));
+		}
+		
+		if(edate==null || edate.equalsIgnoreCase(""))
+			System.out.println("edate is not available");
+		else{
+			criteria.add(Restrictions.lt("timestamp",edate+" 59:59:59"));
+		}
+		
+		if(VC_no==null || VC_no.equalsIgnoreCase(""))
+			System.out.println("VC_no is not available");
+		else{
+			criteria.add(Restrictions.eq("customer_vc_no",VC_no));
+		}
+		
+		if(mobile==null || mobile.equalsIgnoreCase(""))
+			System.out.println("mobile is not available");
+		else
+		criteria.add(Restrictions.eq("customer_mobile",mobile));
+		if(pckg==null || pckg.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("package_name",pckg));
+		
+		if(status==null || status.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("connection_status",status));
+		
+		if(stb_no==null || stb_no.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("customer_stb_no",stb_no));
+		return (Long)criteria
+				.setProjection(Projections.rowCount())
+				.uniqueResult();
+	}
+	
+	
+	
+	
 /////////////////////////////////////////////////////////////For Date////////////////////////////////////////////////////
 	public String getDate() {
 		String trnstamp = null;

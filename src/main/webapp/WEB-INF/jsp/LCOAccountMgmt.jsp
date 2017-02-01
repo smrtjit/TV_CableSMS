@@ -40,24 +40,24 @@ table td {
 }
 
 .btndashborad {
-    margin: -68px 450px;
-    display: inline-block;
-    padding: 6px 200px;
-    margin-bottom: 0;
-    font-size: 17px;
-    font-weight: normal;
-    line-height: 1.428571429;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    border: 1px solid transparent;
-    border-radius: 98px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+	margin: -68px 450px;
+	display: inline-block;
+	padding: 6px 200px;
+	margin-bottom: 0;
+	font-size: 17px;
+	font-weight: normal;
+	line-height: 1.428571429;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid transparent;
+	border-radius: 98px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }
 </style>
 </head>
@@ -95,25 +95,35 @@ table td {
 
 
 	<div>
-		<header class="site-header push"> <marquee>Welcome to Payspot</marquee>  </header>
+		<header class="site-header push"> <marquee>Welcome
+			to Payspot</marquee> </header>
 		<!-- Pushy Menu -->
 		<nav class="pushy pushy-left">
 		<ul>
-			<li class="pushy-link" ><a href="#" style="background:OLDLACE;color:black"><h5>${user}</h5></font></a></li>
-				<li class="pushy-link"><a href="allLCOCollection.html?user=${user}">Collection</a></li>
-				<li class="pushy-link"><a href="allLCOComplain.html?user=${user} ">Complaint</a></li>
-				<li class="pushy-link"><a href="oldConnections.html?user=${user}">Connection</a></li>
-				<li class="pushy-link"><a href="OldUserInfo.html?user=<%= request.getParameter("user") %>">Create User</a></li>
-<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-				<li class="pushy-link"><a href="lcoTopUp.html?user=${user}">Top-UP</a></li>
-				<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
-				<li class="pushy-link"><a href="lcoaccountMgmt.html?user=${user}">Account Management</a></li>
-<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
-				<li class="pushy-link"><a href="lcostock.html?user=<%= request.getParameter("user") %>">Stock</a></li>
-<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a href="LCODetail.html?user=${user}">My Account</a></li>
-				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
+						<li class="pushy-link"><a href="LCOHome.html?user=${user}" style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
+
+			<li class="pushy-link"><a
+				href="allLCOCollection.html?user=${user}">Collection</a></li>
+			<li class="pushy-link"><a
+				href="allLCOComplain.html?user=${user} ">Complaint</a></li>
+			<li class="pushy-link"><a
+				href="oldConnections.html?user=${user}">Connection</a></li>
+			<li class="pushy-link"><a
+				href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
+					User</a></li>
+			<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
+			<li class="pushy-link"><a href="lcoTopUp.html?user=${user}">Top-UP</a></li>
+			<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
+			<li class="pushy-link"><a
+				href="lcoaccountMgmt.html?user=${user}">Account Management</a></li>
+			<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
+			<li class="pushy-link"><a
+				href="lcostock.html?user=<%=request.getParameter("user")%>">Stock</a></li>
+			<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
+			<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
+			<li class="pushy-link"><a href="LCODetail.html?user=${user}">My
+					Account</a></li>
+			<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 		</ul>
 		</nav>
 
@@ -125,7 +135,8 @@ table td {
 			<!-- Menu Button -->
 			<div class="menu-btn">&#9776; Menu</div>
 
-				<button type="button" class="btndashborad btn-pink ">Manage Account </button>
+			<button type="button" class="btndashborad btn-pink ">Manage
+				Account</button>
 			<script type="text/javascript">
 				//<![CDATA[
 				Sys.WebForms.PageRequestManager._initialize(
@@ -160,529 +171,514 @@ table td {
 				</div>
 			</div>
 			<hr />
-			<div id="Income">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="col-sm-12">
-							<div class="col-sm-4">
-								<h4 style="color: black;">Add New Income</h4>
+			<div id="Income" >
+				<div  >
+					<div class="col-sm-25">
+						<div class="col-sm-0"></div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Invoice</p>
 							</div>
-							<div class="col-sm-8" style="margin-bottom: 12px;">
-								<center>
-									<h4 style="color: blue;">Bulk Income</h4>
-								</center>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtDueDate" type="text"
+									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+									placeholder="Invoice Number" />
 							</div>
 						</div>
 
-						<div class="col-sm-12">
-							<div class="col-sm-4">Date</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-									id="ContentPlaceHolder1_txtBalance"
-									<%-- 										readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-										class="form-control"
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">From</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtamount" readonly="readonly" type="text"
+									id="ContentPlaceHolder1_txtDueDate" class="form-control"
 									placeholder="" />
 							</div>
 						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4">Invoice</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtDueDate" type="text"
-									<%-- 										value="<%=request.getParameter("Last_recharge_date")%>"readonly="readonly" --%>
-										 id="ContentPlaceHolder1_txtDueDate"
-									class="form-control" placeholder="" />
+					</div>
+					<div class="col-sm-25">
+						<div class="col-sm-0"></div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Amount</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtcoupon" readonly="readonly" type="text"
+									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+									placeholder="" />
 							</div>
 						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4">From</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtamount" type="text"
-									<%-- 										value="<%=request.getParameter("Last_recharge_date")%>" readonly="readonly" --%>
-										 id="ContentPlaceHolder1_txtDueDate"
-									class="form-control" placeholder="" />
+
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Service Tax</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtcoupon" readonly="readonly" type="text"
+									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+									placeholder="" />
 							</div>
 						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4">Amount</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
+					</div>
+					<div class="col-sm-25">
+						<div class="col-sm-0"></div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Amusement Tax</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtcoupon" readonly="readonly" type="text"
+									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Other Tax</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtcoupon" readonly="readonly" type="text"
+									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-25">
+						<div class="col-sm-0"></div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Is TDS Deducted</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtcoupon" readonly="readonly" type="text"
+									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Recived Amount</p>
+							</div>
+							<div class="col-sm-8">
 								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									<%-- 										value="<%=request.getParameter("Last_recharge_date")%>" readonly="readonly" --%>
-										 id="ContentPlaceHolder1_txtDueDate"
-									class="form-control" placeholder="" />
+									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+									placeholder="Enter Recived Amount" />
 							</div>
 						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4">Service Tax</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
+					</div>
+
+					<div class="col-sm-25">
+						<div class="col-sm-0"></div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Recived Via</p>
+							</div>
+							<div class="col-sm-8">
 								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									<%-- 										value="<%=request.getParameter("Last_recharge_date")%>"readonly="readonly" --%>
-										 id="ContentPlaceHolder1_txtDueDate"
-									class="form-control" placeholder="" />
+									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+									placeholder="Enter Recived Via" />
 							</div>
 						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4">VAT</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
+
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Reference ID</p>
+							</div>
+							<div class="col-sm-8">
 								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									<%-- 										value="<%=request.getParameter("Last_recharge_date")%>"readonly="readonly" --%>
-										 id="ContentPlaceHolder1_txtDueDate"
-									class="form-control" placeholder="" />
+									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+									placeholder="Enter Reference ID" />
 							</div>
 						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4">Amusement Tax</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									<%-- 										value="<%=request.getParameter("Last_recharge_date")%>"readonly="readonly" --%>
-										 id="ContentPlaceHolder1_txtDueDate"
-									class="form-control" placeholder="" />
+					</div>
+					<div class="col-sm-25"  >
+
+						<div class=" col-sm-30">
+							<div class="col-sm-2" style="margin-bottom: 30px">
+								<p class="p1">Remark</p>
+							</div>
+							<div class="col-sm-6" style="margin-bottom: 30px">
+								<textarea name="ctl00$ContentPlaceHolder1$txtrmark" rows="3"
+							cols="100" id="ContentPlaceHolder1_txtrmark" class="form-control"
+							placeholder="Enter Remark" style="overflow:auto;resize:none" >
+								</textarea>
 							</div>
 						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4">Other Tax</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									<%-- 										value="<%=request.getParameter("Last_recharge_date")%>"readonly="readonly" --%>
-										 id="ContentPlaceHolder1_txtDueDate"
-									class="form-control" placeholder="" />
-							</div>
+
+
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+
+					<div class="col-sm-12">
+						<div class="col-sm-4"></div>
+						<div class="col-sm-4" style="margin-bottom: 10px">
+							<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"
+								value="Submit" id="ContentPlaceHolder1_btn_sbmit"
+								class="btn btn-primary" /> <a class="btn btn-primary"
+								href="Custrecharge.jsp">Cancel</a>
+							<div class="col-sm-8" style="margin-bottom: 10px"></div>
 						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4">Is TDS Deducted</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									<%-- 										value="<%=request.getParameter("Last_recharge_date")%>"readonly="readonly" --%>
-										 id="ContentPlaceHolder1_txtDueDate"
-									class="form-control" placeholder="" />
-							</div>
-						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4">Recived Amount</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									<%-- 										value="<%=request.getParameter("Last_recharge_date")%>"readonly="readonly" --%>
-										 id="ContentPlaceHolder1_txtDueDate"
-									class="form-control" placeholder="" />
-							</div>
-						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4">Recived Via</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									<%-- 										value="<%=request.getParameter("Last_recharge_date")%>"readonly="readonly" --%>
-										 id="ContentPlaceHolder1_txtDueDate"
-									class="form-control" placeholder="" />
-							</div>
-						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4">Reference ID</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									<%-- 										value="<%=request.getParameter("Last_recharge_date")%>"readonly="readonly" --%>
-										 id="ContentPlaceHolder1_txtDueDate"
-									class="form-control" placeholder="" />
-							</div>
-						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4">Remark</div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									<%-- 										value="<%=request.getParameter("Last_recharge_date")%>"readonly="readonly" --%>
-										 id="ContentPlaceHolder1_txtDueDate"
-									class="form-control" placeholder="" />
-							</div>
-						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-4"></div>
-							<div class="col-sm-8" style="margin-bottom: 10px">
-								<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"
-									value="Submit" id="ContentPlaceHolder1_btn_sbmit"
+
+					</div>
+				</div>
+				<div class="col-sm-12" style="height: 1px"></div>
+			</div>
+		</div>
+		<div id="Expense" style="display: none">
+			<div id="ContentPlaceHolder1_upd1">
+				<div class="row">
+					<div class="col-sm-26">
+						<div class="col-sm-10">
+							<div class="col-sm-2">Add New Income</div>
+							<div class="col-sm-6" style="margin-bottom: 12px;"></div>
+							<div class="col-sm-2" style="margin-bottom: 10px">
+								<input type="text" name="ctl00$ContentPlaceHolder1$btn_sbmit"
+									value="TDS Deducted" id="ContentPlaceHolder1_btn_sbmit"
 									class="btn btn-primary" />
-								<!-- 									<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"value="Cancel" id="Custrecharge.jsp"class="btn btn-primary" /> -->
-								<a class="btn btn-primary" href="Custrecharge.jsp">Cancel</a>
-								<div class="col-sm-8" style="margin-bottom: 10px"></div>
-							</div>
-
-						</div>
-					</div>
-					<div class="col-sm-12" style="height: 1px"></div>
-				</div>
-			</div>
-			<div id="Expense" style="display: none">
-				<div id="ContentPlaceHolder1_upd1">
-					<div class="row">
-						<div class="col-sm-26">
-							<div class="col-sm-10">
-								<div class="col-sm-2">Add New Income</div>
-								<div class="col-sm-6" style="margin-bottom: 12px;"></div>
-								<div class="col-sm-2" style="margin-bottom: 10px">
-									<input type="text" name="ctl00$ContentPlaceHolder1$btn_sbmit"
-										value="TDS Deducted" id="ContentPlaceHolder1_btn_sbmit"
-										class="btn btn-primary" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Date</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Bill No.</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">To</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Amount</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Service Tax</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">VAT</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Amusement Tax</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Other Tax</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Is TDS Deducted</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Paid Amount</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Remark</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2"></div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"
-										value="Submit" id="ContentPlaceHolder1_btn_sbmit"
-										class="btn btn-primary" />
-									<!-- 									<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"value="Cancel" id="Custrecharge.jsp"class="btn btn-primary" /> -->
-									<a class="btn btn-primary" href="Custrecharge.jsp">Cancel</a>
-									<div class="col-sm-8" style="margin-bottom: 10px"></div>
-								</div>
-
 							</div>
 						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Date</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Bill No.</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">To</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Amount</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Service Tax</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">VAT</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Amusement Tax</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Other Tax</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Is TDS Deducted</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Paid Amount</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Remark</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						
 					</div>
 				</div>
 			</div>
+		</div>
 
-			<div id="Tax" style="display: none">
-				<div id="ContentPlaceHolder1_upd1">
-					<div class="row">
-						<div class="col-sm-26">
-							<div class="col-sm-10">
+		<div id="Tax" style="display: none">
+			<div id="ContentPlaceHolder1_upd1">
+				<div class="row">
+					<div class="col-sm-26">
+						<div class="col-sm-10">
 
 
-								<div class="col-sm-2">Tax Collected</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtvcno" type="text"
-										<%-- 											value="<%=request.getParameter("vc_no")%>" readonly="readonly" --%>
+							<div class="col-sm-2">Tax Collected</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtvcno" type="text"
+									<%-- 											value="<%=request.getParameter("vc_no")%>" readonly="readonly" --%>
 											 id="ContentPlaceHolder1_txtvcno"
-										class="form-control" placeholder="" />
-								</div>
-								<div class="col-sm-2" style="margin-bottom: 10px">
-									<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"
-										value="TDS Deducted" id="ContentPlaceHolder1_btn_sbmit"
-										class="btn btn-primary" />
-								</div>
-								<div class="col-sm-2" style="margin-bottom: 10px">
-									<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"
-										value="TDS Paid" id="ContentPlaceHolder1_btn_sbmit"
-										class="btn btn-primary" />
-								</div>
+									class="form-control" placeholder="" />
+							</div>
+							<div class="col-sm-2" style="margin-bottom: 10px">
+								<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"
+									value="TDS Deducted" id="ContentPlaceHolder1_btn_sbmit"
+									class="btn btn-primary" />
+							</div>
+							<div class="col-sm-2" style="margin-bottom: 10px">
+								<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"
+									value="TDS Paid" id="ContentPlaceHolder1_btn_sbmit"
+									class="btn btn-primary" />
+							</div>
 
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">From Date</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">From Date</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
 											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Particulars</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Service Tax</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">VAT</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Amusement Tax</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Other Tax</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-										id="ContentPlaceHolder1_txtBalance"
-										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-										placeholder="" />
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2">Total</div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<div class="col-sm-6" style="margin-bottom: 10px">
-										<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
-											id="ContentPlaceHolder1_txtBalance"
-											<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
-											class="form-control"
-											placeholder="" />
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-10">
-								<div class="col-sm-2"></div>
-								<div class="col-sm-6" style="margin-bottom: 10px">
-									<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"
-										value="Submit" id="ContentPlaceHolder1_btn_sbmit"
-										class="btn btn-primary" />
-									<!-- 									<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"value="Cancel" id="Custrecharge.jsp"class="btn btn-primary" /> -->
-									<a class="btn btn-primary" href="Custrecharge.jsp">Cancel</a>
-									<div class="col-sm-8" style="margin-bottom: 10px"></div>
-								</div>
-
+									placeholder="" />
 							</div>
 						</div>
-
-						<script type="text/javascript">
-							$(document)
-									.ready(
-											function() {
-												debugger;
-												$(
-														'#ContentPlaceHolder1_rbselect')
-														.click(
-																function() {
-
-																	var chk = $(
-																			'#ContentPlaceHolder1_rbselect')
-																			.find(
-																					":checked")
-																			.val()
-
-																	if (chk == 0) {
-																		$(
-																				'#Income')
-																				.show();
-																		$(
-																				'#Expense')
-																				.hide();
-																		$(
-																				'#Tax')
-																				.hide();
-																	} else if (chk == 1) {
-																		$(
-																				'#Expense')
-																				.show();
-																		$(
-																				'#Income')
-																				.hide();
-																		$(
-																				'#Tax')
-																				.hide();
-																	} else if (chk == 2) {
-																		$(
-																				'#Expense')
-																				.hide();
-																		$(
-																				'#Income')
-																				.hide();
-																		$(
-																				'#Tax')
-																				.show();
-																	}
-																});
-
-												$(
-														'#ContentPlaceHolder1_txttodate')
-														.datepicker(
-																{
-																	dateFormat : 'dd-mm-yy'
-																});
-												$(
-														'#ContentPlaceHolder1_txtfromdate')
-														.datepicker(
-																{
-																	dateFormat : 'dd-mm-yy'
-																});
-												$(
-														'#ContentPlaceHolder1_txtcustVCwarantydate')
-														.datepicker(
-																{
-																	dateFormat : 'dd-mm-yy'
-																});
-											});
-
-							function radioList() {
-								debugger;
-								var chk = $('#ContentPlaceHolder1_rbselect')
-										.find(":checked").val()
-								if (chk == 0) {
-									$('#Income').show();
-									$('#Expense').hide();
-									$('#Tax').hide();
-								}
-								if (chk == 1) {
-									$('#Expense').show();
-									$('#Income').hide();
-									$('#Tax').hide();
-								}
-								if (chk == 2) {
-									$('#Expense').hide();
-									$('#Income').hide();
-									$('#Tax').show();
-								}
-							}
-
-							function PrintPanel() {
-								var panel = document
-										.getElementById("ContentPlaceHolder1_pnlPrint");
-								var printWindow = window.open('', '',
-										'height=400,width=850');
-								printWindow.document
-										.write('<html><head><title>Pratikshat Solution</title>');
-								printWindow.document.write('</head><body >');
-								printWindow.document.write(panel.innerHTML);
-								printWindow.document.write('</body></html>');
-								printWindow.document.close();
-								setTimeout(function() {
-									printWindow.print();
-								}, 500);
-								return false;
-							}
-						</script>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Particulars</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Service Tax</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">VAT</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Amusement Tax</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Other Tax</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+									id="ContentPlaceHolder1_txtBalance"
+									<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div class="col-sm-2">Total</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<div class="col-sm-6" style="margin-bottom: 10px">
+									<input name="ctl00$ContentPlaceHolder1$txtBalance" type="text"
+										id="ContentPlaceHolder1_txtBalance"
+										<%-- 											readonly="readonly" value="<%=request.getParameter("Account_balance")%>" --%>
+											class="form-control"
+										placeholder="" />
+								</div>
+							</div>
+						</div>
+						
 					</div>
-					<!-- Pushy JS -->
-					<script src="assets/js/pushy.min.js"></script>
-					<script src="assets/js/jquery-1.10.2.js"></script>
-					<script src="assets/js/bootstrap.js"></script>
-					<script src="assets/js/bootstrap.min.js"></script>
-					<link
-						href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
-						rel="stylesheet" type="text/css" />
-					<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-				</div>
-			</div>
 
-			<%
-				}
-			%>
-			<link href="assets/css/circle.css" rel="stylesheet" />
+					<script type="text/javascript">
+						$(document)
+								.ready(
+										function() {
+											debugger;
+											$('#ContentPlaceHolder1_rbselect')
+													.click(
+															function() {
+
+																var chk = $(
+																		'#ContentPlaceHolder1_rbselect')
+																		.find(
+																				":checked")
+																		.val()
+
+																if (chk == 0) {
+																	$('#Income')
+																			.show();
+																	$(
+																			'#Expense')
+																			.hide();
+																	$('#Tax')
+																			.hide();
+																} else if (chk == 1) {
+																	$(
+																			'#Expense')
+																			.show();
+																	$('#Income')
+																			.hide();
+																	$('#Tax')
+																			.hide();
+																} else if (chk == 2) {
+																	$(
+																			'#Expense')
+																			.hide();
+																	$('#Income')
+																			.hide();
+																	$('#Tax')
+																			.show();
+																}
+															});
+
+											$('#ContentPlaceHolder1_txttodate')
+													.datepicker({
+														dateFormat : 'dd-mm-yy'
+													});
+											$(
+													'#ContentPlaceHolder1_txtfromdate')
+													.datepicker({
+														dateFormat : 'dd-mm-yy'
+													});
+											$(
+													'#ContentPlaceHolder1_txtcustVCwarantydate')
+													.datepicker({
+														dateFormat : 'dd-mm-yy'
+													});
+										});
+
+						function radioList() {
+							debugger;
+							var chk = $('#ContentPlaceHolder1_rbselect').find(
+									":checked").val()
+							if (chk == 0) {
+								$('#Income').show();
+								$('#Expense').hide();
+								$('#Tax').hide();
+							}
+							if (chk == 1) {
+								$('#Expense').show();
+								$('#Income').hide();
+								$('#Tax').hide();
+							}
+							if (chk == 2) {
+								$('#Expense').hide();
+								$('#Income').hide();
+								$('#Tax').show();
+							}
+						}
+
+						function PrintPanel() {
+							var panel = document
+									.getElementById("ContentPlaceHolder1_pnlPrint");
+							var printWindow = window.open('', '',
+									'height=400,width=850');
+							printWindow.document
+									.write('<html><head><title>Pratikshat Solution</title>');
+							printWindow.document.write('</head><body >');
+							printWindow.document.write(panel.innerHTML);
+							printWindow.document.write('</body></html>');
+							printWindow.document.close();
+							setTimeout(function() {
+								printWindow.print();
+							}, 500);
+							return false;
+						}
+					</script>
+				</div>
+				<!-- Pushy JS -->
+				<script src="assets/js/pushy.min.js"></script>
+				<script src="assets/js/jquery-1.10.2.js"></script>
+				<script src="assets/js/bootstrap.js"></script>
+				<script src="assets/js/bootstrap.min.js"></script>
+				<link
+					href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
+					rel="stylesheet" type="text/css" />
+				<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+			</div>
+		</div>
+
+		<%
+			}
+		%>
+		<link href="assets/css/circle.css" rel="stylesheet" />
 </body>
 </html>

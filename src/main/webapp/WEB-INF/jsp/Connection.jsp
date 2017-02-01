@@ -42,37 +42,274 @@ table td {
 	width: 400px;
 }
 
-.nofound{
-color: red;
-font-size: 3ex;
-margin-left: 350px;
-widows: 100%;
-
-
+.nofound {
+	color: red;
+	font-size: 3ex;
+	margin-left: 350px;
+	widows: 100%;
 }
-
 
 .btndashborad {
-    margin: -68px 450px;
-    display: inline-block;
-    padding: 6px 200px;
-    margin-bottom: 0;
-    font-size: 17px;
-    font-weight: normal;
-    line-height: 1.428571429;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    border: 1px solid transparent;
-    border-radius: 98px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+	margin: -68px 450px;
+	display: inline-block;
+	padding: 6px 200px;
+	margin-bottom: 0;
+	font-size: 17px;
+	font-weight: normal;
+	line-height: 1.428571429;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid transparent;
+	border-radius: 98px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }
 </style>
+<style>
+.nofound {
+	color: red;
+	font-size: 3ex;
+	margin-left: 350px;
+	widows: 100%;
+}
+
+html {
+	font-family: "roboto", helvetica;
+	position: relative;
+	height: 100%;
+	font-size: 100%;
+	line-height: 1.5;
+	color: #444;
+}
+
+.modal-footer {
+	padding: 2px 16px;
+	background-color: #5cb85c;
+	color: white;
+}
+
+h2 {
+	margin: 1.75em 0 0;
+	font-size: 5vw;
+}
+
+h3 {
+	font-size: 1.3em;
+}
+
+.v-center {
+	height: 100vh;
+	width: 100%;
+	display: table;
+	position: relative;
+	text-align: center;
+}
+
+.btn-color {
+	font-size: 2vmin;
+	padding: 0.25em .75em;
+	background-color: #428bca;
+	border: 1px solid #bbb;
+	color: #eeeeee;
+	text-decoration: none;
+	display: inline;
+	border-radius: 4px;
+	-webkit-transition: background-color 1s ease;
+	-moz-transition: background-color 1s ease;
+	transition: background-color 1s ease;
+}
+
+.v-center>div {
+	display: table-cell;
+	vertical-align: middle;
+	position: relative;
+	top: -10%;
+}
+
+.btn {
+	font-size: 2vmin;
+	padding: 0.25em .75em;
+	background-color: #fff;
+	border: 1px solid #bbb;
+	color: #333;
+	text-decoration: none;
+	display: inline;
+	border-radius: 4px;
+	-webkit-transition: background-color 1s ease;
+	-moz-transition: background-color 1s ease;
+	transition: background-color 1s ease;
+}
+
+.btn:hover {
+	background-color: #ddd;
+	-webkit-transition: background-color 1s ease;
+	-moz-transition: background-color 1s ease;
+	transition: background-color 1s ease;
+}
+
+.btn-small {
+	padding: .75em 1em;
+	font-size: 0.8em;
+}
+
+.modal-box {
+	display: none;
+	position: absolute;
+	z-index: 1000;
+	width: 98%;
+	background: white;
+	border-bottom: 1px solid #aaa;
+	border-radius: 4px;
+	box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	background-clip: padding-box;
+}
+
+@media ( min-width : 32em) {
+	.modal-box {
+		width: 70%;
+	}
+}
+
+.modal-box header, .modal-box .modal-header {
+	padding: 1.25em 1.5em;
+	border-bottom: 1px solid #ddd;
+}
+
+.modal-box header h3, .modal-box header h4, .modal-box .modal-header h3,
+	.modal-box .modal-header h4 {
+	margin: 0;
+}
+
+.modal-box footer, .modal-box .modal-footer {
+	padding: 1em;
+	border-top: 1px solid #ddd;
+	background: rgba(0, 0, 0, 0.02);
+	text-align: right;
+}
+
+.modal-overlay {
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 900;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3) !important;
+}
+
+a.close {
+	line-height: 1;
+	font-size: 1.5em;
+	position: absolute;
+	top: 5%;
+	right: 2%;
+	text-decoration: none;
+	color: #bbb;
+}
+
+a.close:hover {
+	color: #222;
+	-webkit-transition: color 1s ease;
+	-moz-transition: color 1s ease;
+	transition: color 1s ease;
+}
+</style>
+<script>
+	$(function() {
+
+		var appendthis = ("<div class='modal-overlay js-modal-close'></div>");
+
+		$('a[data-modal-link]').click(function(e) {
+			var id = $(this).attr('value');
+			document.getElementById("inid").innerHTML ="Customer Id: "+id;
+			var invoice = $(this).attr('value');
+			$.ajax({  
+	            type : 'GET', 
+	            url: 'showCustInfo.html',
+	            data: {
+	            	'id': id,
+	            	'user':  ${ user}
+	            },
+	            dataType: 'json',
+	       		cache: false,
+				beforeSend: function(xhr) 
+	                        {
+	                            xhr.setRequestHeader("Accept", "application/json");  
+	                            xhr.setRequestHeader("Content-Type", "application/json");  
+	                        },
+	         	success: function (data) {
+	             setData(data);
+	           // alert(data.Billing_Date);
+		            },
+		            error: function(e){
+		            	
+		            }
+	            
+	        });
+			//alert(id);
+			e.preventDefault();
+			$("body").append(appendthis);
+			$(".modal-overlay").fadeTo(500, 0.7);
+			//$(".js-modalbox").fadeIn(500);
+			var modalBox = $(this).attr('data-modal-link');
+			$('#' + modalBox).fadeIn($(this).data());
+		});
+
+		$(".js-modal-close, .modal-overlay").click(function() {
+			$(".modal-box, .modal-overlay").fadeOut(500, function() {
+				$(".modal-overlay").remove();
+			});
+
+		});
+
+		$(window).resize(function() {
+			$(".modal-box").css({
+				top : ($(window).height() - $(".modal-box").outerHeight()) / 2,
+				left : ($(window).width() - $(".modal-box").outerWidth()) / 2
+			});
+		});
+
+		$(window).resize();
+
+	});
+	
+	function setData( data){
+		
+		var Vcn=data.customer_vc_no;
+		var Mobile=data.customer_mobile;
+		var Email=data.customer_email;
+		var Cstatus=data.connection_status;
+		var pkge=data.package_name;
+		var balance=data.account_balance;
+		var exp=data.con_expiry_date;
+		
+		var Cname=data.customer_name;
+		var pass=data.password;
+		var address=data.customer_add;
+		document.getElementById("expire").value =exp;
+		document.getElementById("cname").value =Cname;
+		document.getElementById("passd").value =pass;
+		
+		document.getElementById("vc_no").value =Vcn;
+		document.getElementById("mobile").value =Mobile;
+		document.getElementById("email").value =Email;
+		document.getElementById("status").value =Cstatus;
+		document.getElementById("pkg").value =pkge;
+		document.getElementById("bal").value =balance;
+		document.getElementById("add").defaultValue =address;
+		//alert(cname+","+pass+","+add+","+balance);
+		
+		
+	}
+</script>
 </head>
 <body
 	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
@@ -115,13 +352,14 @@ widows: 100%;
 		type="text/javascript"></script>
 
 	<div>
-		<header class="site-header push"> <marquee>Welcome to Payspot</marquee>  </header>
+		<header class="site-header push"> <marquee>Welcome
+			to Payspot</marquee> </header>
 		<!-- Pushy Menu -->
 		<nav class="pushy pushy-left">
 		<ul>
 			<!--menu iteam code -->
 			<li class="pushy-link"><a href="LCOHome.html?user=${user}"
-style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
+				style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 			<li class="pushy-link"><a
 				href="allLCOCollection.html?user=${user}">Collection</a></li>
 			<li class="pushy-link"><a
@@ -136,8 +374,11 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 				href="lcoTopUp.html?user=<%=request.getParameter("user")%>">Top-UP</a></li>
 			<li class="pushy-link"><a
 				href="lcoBilling.html?user=<%=request.getParameter("user")%>">Bulk-Billing</a></li>
-				<li class="pushy-link"><a href="lcoaccountMgmt.html?user=<%=request.getParameter("user")%>">Account Management</a></li>
-				<li class="pushy-link"><a href="lcostock.html?user=<%= request.getParameter("user") %>">Stock</a></li>
+			<li class="pushy-link"><a
+				href="lcoaccountMgmt.html?user=<%=request.getParameter("user")%>">Account
+					Management</a></li>
+			<li class="pushy-link"><a
+				href="lcostock.html?user=<%=request.getParameter("user")%>">Stock</a></li>
 			<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
 			<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
 			<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
@@ -156,8 +397,9 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 		<div id="container">
 			<!-- Menu Button -->
 			<div class="menu-btn">&#9776; Menu</div>
-				<button type="button" class="btndashborad btn-pink ">Connection </button>
-			
+			<button type="button" class="btndashborad btn-pink ">Connection
+			</button>
+
 
 
 			<script type="text/javascript">
@@ -199,8 +441,9 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 							<div class="col-sm-6">
 								<input type="hidden" name="user" value="${user }" />
 								<div style="margin-bottom: 20px">
-									<form:input path="customer_name" tabindex="1" 
-										class="form-control" placeholder="Customer Name" required="required" />
+									<form:input path="customer_name" tabindex="1"
+										class="form-control" placeholder="Customer Name"
+										required="required" />
 									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustname" type="text" id="ContentPlaceHolder1_txtcustname" tabindex="1" class="form-control" placeholder="Customer Name" /> -->
 
 								</div>
@@ -208,8 +451,9 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:input path="customer_add" tabindex="1" required="required"
-										class="form-control" placeholder="Customer Address" />
+									<form:input path="customer_add" tabindex="1"
+										required="required" class="form-control"
+										placeholder="Customer Address" />
 									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustadd" type="text" id="ContentPlaceHolder1_txtcustadd" tabindex="2" class="form-control" placeholder="Customer Address" /> -->
 
 								</div>
@@ -217,8 +461,9 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:input path="customer_mobile" tabindex="1" required="required"
-										class="form-control" placeholder="Customer Mobile No." />
+									<form:input path="customer_mobile" tabindex="1"
+										required="required" class="form-control"
+										placeholder="Customer Mobile No." />
 									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustmobilenumber" type="text" id="ContentPlaceHolder1_txtcustmobilenumber" tabindex="3" class="form-control" placeholder="Customer Mobile No." /> -->
 
 								</div>
@@ -226,8 +471,9 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:input path="customer_email" tabindex="1" required="required"
-										class="form-control" placeholder="Customer Email-ID" />
+									<form:input path="customer_email" tabindex="1"
+										required="required" class="form-control"
+										placeholder="Customer Email-ID" />
 									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustEmailid" type="text" id="ContentPlaceHolder1_txtcustEmailid" tabindex="4" class="form-control" placeholder="Customer Email-ID" /> -->
 
 								</div>
@@ -235,7 +481,8 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<input type="number" name="username" tabindex="1" class="form-control" required="required"
+									<input type="number" name="username" tabindex="1"
+										class="form-control" required="required"
 										placeholder="Customer ID" />
 									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustid" type="text" id="ContentPlaceHolder1_txtcustid" tabindex="5" class="form-control" placeholder="Customer ID No." /> -->
 
@@ -244,8 +491,9 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:input path="customer_stb_no" tabindex="1" required="required"
-										class="form-control" placeholder="Customer STB No," />
+									<form:input path="customer_stb_no" tabindex="1"
+										required="required" class="form-control"
+										placeholder="Customer STB No," />
 									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustsbtno" type="text" id="ContentPlaceHolder1_txtcustsbtno" tabindex="6" class="form-control" placeholder="Customer STB No," /> -->
 
 								</div>
@@ -254,7 +502,7 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
 
-									<input type="file" name="customer_photo" 
+									<input type="file" name="customer_photo"
 										id="ContentPlaceHolder1_fupohoto" tabindex="7"
 										title="Upload Photo" class="form-control" placeholder="Photo" />
 
@@ -263,16 +511,18 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:input path="customer_id_no" tabindex="1" required="required"
-										class="form-control" placeholder="Customer ID Proof Number" />
+									<form:input path="customer_id_no" tabindex="1"
+										required="required" class="form-control"
+										placeholder="Customer ID Proof Number" />
 									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustvcno" type="text" id="ContentPlaceHolder1_txtcustvcno" tabindex="8" class="form-control" placeholder="Customer VC No." /> -->
 
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:input path="customer_vc_no" tabindex="1" required="required"
-										class="form-control" placeholder="Customer VC No." />
+									<form:input path="customer_vc_no" tabindex="1"
+										required="required" class="form-control"
+										placeholder="Customer VC No." />
 									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustvcno" type="text" id="ContentPlaceHolder1_txtcustvcno" tabindex="8" class="form-control" placeholder="Customer VC No." /> -->
 
 								</div>
@@ -282,7 +532,7 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-								<form:input path="customer_waranty_date"
+									<form:input path="customer_waranty_date"
 										name="ctl00$ContentPlaceHolder1$txttodate"
 										id="ContentPlaceHolder1_txttodate" tabindex="1"
 										class="form-control" placeholder="VC Warranty Date" />
@@ -321,8 +571,8 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:input path="account_balance" tabindex="1" required="required"
-										class="form-control" placeholder="Amount" />
+									<form:input path="account_balance" tabindex="1"
+										required="required" class="form-control" placeholder="Amount" />
 									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustBal" type="text" id="ContentPlaceHolder1_txtcustBal" tabindex="13" class="form-control" placeholder="Amount" /> -->
 
 								</div>
@@ -341,19 +591,20 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 								<div style="margin-bottom: 20px">
 									<form:input path="connection_go_live"
 										name="ctl00$ContentPlaceHolder1$txtfromdate"
-									id="ContentPlaceHolder1_txtfromdate" tabindex="2"
-										class="form-control" placeholder="Expected Date Connection Go Live" />
+										id="ContentPlaceHolder1_txtfromdate" tabindex="2"
+										class="form-control"
+										placeholder="Expected Date Connection Go Live" />
 
 									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustexpectdate" type="text" id="ContentPlaceHolder1_txtcustexpectdate" tabindex="15" class="form-control" placeholder="Expected Date Connection Go Live" /> -->
 
 								</div>
 							</div>
 
-								<div class="col-sm-6">
+							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
 									<form:input path="con_expiry_date"
 										name="ctl00$ContentPlaceHolder1$txtfromdate"
-									id="ContentPlaceHolder1_txtforExp" tabindex="2"
+										id="ContentPlaceHolder1_txtforExp" tabindex="2"
 										class="form-control" placeholder="Connection Expiry Date" />
 
 									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustexpectdate" type="text" id="ContentPlaceHolder1_txtcustexpectdate" tabindex="15" class="form-control" placeholder="Expected Date Connection Go Live" /> -->
@@ -392,98 +643,94 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 				<div id="ContentPlaceHolder1_upd1">
 
 					<div class="row">
-					<form:form action="searchLCOConByLCO.html" method="get">
-					<input type="hidden" name="user" value="${user }"/>
-						<div class="col-sm-3">
-							<div style="margin-bottom: 10px">
-								<input name="fdate" type="text"
-									id="fdate" tabindex="1"
-									class="form-control" placeholder="From Date" />
+						<form:form action="searchLCOConByLCO.html" method="get">
+							<input type="hidden" name="user" value="${user }" />
+							<div class="col-sm-3">
+								<div style="margin-bottom: 10px">
+									<input name="fdate" type="text" id="fdate" tabindex="1"
+										class="form-control" placeholder="From Date" />
+
+								</div>
+
+							</div>
+							<div class="col-sm-3">
+								<div style="margin-bottom: 10px">
+
+									<input name="edate" type="text" id="edate" tabindex="2"
+										class="form-control" placeholder="To Date" />
+
+								</div>
+							</div>
+
+
+							<div class="col-sm-3">
+								<div style="margin-bottom: 10px">
+									<input name="stb_no" type="text" id="fdate" tabindex="3"
+										class="form-control" placeholder="STB No." />
+								</div>
 
 							</div>
 
-						</div>
-						<div class="col-sm-3">
-							<div style="margin-bottom: 10px">
+							<div class="col-sm-3">
+								<div style="margin-bottom: 10px">
 
-								<input name="edate" type="text"
-									id="edate" tabindex="2"
-									class="form-control" placeholder="To Date" />
-
+									<input name="VC_No" type="text"
+										id="ContentPlaceHolder1_txtvcno" tabindex="4"
+										class="form-control" placeholder="VC No." />
+								</div>
 							</div>
-						</div>
+							<div class="col-sm-3">
+								<div style="margin-bottom: 10px">
+									<input name="mobile" type="text"
+										id="ContentPlaceHolder1_txtmobile" tabindex="5"
+										class="form-control" placeholder="Mobile No." />
 
-
-						<div class="col-sm-3">
-							<div style="margin-bottom: 10px">
-								<input name="stb_no" type="text"
-									id="fdate" tabindex="3"
-									class="form-control" placeholder="STB No." />
-							</div>
-
-						</div>
-
-						<div class="col-sm-3">
-							<div style="margin-bottom: 10px">
-
-								<input name="VC_No" type="text"
-									id="ContentPlaceHolder1_txtvcno" tabindex="4"
-									class="form-control" placeholder="VC No." />
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div style="margin-bottom: 10px">
-								<input name="mobile" type="text"
-									id="ContentPlaceHolder1_txtmobile" tabindex="5"
-									class="form-control" placeholder="Mobile No." />
+								</div>
 
 							</div>
 
-						</div>
+							<div class="col-sm-3">
+								<div style="margin-bottom: 10px">
+									<select name="status" id="ContentPlaceHolder1_ddlstatus"
+										tabindex="6" class="form-control">
+										<option value="0">Select</option>
+										<option value="Pending">Pending</option>
+										<option value="Live">Live</option>
+										<option value="Expire">Expire</option>
 
-						<div class="col-sm-3">
-							<div style="margin-bottom: 10px">
-								<select name="status"
-									id="ContentPlaceHolder1_ddlstatus" tabindex="6"
-									class="form-control">
-									<option value="0">Select</option>
-									<option value="Pending">Pending</option>
-									<option value="Live">Live</option>
-									<option value="Expire">Expire</option>
+									</select>
 
-								</select>
+								</div>
+
+							</div>
+							<div class="col-sm-3">
+								<div style="margin-bottom: 10px">
+									<input name="pckg" type="text"
+										id="ContentPlaceHolder1_txtpackage" tabindex="7"
+										class="form-control" placeholder="Package Name" />
+
+								</div>
 
 							</div>
 
-						</div>
-						<div class="col-sm-3">
-							<div style="margin-bottom: 10px">
-								<input name="pckg" type="text"
-									id="ContentPlaceHolder1_txtpackage" tabindex="7"
-									class="form-control" placeholder="Package Name" />
+
+							<div class="col-sm-3">
+								<div style="margin-bottom: 10px">
+
+									<input type="submit"
+										name="ctl00$ContentPlaceHolder1$btn_submit_request"
+										value="Search" id="ContentPlaceHolder1_btn_submit_request"
+										tabindex="30" class="btn-primary btn-color btn-block pull-left"/>
+
+
+								</div>
 
 							</div>
+							<div class="nofound">${error}</div>
+						</form:form>
 
-						</div>
-
-
-						<div class="col-sm-3">
-							<div style="margin-bottom: 10px">
-
-								<input type="submit"
-									name="ctl00$ContentPlaceHolder1$btn_submit_request"
-									value="Search" id="ContentPlaceHolder1_btn_submit_request"
-									tabindex="30" class="btn-success btn btn-block" />
-
-
-							</div>
-							
-						</div>
-						<div class="nofound">  ${error} </div>
-				</form:form>
-				
 					</div>
-				
+
 
 
 					<div class="col-sm-12">
@@ -503,41 +750,57 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 								id="ContentPlaceHolder1_gvdash"
 								style="width: 100%; border-collapse: collapse;">
 								<tr>
-									<th scope="col">SN</th>
-									<th scope="col">Account_ID</th>
-									<th scope="col">VC_No</th>
-									<th scope="col">Customer_Name</th>
-									<th scope="col">Customer_Email</th>
-									<th scope="col">Connection_Status</th>
-									<th scope="col">Create_Time</th>
-									<th scope="col">Action</th>
-									<th scope="col">Action</th>
+									<th scope="col" style="width: 5%;">SNo.</th>
+									<th scope="col">Customer ID</th>
+									<th scope="col">VC No</th>
+									<th scope="col">Name</th>
+									<th scope="col">Email</th>
+									<th scope="col">Connection Status</th>
+									<th scope="col">Create Time</th>
+									<!-- 									<th scope="col">Action</th> -->
+									<!-- 									<th scope="col">Action</th> -->
 								</tr>
 
 								<tr>
-								<c:forEach items="${userList}" var="user" varStatus="itr">
+									<c:forEach items="${userList}" var="user" varStatus="itr">
 										<tr>
-											<td>${offset + itr.index +1 }</td>
-											<td>${user.username}</td>
+											<td style="width: 5%;">${offset + itr.index +1 }</td>
+											<td><a href="#" value=${user.username
+												}
+												data-modal-link="popup3">${user.username}</a></td>
+
 											<td>${user.customer_vc_no}</td>
 											<td>${user.customer_name}</td>
 											<td>${user.customer_email}</td>
 											<td>${user.connection_status}</td>
 											<td>${user.timestamp}</td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnktEdit_0"
-												class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a></td>
-											<td><a id="ContentPlaceHolder1_gvdash_LnkDetails_0"
-												class="btn-primary btn btn-sm btn-block"
-												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnkDetails&#39;,&#39;&#39;)">View/Print</a>
-											</td>
-											
+											<!-- 											<td><a id="ContentPlaceHolder1_gvdash_LnktEdit_0" -->
+											<!-- 												class="aspNetDisabled btn-primary btn-sm btn btn-block">Edit</a></td> -->
+											<!-- 											<td><a id="ContentPlaceHolder1_gvdash_LnkDetails_0" -->
+											<!-- 												class="btn-primary btn btn-sm btn-block" -->
+											<!-- 												href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvdash$ctl02$LnkDetails&#39;,&#39;&#39;)">View/Print</a> -->
+											<!-- 											</td> -->
+
 										</tr>
 									</c:forEach>
-								
+
 								</tr>
 							</table>
-									<tag:paginate max="15" offset="${offset}" count="${count}"
-			uri="oldConnections.html?user=${user}" next="&raquo;" previous="&laquo;" />
+							<%
+								String finalQuery = "";
+									String[] token = request.getQueryString().split("&");
+									for (int i = 0; i < token.length; i++) {
+										if (token[i].startsWith("offset")) {
+											System.out.println("offset Find");
+										} else
+											finalQuery = finalQuery + token[i] + "&";
+									}
+									String main = request.getAttribute("javax.servlet.forward.request_uri").toString() + "?"
+											+ finalQuery.substring(0, finalQuery.length() - 1);
+									System.out.println("Query Link in jsp: " + main);
+							%>
+							<tag:paginate max="15" offset="${offset}" count="${count}"
+								uri="<%= main%>" next="&raquo;" previous="&laquo;" />
 						</div>
 
 					</div>
@@ -588,19 +851,19 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 
 			</div>
 
-				<script type="text/javascript">
-					$(document).ready(function() {
-						debugger;
+			<script type="text/javascript">
+				$(document).ready(function() {
+					debugger;
 
-						$('#edate').datepicker({
-							dateFormat : 'yy-mm-dd'
-						});
-						$('#fdate').datepicker({
-							dateFormat : 'yy-mm-dd'
-						});
-
+					$('#edate').datepicker({
+						dateFormat : 'yy-mm-dd'
 					});
-				</script>
+					$('#fdate').datepicker({
+						dateFormat : 'yy-mm-dd'
+					});
+
+				});
+			</script>
 			<script type="text/javascript">
 				$(document)
 						.ready(
@@ -627,24 +890,24 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 														}
 													});
 
-// 									$('#ContentPlaceHolder1_txttodate')
-// 											.datepicker({
-// 												dateFormat : 'yy-mm-dd'
-// 											});
-// 									$('#ContentPlaceHolder1_txtfromdate')
-// 											.datepicker({
-// 												dateFormat : 'yy-mm-dd'
-// 											});
-// 									$('#ContentPlaceHolder1_txtforExp')
-// 									.datepicker({
-// 										dateFormat : 'yy-mm-dd'
-// 									});
-									
-// 									$(
-// 											'#ContentPlaceHolder1_txtcustVCwarantydate')
-// 											.datepicker({
-// 												dateFormat :'yy-mm-dd'
-// 											});
+									// 									$('#ContentPlaceHolder1_txttodate')
+									// 											.datepicker({
+									// 												dateFormat : 'yy-mm-dd'
+									// 											});
+									// 									$('#ContentPlaceHolder1_txtfromdate')
+									// 											.datepicker({
+									// 												dateFormat : 'yy-mm-dd'
+									// 											});
+									// 									$('#ContentPlaceHolder1_txtforExp')
+									// 									.datepicker({
+									// 										dateFormat : 'yy-mm-dd'
+									// 									});
+
+									// 									$(
+									// 											'#ContentPlaceHolder1_txtcustVCwarantydate')
+									// 											.datepicker({
+									// 												dateFormat :'yy-mm-dd'
+									// 											});
 								});
 
 				function radioList() {
@@ -684,22 +947,138 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 		</div>
 
 
+		<div id="popup3" class="modal-box">
 
-		<!-- Pushy JS -->
+			<a href="#" class="js-modal-close close">×</a>
 
-		<script src="assets/js/pushy.min.js"></script>
-		<script src="assets/js/jquery-1.10.2.js"></script>
-		<script src="assets/js/bootstrap.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<link
-			href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
-			rel="stylesheet" type="text/css" />
-		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-	</div>
-	</form>
-	<%
-		}
-	%>
-	<link href="assets/css/circle.css" rel="stylesheet" />
+			<div class="modal-body">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: #288484">
+						<button type="button" class="close" data-dismiss="modal"></button>
+						<h4 align="center" class="modal-title">
+							<b style="color: white" id="inid"></b>
+						</h4>
+					</div>
+					<div class="row">
+						<br>
+						<div class=" col-sm-5" style="width: 50%;height: 45px;">
+							<div class="col-sm-3">
+								<p class="p1">VC Number</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtcode" type="text"
+									readonly="readonly" id="vc_no" class="form-control" />
+							</div>
+						</div>
+						<div class=" col-sm-5" style="width: 50%;height: 45px;">
+							<div class="col-sm-3">
+								<p class="p1">Mobile No.</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtname" type="text"
+									readonly="readonly" id="mobile" class="form-control" />
+							</div>
+						</div>
+						<div class=" col-sm-5" style="width: 50%;height: 45px;">
+							<div class="col-sm-3">
+								<p class="p1">Name</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="name" type="text" id="cname" class="form-control" />
+							</div>
+						</div>
+						<div class=" col-sm-5" style="width: 50%;height: 45px;">
+							<div class="col-sm-3">
+								<p class="p1">Password</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtname" type="text"
+									id="passd" class="form-control" />
+							</div>
+						</div>
+						<div class=" col-sm-5" style="width: 50%;height: 45px;">
+							<div class="col-sm-3">
+								<p class="p1">Email</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="mail" type="text" id="email" class="form-control" />
+							</div>
+						</div>
+						<div class=" col-sm-5" style="width: 50%;height: 45px;">
+							<div class="col-sm-3">
+								<p class="p1">Status</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtname" type="text"
+									id="status" class="form-control" />
+							</div>
+						</div>
+						<div class=" col-sm-5" style="width: 50%;height: 45px;">
+							<div class="col-sm-3">
+								<p class="p1">Package</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtcode" type="text"
+									id="pkg" class="form-control" />
+							</div>
+						</div>
+						<div class=" col-sm-5" style="width: 50%;height: 45px;">
+							<div class="col-sm-3">
+								<p class="p1">Account Balance</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtname" type="text"
+									id="bal" class="form-control" />
+							</div>
+						</div>
+						<div style="width: 90%;height: 265px;">
+							<div class="col-sm-3" style="width: 15%;margin-left: 15px;">
+								<p class="p1">Address</p>
+							</div>
+							
+							<textarea name="ctl00$ContentPlaceHolder1$txtrmark" rows="3"
+								cols="100" id="add" 
+								class="form-control" placeholder="Add Remark" style="width: 74%;overflow:auto;resize:none;">
+								</textarea>
+							
+						</div>
+						
+						<div class=" col-sm-5" style="width: 50%;height: 45px;">
+							<div class="col-sm-3">
+								<p class="p1">Expiry Date</p>
+							</div>
+							<div class="col-sm-8">
+								<input name="ctl00$ContentPlaceHolder1$txtcode" type="text"
+									readonly="readonly" id="expire" class="form-control" />
+							</div>
+						</div>
+						<div class=" col-sm-5" style="width: 50%;height: 45px;">
+							<input type="submit" tabindex="30" style="width: 90%;margin-left:15px;"
+								class="btn-primary btn-color btn-block pull-left" />
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-small js-modal-close">Close</a>
+					</div>
+				</div>
+
+			</div>
+			<!-- Pushy JS -->
+
+			<script src="assets/js/pushy.min.js"></script>
+			<script src="assets/js/jquery-1.10.2.js"></script>
+			<script src="assets/js/bootstrap.js"></script>
+			<script src="assets/js/bootstrap.min.js"></script>
+			<link
+				href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
+				rel="stylesheet" type="text/css" />
+			<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		</div>
+		</form>
+		<%
+			}
+		%>
+		<link href="assets/css/circle.css" rel="stylesheet" />
 </body>
 </html>

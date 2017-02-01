@@ -209,9 +209,12 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/allLCOComplain", method = RequestMethod.GET)
-	public ModelAndView allLCOComplain(ModelMap map, @RequestParam("user") String user) {
+	public ModelAndView allLCOComplain(ModelMap map, @RequestParam("user") String user,Integer offset,
+			Integer maxResults) {
 
-		List<AllComplaints> userList = LCOComplaintRepository.getAllComplaints();
+		List<AllComplaints> userList = LCOComplaintRepository.list(offset, maxResults);
+		map.addAttribute("count", LCOComplaintRepository.count());
+		map.addAttribute("offset", offset);
 		/*
 		 * for (AllComplaints temp : userList) {
 		 * System.out.println("User Name: "+temp.getComplaint_no()
@@ -369,19 +372,24 @@ public class LCOController {
 			@ModelAttribute("subForm") User sub, @RequestParam("VC_No") String VC_No,
 			@RequestParam("fdate") String fdate, @RequestParam("edate") String edate,
 			@RequestParam("mobile") String mobile, @RequestParam("status") String status,
-			@RequestParam("stb_no") String stb, @RequestParam("pckg") String pckg) {
+			@RequestParam("stb_no") String stb, @RequestParam("pckg") String pckg,Integer offset,
+			Integer maxResults) {
 		User userForm = new User();
 		map.addAttribute("subForm", userForm);
 		map.addAttribute("user", user);
 		List<String> al = pckgservice.getAllPckgNames();
 		map.addAttribute("pckInfo", al);
 		System.out.println("status in searchLCOConByLCO: " + status);
-		List<User> tmp = userService.findByAnyone(fdate, edate, stb, VC_No, mobile, status, pckg);
+		if(status.equals("0"))
+			status="";
+		List<User> tmp = userService.userListForSearch(fdate, edate, stb, VC_No, mobile, status, pckg, offset, maxResults);
 		System.out.println("tmp.size()***************: " + tmp.size());
 		if (tmp.size() < 1) {
 			map.addAttribute("error", "No Data Found!!!");
 			System.out.println("No Data Found........................");
 		} else {
+			map.addAttribute("count", userService.countForSearch(fdate, edate, stb, VC_No, mobile, status, pckg));
+			map.addAttribute("offset", offset);
 			map.addAttribute("userList", tmp);
 		}
 
@@ -566,6 +574,54 @@ public class LCOController {
 		return "TopUp";
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@ResponseBody
+	@RequestMapping(value = "/showCustInfo", method = RequestMethod.GET)
+	public String showCustInfo(@RequestParam("user") String user, @RequestParam("id") String invoiceid,
+			ModelMap model) {
+		System.out.println("Invoice Details check data: " + invoiceid + "," + user);
+		User result = userService.get(invoiceid);
+		System.out.println("Result: " + result.getCustomer_mobile());
+		Gson gson = new Gson();
+		String json = gson.toJson(result);
+		model.addAttribute("user", user);
+		return json;
+		// return new ModelAndView(json);
+	}
+	
+	
+	///////////////////////////////////////Search for All Complaints By LCO///////////////////////////////
+	
+	@RequestMapping(value = "/searchComplaint", method = RequestMethod.GET)
+	public ModelAndView searchComplaint(ModelMap map, @RequestParam("user") String user,
+			@RequestParam("VC_No") String VC_No, @RequestParam("fdate") String fdate,
+			@RequestParam("edate") String edate, @RequestParam("mobile") String mobile,
+			@RequestParam("status") String status, Integer offset,
+			Integer maxResults) {
+		map.addAttribute("user", user);
+		System.out.println("VC no: " + VC_No+"user: "+user);
+		List<AllComplaints> tmp = LCOComplaintRepository.listForSearch(fdate, edate, VC_No, mobile, status, offset, maxResults);
+
+		System.out.println("tmp.size()***************: " + tmp.size());
+		if (tmp.size() < 1) {
+			map.addAttribute("error", "No Data Found!!!");
+			System.out.println("No Data Found........................");
+		} else {
+			map.addAttribute("userList", tmp);
+			map.addAttribute("count",
+					LCOComplaintRepository.countForSearch(fdate, edate, VC_No, mobile, status));
+			map.addAttribute("offset", offset);
+		}
+
+		return new ModelAndView("Dashboard", map);
+	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//////////////////////////////////////////////////////////show Customer Information//////////////////////
+	
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	////////////////////////////////// Date and Password Generation
 	////////////////////////////////// functions///////////////////////////////////

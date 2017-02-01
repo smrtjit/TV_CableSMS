@@ -5,13 +5,13 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dialnet.source.model.AllCollections;
 import com.dialnet.source.model.AllComplaints;
-import com.dialnet.source.model.User;
+
 
 @Repository("save1")
 public class AllComplaintdaoImpl implements AllComplaintdao {
@@ -89,6 +89,89 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 		
 		return criteria.list();
 		
+	}
+	
+	
+	////////////////////////////////////////////////////For Pagination//////////////////////////////////////////////////////
+	
+	public List<AllComplaints> list(Integer offset, Integer maxResults) {
+		Session sf = session.openSession();
+		return sf.createCriteria(AllComplaints.class).setFirstResult(offset != null ? offset : 0)
+				.setMaxResults(maxResults != null ? maxResults : 10).list();
+	}
+
+	public Long count() {
+		Session sf = session.openSession();
+		return (Long) sf.createCriteria(AllComplaints.class).setProjection(Projections.rowCount()).uniqueResult();
+	}
+	
+	
+	public List<AllComplaints> listForSearch(String sdate, String edate, String VC_no, String mobile, String status,Integer offset, Integer maxResults) {
+		Session sf=session.openSession();
+		Criteria criteria = sf.createCriteria(AllComplaints.class); 
+		if(sdate==null || sdate.equalsIgnoreCase("")){
+			System.out.println("sdate is not available");
+		}
+		else{
+			criteria.add(Restrictions.gt("open_date",sdate+" 00:00:00"));
+		}
+		
+		if(edate==null || edate.equalsIgnoreCase(""))
+			System.out.println("edate is not available");
+		else{
+			criteria.add(Restrictions.lt("open_date",edate+" 59:59:59"));
+		}
+		
+		if(VC_no==null || VC_no.equalsIgnoreCase(""))
+			System.out.println("VC_no is not available");
+		else{
+			criteria.add(Restrictions.eq("customer_vcno",VC_no));
+		}
+		
+		if(mobile==null || mobile.equalsIgnoreCase(""))
+			System.out.println("mobile is not available");
+		else
+		criteria.add(Restrictions.eq("customer_mobile",mobile));
+		if(status==null || status.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("complaint_status",status));
+		
+		return criteria.setFirstResult(offset != null ? offset : 0)
+				.setMaxResults(maxResults != null ? maxResults : 10).list();
+	}
+
+	public Long countForSearch(String sdate, String edate, String VC_no, String mobile, String status) {
+		Session sf=session.openSession();
+		Criteria criteria = sf.createCriteria(AllComplaints.class); 
+		if(sdate==null || sdate.equalsIgnoreCase("")){
+			System.out.println("sdate is not available");
+		}
+		else{
+			criteria.add(Restrictions.gt("open_date",sdate+" 00:00:00"));
+		}
+		
+		if(edate==null || edate.equalsIgnoreCase(""))
+			System.out.println("edate is not available");
+		else{
+			criteria.add(Restrictions.lt("open_date",edate+" 59:59:59"));
+		}
+		
+		if(VC_no==null || VC_no.equalsIgnoreCase(""))
+			System.out.println("VC_no is not available");
+		else{
+			criteria.add(Restrictions.eq("customer_vcno",VC_no));
+		}
+		
+		if(mobile==null || mobile.equalsIgnoreCase(""))
+			System.out.println("mobile is not available");
+		else
+		criteria.add(Restrictions.eq("customer_mobile",mobile));
+		if(status==null || status.equalsIgnoreCase(""))
+			System.out.println("pckg is not available");
+		else
+		criteria.add(Restrictions.eq("complaint_status",status));
+		return (Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
 	}
 
 }

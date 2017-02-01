@@ -1,6 +1,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+<%@ taglib prefix="tag" uri="/WEB-INF/taglibs/customTaglib.tld"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -72,6 +74,15 @@ select {
 	cursor: pointer;
 	border-radius: 12px;
 	border: none;
+}
+
+.nofound{
+color: red;
+font-size: 3ex;
+margin-left: 350px;
+widows: 100%;
+
+
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////// */
@@ -404,16 +415,13 @@ table td {
 
 			<div id="dash">
 				<div id="ContentPlaceHolder1_upd1">
-
-
-
-
 					<div class="row">
-
+						<form action="searchComplaint.html">
+						<input type="hidden" name="user" value="${user}"  />
 						<div class="col-sm-2">
 							<div style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txttodate" type="text"
-									id="ContentPlaceHolder1_txttodate" tabindex="1"
+								<input name="fdate" type="text"
+									id="fdate" tabindex="1"
 									class="form-control" placeholder="From Date" />
 							</div>
 
@@ -422,8 +430,8 @@ table td {
 						<div class="col-sm-2">
 							<div style="margin-bottom: 10px">
 
-								<input name="ctl00$ContentPlaceHolder1$txtfromdate" type="text"
-									id="ContentPlaceHolder1_txtfromdate" tabindex="2"
+								<input name="edate" type="text"
+									id="edate"  tabindex="2"
 									class="form-control" placeholder="To Date" />
 
 							</div>
@@ -432,15 +440,15 @@ table td {
 						<div class="col-sm-2">
 							<div style="margin-bottom: 10px">
 
-								<input name="ctl00$ContentPlaceHolder1$txtvcno" type="text"
-									id="ContentPlaceHolder1_txtvcno" tabindex="2"
+								<input name="VC_No" type="text"
+									 tabindex="2"
 									class="form-control" placeholder="VC No." />
 							</div>
 						</div>
 						<div class="col-sm-2">
 							<div style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtmobile" type="text"
-									id="ContentPlaceHolder1_txtmobile" tabindex="1"
+								<input name="mobile" type="text"
+									 tabindex="1"
 									class="form-control" placeholder="Mobile No." />
 
 							</div>
@@ -448,8 +456,8 @@ table td {
 						</div>
 						<div class="col-sm-2">
 							<div style="margin-bottom: 10px">
-								<input name="ctl00$ContentPlaceHolder1$txtpkg" type="text"
-									id="ContentPlaceHolder1_txtpkg" tabindex="2"
+								<input name="status" type="text"
+									 tabindex="2"
 									class="form-control" placeholder="Status" />
 							</div>
 
@@ -459,17 +467,19 @@ table td {
 							<div style="margin-bottom: 10px">
 
 								<input type="submit"
-									name="ctl00$ContentPlaceHolder1$btn_search_request"
+									name="submit"
 									value="Search" id="ContentPlaceHolder1_btn_search_request"
 									tabindex="30" class="btn-primary btn btn-block" />
 
 							</div>
 
 						</div>
+						<div class="nofound">  ${error} </div>
+						</form>
 						<div style="margin-bottom: 0px">
 							<p>
 								<b>Total Count</b> : <span id="ContentPlaceHolder1_lblcount"
-									style="font-weight: bold;">${fn:length(userList)}</span>
+									style="font-weight: bold;">${count}</span>
 							</p>
 						</div>
 						<div class="col-sm-12">
@@ -497,13 +507,9 @@ table td {
 										<!-- 										<th scope="col">Customer Remark</th> -->
 										<!-- 										<th scope="col">Closing Remark</th> -->
 									</tr>
-
-									<%
-										int i = 0;
-									%>
-									<c:forEach items="${userList}" var="user">
+										<c:forEach items="${userList}" var="user" varStatus="itr">
 										<tr>
-											<td><%=i%></td>
+											<td>${offset + itr.index +1 }</td>
 											<td><a href="#" value="${user.complaint_no}#${user.customer_vcno}#${user.customer_name}#${user.customer_mobile}#${user.cust_remark}"
 												data-modal-id="popup2">${user.complaint_no}</a></td>
 											<td>${user.customer_vcno}</td>
@@ -514,13 +520,25 @@ table td {
 											<td>${user.complaint_status}</td>
 											<%-- 											<td>${user.cust_remark}</td> --%>
 											<%-- 											<td>${user.closing_remark}</td> --%>
-											<%
-												i++;
-											%>
+											
 										</tr>
 									</c:forEach>
 
 								</table>
+								
+								<%
+							String finalQuery="";
+							String []token= request.getQueryString().split("&");
+							for(int i=0;i<token.length;i++){
+								if(token[i].startsWith("offset")){
+									System.out.println("offset Find");
+								}else
+								finalQuery=finalQuery+token[i]+"&";
+							}
+							String main=request.getAttribute("javax.servlet.forward.request_uri").toString()+ "?"+finalQuery.substring(0, finalQuery.length()-1);
+							System.out.println("Query Link in jsp: "+main);
+							%>
+							<tag:paginate max="15" offset="${offset}" count="${count}" uri="<%= main%>" next="&raquo;" previous="&laquo;" />
 							</div>
 
 						</div>
@@ -589,7 +607,7 @@ table td {
 					<div class="col-sm-10" >
 						<textarea name="ctl00$ContentPlaceHolder1$txtrmark" rows="3"
 							cols="100" id="ContentPlaceHolder1_txtrmark" class="form-control"
-							placeholder="Add Remark"  >
+							placeholder="Add Remark" style="overflow:auto;resize:none;">
 					</textarea>
 
 					</div><br>
@@ -862,7 +880,7 @@ table td {
 															rows="2" cols="20"
 															id="ContentPlaceHolder1_txtclosingremark"
 															class="form-control" placeholder="Remarks......">
-</textarea>
+													</textarea>
 													</div>
 												</div>
 
@@ -914,9 +932,9 @@ table td {
                 }
             });
 
-            $('#ContentPlaceHolder1_txttodate').datepicker({ dateFormat: 'dd-mm-yy' });
-            $('#ContentPlaceHolder1_txtfromdate').datepicker({ dateFormat: 'dd-mm-yy' });
-            $('#ContentPlaceHolder1_txtactiondate').datepicker({ dateFormat: 'dd-mm-yy' });
+            $('#fdate').datepicker({ dateFormat: 'yy-mm-dd' });
+            $('#edate').datepicker({ dateFormat: 'yy-mm-dd' });
+            $('#ContentPlaceHolder1_txtactiondate').datepicker({ dateFormat: 'yy-mm-dd' });
 
 
         });

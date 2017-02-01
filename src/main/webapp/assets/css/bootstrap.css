@@ -938,6 +938,8 @@ pre code {
   .col-sm-8,
   .col-sm-9,
   .col-sm-10,
+  .col-sm-113,
+  .col-sm-112,
   .col-sm-11 {
     float: left;
   }
@@ -946,6 +948,12 @@ pre code {
   }
   .col-sm-2 {
     width: 16.666666666666664%;
+  }
+  .col-sm-112 {
+    width: 100%;
+  }
+  .col-sm-113 {
+    width: 17.666667%;
   }
   .col-sm-3 {
     width: 25%;
@@ -969,7 +977,7 @@ pre code {
     width: 75%;
   }
   .col-sm-10 {
-    width: 83.33333333333334%;
+    width: 81.333333%;
   }
   .col-sm-11 {
     width: 91.66666666666666%;
@@ -977,6 +985,7 @@ pre code {
   .col-sm-12 {
     width: 100%;
   }
+ 
   .col-sm-push-1 {
     left: 8.333333333333332%;
   }

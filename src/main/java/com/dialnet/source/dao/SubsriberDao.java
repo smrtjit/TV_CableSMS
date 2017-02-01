@@ -30,4 +30,8 @@ public interface SubsriberDao {
 	
 	public Long countForBill();
 	
+	public List userListForSearch(String sdate, String edate, String stb_no, String VC_no, String mobile,
+			String status, String pckg,Integer offset, Integer maxResults);
+	public Long countForSearch(String sdate, String edate, String stb_no, String VC_no, String mobile,
+			String status, String pckg);
 }
