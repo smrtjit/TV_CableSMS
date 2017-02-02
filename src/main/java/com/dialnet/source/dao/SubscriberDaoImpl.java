@@ -1,6 +1,7 @@
 package com.dialnet.source.dao;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dialnet.source.model.LCO_Setting;
 import com.dialnet.source.model.User;
+import com.dialnet.source.service.CustSettingService;
 
 
 @Transactional
@@ -24,10 +27,13 @@ public class SubscriberDaoImpl implements SubsriberDao {
 
 	@Autowired
 	private SessionFactory dao;
+	
+	
 
 	public void add(User complaints) {
 		Session sf = dao.openSession();
 		sf.save(complaints);
+		sf.close();
 	}
 
 	public void edit(User complaints) {
@@ -47,13 +53,15 @@ public class SubscriberDaoImpl implements SubsriberDao {
 		// To get records having salary more than 2000
 		cr.add(Restrictions.eq("username", complaints_No));
 		User product = (User)cr.uniqueResult();
-
+		sf.close();
 		return product;
 	}
 
 	public List getAll() {
 		Session sf = dao.openSession();
-		return sf.createCriteria(User.class).list();
+		List l=sf.createCriteria(User.class).list();
+		sf.close();
+		return l;
 	}
 
 	public User findByVCNO(String vcno) {
@@ -64,7 +72,7 @@ public class SubscriberDaoImpl implements SubsriberDao {
 		cr.add(Restrictions.eq("customer_vc_no", vcno));
 		User product = (User)cr.uniqueResult();
 		//System.out.println("user: " + product);
-
+		sf.close();
 		return product;
 	}
 
@@ -77,7 +85,7 @@ public class SubscriberDaoImpl implements SubsriberDao {
 		cr.add(Restrictions.eq("customer_mobile", vcno));
 		User product = (User)cr.uniqueResult();
 		//System.out.println("user: " + product);
-
+		sf.close();
 		return product;
 	}
 	
@@ -125,19 +133,24 @@ public class SubscriberDaoImpl implements SubsriberDao {
 			System.out.println("pckg is not available");
 		else
 		criteria.add(Restrictions.eq("customer_stb_no",stb_no));
-		
-		return criteria.list();
+		List l=criteria.list();
+		sf.close();
+		return l;
 	}
 
 	@Override
-	public List<User> findUserForBillGeneration() {
+	public List<User> findUserForBillGeneration(String user) {
+		
 		Session sf=dao.openSession();
 		Criteria criteria = sf.createCriteria(User.class); 
+		criteria.add(Restrictions.eq("lco_id",user));
 		criteria.add(Restrictions.eq("bill_status","NO"));
-		Criterion rest1= Restrictions.and(Restrictions.eq("con_expiry_date",getDate()));
-		Criterion rest2= Restrictions.and(Restrictions.lt("con_expiry_date",getDate()));
-		criteria.add(Restrictions.or(rest1, rest2));
-		return criteria.list();
+		//Criterion rest1= Restrictions.and(Restrictions.eq("con_expiry_date",getDate()));
+		//Criterion rest2= Restrictions.and(Restrictions.lt("con_expiry_date",getDate()));
+		//criteria.add(Restrictions.or(rest1, rest2));
+		List l=criteria.list();
+		sf.close();
+		return l;
 	}
 	
 	
@@ -150,51 +163,62 @@ public class SubscriberDaoImpl implements SubsriberDao {
 		q.setString("recievedDate", "YES");
 		q.setString("Id", user);
 		q.executeUpdate();
+		sf.close();
 		return true;
 	}
 /////////////////////////////////////////////////////////For Pagination/////////////////////////////////////////////////////
 	
 	public List<User> list(Integer offset, Integer maxResults){
 		Session sf=dao.openSession();
-		return sf.createCriteria(User.class)
+		List l=sf.createCriteria(User.class)
 				.setFirstResult(offset!=null?offset:0)
 				.setMaxResults(maxResults!=null?maxResults:10)
 				.list();
+		sf.close();
+		return l;
 	}
 	
 	
 	public Long count(){
 		Session sf=dao.openSession();
-		return (Long)sf.createCriteria(User.class)
-				.setProjection(Projections.rowCount())
-				.uniqueResult();
+		Long l= (Long)sf.createCriteria(User.class)
+			.setProjection(Projections.rowCount())
+			.uniqueResult();
+		 sf.close();
+		return l;
 	}
 	
 	
-	public List<User> listForBill(Integer offset, Integer maxResults){
+	public List<User> listForBill(String user,Integer offset, Integer maxResults){
 		Session sf=dao.openSession();
 		Criteria criteria = sf.createCriteria(User.class); 
 		criteria.add(Restrictions.eq("bill_status","NO"));
-		Criterion rest1= Restrictions.and(Restrictions.eq("con_expiry_date",getDate()));
-		Criterion rest2= Restrictions.and(Restrictions.lt("con_expiry_date",getDate()));
-		criteria.add(Restrictions.or(rest1, rest2));
+		criteria.add(Restrictions.eq("lco_id",user));
+		//Criterion rest1= Restrictions.and(Restrictions.eq("con_expiry_date",getDate()));
+		//Criterion rest2= Restrictions.and(Restrictions.lt("con_expiry_date",getDate()));
+		//criteria.add(Restrictions.or(rest1, rest2));
+		List l= criteria.setFirstResult(offset!=null?offset:0)
+				.setMaxResults(maxResults!=null?maxResults:10).list();
+		sf.close();
 		
-		return criteria.setFirstResult(offset!=null?offset:0)
-		.setMaxResults(maxResults!=null?maxResults:10).list();
+		return l;
 		
 	}
 	
 	
-	public Long countForBill(){
+	public Long countForBill(String user){
 		Session sf=dao.openSession();
 		Criteria criteria = sf.createCriteria(User.class); 
 		criteria.add(Restrictions.eq("bill_status","NO"));
-		Criterion rest1= Restrictions.and(Restrictions.eq("con_expiry_date",getDate()));
-		Criterion rest2= Restrictions.and(Restrictions.lt("con_expiry_date",getDate()));
-		criteria.add(Restrictions.or(rest1, rest2));
-		return (Long)criteria
+		criteria.add(Restrictions.eq("lco_id",user));
+		//Criterion rest1= Restrictions.and(Restrictions.eq("con_expiry_date",getDate()));
+		//Criterion rest2= Restrictions.and(Restrictions.lt("con_expiry_date",getDate()));
+		//criteria.add(Restrictions.or(rest1, rest2));
+		Long l=(Long)criteria
 				.setProjection(Projections.rowCount())
 				.uniqueResult();
+		sf.close();
+		return l;
 	}
 	
 	
@@ -240,10 +264,12 @@ public class SubscriberDaoImpl implements SubsriberDao {
 			System.out.println("pckg is not available");
 		else
 		criteria.add(Restrictions.eq("customer_stb_no",stb_no));
-		return criteria
+		List l= criteria
 				.setFirstResult(offset!=null?offset:0)
 				.setMaxResults(maxResults!=null?maxResults:10)
 				.list();
+		sf.close();
+		return l;
 	}
 	
 	
@@ -288,13 +314,14 @@ public class SubscriberDaoImpl implements SubsriberDao {
 			System.out.println("pckg is not available");
 		else
 		criteria.add(Restrictions.eq("customer_stb_no",stb_no));
-		return (Long)criteria
+		Long l= (Long)criteria
 				.setProjection(Projections.rowCount())
 				.uniqueResult();
+		sf.close();
+		return l;
 	}
 	
-	
-	
+
 	
 /////////////////////////////////////////////////////////////For Date////////////////////////////////////////////////////
 	public String getDate() {
@@ -310,5 +337,7 @@ public class SubscriberDaoImpl implements SubsriberDao {
 		}
 		return trnstamp;
 	}
+
+	
 
 }

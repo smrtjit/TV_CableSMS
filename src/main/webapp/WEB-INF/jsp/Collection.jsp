@@ -25,19 +25,17 @@
 <link
 	href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.css"
 	rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="assets/css/bill.css" />
+<link rel="stylesheet" href="assets/css/bill.css" />
 <!-- 	<link rel="stylesheet" href="assets/css/invoiceno.css" /> -->
-	
+
 <style>
-
-.nofound{
-color: red;
-font-size: 3ex;
-margin-left: 350px;
-widows: 100%;
-
-
+.nofound {
+	color: red;
+	font-size: 3ex;
+	margin-left: 350px;
+	widows: 100%;
 }
+
 html {
 	font-family: "roboto", helvetica;
 	position: relative;
@@ -46,11 +44,13 @@ html {
 	line-height: 1.5;
 	color: #444;
 }
+
 .modal-footer {
 	padding: 2px 16px;
 	background-color: #5cb85c;
 	color: white;
 }
+
 h2 {
 	margin: 1.75em 0 0;
 	font-size: 5vw;
@@ -67,8 +67,9 @@ h3 {
 	position: relative;
 	text-align: center;
 }
-.btn-color{
-	 font-size: 2vmin;
+
+.btn-color {
+	font-size: 2vmin;
 	padding: 0.25em .75em;
 	background-color: #428bca;
 	border: 1px solid #bbb;
@@ -80,6 +81,7 @@ h3 {
 	-moz-transition: background-color 1s ease;
 	transition: background-color 1s ease;
 }
+
 .v-center>div {
 	display: table-cell;
 	vertical-align: middle;
@@ -142,8 +144,6 @@ h3 {
 	margin: 0;
 }
 
-
-
 .modal-box footer, .modal-box .modal-footer {
 	padding: 1em;
 	border-top: 1px solid #ddd;
@@ -191,9 +191,10 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 		 e.preventDefault();
 		 $.ajax({  
     	         type : 'GET', 
-    	         url: 'invoice_service.html?user=<%= request.getParameter("user") %>&value=val',
+    	         url: 'bulkDetails.html',
        		      data: {
-            		 Invoice_no: value
+            		 'invoice': value,
+            		 'user': ${user}
            		  },
            		dataType: 'json',
            		cache: false,
@@ -203,12 +204,10 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
                                 xhr.setRequestHeader("Content-Type", "application/json");  
                             },
              	success: function (data) {
-                alert("success");
-                alert(data);
- 	            },
- 	            error: function(e){
- 	            	alert(e);
+                setBulkData( data);
+                //alert(data.Total_Amount);
  	            }
+ 	           
    	      });
 	
     	$("body").append(appendthis);
@@ -230,6 +229,17 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 	});
  	$(window).resize();
 });
+
+function setBulkData( data){
+	document.getElementById("buklinid").innerHTML =data.Invoice_No;
+	document.getElementById("fdate").value =data.Billing_Date;
+	document.getElementById("amt").value =data.Total_Amount;
+	document.getElementById("servicetax").value =data.Service_Tax;
+	document.getElementById("amtt").value =data.Entertain_Tax;
+	document.getElementById("ot").value =data.VAT;
+	
+	
+}
 </script>
 <script>
 	$(function() {
@@ -347,9 +357,10 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 
 </script>
 <!-- jQuery -->
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <!-- 	<link rel="stylesheet" href="assets/css/invoiceno.css" /> -->
-	
+
 </head>
 <body
 	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
@@ -386,32 +397,32 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 			<ul>
 				<!--menu iteam code -->
 				<li class="pushy-link"><a href="LCOHome.html?user=${user}"
-style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
+					style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 				<li class="pushy-link"><a
 					href="allLCOCollection.html?user=${user}">Collection</a></li>
 				<li class="pushy-link"><a
 					href="allLCOComplain.html?user=${user} ">Complaint</a></li>
 				<li class="pushy-link"><a
-					href="oldConnections.html?user=<%= request.getParameter("user") %>">Connection</a></li>
+					href="oldConnections.html?user=<%=request.getParameter("user")%>">Connection</a></li>
 				<li class="pushy-link"><a
-					href="OldUserInfo.html?user=<%= request.getParameter("user") %>">Create
+					href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
 						User</a></li>
 				<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
 				<li class="pushy-link"><a
-					href="lcoTopUp.html?user=<%= request.getParameter("user") %>">Top-UP</a></li>
+					href="lcoTopUp.html?user=<%=request.getParameter("user")%>">Top-UP</a></li>
 				<li class="pushy-link"><a
-					href="lcoBilling.html?user=<%= request.getParameter("user") %>">Bulk-Billing</a></li>
+					href="lcoBilling.html?user=<%=request.getParameter("user")%>">Bulk-Billing</a></li>
 				<li class="pushy-link"><a
 					href="lcoaccountMgmt.html?user=<%=request.getParameter("user")%>">Account
 						Management</a></li>
 				<li class="pushy-link"><a
-					href="lcostock.html?user=<%= request.getParameter("user") %>">Stock</a></li>
+					href="lcostock.html?user=<%=request.getParameter("user")%>">Stock</a></li>
 				<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
 				<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
 				<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
 				<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
 				<li class="pushy-link"><a
-					href="LCODetail.html?user=<%= request.getParameter("user") %>">My
+					href="LCODetail.html?user=<%=request.getParameter("user")%>">My
 						Account</a></li>
 				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 			</ul>
@@ -419,24 +430,22 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 
 		<!-- Site Overlay -->
 		<div class="site-overlay"></div>
-		
-					<div class="col-sm-3"></div>
-					<div class="col-sm-9" style="margin-top: 70px">
-						
-					</div>
-				</div>
-		
-	
-		<!-- Your Content -->
-		
-		<div id="container">
-			<!-- Menu Button -->
-			<div class="row">
+
+		<div class="col-sm-3"></div>
+		<div class="col-sm-9" style="margin-top: 70px"></div>
+	</div>
+
+
+	<!-- Your Content -->
+
+	<div id="container">
+		<!-- Menu Button -->
+		<div class="row">
 			<div class="menu-btn">&#9776; Menu</div>
-			<button type="button" class="btnc btn-pink ">Collection </button>
-			
-</div>
-			<script type="text/javascript">
+			<button type="button" class="btnc btn-pink ">Collection</button>
+
+		</div>
+		<script type="text/javascript">
 					Sys.WebForms.PageRequestManager._initialize(
 							'ctl00$ContentPlaceHolder1$ScriptManager1',
 							'form1', [ 'tctl00$ContentPlaceHolder1$upd',
@@ -446,205 +455,207 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 							'ctl00');
 				</script>
 
-			<hr />
-			<div class="col-sm-12" style="width: 100%;height: 75px;">
+		<hr />
+		<div class="col-sm-12" style="width: 100%; height: 75px;">
 			<form action="searchCollectionLCO.html">
-					<input type="hidden" name="user" value="${user }" />
+				<input type="hidden" name="user" value="${user }" />
 
-					<div class="col-sm-2">
-						<div style="margin-bottom: 10px">
-							<input name="fdate" type="text"
-								id="ContentPlaceHolder1_txttodate" tabindex="1"
-								class="form-control" placeholder="From Date" />
-						</div>
-
+				<div class="col-sm-2">
+					<div style="margin-bottom: 10px">
+						<input name="fdate" type="text" id="ContentPlaceHolder1_txttodate"
+							tabindex="1" class="form-control" placeholder="From Date" />
 					</div>
 
-					<div class="col-sm-2">
-						<div style="margin-bottom: 10px">
-
-							<input name="edate" type="text"
-								id="ContentPlaceHolder1_txtfromdate" tabindex="2"
-								class="form-control" placeholder="To Date" />
-
-						</div>
-					</div>
-
-					<div class="col-sm-2">
-						<div style="margin-bottom: 10px">
-
-							<input name="VC_No" type="text" id="ContentPlaceHolder1_txtvcno"
-								tabindex="2" class="form-control" placeholder="VC No." />
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div style="margin-bottom: 10px">
-							<input name="mobile" type="text"
-								id="ContentPlaceHolder1_txtmobile" tabindex="1"
-								class="form-control" placeholder="Mobille No." />
-
-						</div>
-
-					</div>
-					<div class="col-sm-2">
-						<div style="margin-bottom: 10px">
-							<input name="agent" type="text" id="ContentPlaceHolder1_txtpkg"
-								tabindex="2" class="form-control" placeholder="Agent Id" />
-						</div>
-
-					</div>
-					<div class="col-sm-2  ">
-						<div style="margin-bottom: 10px">
-							<input name=status type="text" id="ContentPlaceHolder1_txtpkg"
-								tabindex="2" class="form-control" placeholder="Status" />
-						</div>
-
-					</div>
-					<div class="col-sm-2 pull-right">
-						<div style="margin-bottom: 10px  ">
-
-							<input type="submit"
-								tabindex="30" class="btn-primary btn-color btn-block pull-right" />
-
-						</div>
-
-					</div>
-					<div class="nofound">${error}</div>
-				</form>
 				</div>
-			<div class="row">
-				
-				<div class="col-sm-12">
-					<div class="col-sm-12">
-						<hr />
-						<div style="margin-bottom: 0px">
-							<p>
-								<b>Total Count : <span id="ContentPlaceHolder1_lblcount"
-									style="font-weight: bold;">${fn:length(userList)}</span>
-								</b>
-							</p>
-						</div>
+
+				<div class="col-sm-2">
+					<div style="margin-bottom: 10px">
+
+						<input name="edate" type="text"
+							id="ContentPlaceHolder1_txtfromdate" tabindex="2"
+							class="form-control" placeholder="To Date" />
+
 					</div>
-					<div id="ContentPlaceHolder1_upd">
+				</div>
 
-						<div>
-							<table
-								class="table table-striped table-bordered table-hover fontsize"
-								cellspacing="0" rules="all" border="1" id="table_id"
-								style="width: 100%; border-collapse: collapse;">
+				<div class="col-sm-2">
+					<div style="margin-bottom: 10px">
+
+						<input name="VC_No" type="text" id="ContentPlaceHolder1_txtvcno"
+							tabindex="2" class="form-control" placeholder="VC No." />
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div style="margin-bottom: 10px">
+						<input name="mobile" type="text"
+							id="ContentPlaceHolder1_txtmobile" tabindex="1"
+							class="form-control" placeholder="Mobille No." />
+
+					</div>
+
+				</div>
+				<div class="col-sm-2">
+					<div style="margin-bottom: 10px">
+						<input name="agent" type="text" id="ContentPlaceHolder1_txtpkg"
+							tabindex="2" class="form-control" placeholder="Agent Id" />
+					</div>
+
+				</div>
+				<div class="col-sm-2  ">
+					<div style="margin-bottom: 10px">
+						<input name=status type="text" id="ContentPlaceHolder1_txtpkg"
+							tabindex="2" class="form-control" placeholder="Status" />
+					</div>
+
+				</div>
+				<div class="col-sm-2 pull-right">
+					<div style="margin-bottom: 10px">
+
+						<input type="submit" tabindex="30"
+							class="btn-primary btn-color btn-block pull-right" />
+
+					</div>
+
+				</div>
+				<div class="nofound">${error}</div>
+			</form>
+		</div>
+		<div class="row">
+
+			<div class="col-sm-12">
+				<div class="col-sm-12">
+					<hr />
+					<div style="margin-bottom: 0px">
+						<p>
+							<b>Total Count : <span id="ContentPlaceHolder1_lblcount"
+								style="font-weight: bold;">${fn:length(userList)}</span>
+							</b>
+						</p>
+					</div>
+				</div>
+				<div id="ContentPlaceHolder1_upd">
+
+					<div>
+						<table
+							class="table table-striped table-bordered table-hover fontsize"
+							cellspacing="0" rules="all" border="1" id="table_id"
+							style="width: 100%; border-collapse: collapse;">
+							<tr>
+								<th scope="col">SN</th>
+								<th scope="col" id="Invoice_Number">Invoice Number</th>
+								<th scope="col">VC No</th>
+								<th scope="col">Customer Name</th>
+								<th scope="col">Mobile No</th>
+								<th scope="col">Approval ID</th>
+
+								<th scope="col">Agent ID</th>
+								<th scope="col">Reference ID</th>
+								<th scope="col">Approval Date</th>
+
+								<th scope="col">Recharge Amount</th>
+								<th scope="col">Payment Mode</th>
+								<!-- 									<th scope="col">LM Name</th> -->
+								<th scope="col">Payment Status</th>
+								<th scope="col">Date_Time</th>
+								<th scope="col">Approval</th>
+							</tr>
+							<c:forEach items="${userList}" var="user" varStatus="itr">
 								<tr>
-									<th scope="col">SN</th>
-									<th scope="col" id="Invoice_Number">Invoice Number</th>
-									<th scope="col">VC No</th>
-									<th scope="col">Customer Name</th>
-									<th scope="col">Mobile No</th>
-									<th scope="col">Approval ID</th>
+									<td>${offset + itr.index +1 }</td>
 
-									<th scope="col">Agent ID</th>
-									<th scope="col">Reference ID</th>
-									<th scope="col">Approval Date</th>
-
-									<th scope="col">Recharge Amount</th>
-									<th scope="col">Payment Mode</th>
-<!-- 									<th scope="col">LM Name</th> -->
-									<th scope="col">Payment Status</th>
-									<th scope="col">Date_Time</th>
-									<th scope="col">Approval</th>
-									</tr>
-									<c:forEach items="${userList}" var="user"  varStatus="itr">
-									<tr>
-										<td>${offset + itr.index +1 }</td>
-
-										<td><a href="#" value=${user.invoice}
-												data-modal-link="popup3">${user.invoice}</a></td>
-										<td>${user.VC_No}</td>
-										<td>${user.cust_Name}</td>
-										<td>${user.cust_mobile}</td>
-										<td>${user.approval_ID}</td>
-										<td>${user.collecting_Agent}</td>
-										<td>${user.refernceId}</td>
-										<td>${user.approval_Date}</td>
-										<td>${user.recharge_Amount}</td>
-										<td>${user.payment_Mode}</td>
-<%-- 										<td>${user.LM_Id}</td> --%>
-										<td>${user.payment_Status}</td>
-										<td>${user.trndate}</td>
+									<td><a href="#" value=${user.invoice
+										}
+										data-modal-link="popup3">${user.invoice}</a></td>
+									<td>${user.VC_No}</td>
+									<td>${user.cust_Name}</td>
+									<td>${user.cust_mobile}</td>
+									<td>${user.approval_ID}</td>
+									<td>${user.collecting_Agent}</td>
+									<td>${user.refernceId}</td>
+									<td>${user.approval_Date}</td>
+									<td>${user.recharge_Amount}</td>
+									<td>${user.payment_Mode}</td>
+									<%-- 										<td>${user.LM_Id}</td> --%>
+									<td>${user.payment_Status}</td>
+									<td>${user.trndate}</td>
 
 
-										<td>
-											<%-- 								<input type="button" name="${user.invoice}" value="Edit"class="btn-primary btn btn-block"  id="" onclick="myBtn();"/> --%>
-											<a  class="js-open-modal btn" href="#" value="${user.invoice}"
-											data-modal-id="popup2"  ><img src="assets/img/edit.png" onClick=" return false;"/></a>
+									<td>
+										<%-- 								<input type="button" name="${user.invoice}" value="Edit"class="btn-primary btn btn-block"  id="" onclick="myBtn();"/> --%>
+										<a class="js-open-modal btn" href="#" value="${user.invoice}"
+										data-modal-id="popup2"><img src="assets/img/edit.png"
+											onClick=" return false;" /></a>
 
-										</td>
-									
-									</tr>
-								</c:forEach>
+									</td>
 
-							</table>
-							<%
-							String finalQuery="";
-							String []token= request.getQueryString().split("&");
-							for(int i=0;i<token.length;i++){
-								if(token[i].startsWith("offset")){
-									System.out.println("offset Find");
-								}else
-								finalQuery=finalQuery+token[i]+"&";
-							}
-							String main=request.getAttribute("javax.servlet.forward.request_uri").toString()+"?"+finalQuery.substring(0, finalQuery.length()-1);
-							System.out.println("Query Link in jsp: "+main);
-							%>
-							<tag:paginate max="15" offset="${offset}" count="${count}" uri="<%= main%>" next="&raquo;" previous="&laquo;" />
-						</div>
+								</tr>
+							</c:forEach>
 
+						</table>
+						<%
+							String finalQuery = "";
+								String[] token = request.getQueryString().split("&");
+								for (int i = 0; i < token.length; i++) {
+									if (token[i].startsWith("offset")) {
+										System.out.println("offset Find");
+									} else
+										finalQuery = finalQuery + token[i] + "&";
+								}
+								String main = request.getAttribute("javax.servlet.forward.request_uri").toString() + "?"
+										+ finalQuery.substring(0, finalQuery.length() - 1);
+								System.out.println("Query Link in jsp: " + main);
+						%>
+						<tag:paginate max="15" offset="${offset}" count="${count}"
+							uri="<%= main%>" next="&raquo;" previous="&laquo;" />
 					</div>
 
 				</div>
 
 			</div>
 
-			<div class="modal fade bd-example-modal-lg" tabindex="-1"
-				id="modalDetails" role="dialog" aria-labelledby="myLargeModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<!-- Modal content-->
-					<div class="modal-content">
+		</div>
 
-						<div class="modal-header" style="background-color: #f8c300">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Details</h4>
-						</div>
-						<div class="modal-body">
+		<div class="modal fade bd-example-modal-lg" tabindex="-1"
+			id="modalDetails" role="dialog" aria-labelledby="myLargeModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<!-- Modal content-->
+				<div class="modal-content">
 
-							<div id="ContentPlaceHolder1_msgbox">
+					<div class="modal-header" style="background-color: #f8c300">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Details</h4>
+					</div>
+					<div class="modal-body">
 
-								<div id="ContentPlaceHolder1_pnlPrint">
+						<div id="ContentPlaceHolder1_msgbox">
 
-									<div id="print_ticket">
-										<div class="col-sm-2"></div>
-										<div class="col-sm-10"></div>
+							<div id="ContentPlaceHolder1_pnlPrint">
 
-									</div>
+								<div id="print_ticket">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-10"></div>
 
 								</div>
 
-
 							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" id="btnprint" class="btn btn-primary"
-								onclick="return PrintPanel();">Print</button>
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Close</button>
-						</div>
 
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="btnprint" class="btn btn-primary"
+							onclick="return PrintPanel();">Print</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 
 				</div>
 
 			</div>
 
-			<script type="text/javascript">
+		</div>
+
+		<script type="text/javascript">
 					$(document).ready(function() {
 						debugger;
 
@@ -659,289 +670,318 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 				</script>
 
 
-		</div>
+	</div>
 
 	<div id="popup3" class="modal-box">
-		
-			<a href="#" class="js-modal-close close">×</a>
 
-				<div class="modal-body">
-					<div class="modal-content">
-						<div class="modal-header" style="background-color: #288484">
-							<button type="button" class="close" data-dismiss="modal"></button>
-							<h4 align="center" class="modal-title">
-								<b style="color: white" id="inid"></b>
-							</h4>
-						</div>
+		<a href="#" class="js-modal-close close">×</a>
 
-
-						<div id="ContentPlaceHolder1_msgbox">
-
-							<div id="ContentPlaceHolder1_pnlPrint">
+		<div class="modal-body">
+			<div class="modal-content">
+				<div class="modal-header" style="background-color: #288484">
+					<button type="button" class="close" data-dismiss="modal"></button>
+					<h4 align="center" class="modal-title">
+						<b style="color: white" id="inid"></b>
+					</h4>
+				</div>
 
 
+				<div id="ContentPlaceHolder1_msgbox">
 
-								<br />
-								<div id="print_ticket">
-									<div class="detail">
+					<div id="ContentPlaceHolder1_pnlPrint">
 
-											<table style="width: 95%;">
+
+
+						<br />
+						<div id="print_ticket">
+							<div class="detail">
+
+								<table style="width: 95%;">
+									<tr>
+										<td>
+											<p>
+												<b> <span id="ContentPlaceHolder1_lblname"></span></b>
+											</p>
+											<p>
+												<span id="ContentPlaceHolder1_lbladd1"></span>
+											</p>
+											<p>
+												<span id="ContentPlaceHolder1_lbladd2"></span>
+											</p>
+
+										</td>
+										<td>
+											<table style="width: 100%;">
 												<tr>
-													<td>
-														<p>
-																<b> <span id="ContentPlaceHolder1_lblname"></span></b>
-															</p>
-															<p>
-																<span id="ContentPlaceHolder1_lbladd1"></span>
-															</p>
-															<p>
-																<span id="ContentPlaceHolder1_lbladd2"></span>
-															</p>
+													<td style="border: ridge">Account No</td>
+													<td style="border: ridge"><span id="accno"></span></td>
+												</tr>
+												<tr>
+													<td style="border: ridge">Bill Number</td>
+													<td style="border: ridge"><span id="bill"></span></td>
+												</tr>
 
-													</td>
-													<td>
-														<table style="width: 100%;">
-																<tr>
-																	<td style="border: ridge">Account No</td>
-																	<td style="border: ridge"><span
-																		id="accno"></span></td>
-																</tr>
-																<tr>
-																	<td style="border: ridge">Bill Number</td>
-																	<td style="border: ridge"><span
-																		id="bill"></span></td>
-																</tr>
-
-																<tr>
-																	<td style="border: ridge">Billing Date</td>
-																	<td style="border: ridge"><span
-																		id="bill_d"></span></td>
-																</tr>
-																<tr>
-																	<td style="border: ridge">Due Date</td>
-																	<td style="border: ridge"><span
-																		id="due"></span></td>
-																</tr>
-															</table>
-														
-													</td>
+												<tr>
+													<td style="border: ridge">Billing Date</td>
+													<td style="border: ridge"><span id="bill_d"></span></td>
+												</tr>
+												<tr>
+													<td style="border: ridge">Due Date</td>
+													<td style="border: ridge"><span id="due"></span></td>
 												</tr>
 											</table>
-										</div>
 
-									<br />
-									<div class="col-md-12" style="background-color: #288484">
-										<p style="color: white" align="center">Make Online Payment
-											and manage your account</p>
-									</div>
-									<div class="col-md-12">
-										<table style="border: ridge">
-											<tr>
-												<td style="border: ridge; width: 210px"><b>Previous</b></td>
-												<td style="border: ridge; width: 210px"><b>Last
-														Payment</b></td>
-												<td style="border: ridge; width: 210px">Advance<b></b></td>
-												<td style="border: ridge; width: 210px"><b>Bill
-														Amount </b></td>
-												<td style="border: ridge; width: 210px"><b>Internet
-														User Id</b></td>
+										</td>
+									</tr>
+								</table>
+							</div>
 
-											</tr>
-											<tr>
-												<td style="border: ridge; width: 210px"><b id="pre">RS 0</b></td>
-												<td style="border: ridge; width: 210px"><b id="last">RS 0</b></td>
-												<td style="border: ridge; width: 210px"><b id="ad"></b></td>
-												<td style="border: ridge; width: 210px"><b id="bill_a">RS 520</b></td>
-												<td style="border: ridge; width: 210px"><b id="in">NA</b></td>
-											</tr>
-										</table>
-									</div>
-									<br />
-									<div class="col-md-12">
-										<div class="col-md-12">
-											<table style="border: ridge">
-												<tr>
-													<td style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Account
-															details</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b>Amount</b></td>
-												</tr>
-												
+							<br />
+							<div class="col-md-12" style="background-color: #288484">
+								<p style="color: white" align="center">Make Online Payment
+									and manage your account</p>
+							</div>
+							<div class="col-md-12">
+								<table style="border: ridge">
+									<tr>
+										<td style="border: ridge; width: 210px"><b>Previous</b></td>
+										<td style="border: ridge; width: 210px"><b>Last
+												Payment</b></td>
+										<td style="border: ridge; width: 210px">Advance<b></b></td>
+										<td style="border: ridge; width: 210px"><b>Bill
+												Amount </b></td>
+										<td style="border: ridge; width: 210px"><b>Internet
+												User Id</b></td>
 
-
-												<tr>
-													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;">(1)Service
-														Tax</td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;" id="st">Rs 0.00</td>
-												</tr>
-												<tr>
-													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;">(2)Entertainment
-														Tax</td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"  id="et">Rs 0</td>
-												</tr>
-
-												<tr>
-													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Sub
-															Total</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;" id="stt"><b>RS 520</b></td>
-												</tr>
-
-												<tr>
-													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;">Previous
-														Balance</td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;" id="pb">Rs 0</td>
-												</tr>
-
-												<tr>
-													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Discount</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;" ><b id="dis">Rs</b></td>
-												</tr>
-
-
-												<tr>
-													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b >Total</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b id="tot">Rs 520</b></td>
-												</tr>
-												<tr>
-													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Late
-															Payment Charges</b></td>
-													<td style="border: ridge; width: 200px;padding: 5px 5px 5px 5px;"><b id="lpc">Rs 50</b></td>
-												</tr>
-
-												<tr>
-													<td align="right" style="border: ridge; width: 850px;padding: 5px 5px 5px 5px;"><b>Payable
-															after due date</b></td>
-													<td style="border: ridge;width: 200px;padding: 5px 5px 5px 5px;"><b id="lpa">Rs 570</b></td>
-												</tr>
-
-											</table>
+									</tr>
+									<tr>
+										<td style="border: ridge; width: 210px"><b id="pre">RS
+												0</b></td>
+										<td style="border: ridge; width: 210px"><b id="last">RS
+												0</b></td>
+										<td style="border: ridge; width: 210px"><b id="ad"></b></td>
+										<td style="border: ridge; width: 210px"><b id="bill_a">RS
+												520</b></td>
+										<td style="border: ridge; width: 210px"><b id="in">NA</b></td>
+									</tr>
+								</table>
+							</div>
+							<br />
+							<div class="col-md-12">
+								<div class="col-md-12">
+									<table style="border: ridge">
+										<tr>
+											<td
+												style="border: ridge; width: 850px; padding: 5px 5px 5px 5px;"><b>Account
+													details</b></td>
+											<td
+												style="border: ridge; width: 200px; padding: 5px 5px 5px 5px;"><b>Amount</b></td>
+										</tr>
 
 
 
-										</div>
+										<tr>
+											<td align="right"
+												style="border: ridge; width: 850px; padding: 5px 5px 5px 5px;">(1)Service
+												Tax</td>
+											<td
+												style="border: ridge; width: 200px; padding: 5px 5px 5px 5px;"
+												id="st">Rs 0.00</td>
+										</tr>
+										<tr>
+											<td align="right"
+												style="border: ridge; width: 850px; padding: 5px 5px 5px 5px;">(2)Entertainment
+												Tax</td>
+											<td
+												style="border: ridge; width: 200px; padding: 5px 5px 5px 5px;"
+												id="et">Rs 0</td>
+										</tr>
 
-									</div>
+										<tr>
+											<td align="right"
+												style="border: ridge; width: 850px; padding: 5px 5px 5px 5px;"><b>Sub
+													Total</b></td>
+											<td
+												style="border: ridge; width: 200px; padding: 5px 5px 5px 5px;"
+												id="stt"><b>RS 520</b></td>
+										</tr>
+
+										<tr>
+											<td align="right"
+												style="border: ridge; width: 850px; padding: 5px 5px 5px 5px;">Previous
+												Balance</td>
+											<td
+												style="border: ridge; width: 200px; padding: 5px 5px 5px 5px;"
+												id="pb">Rs 0</td>
+										</tr>
+
+										<tr>
+											<td align="right"
+												style="border: ridge; width: 850px; padding: 5px 5px 5px 5px;"><b>Discount</b></td>
+											<td
+												style="border: ridge; width: 200px; padding: 5px 5px 5px 5px;"><b
+												id="dis">Rs</b></td>
+										</tr>
+
+
+										<tr>
+											<td align="right"
+												style="border: ridge; width: 850px; padding: 5px 5px 5px 5px;"><b>Total</b></td>
+											<td
+												style="border: ridge; width: 200px; padding: 5px 5px 5px 5px;"><b
+												id="tot">Rs 520</b></td>
+										</tr>
+										<tr>
+											<td align="right"
+												style="border: ridge; width: 850px; padding: 5px 5px 5px 5px;"><b>Late
+													Payment Charges</b></td>
+											<td
+												style="border: ridge; width: 200px; padding: 5px 5px 5px 5px;"><b
+												id="lpc">Rs 50</b></td>
+										</tr>
+
+										<tr>
+											<td align="right"
+												style="border: ridge; width: 850px; padding: 5px 5px 5px 5px;"><b>Payable
+													after due date</b></td>
+											<td
+												style="border: ridge; width: 200px; padding: 5px 5px 5px 5px;"><b
+												id="lpa">Rs 570</b></td>
+										</tr>
+
+									</table>
+
+
 
 								</div>
 
 							</div>
 
-
-
-						</div>
-						<div class="modal-footer">
-							<a href="#" class="btn btn-small js-modal-close" onclick="return PrintPanel();">Print</a>
-							<a href="#" class="btn btn-small js-modal-close">Close</a>
-
 						</div>
 
 					</div>
+
+
+
 				</div>
-				
-		</div>
-		
-		
-	<div id="popup2" class="modal-box">
-			<header>
-				<a href="#" class="js-modal-close close">×</a>
-				<h3> Invoice Number :<label for="form1"class=""> ${cust_invoice.invoice_No }</label></h3>
-			</header>
-			<div class="modal-body" style="padding-left:20px">
-				<!--    paste here -->
-	<form>
-										<input type="hidden" name="user" value="${user }" />
-										<div>
-											<div class="form-inline marginBottom">
-												<div class="md-form">
-													<label for="form1" class="">From :</label> <input
-														type="text" style="width: 30%; margin-left: 10%"
-														id="form1" placeholder="Complaint Type"
-														class="form-control input1"> <label for="form1"
-														class="">Amount :</label> <input type="text"
-														style="width: 30%; margin-left: 6%" id="form1"
-														placeholder="Complaint Type" class="form-control input1">
+				<div class="modal-footer">
+					<a href="#" class="btn btn-small js-modal-close"
+						onclick="return PrintPanel();">Print</a> <a href="#"
+						class="btn btn-small js-modal-close">Close</a>
 
-												</div>
-											</div>
-											<br>
-											<div class="form-inline marginBottom">
-												<div class="md-form">
-													<label for="form1" class="">Service TAX :</label> <input
-														type="text" style="width: 30%; margin-left: 6%" id="form1"
-														placeholder="Complaint Type" class="form-control input1">
-													<label for="form1" class="">VAT :</label> <input
-														type="text" style="width: 30%; margin-left: 8%" id="form1"
-														placeholder="Complaint Type" class="form-control input1">
+				</div>
 
-												</div>
-											</div>
-											<br>
-											<div class="form-inline marginBottom">
-												<div class="md-form">
-													<label for="form1" class="">Amusement TAX :</label> <input
-														type="text" style="width: 30%; margin-left: 3%" id="form1"
-														placeholder="Complaint Type" class="form-control input1">
-													<label for="form1" class="">Other TAX :</label> <input
-														type="text" style="width: 30%; margin-left: 4%" id="form1"
-														placeholder="Complaint Type" class="form-control input1">
-
-												</div>
-											</div>
-											<br>
-											<div class="form-inline marginBottom">
-												<div class="md-form">
-													<label for="form1" class="">IS TDS Deducted :</label> <input
-														type="text" style="width: 30%; margin-left: 3%" id="form1"
-														placeholder="Complaint Type" class="form-control input1">
-													<label for="form1" class="">Recive Amount :</label> <input
-														type="text" style="width: 30%; margin-left: 1%" id="form1"
-														placeholder="Complaint Type" class="form-control input1">
-
-												</div>
-											</div>
-											<br>
-											<div class="form-inline marginBottom">
-												<div class="md-form">
-													<label for="form1" class="">Recived Via :</label> <input
-														type="text" style="width: 30%; margin-left: 6%" id="form1"
-														placeholder="Complaint Type" class="form-control input1">
-													<label for="form1" class="">Reference ID :</label> <input
-														type="text" style="width: 30%; margin-left: 3%" id="form1"
-														placeholder="Complaint Type" class="form-control input1">
-
-												</div>
-											</div>
-											<br>
-											<div class="form-inline marginBottom">
-												<div class="md-form">
-													<label for="form1" class="">Remark :</label> <input
-														type="text" style="width: 30%; margin-left: 8%" id="form1"
-														placeholder="Complaint Type" class="form-control input1">
-													<div class="col-sm-2  pull-right">
-														<input type="submit" name="#" value="Submit" id=""
-															tabindex="12" class="btn-danger btn btn-block" />
-													</div>
-												</div>
-											</div>
-											<br>
-
-										</div>
-
-									</form>
-							
-							</div>
 			</div>
-			
 		</div>
-		<!-- Pushy JS -->
 
-		<script src="assets/js/pushy.min.js"></script>
-		<script src="assets/js/jquery-1.10.2.js"></script>
-		<script src="assets/js/bootstrap.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<link
-			href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
-			rel="stylesheet" type="text/css" />
-		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	</div>
+
+
+	<div id="popup2" class="modal-box">
+		<header>
+			<a href="#" class="js-modal-close close">×</a>
+			<h3>
+				Invoice Number :<label for="form1" class="" id="buklinid"> </label>
+			</h3>
+		</header>
+		<div class="modal-body" style="padding-left: 20px">
+			<!--    paste here -->
+			<form>
+				<input type="hidden" name="user" value="1111">
+				<div>
+					<div class="form-inline marginBottom">
+						<div class="md-form">
+							<label for="form1" class="">From :</label> <input type="text"
+								style="width: 30%; margin-left: 10%" id="fdate" readonly=""
+								class="form-control input1"> <label for="form1" class="">Amount
+								:</label> <input type="text" style="width: 30%; margin-left: 11%;"
+								id="amt" readonly="" class="form-control input1">
+
+						</div>
+					</div>
+					<br>
+					<div class="form-inline marginBottom">
+						<div class="md-form">
+							<label for="form1" class="">Service TAX :</label> <input
+								type="text" style="width: 30%; margin-left: 6%" id="servicetax"
+								readonly class="form-control input1"> <label
+								for="form1" class="">Amusement TAX:</label> <input type="text"
+								style="width: 30%; margin-left: 6%;" id="amtt" readonly
+								class="form-control input1">
+
+						</div>
+					</div>
+					<br>
+					<div class="form-inline marginBottom">
+						<div class="md-form">
+							<label for="form1" class="">Other TAX :</label> <input
+								type="text" style="width: 30%; margin-left: 7%;" id="ot"
+								readonly class="form-control input1"> <label
+								for="form1" class="">Receive Amount :</label> <input type="text"
+								style="width: 30%; margin-left: 6%;" id="ramt"
+								placeholder="Please Enter The Amount"
+								class="form-control input1">
+
+						</div>
+					</div>
+					<br>
+					<!-- 											<div class="form-inline marginBottom"> -->
+					<!-- 												<div class="md-form"> -->
+					<!-- 													<label for="form1" class="">IS TDS Deducted :</label> <input -->
+					<!-- 														type="text" style="width: 30%; margin-left: 3%" id="form1" -->
+					<!-- 														placeholder="Complaint Type" class="form-control input1"> -->
+					<!-- 													<label for="form1" class="">Recive Amount :</label> <input -->
+					<!-- 														type="text" style="width: 30%; margin-left: 1%" id="form1" -->
+					<!-- 														placeholder="Complaint Type" class="form-control input1"> -->
+
+					<!-- 												</div> -->
+					<!-- 											</div> -->
+					<div class="form-inline marginBottom">
+						<div class="md-form">
+							<label for="form1" class="">Received Via :</label> <input
+								type="text" placeholder="Please Enter The Agent ID" id="agent"
+								style="width: 30%; margin-left: 6%;" class="form-control input1">
+							<label for="form1" class="">Reference ID :</label> <input
+								type="text" style="width: 30%; margin-left: 8%;" id="rid"
+								placeholder="Please Enter The Reference ID"
+								class="form-control input1">
+
+						</div>
+					</div>
+					<br>
+					<div class="form-inline marginBottom">
+						<div class="md-form" style="width: 94%;">
+							<label for="form1" class="">Remark :</label>
+							<textarea name="ctl00$ContentPlaceHolder1$txtrmark" rows="3"
+								cols="100" id="ContentPlaceHolder1_txtrmark"
+								class="form-control" placeholder="Add Remark"
+								style="overflow: auto; resize: none;">					</textarea>
+							<div class="col-sm-2  pull-right">
+								<input type="submit" name="#" value="Submit" id="" tabindex="12"
+									class="btn-danger btn btn-block">
+							</div>
+						</div>
+					</div>
+					<br>
+
+				</div>
+
+			</form>
+
+		</div>
+	</div>
+
+	</div>
+	<!-- Pushy JS -->
+
+	<script src="assets/js/pushy.min.js"></script>
+	<script src="assets/js/jquery-1.10.2.js"></script>
+	<script src="assets/js/bootstrap.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<link
+		href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
+		rel="stylesheet" type="text/css" />
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	</div>
 
 	<link href="assets/css/circle.css" rel="stylesheet" />

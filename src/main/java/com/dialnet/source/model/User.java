@@ -18,11 +18,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="lco_user_login")
 public class User {
 
+	
+
+
+	
+	public User() {
+		super();
+	}
+
 	public User(long id, String username, String customer_name, String customer_add, String customer_mobile,
 			String password, String customer_email, String customer_id_no, String customer_photo, String customer_vc_no,
 			String customer_stb_no, String customer_waranty_date, String connection_status, String package_name,
 			String pairing_status, String account_balance, String last_payment, String last_recharge_date,
-			String connection_go_live, String timestamp, String con_expiry_date, String bill_status) {
+			String connection_go_live, String timestamp, String con_expiry_date, String bill_status,
+			String alternate_mobile, String package_amount, String lco_id) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -46,105 +55,26 @@ public class User {
 		this.timestamp = timestamp;
 		this.con_expiry_date = con_expiry_date;
 		this.bill_status = bill_status;
+		this.alternate_mobile = alternate_mobile;
+		this.package_amount = package_amount;
+		this.lco_id = lco_id;
 	}
 
-
-	public User() {
-		super();
-	}
-
-	
 	public long getId() {
 		return id;
 	}
-
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
-
-	public String getBill_status() {
-		return bill_status;
-	}
-
-
-	public void setBill_status(String bill_status) {
-		this.bill_status = bill_status;
-	}
-
-
-	@Id
-	@GeneratedValue
-	private long id;
-	
-	
-	@NotEmpty
-	@Size(min=4, max=40)
-	private String username;
-	
-	@NotEmpty
-	@Size(min=4, max=40)
-	private String customer_name;
-	
-	@NotEmpty
-	private String customer_add;
-	
-	@NotEmpty
-	private String customer_mobile;
-	
-	@NotEmpty
-	@Size(min=4, max=28)
-	private String password;
-	
-	@NotEmpty
-	@Email
-	private String customer_email;
-	
-	private String customer_id_no;
-	
-	private String customer_photo;
-	
-	@NotEmpty
-	private String customer_vc_no;
-	
-	@NotEmpty
-	private String customer_stb_no;
-	private String customer_waranty_date;
-	
-	@NotEmpty
-	private String connection_status;
-	private String package_name;
-	private String pairing_status;
-	
-	@NotEmpty
-	private String account_balance;
-	private String last_payment;
-	private String last_recharge_date;
-	private String connection_go_live;
-	private String timestamp;
-	private String con_expiry_date;
-	private String bill_status;
-
 	public String getUsername() {
 		return username;
 	}
 
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-
-	public String getCon_expiry_date() {
-		return con_expiry_date;
-	}
-
-
-	public void setCon_expiry_date(String con_expiry_date) {
-		this.con_expiry_date = con_expiry_date;
-	}
-
 
 	public String getCustomer_name() {
 		return customer_name;
@@ -290,7 +220,105 @@ public class User {
 		this.timestamp = timestamp;
 	}
 
+	public String getCon_expiry_date() {
+		return con_expiry_date;
+	}
+
+	public void setCon_expiry_date(String con_expiry_date) {
+		this.con_expiry_date = con_expiry_date;
+	}
+
+	public String getBill_status() {
+		return bill_status;
+	}
+
+	public void setBill_status(String bill_status) {
+		this.bill_status = bill_status;
+	}
+
+	public String getAlternate_mobile() {
+		return alternate_mobile;
+	}
+
+	public void setAlternate_mobile(String alternate_mobile) {
+		this.alternate_mobile = alternate_mobile;
+	}
+
+	public String getPackage_amount() {
+		return package_amount;
+	}
+
+	public void setPackage_amount(String package_amount) {
+		this.package_amount = package_amount;
+	}
+
+	public String getLco_id() {
+		return lco_id;
+	}
+
+	public void setLco_id(String lco_id) {
+		this.lco_id = lco_id;
+	}
+
+	@Id
+	@GeneratedValue
+	private long id;
 	
+	
+	@NotEmpty
+	@Size(min=4, max=40)
+	private String username;
+	
+	@NotEmpty
+	@Size(min=4, max=40)
+	private String customer_name;
+	
+	@NotEmpty
+	private String customer_add;
+	
+	@NotEmpty
+	private String customer_mobile;
+	
+	@NotEmpty
+	@Size(min=4, max=28)
+	private String password;
+	
+	@NotEmpty
+	@Email
+	private String customer_email;
+	
+	private String customer_id_no;
+	
+	private String customer_photo;
+	
+	@NotEmpty
+	private String customer_vc_no;
+	
+	@NotEmpty
+	private String customer_stb_no;
+	private String customer_waranty_date;
+	
+	@NotEmpty
+	private String connection_status;
+	private String package_name;
+	private String pairing_status;
+	
+	@NotEmpty
+	private String account_balance;
+	private String last_payment;
+	private String last_recharge_date;
+	private String connection_go_live;
+	private String timestamp;
+	private String con_expiry_date;
+	private String bill_status;
+	
+	private String alternate_mobile;
+	
+	private String package_amount;
+	
+	private String lco_id;
+	
+
 	
 		
 }

@@ -24,6 +24,9 @@
 		<property name="url" value="jdbc:mysql://103.16.143.176:3306/tv_cable1" />
 		<property name="username" value="root" />
 		<property name="password" value="redhat@123!@#" />
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="5" />
+		<property name="maxIdle" value="2" />
 	</bean>
 
 	<bean id="dataSource1"
@@ -56,7 +59,9 @@
 				<value>com.dialnet.source.model.VCStock</value>
 				<value>com.dialnet.source.model.Cust_Invoice</value>
 				<value>com.dialnet.source.model.TaxInformation</value>
-				
+				<value>com.dialnet.source.model.Customer_Invoice1</value>
+				<value>com.dialnet.source.model.LCO_Setting</value>
+
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -64,6 +69,9 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				 <prop key="hibernate.c3p0.timeout">100</prop>
+				 <prop key="hibernate.c3p0.min_size">5</prop>
+				<prop key="hibernate.c3p0.max_size">10</prop>
 			</props>
 		</property>
 

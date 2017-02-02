@@ -23,7 +23,10 @@ public class Cust_InvoiceDaoImpl implements Cust_InvoiceDao {
 	@Override
 	public List<Cust_Invoice> getAll() {
 		Session sf = dao.openSession();
-		return sf.createCriteria(Cust_Invoice.class).list();
+		
+		List tl= sf.createCriteria(Cust_Invoice.class).list();
+		sf.close();
+		return tl;
 	}
 
 	@Override
@@ -49,7 +52,9 @@ public class Cust_InvoiceDaoImpl implements Cust_InvoiceDao {
 			criteria.add(Restrictions.lt("billing_date", billing_date + " 59:59:59"));
 		}
 
-		return criteria.list();
+		List tl= criteria.list();
+		sf.close();
+		return tl;
 
 	}
 
@@ -57,8 +62,9 @@ public class Cust_InvoiceDaoImpl implements Cust_InvoiceDao {
 	public boolean save(Cust_Invoice cust) {
 		Session sf = dao.openSession();
 		Transaction tx = sf.beginTransaction();
-		sf.save(cust);
+		sf.saveOrUpdate(cust);
 		tx.commit();
+		sf.close();
 		return true;
 	}
 
@@ -85,13 +91,18 @@ public class Cust_InvoiceDaoImpl implements Cust_InvoiceDao {
 
 	public List<Cust_Invoice> list(Integer offset, Integer maxResults) {
 		Session sf = dao.openSession();
-		return sf.createCriteria(Cust_Invoice.class).setFirstResult(offset != null ? offset : 0)
+		sf.close();
+		List l=sf.createCriteria(Cust_Invoice.class).setFirstResult(offset != null ? offset : 0)
 				.setMaxResults(maxResults != null ? maxResults : 10).list();
+		sf.close();
+		return l;
 	}
 
 	public Long count() {
 		Session sf = dao.openSession();
-		return (Long) sf.createCriteria(Cust_Invoice.class).setProjection(Projections.rowCount()).uniqueResult();
+		Long l=(Long) sf.createCriteria(Cust_Invoice.class).setProjection(Projections.rowCount()).uniqueResult();
+		sf.close();
+		return l;
 	}
 
 }

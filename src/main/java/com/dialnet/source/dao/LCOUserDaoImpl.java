@@ -24,6 +24,7 @@ public class LCOUserDaoImpl implements LCOUserDao {
 	public void add(LCOUser complaints) {
 		Session sf = dao.openSession();
 		sf.save(complaints);
+		sf.close();
 	}
 
 	@Override
@@ -48,13 +49,16 @@ public class LCOUserDaoImpl implements LCOUserDao {
 		LCOUser product = (LCOUser) c2.uniqueResult();
 		//LCOUser product = (LCOUser) sf.get(LCOUser.class, Long.parseLong(username));
 		System.out.println("LCO User: "+product);
+		sf.close();
 		return product;
 	}
 
 	@Override
 	public List getAll() {
 		Session sf = dao.openSession();
-		return sf.createCriteria(LCOUser.class).list();
+		List l= sf.createCriteria(LCOUser.class).list();
+		sf.close();
+		return l;
 	}
 
 

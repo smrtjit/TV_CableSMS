@@ -26,7 +26,7 @@ public class TaxInfoDaoImpl implements TaxInfoDao {
 		//cr.add(Restrictions.eq("lco_id", id));
 		TaxInformation product = (TaxInformation)cr.uniqueResult();
 		System.out.println("Package Code: " + product+",LCO Id: "+id);
-
+		sf.close();
 		return product;
 	}
 

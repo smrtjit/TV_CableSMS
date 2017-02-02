@@ -30,12 +30,16 @@ public class PackageInfoDaoImpl implements PackageInfoDao {
 //		//AllComplaints product = (AllComplaints) sf.get(AllComplaints.class, Long.parseLong(complaints_No));
 //		//System.out.println("customer_vcno: " + product);
 //		PackageInfo tmp=(PackageInfo)c2.uniqueResult();
-		return (PackageInfo)sf.get(PackageInfo.class, Long.parseLong(code));
+		PackageInfo l= (PackageInfo)sf.get(PackageInfo.class, Long.parseLong(code));
+		sf.close();
+		 return l;
 	}
 
 	public List<PackageInfo> getAll() {
 		Session sf = session.openSession();
-		return sf.createQuery("from PackageInfo").list();
+		List l= sf.createQuery("from PackageInfo").list();
+		sf.close();
+		return l;
 	}
 
 	@Override
@@ -46,7 +50,9 @@ public class PackageInfoDaoImpl implements PackageInfoDao {
 		proList.add(Projections.property("name"));
 		cr.setProjection(proList); 
 
-		return cr.list();
+		List l= cr.list();
+		sf.close();
+		return l;
 	}
 	
 

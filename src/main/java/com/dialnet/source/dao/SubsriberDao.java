@@ -16,7 +16,7 @@ public interface SubsriberDao {
 	
 	public List<User> findByAnyone(String sdate,String edate,String stb_no,String VC_no,String mobile,String status,String pckg);
 	
-	public List<User> findUserForBillGeneration();
+	public List<User> findUserForBillGeneration(String user);
 	
 	
 	public boolean updateBillStatus(String user);
@@ -27,12 +27,14 @@ public interface SubsriberDao {
 	
 	public Long count();
 	
-	public List<User> listForBill(Integer offset, Integer maxResults);
+	public List<User> listForBill(String user,Integer offset, Integer maxResults);
 	
-	public Long countForBill();
+	public Long countForBill(String user);
 	
 	public List userListForSearch(String sdate, String edate, String stb_no, String VC_no, String mobile,
 			String status, String pckg,Integer offset, Integer maxResults);
 	public Long countForSearch(String sdate, String edate, String stb_no, String VC_no, String mobile,
 			String status, String pckg);
+	
+	
 }

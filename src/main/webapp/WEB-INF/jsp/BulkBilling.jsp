@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <%@ taglib prefix="tag" uri="/WEB-INF/taglibs/customTaglib.tld"%>
-
+<%@ taglib prefix="tag1" uri="/WEB-INF/taglibs/customTaglib2.tld"%>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -241,10 +241,10 @@ text-align: right;
 		var serviceTax=data.Service_Tax;
 		var entTax=data.Entertain_Tax;
 		var PreviousBal=data.Prevoius_Bal;
-		var Disount=data.Diascount;
+		var Disount=data.Discount;
 		var lateCharge=data.LatePay_Charges;
 		var lateAmt=data.TotalAmt_AftDueDate;
-
+		var pckcost=data.Package_Cost;
 
 		document.getElementById("accno").innerHTML =accNumber;
 		document.getElementById("bill").innerHTML =billNo;
@@ -253,7 +253,7 @@ text-align: right;
 		document.getElementById("pre").innerHTML =previous;
 		document.getElementById("last").innerHTML =lastPay;
 		document.getElementById("ad").innerHTML =advance;
-		document.getElementById("bill_a").innerHTML =billAmt;
+		document.getElementById("bill_a").innerHTML =pckcost;
 		document.getElementById("st").innerHTML =serviceTax;
 		document.getElementById("et").innerHTML =entTax;
 		document.getElementById("pb").innerHTML =PreviousBal;
@@ -423,6 +423,7 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 			<div id="stb">
 
 				<div class="col-sm-12">
+				
 					<div class="col-sm-12">
 						<div style="margin-bottom: 0px">
 							
@@ -488,9 +489,15 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 
 			<div id="vc" style="display: none">
 				<div class="col-sm-12">
+				
 					<div class="col-sm-12">
-						<div style="margin-bottom: 0px">
-							<p class="p1">VC No.</p>
+						<div style="margin-bottom: 0px;text-align:right;">
+							 <a class="btn-primary btn btn-block" href="createMultipleBill.html?user=${user}" value="" >Generate All Bill</a>
+						
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div style="margin-bottom: 0px;">
 							<p>
 								Total No.of Data Uploaded : <span
 									id="ContentPlaceHolder1_lblVC_Count" style="font-weight: bold;">${countForBill}</span>

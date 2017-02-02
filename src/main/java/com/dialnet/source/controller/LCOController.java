@@ -3,6 +3,7 @@ package com.dialnet.source.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -35,7 +36,9 @@ import com.dialnet.source.model.AllCollections;
 import com.dialnet.source.model.AllComplaints;
 import com.dialnet.source.model.BulkRechargeAmount;
 import com.dialnet.source.model.Cust_Invoice;
+import com.dialnet.source.model.Customer_Invoice1;
 import com.dialnet.source.model.LCOUser;
+import com.dialnet.source.model.LCO_Setting;
 import com.dialnet.source.model.LMUser;
 import com.dialnet.source.model.PackageInfo;
 import com.dialnet.source.model.STBStock;
@@ -46,7 +49,9 @@ import com.dialnet.source.model.UserLogin;
 import com.dialnet.source.model.VCStock;
 import com.dialnet.source.service.AllCollectionService;
 import com.dialnet.source.service.AllComplaintService;
+import com.dialnet.source.service.CustSettingService;
 import com.dialnet.source.service.Cust_InvoiceService;
+import com.dialnet.source.service.CustomerInvoiceServiceImpl;
 import com.dialnet.source.service.LCOUserService;
 import com.dialnet.source.service.LMUserService;
 import com.dialnet.source.service.PackageInfoService;
@@ -89,6 +94,14 @@ public class LCOController {
 
 	@Autowired
 	Cust_InvoiceService invoice;
+	
+	
+	@Autowired
+	CustSettingService settingService;
+	
+	
+	@Autowired
+	CustomerInvoiceServiceImpl invoice1;
 
 	@RequestMapping(value = "/lcologin", method = RequestMethod.GET)
 	public String login(Model model) {
@@ -261,18 +274,24 @@ public class LCOController {
 
 	@RequestMapping(value = "/lcoBilling", method = RequestMethod.GET)
 	public ModelAndView lcoBilling(ModelMap map, @RequestParam("user") String user, Integer offset,
-			Integer maxResults) {
+			Integer maxResults,Integer offset2,Integer maxResults2) {
 
-		List<User> tmp = userService.listForBill(offset, maxResults);
-		List<Cust_Invoice> custtmp = invoice.list(offset, maxResults);
-
-		map.addAttribute("countForBill", userService.countForBill());
-		map.addAttribute("offsetForBill", offset);
-
-		map.addAttribute("count", invoice.count());
+		Calendar cal = Calendar.getInstance();
+		int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+		String dayOfMonthStr = String.valueOf(dayOfMonth);
+		LCO_Setting setting=settingService.getByID(user);
+		if(dayOfMonthStr.equalsIgnoreCase(setting.getBilling_cycle())){
+			List<User> tmp = userService.listForBill(user, offset2, maxResults2);
+			System.out.println("Lco Billing user data: "+tmp.size()+",counter: "+userService.countForBill(user));
+			map.addAttribute("BillUser", tmp);
+			map.addAttribute("countForBill", userService.countForBill(user));
+			map.addAttribute("offsetForBill", offset);
+		}
+		
+		List<Customer_Invoice1> custtmp = invoice1.list(user,offset, maxResults);
+		map.addAttribute("count", invoice1.count(user));
 		map.addAttribute("offset", offset);
 		map.addAttribute("BillsDetail", custtmp);
-		map.addAttribute("BillUser", tmp);
 		map.addAttribute("user", user);
 		return new ModelAndView("BulkBilling", map);
 	}
@@ -453,12 +472,41 @@ public class LCOController {
 		model.addAttribute("user", user);
 		return "redirect:lcoBilling.html";
 	}
+	
+	@RequestMapping(value = "/createMultipleBill", method = RequestMethod.GET)
+	public String createMultipleBill(@RequestParam("user") String user, Model model) {
+		List<User> tmp = userService.findUserForBillGeneration(user);
+		System.out.println("createMultipleBill: "+tmp.size());
+		
+		for(User data: tmp){
+			System.out.println("Create bill in loop: "+data.getUsername());
+			createBill(user, data.getUsername());
+		}
+		
+		model.addAttribute("user", user);
+		return "redirect:lcoBilling.html";
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/printBill", method = RequestMethod.GET)
 	public String printBill(@RequestParam("user") String user, @RequestParam("invoice") String invoiceid,
 			ModelMap model) {
 		System.out.println("Invoice Details check data: " + invoiceid + "," + user);
+		Customer_Invoice1 result = invoice1.getByInvoiceId(invoiceid);
+		System.out.println("Result: " + result.getInvoice_No());
+		Gson gson = new Gson();
+		String json = gson.toJson(result);
+		model.addAttribute("user", user);
+		return json;
+		// return new ModelAndView(json);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/bulkDetails", method = RequestMethod.GET)
+	public String bulkDetails(@RequestParam("user") String user, @RequestParam("invoice") String invoiceid,
+			ModelMap model) {
+		System.out.println("bulkDetails Invoice Details check data: " + invoiceid + "," + user);
 		Cust_Invoice result = invoice.getByInvoice(invoiceid);
 		System.out.println("Result: " + result.getInvoice_No());
 		Gson gson = new Gson();
@@ -468,16 +516,7 @@ public class LCOController {
 		// return new ModelAndView(json);
 	}
 
-	@RequestMapping(value = "/invoice_service", method = RequestMethod.GET)
-	public String custInvoice(@RequestParam("user") String user, Model model,
-			@RequestParam("Invoice_no") String invoice_No) {
-		System.out.println("\n****************invoice_service_Statrt**********************\t" + invoice_No);
-		Cust_Invoice tmp1 = invoice.getByInvoice(invoice_No);
-		System.out.println("************************************** \t" + tmp1.getUser_Name());
-		model.addAttribute("cust_invoice", tmp1);
 
-		return "Collection";
-	}
 
 	//////////////////////////////// Sarbjeet
 	//////////////////////////////// code////////////////////////////////////////////
@@ -706,57 +745,80 @@ public class LCOController {
 	}
 
 	private void createBill(String user, String id) {
+		
+		float previousAmt=0;
+		float lastPaid=0;
+		Double advance;
+		String fromBill=null;
+		String toBill=null;
 
 		User tmp = userService.get(id);
+		LCO_Setting setting=settingService.getByID(user);
+		Customer_Invoice1 lastData=invoice1.getLastPaymentDetail(id);
+		if(lastData!=null){
+			 previousAmt=Float.parseFloat(lastData.getTotal_Amount());
+			 lastPaid=Float.parseFloat(lastData.getLastPaid_Amt());
+			 fromBill=lastData.getBilling_Date();
+			Double sa= invoice1.getSumOfPaidAmt(id);
+			Double la=invoice1.getTotalPaidAmt(id);
+			advance= la-sa;
+			
+		}else{
+			 previousAmt=0;
+			 lastPaid=0;
+			 fromBill=tmp.getTimestamp();
+			 advance= 0.0;
+			
+		}
 		String invoiceId = "IN" + tmp.getUsername() + "_" + System.currentTimeMillis();
-
-		PackageInfo pck = pckgservice.getByID(tmp.getPackage_name());
-
-		TaxInformation tx = taxService.getInfo(user);
-		// System.out.println("Tax Amount: " + tx.getAmmusement_Tax() + "," +
-		// tx.getServiceTax());
-		int cost = Integer.parseInt(pck.getPrice());
+		
+		
+		int cost = Integer.parseInt(tmp.getPackage_amount());
 		int costPerDay = cost / 30;
-		long interval = dayCalculate(tmp.getLast_recharge_date(), tmp.getCon_expiry_date());
+		
+		long interval = dayCalculate(fromBill, getDate());
+		
+		System.out.println("Interval: "+interval);
 		float primaryAmt = costPerDay * interval;
-		// System.out.println("primaryAmt: "+primaryAmt+"costPerDay:
-		// "+costPerDay);
-		float serviceTax = (primaryAmt * Float.parseFloat(tx.getServiceTax())) / 100;
-		float entTax = (primaryAmt * Float.parseFloat(tx.getEntertainment_Tax())) / 100;
-		float amsTax = (primaryAmt * Float.parseFloat(tx.getAmmusement_Tax())) / 100;
-		float otherTax = (primaryAmt * Float.parseFloat(tx.getOther_Tax())) / 100;
-		float vatTax = (primaryAmt * Float.parseFloat(tx.getVAT())) / 100;
-		float ltfee = Float.parseFloat(tx.getLateFee());
+		
+		 System.out.println("primaryAmt: "+primaryAmt+"costPerDay: "+costPerDay);
+		float serviceTax = (primaryAmt * Float.parseFloat(setting.getService_tax())) / 100;
+		float entTax = (primaryAmt * Float.parseFloat(setting.getEnt_tax())) / 100;
+		float otherTax = (primaryAmt * Float.parseFloat(setting.getOther_tax())) / 100;
+		float ltfee = Float.parseFloat(setting.getLateFeeCharges());
 
-		float totalAmt = primaryAmt + serviceTax + entTax + amsTax + otherTax;
+		float totalAmt = primaryAmt + serviceTax + entTax  + otherTax;
 		// System.out.println("Total Amout: "+totalAmt);
-		float totalAmtafdue = primaryAmt + serviceTax + entTax + amsTax + otherTax + ltfee;
+		float totalAmtafdue = primaryAmt + serviceTax + entTax + otherTax + ltfee;
 		// System.out.println("Total Amout after Due Date: "+totalAmtafdue);
-		float advance_Amt = totalAmt - Integer.parseInt(tmp.getLast_payment());
-		Cust_Invoice custIn = new Cust_Invoice();
+		Double advance_Amt = totalAmt+advance;
+		Customer_Invoice1 custIn = new Customer_Invoice1();
 		custIn.setInvoice_No(invoiceId);
-		custIn.setUser_Id(tmp.getUsername());
-		custIn.setBilling_Date(getDate());
-		custIn.setLastDue_Date(tmp.getLast_recharge_date());
-		custIn.setDueDate(getDate());
-		custIn.setTotal_Amount(totalAmt + "");
-		custIn.setPackage_Name(pck.getName());
-		custIn.setPackage_Cost(primaryAmt + "");
-		custIn.setService_Tax(serviceTax + "");
-		custIn.setEntertain_Tax(entTax + "");
-		custIn.setVAT(vatTax + "");
-		custIn.setPrevoius_Bal(tmp.getAccount_balance());
-		custIn.setAdvance_Amt(advance_Amt + "");
-		custIn.setLastPaid_Amt(tmp.getLast_payment());
-		custIn.setLatePay_Charges(tx.getLateFee());
-		custIn.setDiascount("0");
-		custIn.setInvoice_No(invoiceId);
-		custIn.setTotalAmt_AftDueDate(totalAmtafdue + "");
-
+		custIn.setUser_Id(id);
 		custIn.setUser_Name(tmp.getCustomer_name());
 		custIn.setVc_No(tmp.getCustomer_vc_no());
+		custIn.setBilling_Date(getDate());
+		custIn.setDueDate(fromBill);
+		custIn.setPackage_Name(tmp.getPackage_name());
+		custIn.setPackage_Cost(primaryAmt+"");
+		custIn.setService_Tax(serviceTax+"");
+		custIn.setEntertain_Tax(entTax+"");
+		custIn.setPrevoius_Bal(previousAmt+"");
+		custIn.setAdvance_Amt(advance+"");
+		custIn.setLastPaid_Amt(lastPaid+"");
+		custIn.setTotal_Amount(advance_Amt+"");
+		custIn.setTotalAmt_AftDueDate(totalAmtafdue+"");
+		custIn.setLatePay_Charges(setting.getLateFeeCharges());
+		custIn.setDiscount(setting.getDiscount());
+		custIn.setPaid_Amt("NA");
+		custIn.setAgent_Id("NA");
+		custIn.setDate_of_paid("NA");
 		custIn.setBill_status("Not Paid");
-		invoice.save(custIn);
+		custIn.setTrndate(getDate());
+		custIn.setLco_id(user);
+		
+		
+		invoice1.save(custIn);
 		userService.updateBillStatus(id);
 
 	}
