@@ -22,7 +22,9 @@ public class STBStockDaoImpl implements STBStockDao {
 	@Override
 	public List<STBStock> getAllVCStock() {
 		Session sf = dao.openSession();
-		return (List<STBStock>) sf.createCriteria(STBStock.class).list();
+		List l= (List<STBStock>) sf.createCriteria(STBStock.class).list();
+		sf.close();
+		return l;
 	}
 
 	@Override
@@ -34,20 +36,20 @@ public class STBStockDaoImpl implements STBStockDao {
 		cr.add(Restrictions.eq("stb_box_no", stb));
 		STBStock product = (STBStock) cr.uniqueResult();
 		// System.out.println("user: " + product);
-
+		sf.close();
 		return product;
 	}
 
 	@Override
-	public STBStock getByStatus(String status) {
+	public List<STBStock> getByStatus(String status) {
 		Session sf = dao.openSession();
 		Criteria cr = sf.createCriteria(STBStock.class);
 
 		// To get records having salary more than 2000
 		cr.add(Restrictions.eq("current_status", status));
-		STBStock product = (STBStock) cr.uniqueResult();
+		List product =cr.list();
 		// System.out.println("user: " + product);
-
+		sf.close();
 		return product;
 	}
 
@@ -60,6 +62,7 @@ public class STBStockDaoImpl implements STBStockDao {
 		query.setParameter("docId", stb);
 		int result = query.executeUpdate();
 		sf.beginTransaction().commit();
+		sf.close();
 		return result;
 	}
 
@@ -68,13 +71,17 @@ public class STBStockDaoImpl implements STBStockDao {
 
 	public List<STBStock> list(Integer offset, Integer maxResults) {
 		Session sf = dao.openSession();
-		return sf.createCriteria(STBStock.class).setFirstResult(offset != null ? offset : 0)
+		List l= sf.createCriteria(STBStock.class).setFirstResult(offset != null ? offset : 0)
 				.setMaxResults(maxResults != null ? maxResults : 10).list();
+		sf.close();
+		return l;
 	}
 
 	public Long count() {
 		Session sf = dao.openSession();
-		return (Long) sf.createCriteria(STBStock.class).setProjection(Projections.rowCount()).uniqueResult();
+		Long l= (Long) sf.createCriteria(STBStock.class).setProjection(Projections.rowCount()).uniqueResult();
+		sf.close();
+		return l;
 	}
 
 }

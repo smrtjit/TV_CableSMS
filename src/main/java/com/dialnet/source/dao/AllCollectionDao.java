@@ -6,6 +6,8 @@ import com.dialnet.source.model.AllCollections;
 
 
 public interface AllCollectionDao {
+	
+	public int saveDetail(AllCollections obj);
 
 	public List<AllCollections> getAll();
 

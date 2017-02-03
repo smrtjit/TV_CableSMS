@@ -29,5 +29,11 @@ public class PackageInfoServiceImpl implements PackageInfoService {
 		return packageinfodao.getAllPckgNames();
 	}
 
+	@Override
+	public PackageInfo getByName(String name) {
+		// TODO Auto-generated method stub
+		return packageinfodao.getByName(name);
+	}
+
 
 }

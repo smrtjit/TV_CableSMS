@@ -10,7 +10,7 @@ public interface VCStockService {
 
 	public VCStock getByVCNo(String stb);
 
-	public VCStock getByStatus(String stutus);
+	public List<VCStock> getByStatus(String stutus);
 
 	public int upStatus(String vcn, String status);
 

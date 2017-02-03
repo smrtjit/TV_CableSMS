@@ -13,7 +13,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class AllCollections {
 	
 	@Id
-	@GeneratedValue
 	private String Invoice;
 	@NotEmpty
 	@Size(min = 1, max = 35)
@@ -31,11 +30,11 @@ public class AllCollections {
 	private String Current_Pckg;
 	
 	@NotEmpty
-	@Size(min = 1, max = 10)
-	private String Pckg_Price;
+	@Size(min = 1, max = 30)
+	private String Paid_Amount;
 	
 	@NotEmpty
-	@Size(min = 1, max = 15)
+	@Size(min = 1, max = 35)
 	private String Recharge_Amount;
 	
 	@NotEmpty
@@ -58,7 +57,7 @@ public class AllCollections {
 
 
 	public AllCollections(String invoice, String vC_No, String cust_mobile, String cust_Name, String current_Pckg,
-			String pckg_Price, String recharge_Amount, String discount, String payment_Mode, String approval_ID,
+			String Paid_Amount, String recharge_Amount, String discount, String payment_Mode, String approval_ID,
 			String payment_Status, String refernceId, String trndate, String collecting_Agent, String approval_Date) {
 		super();
 		Invoice = invoice;
@@ -66,7 +65,7 @@ public class AllCollections {
 		this.cust_mobile = cust_mobile;
 		Cust_Name = cust_Name;
 		Current_Pckg = current_Pckg;
-		Pckg_Price = pckg_Price;
+		Paid_Amount = Paid_Amount;
 		Recharge_Amount = recharge_Amount;
 		Discount = discount;
 		Payment_Mode = payment_Mode;
@@ -112,12 +111,19 @@ public class AllCollections {
 	public void setCurrent_Pckg(String current_Pckg) {
 		Current_Pckg = current_Pckg;
 	}
-	public String getPckg_Price() {
-		return Pckg_Price;
+	
+	public String getPaid_Amount() {
+		return Paid_Amount;
 	}
-	public void setPckg_Price(String pckg_Price) {
-		Pckg_Price = pckg_Price;
+
+
+
+	public void setPaid_Amount(String paid_Amount) {
+		Paid_Amount = paid_Amount;
 	}
+
+
+
 	public String getRecharge_Amount() {
 		return Recharge_Amount;
 	}

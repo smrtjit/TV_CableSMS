@@ -74,7 +74,9 @@ public class Cust_InvoiceDaoImpl implements Cust_InvoiceDao {
 		Criteria cr = sf.createCriteria(Cust_Invoice.class);
 
 		cr.add(Restrictions.eq("bill_status", "Not Paid"));
-		return cr.list();
+		List l= cr.list();
+		sf.close();
+		return l;
 	}
 
 	@Override
@@ -83,7 +85,9 @@ public class Cust_InvoiceDaoImpl implements Cust_InvoiceDao {
 		Criteria cr = sf.createCriteria(Cust_Invoice.class);
 
 		cr.add(Restrictions.eq("Invoice_No", id));
-		return (Cust_Invoice) cr.uniqueResult();
+		Cust_Invoice l= (Cust_Invoice) cr.uniqueResult();
+		sf.close();
+		return l;
 	}
 
 	///////////////////////////////////////////////////////// For

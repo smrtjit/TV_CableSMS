@@ -10,5 +10,6 @@ public interface PackageInfoDao {
 	public PackageInfo getByID(String code);
 	public List<PackageInfo> getAll();
 	public List<String> getAllPckgNames();
+	public PackageInfo getByName(String name);
 	
 }

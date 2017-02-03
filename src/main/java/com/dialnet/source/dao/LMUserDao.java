@@ -16,4 +16,6 @@ public interface LMUserDao {
 	public List userListForSearch(String empid, String username, String desig,String mobile,
 			Integer offset, Integer maxResults);
 	public Long countForSearch(String empid, String username, String desig,String mobile);
+	
+	
 }

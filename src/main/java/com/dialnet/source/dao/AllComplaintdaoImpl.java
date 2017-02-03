@@ -22,7 +22,7 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 	public void add(AllComplaints complaints) {
 		Session sf = session.openSession();
 		sf.save(complaints);
-
+		sf.close();
 	}
 
 	public void edit(AllComplaints complaints) {
@@ -44,13 +44,16 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 		//System.out.println("customer_vcno: " + product);
 		List<AllComplaints> tmp=c2.list();
 		System.out.println("customer_vcno: " + tmp);
+		sf.close();
 		return tmp;
 	}
 
 	public List<AllComplaints> getAllComplaints() {
 		System.out.println("Call All Complaint \t");
 		Session sf = session.openSession();
-		return sf.createQuery("from AllComplaints").list();
+		List l= sf.createQuery("from AllComplaints").list();
+		sf.close();
+		return l;
 	}
 	
 	@Override
@@ -87,7 +90,9 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 		criteria.add(Restrictions.eq("complaint_status",status));
 		
 		
-		return criteria.list();
+		List l= criteria.list();
+		sf.close();
+		return l;
 		
 	}
 	
@@ -96,13 +101,17 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 	
 	public List<AllComplaints> list(Integer offset, Integer maxResults) {
 		Session sf = session.openSession();
-		return sf.createCriteria(AllComplaints.class).setFirstResult(offset != null ? offset : 0)
+		List l= sf.createCriteria(AllComplaints.class).setFirstResult(offset != null ? offset : 0)
 				.setMaxResults(maxResults != null ? maxResults : 10).list();
+		sf.close();
+		return l;
 	}
 
 	public Long count() {
 		Session sf = session.openSession();
-		return (Long) sf.createCriteria(AllComplaints.class).setProjection(Projections.rowCount()).uniqueResult();
+		Long l= (Long) sf.createCriteria(AllComplaints.class).setProjection(Projections.rowCount()).uniqueResult();
+		sf.close();
+		return l;
 	}
 	
 	
@@ -137,8 +146,10 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 		else
 		criteria.add(Restrictions.eq("complaint_status",status));
 		
-		return criteria.setFirstResult(offset != null ? offset : 0)
+		List l= criteria.setFirstResult(offset != null ? offset : 0)
 				.setMaxResults(maxResults != null ? maxResults : 10).list();
+		sf.close();
+		return l;
 	}
 
 	public Long countForSearch(String sdate, String edate, String VC_no, String mobile, String status) {
@@ -171,7 +182,9 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 			System.out.println("pckg is not available");
 		else
 		criteria.add(Restrictions.eq("complaint_status",status));
-		return (Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Long l= (Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
+		sf.close();
+		return l;
 	}
 
 }

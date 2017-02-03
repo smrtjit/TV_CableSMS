@@ -1,6 +1,10 @@
 
 package com.dialnet.source.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,6 +13,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -32,6 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dialnet.source.model.AgentBillDetails;
 import com.dialnet.source.model.AllCollections;
 import com.dialnet.source.model.AllComplaints;
 import com.dialnet.source.model.BulkRechargeAmount;
@@ -47,6 +54,7 @@ import com.dialnet.source.model.User;
 //import com.dialnet.source.model.LCOUserRegistration;
 import com.dialnet.source.model.UserLogin;
 import com.dialnet.source.model.VCStock;
+import com.dialnet.source.service.AgentBillDetailsService;
 import com.dialnet.source.service.AllCollectionService;
 import com.dialnet.source.service.AllComplaintService;
 import com.dialnet.source.service.CustSettingService;
@@ -94,14 +102,17 @@ public class LCOController {
 
 	@Autowired
 	Cust_InvoiceService invoice;
-	
-	
+
 	@Autowired
 	CustSettingService settingService;
-	
-	
+
 	@Autowired
 	CustomerInvoiceServiceImpl invoice1;
+	
+	@Autowired
+	AgentBillDetailsService agentbillservice;
+	
+	String imagename=null;
 
 	@RequestMapping(value = "/lcologin", method = RequestMethod.GET)
 	public String login(Model model) {
@@ -163,6 +174,8 @@ public class LCOController {
 
 	}
 
+	
+	/////////////////////////////////////////Changed by PAJI/////////////////////////////////////////////////////////
 	@RequestMapping(value = "/oldConnections", method = RequestMethod.GET)
 	public ModelAndView CustRecharge(ModelMap map, @RequestParam("user") String user, Integer offset,
 			Integer maxResults) {
@@ -184,10 +197,26 @@ public class LCOController {
 		map.addAttribute("offset", offset);
 		map.addAttribute("userList", userList);
 		map.addAttribute("user", user);
+		List<VCStock> vcstock = vcService.getByStatus("OffLine");
+		List<String> temp = new ArrayList();
+		for (VCStock tmp : vcstock) {
+			temp.add(tmp.getVc_no());
+
+		}
+		map.addAttribute("vcstock", temp);
+
+		List<STBStock> stbstatus = stbService.getByStatus("OffLine");
+		List<String> stb = new ArrayList();
+		for (STBStock tmp : stbstatus) {
+			stb.add(tmp.getStb_box_no());
+
+		}
+		map.addAttribute("stbno", stb);
 		return new ModelAndView("Connection", map);
 
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value = "/LCODetail", method = RequestMethod.GET)
 	public ModelAndView LCODEtail(@ModelAttribute("LCODetail") LCOUser studentLogin, @RequestParam("user") String user,
 			BindingResult result) {
@@ -273,22 +302,22 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/lcoBilling", method = RequestMethod.GET)
-	public ModelAndView lcoBilling(ModelMap map, @RequestParam("user") String user, Integer offset,
-			Integer maxResults,Integer offset2,Integer maxResults2) {
+	public ModelAndView lcoBilling(ModelMap map, @RequestParam("user") String user, Integer offset, Integer maxResults,
+			Integer offset2, Integer maxResults2) {
 
 		Calendar cal = Calendar.getInstance();
 		int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
 		String dayOfMonthStr = String.valueOf(dayOfMonth);
-		LCO_Setting setting=settingService.getByID(user);
-		if(dayOfMonthStr.equalsIgnoreCase(setting.getBilling_cycle())){
+		LCO_Setting setting = settingService.getByID(user);
+		if (dayOfMonthStr.equalsIgnoreCase(setting.getBilling_cycle())) {
 			List<User> tmp = userService.listForBill(user, offset2, maxResults2);
-			System.out.println("Lco Billing user data: "+tmp.size()+",counter: "+userService.countForBill(user));
+			System.out.println("Lco Billing user data: " + tmp.size() + ",counter: " + userService.countForBill(user));
 			map.addAttribute("BillUser", tmp);
 			map.addAttribute("countForBill", userService.countForBill(user));
 			map.addAttribute("offsetForBill", offset);
 		}
-		
-		List<Customer_Invoice1> custtmp = invoice1.list(user,offset, maxResults);
+
+		List<Customer_Invoice1> custtmp = invoice1.list(user, offset, maxResults);
 		map.addAttribute("count", invoice1.count(user));
 		map.addAttribute("offset", offset);
 		map.addAttribute("BillsDetail", custtmp);
@@ -355,20 +384,34 @@ public class LCOController {
 		return new ModelAndView("Collection", map);
 	}
 
+	////////////////////////////////////////////////Changed by PAJI/////////////////////////////////////////////////
 	@RequestMapping(value = "/addNewUser", method = RequestMethod.GET)
 	public ModelAndView addNewUser(@ModelAttribute("subForm") User sub, ModelMap map, @RequestParam("user") String user,
-			@RequestParam("username") String username) {
-		System.out.println("user name for inserting new connection: " + sub.getCustomer_name() + ",user: " + username);
-		sub.setUsername(username);
+			@RequestParam("package_name") String package_name) {
+		
+	
+		
+		System.out.println("pck name\t" + package_name);
+		PackageInfo pck = pckgservice.getByName(package_name);
+		System.out.println("packageinfo      \t" + imagename);
+		String id = "190" + System.currentTimeMillis();
+		sub.setUsername(id);
 		sub.setPassword(getSaltString());
 		sub.setTimestamp(getDate());
 		sub.setLast_recharge_date(getDate());
 		sub.setLast_payment(sub.getAccount_balance());
+		sub.setCustomer_photo(imagename);
+		sub.setConnection_status("Pending");
+		//sub.setCon_expiry_date(expDate());
+		sub.setBill_status("No");
+		sub.setPackage_amount(pck.getPrice());
+		sub.setLco_id(user);
 		userService.add(sub);
 		map.addAttribute("user", user);
 		return new ModelAndView("redirect:oldConnections.html", map);
 	}
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value = "/searchComplainByanyOne", method = RequestMethod.GET)
 	public ModelAndView searchComplainByanyOne(ModelMap map, @RequestParam("user") String user,
 			@RequestParam("VC_No") String VC_No, @RequestParam("fdate") String fdate,
@@ -419,6 +462,8 @@ public class LCOController {
 
 	@RequestMapping(value = "/lcoaccountMgmt", method = RequestMethod.GET)
 	public String accountMgmt(@RequestParam("user") String user, Model model) {
+		AgentBillDetails cust=new AgentBillDetails();
+		model.addAttribute("bulkInfoForm", cust);
 		model.addAttribute("user", user);
 		return "LCOAccountMgmt";
 	}
@@ -472,17 +517,17 @@ public class LCOController {
 		model.addAttribute("user", user);
 		return "redirect:lcoBilling.html";
 	}
-	
+
 	@RequestMapping(value = "/createMultipleBill", method = RequestMethod.GET)
 	public String createMultipleBill(@RequestParam("user") String user, Model model) {
 		List<User> tmp = userService.findUserForBillGeneration(user);
-		System.out.println("createMultipleBill: "+tmp.size());
-		
-		for(User data: tmp){
-			System.out.println("Create bill in loop: "+data.getUsername());
+		System.out.println("createMultipleBill: " + tmp.size());
+
+		for (User data : tmp) {
+			System.out.println("Create bill in loop: " + data.getUsername());
 			createBill(user, data.getUsername());
 		}
-		
+
 		model.addAttribute("user", user);
 		return "redirect:lcoBilling.html";
 	}
@@ -491,17 +536,21 @@ public class LCOController {
 	@RequestMapping(value = "/printBill", method = RequestMethod.GET)
 	public String printBill(@RequestParam("user") String user, @RequestParam("invoice") String invoiceid,
 			ModelMap model) {
+		Gson gson = new Gson();
+		String json = null;
 		System.out.println("Invoice Details check data: " + invoiceid + "," + user);
 		Customer_Invoice1 result = invoice1.getByInvoiceId(invoiceid);
-		System.out.println("Result: " + result.getInvoice_No());
-		Gson gson = new Gson();
-		String json = gson.toJson(result);
+		if (result != null) {
+			json = gson.toJson(result);
+			System.out.println("Result: " + result.getInvoice_No());
+		} else
+			json = gson.toJson("Data Not Found");
+
 		model.addAttribute("user", user);
 		return json;
 		// return new ModelAndView(json);
 	}
-	
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/bulkDetails", method = RequestMethod.GET)
 	public String bulkDetails(@RequestParam("user") String user, @RequestParam("invoice") String invoiceid,
@@ -515,8 +564,6 @@ public class LCOController {
 		return json;
 		// return new ModelAndView(json);
 	}
-
-
 
 	//////////////////////////////// Sarbjeet
 	//////////////////////////////// code////////////////////////////////////////////
@@ -614,6 +661,74 @@ public class LCOController {
 		}
 		return "TopUp";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/expdate", method = RequestMethod.GET)
+	public String findexpdate(@RequestParam("user") String user, Model model, @RequestParam("vcno") String vcno) {
+		System.out.println("\n**************** Find Value **********************\t" + vcno);
+		VCStock tmp1 = vcService.getByVCNo(vcno);
+		System.out.println("After Found Value \t" + tmp1.getExp_date());
+		Gson gson = new Gson();
+		String json = gson.toJson(tmp1);
+		model.addAttribute("user", user);
+		return json;
+		// return new ModelAndView(json);
+	}
+	
+	@RequestMapping(value = "/imageupload", method = RequestMethod.POST)
+	public @ResponseBody String upload(HttpSession session, HttpServletResponse response, Model model,
+			@RequestParam("uploadimage") MultipartFile uploadimage, @RequestParam("user") String id) {
+		String addpath = null;
+		if (!uploadimage.isEmpty()) {
+			System.out.println("******************** upload file ***************************");
+//			try {
+//				InputStream inputStream = null;
+//				OutputStream outputStream = null;
+//				if (uploadimage.getSize() > 0) {
+//					inputStream = uploadimage.getInputStream();
+//					outputStream = new FileOutputStream("C:\\2\\" + uploadimage.getOriginalFilename());
+//					System.out.println(uploadimage.getOriginalFilename());
+//					int readBytes = 0;
+//					byte[] buffer = new byte[8192];
+//					while ((readBytes = inputStream.read(buffer, 0, 8192)) != -1) {
+//						System.out.println("===ddd=======");
+//						outputStream.write(buffer, 0, readBytes);
+//					}
+//
+//					outputStream.close();
+//					inputStream.close();
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+			/***************************
+			 * get path and eclipse folder
+			 **************/
+			String path = session.getServletContext().getRealPath("/");
+			String filename = uploadimage.getOriginalFilename();
+			addpath = path + filename;
+			imagename = filename;
+			System.out.println(addpath);
+			try {
+				byte barr[] = uploadimage.getBytes();
+
+				BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(path + "/" + filename));
+				bout.write(barr);
+				bout.flush();
+				bout.close();
+
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+
+		}
+		model.addAttribute("addpath", addpath);
+		return "";
+
+	}
+
+	
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	@ResponseBody
 	@RequestMapping(value = "/findvcno", method = RequestMethod.GET)
@@ -713,6 +828,46 @@ public class LCOController {
 		model.addAttribute("user", user);
 		return "NewUser";
 	}
+	
+	
+	@RequestMapping(value = "/saveBulkByLCO", method = RequestMethod.GET)
+	public ModelAndView saveBulkByLCO(@ModelAttribute("bulkInfoForm") AgentBillDetails sub, ModelMap map, @RequestParam("user") String user) {
+		//System.out.println("AgentBillDetails Detail: "+sub.getCustId());
+		//System.out.println("calling saveBulkByLCO: "+sub.getInvoice_id());
+		Customer_Invoice1 tmpdata=invoice1.getByInvoiceId(sub.getInvoice_id());
+		sub.setFromDate(tmpdata.getDueDate());
+		sub.setToDate(tmpdata.getBilling_Date());
+		sub.setCustId(tmpdata.getUser_Id());
+		sub.setTotalAmt(tmpdata.getTotal_Amount());
+		sub.setInstatus("Aprroved");
+		sub.setApprovedBy(user);
+		int i=agentbillservice.saveDetail(sub);
+		
+		User u=userService.get(tmpdata.getUser_Id());
+		AllCollections col= new AllCollections();
+		col.setInvoice(sub.getInvoice_id());
+		col.setVC_No(tmpdata.getVc_No());
+		col.setCust_mobile(u.getCustomer_mobile());
+		col.setCust_Name(tmpdata.getUser_Name());
+		col.setCurrent_Pckg(tmpdata.getPackage_Name());
+		col.setRecharge_Amount(tmpdata.getTotal_Amount());
+		col.setPaid_Amount(sub.getReceivedAmt());
+		col.setDiscount(tmpdata.getDiscount());
+		col.setPayment_Mode("OffLine");
+		col.setPayment_Status("Approved");
+		col.setCollecting_Agent(sub.getAgentId());
+		
+		col.setApproval_ID(user);
+		col.setRefernceId(sub.getReferenceId());
+		col.setApproval_Date(getDate());
+		col.setTrndate(getDate());
+		LCOCollectionRepository.saveDetail(col);
+		
+		//System.out.println("calling saveBulkByLCO result: "+i);
+		map.addAttribute("user", user);
+		return new ModelAndView("redirect:lcoaccountMgmt.html", map);
+	}
+	
 
 	////////////////////////////////// Date and Password Generation
 	////////////////////////////////// functions///////////////////////////////////
@@ -745,53 +900,54 @@ public class LCOController {
 	}
 
 	private void createBill(String user, String id) {
-		
-		float previousAmt=0;
-		float lastPaid=0;
+
+		float previousAmt = 0;
+		float lastPaid = 0;
 		Double advance;
-		String fromBill=null;
-		String toBill=null;
+		String fromBill = null;
+		String toBill = null;
 
 		User tmp = userService.get(id);
-		LCO_Setting setting=settingService.getByID(user);
-		Customer_Invoice1 lastData=invoice1.getLastPaymentDetail(id);
-		if(lastData!=null){
-			 previousAmt=Float.parseFloat(lastData.getTotal_Amount());
-			 lastPaid=Float.parseFloat(lastData.getLastPaid_Amt());
-			 fromBill=lastData.getBilling_Date();
-			Double sa= invoice1.getSumOfPaidAmt(id);
-			Double la=invoice1.getTotalPaidAmt(id);
-			advance= la-sa;
-			
-		}else{
-			 previousAmt=0;
-			 lastPaid=0;
-			 fromBill=tmp.getTimestamp();
-			 advance= 0.0;
-			
+		LCO_Setting setting = settingService.getByID(user);
+		Customer_Invoice1 lastData = invoice1.getLastPaymentDetail(id);
+		if (lastData != null) {
+			previousAmt = Float.parseFloat(lastData.getTotal_Amount());
+			lastPaid = Float.parseFloat(lastData.getLastPaid_Amt());
+			fromBill = lastData.getBilling_Date();
+			Double sa = invoice1.getSumOfPaidAmt(id);
+			Double la = invoice1.getTotalPaidAmt(id);
+			advance = la-sa;
+			System.out.println("advance: "+advance+"la: "+la+"sa: "+sa);
+
+		} else {
+			previousAmt = 0;
+			lastPaid = 0;
+			fromBill = tmp.getTimestamp();
+			advance = 0.0;
+
 		}
 		String invoiceId = "IN" + tmp.getUsername() + "_" + System.currentTimeMillis();
-		
-		
+
 		int cost = Integer.parseInt(tmp.getPackage_amount());
 		int costPerDay = cost / 30;
-		
+
 		long interval = dayCalculate(fromBill, getDate());
-		
-		System.out.println("Interval: "+interval);
+
+		System.out.println("Interval: " + interval);
 		float primaryAmt = costPerDay * interval;
-		
-		 System.out.println("primaryAmt: "+primaryAmt+"costPerDay: "+costPerDay);
+
+		System.out.println("primaryAmt: " + primaryAmt + "costPerDay: " + costPerDay);
 		float serviceTax = (primaryAmt * Float.parseFloat(setting.getService_tax())) / 100;
 		float entTax = (primaryAmt * Float.parseFloat(setting.getEnt_tax())) / 100;
 		float otherTax = (primaryAmt * Float.parseFloat(setting.getOther_tax())) / 100;
 		float ltfee = Float.parseFloat(setting.getLateFeeCharges());
-
-		float totalAmt = primaryAmt + serviceTax + entTax  + otherTax;
-		// System.out.println("Total Amout: "+totalAmt);
-		float totalAmtafdue = primaryAmt + serviceTax + entTax + otherTax + ltfee;
-		// System.out.println("Total Amout after Due Date: "+totalAmtafdue);
-		Double advance_Amt = totalAmt+advance;
+		float totalAmt = primaryAmt + serviceTax + entTax + otherTax;
+		System.out.println("Total Amout: " + totalAmt);
+		
+		Double advance_Amt = totalAmt + advance;
+		
+		Double totalAmtafdue = advance_Amt + ltfee;
+		System.out.println("advance_Amt: " + advance_Amt + "totalAmt: " + totalAmt + "advance: " + advance);
 		Customer_Invoice1 custIn = new Customer_Invoice1();
 		custIn.setInvoice_No(invoiceId);
 		custIn.setUser_Id(id);
@@ -800,14 +956,15 @@ public class LCOController {
 		custIn.setBilling_Date(getDate());
 		custIn.setDueDate(fromBill);
 		custIn.setPackage_Name(tmp.getPackage_name());
-		custIn.setPackage_Cost(primaryAmt+"");
-		custIn.setService_Tax(serviceTax+"");
-		custIn.setEntertain_Tax(entTax+"");
-		custIn.setPrevoius_Bal(previousAmt+"");
-		custIn.setAdvance_Amt(advance+"");
-		custIn.setLastPaid_Amt(lastPaid+"");
-		custIn.setTotal_Amount(advance_Amt+"");
-		custIn.setTotalAmt_AftDueDate(totalAmtafdue+"");
+		custIn.setPackage_Cost(primaryAmt + "");
+		custIn.setService_Tax(serviceTax + "");
+		custIn.setEntertain_Tax(entTax + "");
+		custIn.setOther_Tax(otherTax + "");
+		custIn.setPrevoius_Bal(previousAmt + "");
+		custIn.setAdvance_Amt(advance + "");
+		custIn.setLastPaid_Amt(lastPaid + "");
+		custIn.setTotal_Amount(advance_Amt + "");
+		custIn.setTotalAmt_AftDueDate(totalAmtafdue + "");
 		custIn.setLatePay_Charges(setting.getLateFeeCharges());
 		custIn.setDiscount(setting.getDiscount());
 		custIn.setPaid_Amt("NA");
@@ -816,8 +973,7 @@ public class LCOController {
 		custIn.setBill_status("Not Paid");
 		custIn.setTrndate(getDate());
 		custIn.setLco_id(user);
-		
-		
+
 		invoice1.save(custIn);
 		userService.updateBillStatus(id);
 

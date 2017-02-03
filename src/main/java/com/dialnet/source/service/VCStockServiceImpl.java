@@ -26,7 +26,7 @@ public class VCStockServiceImpl implements VCStockService {
 	}
 
 	@Override
-	public VCStock getByStatus(String stutus) {
+	public List<VCStock> getByStatus(String stutus) {
 		return dao.getByStatus(stutus);
 	}
 

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -149,29 +151,32 @@ table td {
 				//]]>
 			</script>
 
-			<div class="row">
-				<div class=" col-md-4 col-md-offset-4">
-					<table id="ContentPlaceHolder1_rbselect" class="form-control">
-						<tr>
-							<td><span class="radio-inline"><input
-									id="ContentPlaceHolder1_rbselect_0" type="radio"
-									name="ctl00$ContentPlaceHolder1$rbselect" value="0"
-									checked="checked" /><label
-									for="ContentPlaceHolder1_rbselect_0">Income</label></span></td>
-							<td><span class="radio-inline"><input
-									id="ContentPlaceHolder1_rbselect_1" type="radio"
-									name="ctl00$ContentPlaceHolder1$rbselect" value="1" /><label
-									for="ContentPlaceHolder1_rbselect_1">Expenses</label></span></td>
-							<td><span class="radio-inline"><input
-									id="ContentPlaceHolder1_rbselect_2" type="radio"
-									name="ctl00$ContentPlaceHolder1$rbselect" value="2" /><label
-									for="ContentPlaceHolder1_rbselect_2">Tax</label></span></td>
-						</tr>
-					</table>
-				</div>
-			</div>
+<!-- 			<div class="row"> -->
+<!-- 				<div class=" col-md-4 col-md-offset-4"> -->
+<!-- 					<table id="ContentPlaceHolder1_rbselect" class="form-control"> -->
+<!-- 						<tr> -->
+<!-- 							<td><span class="radio-inline"><input -->
+<!-- 									id="ContentPlaceHolder1_rbselect_0" type="radio" -->
+<!-- 									name="ctl00$ContentPlaceHolder1$rbselect" value="0" -->
+<!-- 									checked="checked" /><label -->
+<!-- 									for="ContentPlaceHolder1_rbselect_0">Income</label></span></td> -->
+<!-- 							<td><span class="radio-inline"><input -->
+<!-- 									id="ContentPlaceHolder1_rbselect_1" type="radio" -->
+<!-- 									name="ctl00$ContentPlaceHolder1$rbselect" value="1" /><label -->
+<!-- 									for="ContentPlaceHolder1_rbselect_1">Expenses</label></span></td> -->
+<!-- 							<td><span class="radio-inline"><input -->
+<!-- 									id="ContentPlaceHolder1_rbselect_2" type="radio" -->
+<!-- 									name="ctl00$ContentPlaceHolder1$rbselect" value="2" /><label -->
+<!-- 									for="ContentPlaceHolder1_rbselect_2">Tax</label></span></td> -->
+<!-- 						</tr> -->
+<!-- 					</table> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 			<hr />
 			<div id="Income" >
+			<form:form action="saveBulkByLCO.html" method="get" name="savebulkInfo"
+							commandName="bulkInfoForm" >
+			<input type="hidden" name="user" value="${user }"/>
 				<div  >
 					<div class="col-sm-25">
 						<div class="col-sm-0"></div>
@@ -180,9 +185,72 @@ table td {
 								<p class="p1">Invoice</p>
 							</div>
 							<div class="col-sm-8">
-								<input name="ctl00$ContentPlaceHolder1$txtDueDate" type="text"
-									id="ContentPlaceHolder1_txtDueDate" class="form-control"
-									placeholder="Invoice Number" />
+							<form:input path="invoice_id" class="form-control" id="findvalue" value="" onchange="" 
+									required="required" tabindex="1" placeholder="Invoice Number"/>
+								
+									<script>
+								$("#findvalue").keyup( function() {
+								    var invoice = $("#findvalue").val();
+								   
+								     $.ajax({  
+							            type : 'GET', 
+							            url: 'printBill.html',
+							            data: {
+							            	'invoice': invoice,
+							            	'user':  ${user}
+							            },
+							            dataType: 'json',
+							       		cache: false,
+										beforeSend: function(xhr) 
+							                        {
+							                            xhr.setRequestHeader("Accept", "application/json");  
+							                            xhr.setRequestHeader("Content-Type", "application/json");  
+							                        },
+							         				success: function (data) {
+							         					 if(data=="Data Not Found"){
+							         						// alert(data);
+							         					 }else{
+							         						setData( data);
+							         					 }
+							         					 
+							         					 
+							           						
+								            },
+								            error: function(e){
+								            	
+								            }
+							            
+							        });
+								   
+								});
+								function setData( data){
+									var todate= data.Billing_Date;
+									var amt=data.Total_Amount;
+									var st=data.Service_Tax;
+									var at=data.Entertain_Tax;
+									
+									var cid=data.User_Id;
+									var cname=data.User_Name;
+									var ot=data.Other_Tax;
+									var pkg=data.Package_Name;
+									//alert(todate+","+amt+","+st+","+at);
+									
+									document.getElementById("dte").value =todate;
+									document.getElementById("amount").value =amt;
+									
+									document.getElementById("custname").value =cname;
+									document.getElementById("custId").value =cid;
+									
+									document.getElementById("service").value =st;
+									document.getElementById("enttax").value =at;
+									document.getElementById("other").value =ot;
+									document.getElementById("pkc").value =pkg;
+									
+									
+									
+								}
+											 	 
+						  </script>
 							</div>
 						</div>
 
@@ -191,56 +259,94 @@ table td {
 								<p class="p1">From</p>
 							</div>
 							<div class="col-sm-8">
-								<input name="ctl00$ContentPlaceHolder1$txtamount" readonly="readonly" type="text"
-									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+							
+								<input name="dte" readonly="readonly" type="text"
+									id="dte" class="form-control"
 									placeholder="" />
 							</div>
 						</div>
 					</div>
+					
 					<div class="col-sm-25">
 						<div class="col-sm-0"></div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Customer Id</p>
+							</div>
+							<div class="col-sm-8">
+						
+								<input name="custId" readonly="readonly" type="text"
+									id="custId" class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Customer Name</p>
+							</div>
+							<div class="col-sm-8">
+							
+								<input name="custname" readonly="readonly" type="text"
+									id="custname" class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-sm-25">
+						<div class="col-sm-0"></div>
+						
+						<div class="col-sm-0"></div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Package</p>
+							</div>
+							<div class="col-sm-8">
+						
+								<input name="amount" readonly="readonly" type="text"
+									id="pkc" class="form-control"
+									placeholder="" />
+							</div>
+						</div>
 						<div class=" col-sm-6">
 							<div class="col-sm-4" style="margin-bottom: 18px">
 								<p class="p1">Amount</p>
 							</div>
 							<div class="col-sm-8">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" readonly="readonly" type="text"
-									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+							
+								<input name="amount" readonly="readonly" type="text"
+									id="amount" class="form-control"
 									placeholder="" />
 							</div>
 						</div>
 
+						
+					</div>
+					<div class="col-sm-25">
+						<div class="col-sm-0"></div>
+						
 						<div class=" col-sm-6">
 							<div class="col-sm-4" style="margin-bottom: 18px">
 								<p class="p1">Service Tax</p>
 							</div>
 							<div class="col-sm-8">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" readonly="readonly" type="text"
-									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+						
+								<input name="service" readonly="readonly" type="text"
+									id="service" class="form-control"
 									placeholder="" />
 							</div>
 						</div>
-					</div>
-					<div class="col-sm-25">
-						<div class="col-sm-0"></div>
+						
 						<div class=" col-sm-6">
 							<div class="col-sm-4" style="margin-bottom: 18px">
 								<p class="p1">Amusement Tax</p>
 							</div>
 							<div class="col-sm-8">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" readonly="readonly" type="text"
-									id="ContentPlaceHolder1_txtDueDate" class="form-control"
-									placeholder="" />
-							</div>
-						</div>
-
-						<div class=" col-sm-6">
-							<div class="col-sm-4" style="margin-bottom: 18px">
-								<p class="p1">Other Tax</p>
-							</div>
-							<div class="col-sm-8">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" readonly="readonly" type="text"
-									id="ContentPlaceHolder1_txtDueDate" class="form-control"
+						
+								<input name="enttax" readonly="readonly" type="text"
+									id="enttax" class="form-control"
 									placeholder="" />
 							</div>
 						</div>
@@ -250,12 +356,13 @@ table td {
 						<div class="col-sm-0"></div>
 						<div class=" col-sm-6">
 							<div class="col-sm-4" style="margin-bottom: 18px">
-								<p class="p1">Is TDS Deducted</p>
+								<p class="p1">Other Tax</p>
 							</div>
 							<div class="col-sm-8">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" readonly="readonly" type="text"
-									id="ContentPlaceHolder1_txtDueDate" class="form-control"
-									placeholder="" />
+					
+								<input name="other" readonly="readonly" type="text"
+									id="other" class="form-control"
+									/>
 							</div>
 						</div>
 
@@ -264,9 +371,8 @@ table td {
 								<p class="p1">Recived Amount</p>
 							</div>
 							<div class="col-sm-8">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									id="ContentPlaceHolder1_txtDueDate" class="form-control"
-									placeholder="Enter Recived Amount" />
+							<form:input path="receivedAmt" class="form-control" placeholder="Enter Recived Amount" required="required"/>
+								
 							</div>
 						</div>
 					</div>
@@ -278,9 +384,8 @@ table td {
 								<p class="p1">Recived Via</p>
 							</div>
 							<div class="col-sm-8">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									id="ContentPlaceHolder1_txtDueDate" class="form-control"
-									placeholder="Enter Recived Via" />
+							<form:input path="agentId" class="form-control" placeholder="Enter The Agent Id" />
+							
 							</div>
 						</div>
 
@@ -289,9 +394,8 @@ table td {
 								<p class="p1">Reference ID</p>
 							</div>
 							<div class="col-sm-8">
-								<input name="ctl00$ContentPlaceHolder1$txtcoupon" type="text"
-									id="ContentPlaceHolder1_txtDueDate" class="form-control"
-									placeholder="Enter Reference ID" />
+							<form:input path="referenceId" class="form-control" placeholder="Enter Recived Via"  />
+							
 							</div>
 						</div>
 					</div>
@@ -302,28 +406,16 @@ table td {
 								<p class="p1">Remark</p>
 							</div>
 							<div class="col-sm-6" style="margin-bottom: 30px">
-								<textarea name="ctl00$ContentPlaceHolder1$txtrmark" rows="3"
-							cols="100" id="ContentPlaceHolder1_txtrmark" class="form-control"
-							placeholder="Enter Remark" style="overflow:auto;resize:none" >
-								</textarea>
+							<form:textarea path="Remark" cols="100" id="ContentPlaceHolder1_txtrmark" class="form-control"
+							placeholder="Enter Remark" style="overflow:auto;resize:none" required="required" />
+							
 							</div>
 						</div>
 
 
 					</div>
 
-
-
-
-
-
-
-
-
-
-
-
-					<div class="col-sm-12">
+							<div class="col-sm-12">
 						<div class="col-sm-4"></div>
 						<div class="col-sm-4" style="margin-bottom: 10px">
 							<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"
@@ -334,8 +426,10 @@ table td {
 						</div>
 
 					</div>
+					</div>
+					</form:form>
 				</div>
-				<div class="col-sm-12" style="height: 1px"></div>
+<!-- 				<div class="col-sm-12" style="height: 1px"></div> -->
 			</div>
 		</div>
 		<div id="Expense" style="display: none">

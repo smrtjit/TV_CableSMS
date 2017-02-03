@@ -31,6 +31,7 @@ public class CustomerInvoiceDaoImpl implements CustomerInvoiceDao {
 		Transaction tx = sf.beginTransaction();
 		sf.save(cust);
 		tx.commit();
+		sf.close();
 		return true;
 	}
 
@@ -41,7 +42,9 @@ public class CustomerInvoiceDaoImpl implements CustomerInvoiceDao {
 
 		// To get records having salary more than 2000
 		cr.add(Restrictions.eq("bill_status", status));
-		return cr.list();
+		List l= cr.list();
+		sf.close();
+		return l;
 	}
 
 	@Override
@@ -51,26 +54,43 @@ public class CustomerInvoiceDaoImpl implements CustomerInvoiceDao {
 
 		// To get records having salary more than 2000
 		cr.add(Restrictions.eq("Invoice_No", id));
-		return (Customer_Invoice1)cr.uniqueResult();
+		Customer_Invoice1 l= (Customer_Invoice1)cr.uniqueResult();
+		sf.close();
+		return l;
 	}
 
 	@Override
 	public Double getSumOfPaidAmt(String custId) {
 		Session sf = dao.openSession();
-		Criteria cr = sf.createCriteria(Customer_Invoice1.class);
-		cr.add(Restrictions.eq("User_Id", custId));
-		cr.setProjection(Projections.sum("Billing_Date"));
-		Double sum = (Double)cr.uniqueResult();
+		Double sum=0.0;
+		List<Double> sumData =  sf.createCriteria(Customer_Invoice1.class)
+		        .setProjection(Projections.property("Paid_Amt"))
+		        .add(Restrictions.eq("User_Id", custId))
+		        .list();
+		for(Object d: sumData){
+			sum=sum+Double.parseDouble(d.toString());
+			
+		}
+		System.out.println("getTotalPaidAmt Total: "+sum);
+		sf.close();
 		return sum;
+		
 	}
-
+	
 	@Override
 	public Double getTotalPaidAmt(String custId) {
 		Session sf = dao.openSession();
-		Criteria cr = sf.createCriteria(Customer_Invoice1.class);
-		cr.add(Restrictions.eq("User_Id", custId));
-		cr.setProjection(Projections.sum("Paid_Amt"));
-		Double sum = (Double)cr.uniqueResult();
+		Double sum=0.0;
+		List sumData =  sf.createCriteria(Customer_Invoice1.class)
+		        .setProjection(Projections.property("Total_Amount"))
+		        .add(Restrictions.eq("User_Id", custId))
+		        .list();
+		for(Object d: sumData){
+			sum=sum+Double.parseDouble(d.toString());
+			
+		}
+		System.out.println("getTotalPaidAmt Total: "+sum);
+		sf.close();
 		return sum;
 	}
 
@@ -80,7 +100,9 @@ public class CustomerInvoiceDaoImpl implements CustomerInvoiceDao {
 		Criteria c = sf.createCriteria(Customer_Invoice1.class);
 		c.add(Restrictions.eq("User_Id", custId));
 		c.addOrder(Order.asc("Billing_Date"));
-		return (Customer_Invoice1)c.uniqueResult();
+		Customer_Invoice1 l= (Customer_Invoice1)c.uniqueResult();
+		sf.close();
+		return l;
 		
 	}
 
@@ -88,15 +110,19 @@ public class CustomerInvoiceDaoImpl implements CustomerInvoiceDao {
 		Session sf = dao.openSession();
 		Criteria c = sf.createCriteria(Customer_Invoice1.class);
 		c.add(Restrictions.eq("lco_id", user));
-		return c.setFirstResult(offset != null ? offset : 0)
+		List l= c.setFirstResult(offset != null ? offset : 0)
 				.setMaxResults(maxResults != null ? maxResults : 10).list();
+		sf.close();
+		return l;
 	}
 	
 	public Long count(String user) {
 		Session sf = dao.openSession();
 		Criteria c = sf.createCriteria(Customer_Invoice1.class);
 		c.add(Restrictions.eq("lco_id", user));
-		return (Long) c.setProjection(Projections.rowCount()).uniqueResult();
+		Long l= (Long) c.setProjection(Projections.rowCount()).uniqueResult();
+		sf.close();
+		return l;
 	}
 
 }

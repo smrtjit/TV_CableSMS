@@ -61,6 +61,7 @@
 				<value>com.dialnet.source.model.TaxInformation</value>
 				<value>com.dialnet.source.model.Customer_Invoice1</value>
 				<value>com.dialnet.source.model.LCO_Setting</value>
+				<value>com.dialnet.source.model.AgentBillDetails</value>
 
 			</list>
 		</property>

@@ -28,7 +28,7 @@ public class LMUserDaoImpl implements LMUserDao {
 	public void add(LMUser username) {
 		Session sf = dao.openSession();
 		sf.save(username);
-
+		sf.close();
 	}
 
 	@Override
@@ -48,11 +48,12 @@ public class LMUserDaoImpl implements LMUserDao {
 		Session sf = dao.openSession();
 		Criteria c2 = sf.createCriteria(LMUser.class);
 		c2.add(Restrictions.eq("username", username));
-		System.out.println("LMUser Id: " + username);
+		//System.out.println("LMUser Id: " + username);
 		LMUser product = (LMUser) c2.uniqueResult();
 		// LCOUser product = (LCOUser) sf.get(LMUser.class,
 		// Long.parseLong(username));
-		System.out.println("LMUser: " + product);
+		//System.out.println("LMUser: " + product);
+		sf.close();
 		return product;
 	}
 
@@ -60,7 +61,9 @@ public class LMUserDaoImpl implements LMUserDao {
 	public List<LMUser> getAll() {
 		System.out.println("Get all old user in daoImpl");
 		Session sf = dao.openSession();
-		return sf.createCriteria(LMUser.class).list();
+		List l= sf.createCriteria(LMUser.class).list();
+		sf.close();
+		return l;
 	}
 
 	///////////////////////////////////////////////////////// For
@@ -68,13 +71,17 @@ public class LMUserDaoImpl implements LMUserDao {
 
 	public List<LMUser> list(Integer offset, Integer maxResults) {
 		Session sf = dao.openSession();
-		return sf.createCriteria(LMUser.class).setFirstResult(offset != null ? offset : 0)
+		List l= sf.createCriteria(LMUser.class).setFirstResult(offset != null ? offset : 0)
 				.setMaxResults(maxResults != null ? maxResults : 10).list();
+		sf.close();
+		return l;
 	}
 
 	public Long count() {
 		Session sf = dao.openSession();
-		return (Long) sf.createCriteria(LMUser.class).setProjection(Projections.rowCount()).uniqueResult();
+		Long l= (Long) sf.createCriteria(LMUser.class).setProjection(Projections.rowCount()).uniqueResult();
+		sf.close();
+		return l;
 	}
 	
 	
@@ -107,10 +114,12 @@ public class LMUserDaoImpl implements LMUserDao {
 		criteria.add(Restrictions.eq("designation",desig));
 		
 		
-		return criteria
+		List l= criteria
 				.setFirstResult(offset!=null?offset:0)
 				.setMaxResults(maxResults!=null?maxResults:10)
 				.list();
+		sf.close();
+		return l;
 	}
 	
 	
@@ -138,9 +147,11 @@ public class LMUserDaoImpl implements LMUserDao {
 		else
 		criteria.add(Restrictions.eq("designation",desig));
 		
-		return (Long)criteria
+		Long l= (Long)criteria
 				.setProjection(Projections.rowCount())
 				.uniqueResult();
+		sf.close();
+		return l;
 	}
 
 }

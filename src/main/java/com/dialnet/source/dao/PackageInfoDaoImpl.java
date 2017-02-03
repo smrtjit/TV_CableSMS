@@ -55,5 +55,18 @@ public class PackageInfoDaoImpl implements PackageInfoDao {
 		return l;
 	}
 	
+	@Override
+	public PackageInfo getByName(String name) {
+		Session sf = session.openSession();
+		Criteria cr = sf.createCriteria(PackageInfo.class);
+
+		// To get records having salary more than 2000
+		cr.add(Restrictions.eq("name", name));
+		PackageInfo product = (PackageInfo) cr.uniqueResult();
+		// System.out.println("user: " + product);
+		sf.close();
+		return product;
+	}
+	
 
 }

@@ -5,16 +5,18 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dialnet.source.model.AllCollections;
 
 
-
+@Transactional
 @Repository
 public class AllCollectionDaoImpl implements AllCollectionDao {
 	
@@ -24,7 +26,9 @@ public class AllCollectionDaoImpl implements AllCollectionDao {
 	@Override
 	public List<AllCollections> getAll() {
 		Session sf=dao.openSession();
-		return sf.createCriteria(AllCollections.class).list();
+		List l= sf.createCriteria(AllCollections.class).list();
+		sf.close();
+		return l;
 		
 	}
 
@@ -67,8 +71,10 @@ public class AllCollectionDaoImpl implements AllCollectionDao {
 		else
 		criteria.add(Restrictions.eq("Collecting_Agent",agent));
 		//System.out.println("List size in searching: "+criteria.list().size());
-		return criteria.setFirstResult(offset != null ? offset : 0)
+		List l= criteria.setFirstResult(offset != null ? offset : 0)
 				.setMaxResults(maxResults != null ? maxResults : 10).list();
+		sf.close();
+		return l;
 		
 	}
 	
@@ -110,20 +116,38 @@ public class AllCollectionDaoImpl implements AllCollectionDao {
 			System.out.println("pckg is not available");
 		else
 		criteria.add(Restrictions.eq("Collecting_Agent",agent));
-		return (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Long l= (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		sf.close();
+		return l;
 	}
 	
 	////////////////////////////////////////////////////For Pagination//////////////////////////////////////////////////////
 	
 	public List<AllCollections> list(Integer offset, Integer maxResults) {
 		Session sf = dao.openSession();
-		return sf.createCriteria(AllCollections.class).setFirstResult(offset != null ? offset : 0)
+		List l= sf.createCriteria(AllCollections.class).setFirstResult(offset != null ? offset : 0)
 				.setMaxResults(maxResults != null ? maxResults : 10).list();
+		sf.close();
+		return l;
 	}
 
 	public Long count() {
 		Session sf = dao.openSession();
-		return (Long) sf.createCriteria(AllCollections.class).setProjection(Projections.rowCount()).uniqueResult();
+		Long l= (Long) sf.createCriteria(AllCollections.class).setProjection(Projections.rowCount()).uniqueResult();
+		sf.close();
+		return l;
 	}
+
+	@Override
+	public int saveDetail(AllCollections obj) {
+		//System.out.println("hello call dta: "+obj.getCustId());
+				Session sf = dao.openSession();
+				Transaction tx= sf.beginTransaction();
+				sf.save(obj);
+				tx.commit();
+				sf.close();
+				//System.out.println("Save AgentBillDetails done");
+				return 1;
+			}
 
 }

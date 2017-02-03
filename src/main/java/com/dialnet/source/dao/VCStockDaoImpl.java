@@ -26,7 +26,9 @@ public class VCStockDaoImpl implements VCStockDao {
 	public List<VCStock> getAllVCStock() {
 		System.out.println("Check call getAllVCStock VCStockDaoImpl");
 		Session sf=dao.openSession();
-		return (List<VCStock>) sf.createCriteria(VCStock.class).list();
+		List l= (List<VCStock>) sf.createCriteria(VCStock.class).list();
+		sf.close();
+		return l;
 	}
 
 	@Override
@@ -38,20 +40,20 @@ public class VCStockDaoImpl implements VCStockDao {
 		cr.add(Restrictions.eq("vc_no", stb));
 		VCStock product = (VCStock)cr.uniqueResult();
 		//System.out.println("user: " + product);
-
+		sf.close();
 		return product;
 	}
 
 	@Override
-	public VCStock getByStatus(String stutus) {
+	public List<VCStock> getByStatus(String stutus) {
 		Session sf = dao.openSession();
 		Criteria cr = sf.createCriteria(VCStock.class);
 
 		// To get records having salary more than 2000
 		cr.add(Restrictions.eq("current_status", stutus));
-		VCStock product = (VCStock)cr.uniqueResult();
+		List<VCStock> product = cr.list();
 		//System.out.println("user: " + product);
-
+		sf.close();
 		return product;
 	}
 
@@ -63,6 +65,7 @@ public class VCStockDaoImpl implements VCStockDao {
 		query.setParameter("docId", vcn);
 		int result = query.executeUpdate();
 		sf.beginTransaction().commit();
+		sf.close();
 		return result;
 	}
 
@@ -70,17 +73,21 @@ public class VCStockDaoImpl implements VCStockDao {
 	
 	public List<VCStock> list(Integer offset, Integer maxResults){
 		Session sf=dao.openSession();
-		return sf.createCriteria(VCStock.class)
+		List l= sf.createCriteria(VCStock.class)
 				.setFirstResult(offset!=null?offset:0)
 				.setMaxResults(maxResults!=null?maxResults:10)
 				.list();
+		sf.close();
+		return l;
 	}
 	
 	
 	public Long count(){
 		Session sf=dao.openSession();
-		return (Long)sf.createCriteria(VCStock.class)
+		Long l= (Long)sf.createCriteria(VCStock.class)
 				.setProjection(Projections.rowCount())
 				.uniqueResult();
+		sf.close();
+		return l;
 	}
 }

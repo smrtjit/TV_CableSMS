@@ -44,4 +44,10 @@ public class AllCollectionServiceImpl implements AllCollectionService {
 		return dao.countForSearch(sdate, edate, VC_no, mobile, status, agent);
 	}
 
+	@Override
+	public int saveDetail(AllCollections obj) {
+		// TODO Auto-generated method stub
+		return dao.saveDetail(obj);
+	}
+
 }

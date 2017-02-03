@@ -21,6 +21,7 @@ public class Customer_Invoice1 {
 	String Package_Cost;
 	String Service_Tax;
 	String Entertain_Tax;
+	String Other_Tax;
 	String Prevoius_Bal;
 	String Advance_Amt;
 	String LastPaid_Amt;
@@ -42,9 +43,10 @@ public class Customer_Invoice1 {
 		User_Name = user_Name;
 	}
 	
+
 	public Customer_Invoice1(String invoice_No, String user_Id, String user_Name, String vc_No, String billing_Date,
 			String dueDate, String package_Name, String package_Cost, String service_Tax, String entertain_Tax,
-			String prevoius_Bal, String advance_Amt, String lastPaid_Amt, String total_Amount,
+			String other_Tax, String prevoius_Bal, String advance_Amt, String lastPaid_Amt, String total_Amount,
 			String totalAmt_AftDueDate, String latePay_Charges, String discount, String paid_Amt, String agent_Id,
 			String date_of_paid, String bill_status, String trndate, String lco_id) {
 		super();
@@ -58,6 +60,7 @@ public class Customer_Invoice1 {
 		Package_Cost = package_Cost;
 		Service_Tax = service_Tax;
 		Entertain_Tax = entertain_Tax;
+		Other_Tax = other_Tax;
 		Prevoius_Bal = prevoius_Bal;
 		Advance_Amt = advance_Amt;
 		LastPaid_Amt = lastPaid_Amt;
@@ -75,6 +78,12 @@ public class Customer_Invoice1 {
 	public Customer_Invoice1() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public String getOther_Tax() {
+		return Other_Tax;
+	}
+	public void setOther_Tax(String other_Tax) {
+		Other_Tax = other_Tax;
 	}
 	public String getLco_id() {
 		return lco_id;

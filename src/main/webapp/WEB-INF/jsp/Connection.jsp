@@ -311,8 +311,7 @@ a.close:hover {
 	}
 </script>
 </head>
-<body
-	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
+<body onload="myFunction()"	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
 
 	<%
 		if (session.getAttribute("lcoLogin") == null) {
@@ -337,20 +336,6 @@ a.close:hover {
 		}
 		//]]>
 	</script>
-
-
-	<script
-		src="/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZKFFXDUgfU-UBi18bCzN2i8L8PXrGrr6FjdHQr3cBNEzRsJNDUE1GktavLtDxtDl1Q2&amp;t=636104529900000000"
-		type="text/javascript"></script>
-
-
-	<script
-		src="/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvl5RPGwiZk4IhiUb_fBMxxy3w24mdz1bRqpu2Tx6WXC7wzgLEKx2Uze1RGB4TIdZBCRYWsnky0yqlji6UbT6UMsMxwU8nE9xa4WdNI3ZYgtVUABIuH3yscl-YuTyXVnXXNmgZpthxma-XTavzibu-Vw1&amp;t=ffffffffc45b034e"
-		type="text/javascript"></script>
-	<script
-		src="/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OH0Sw-M4qzmZwT9bsg3n62-gOKiVwa9UCtjFUFX-MpMNFolFCkukdkkG0wDCoiXn4NuwfsJz-AWKjjH8hirPHQw006vVvWwxHha230iF_qCTZZzNf-bCZKOAMjMSmxWMQ9iQPtOU8werOASQNLJTDAU1&amp;t=ffffffffc45b034e"
-		type="text/javascript"></script>
-
 	<div>
 		<header class="site-header push"> <marquee>Welcome
 			to Payspot</marquee> </header>
@@ -433,191 +418,414 @@ a.close:hover {
 			</div>
 			<hr />
 			<div id="new" style="display: none">
+					<script type="text/javascript">
+					function submitForm(){  
+					    $('form').on('submit', function (e) {
+					        alert("test");
+					        var focusSet = false;
+					        if (!$('#findvalue').val()) {
+					            if ($("#findvalue").parent().next(".validation").length == 0) // only add if not added
+					            {
+					
+					                 $("#findvalue").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter the code</div>");
+					            }
+					            e.preventDefault(); 
+					            $('#findvalue').focus();
+					            focusSet = true;
+					        } else {
+					            $("#findvalue").parent().next(".validation").remove(); // remove it
+					        }
+					        if (!$('#StbNo').val()) {
+					            if ($("#StbNo").parent().next(".validation").length == 0) // only add if not added
+					            {
+					                $("#StbNo").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter seasoname</div>");
+					            }
+					            e.preventDefault(); // prevent form from POST to server
+					            if (!focusSet) {
+					                $("#StbNo").focus();
+					            }
+					        } else {
+					            $("#StbNo").parent().next(".validation").remove(); 
+					        }
+					        if (!$('#cname').val()) {
+					            if ($("#cname").parent().next(".validation").length == 0) // only add if not added
+					            {
+					                $("#cname").parent().after("<div class='validation' style='color:red;margin-bottom: 1px;'>Please enter your name</div>");
+					            }
+					            e.preventDefault(); // prevent form from POST to server
+					            if (!focusSet) {
+					                $("#cname").focus();
+					            }
+					        } else {
+					            $("#cname").parent().next(".validation").remove(); 
+					        }
+					        if (!$('#mobile').val()) {
+					            if ($("#mobile").parent().next(".validation").length == 0) // only add if not added
+					            {
+					                $("#mobile").parent().after("<div class='validation' style='color:red;margin-bottom: 1px;'>Please enter Mobile Number</div>");
+					            }
+					            e.preventDefault(); // prevent form from POST to server
+					            if (!focusSet) {
+					                $("#mobile").focus();
+					            }
+					        } else {
+					            $("#mobile").parent().next(".validation").remove(); 
+					        }
+					        
+					        
+					        if (!$('#email').val()) {
+					            if ($("#email").parent().next(".validation").length == 0) // only add if not added
+					            {
+					                $("#email").parent().after("<div class='validation' style='color:red;margin-bottom: 1px;'>Please enter email </div>");
+					            }
+					            e.preventDefault(); // prevent form from POST to server
+					            if (!focusSet) {
+					                $("#email").focus();
+					            }
+					        } else {
+					            $("#email").parent().next(".validation").remove(); 
+					        }
+					        
+					        if (!$('#package').val()) {
+					            if ($("#package").parent().next(".validation").length == 0) // only add if not added
+					            {
+					                $("#package").parent().after("<div class='validation' style='color:red;margin-bottom: 1px;'>Please enter Mobile Number</div>");
+					            }
+					            e.preventDefault(); // prevent form from POST to server
+					            if (!focusSet) {
+					                $("#package").focus();
+					            }
+					        } else {
+					            $("#package").parent().next(".validation").remove(); 
+					        }
+					        
+					        if (!$('#id_no').val()) {
+					            if ($("#id_no").parent().next(".validation").length == 0) // only add if not added
+					            {
+					                $("#id_no").parent().after("<div class='validation' style='color:red;margin-bottom: 1px;'>Please enter Mobile Number</div>");
+					            }
+					            e.preventDefault(); // prevent form from POST to server
+					            if (!focusSet) {
+					                $("#id_no").focus();
+					            }
+					        } else {
+					            $("#id_no").parent().next(".validation").remove(); 
+					        }
+					        
+					        if (!$('#myFile').val()) {
+					            if ($("#myFile").parent().next(".validation").length == 0) // only add if not added
+					            {
+					                $("#myFile").parent().after("<div class='validation' style='color:red;margin-bottom: 1px;'>Please enter Mobile Number</div>");
+					            }
+					            e.preventDefault(); // prevent form from POST to server
+					            if (!focusSet) {
+					                $("#myFile").focus();
+					            }
+					        } else {
+					            $("#myFile").parent().next(".validation").remove(); 
+					        }
+					        
+					        if (!$('#customer_add').val()) {
+					            if ($("#customer_add").parent().next(".validation").length == 0) // only add if not added
+					            {
+					                $("#customer_add").parent().after("<div class='validation' style='color:red;margin-bottom: 1px;'>Please enter Mobile Number</div>");
+					            }
+					            e.preventDefault(); // prevent form from POST to server
+					            if (!focusSet) {
+					                $("#customer_add").focus();
+					            }
+					        } else {
+					            $("#customer_add").parent().next(".validation").remove(); 
+					        }
+					        
+					        if (!$('#alternate').val()) {
+					            if ($("#alternate").parent().next(".validation").length == 0) // only add if not added
+					            {
+					                $("#alternate").parent().after("<div class='validation' style='color:red;margin-bottom: 1px;'>Please enter Mobile Number</div>");
+					            }
+					            e.preventDefault(); // prevent form from POST to server
+					            if (!focusSet) {
+					                $("#alternate").focus();
+					            }
+					        } else {
+					            $("#alternate").parent().next(".validation").remove(); 
+					        }
+					        
+					        if (!$('#pairing_status').val()) {
+					            if ($("#pairing_status").parent().next(".validation").length == 0) // only add if not added
+					            {
+					                $("#pairing_status").parent().after("<div class='validation' style='color:red;margin-bottom: 1px;'>Please enter Mobile Number</div>");
+					            }
+					            e.preventDefault(); // prevent form from POST to server
+					            if (!focusSet) {
+					                $("#pairing_status").focus();
+					            }
+					        } else {
+					            $("#pairing_status").parent().next(".validation").remove(); 
+					        }
+					    });  
+					}   
 
+					</script>
 				<div class="container">
 					<div class="row">
-						<form:form action="addNewUser.html" method="get"
+						<form:form action="addNewUser.html?user=${user}" method="get" name="createnewuser"  onclick="submitForm();"
 							commandName="subForm" autocomplete="off">
+							<div class="col-sm-6">
+								<div style="margin-bottom: 20px">
+								
+									<form:select path="customer_vc_no" class="form-control" id="findvalue" onchange='hello()'
+										placeholder="">
+										<form:option value="NONE">Select Vc No</form:option>
+										<form:options items="${vcstock}" />
+									</form:select>
+									<script>
+									function hello(){
+										 var e = document.getElementById('findvalue');    
+										    var val = e.options[e.selectedIndex].value;
+										    $.ajax({  
+									            type : 'GET', 
+									            url: 'expdate.html',
+									            data: {
+									            	'vcno': val,
+									            	'user':  ${ user}
+									            },
+									            dataType: 'json',
+									       		cache: false,
+												beforeSend: function(xhr) 
+									            {
+							                          xhr.setRequestHeader("Accept", "application/json");  
+							                          xhr.setRequestHeader("Content-Type", "application/json");  
+							                    },
+							         			success: function (data) {
+							         			    getdata( data);
+							       	            },
+										         error: function(e){
+											     }
+											 });
+										}
+										function getdata( data){
+										var exp_date=data.exp_date;
+								     	document.getElementById("exp_date").value =exp_date;
+										}
+									  </script>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div style="margin-bottom: 20px">
+									<form:select path="customer_stb_no" class="form-control" onchange="myFunc()" id="StbNo"
+										placeholder="Package Name">
+										<form:option value="NONE">Select Stb No</form:option>
+										<form:options items="${stbno}" />
+										</form:select>
+										<script type="text/javascript">
+										 function myFunc() {
+											    var  selectedValue= $("#StbNo").val();
+											    if(selectedValue=="NONE"){
+											   		 alert(selectedValue);
+											    }
+										 }
+										</script>
+										
+										
+										
+							</div>
+							</div>
 							<div class="col-sm-6">
 								<input type="hidden" name="user" value="${user }" />
 								<div style="margin-bottom: 20px">
-									<form:input path="customer_name" tabindex="1"
+									<form:input path="customer_name" tabindex="1" id="cname" 
 										class="form-control" placeholder="Customer Name"
-										required="required" />
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustname" type="text" id="ContentPlaceHolder1_txtcustname" tabindex="1" class="form-control" placeholder="Customer Name" /> -->
-
+									pattern=".{5,}" maxlength="25" onkeypress="return onlyAlphabets(event,this)" title="Please Enter your name MINIMUM size =5" />
 								</div>
 							</div>
-
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-									<form:input path="customer_add" tabindex="1"
-										required="required" class="form-control"
-										placeholder="Customer Address" />
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustadd" type="text" id="ContentPlaceHolder1_txtcustadd" tabindex="2" class="form-control" placeholder="Customer Address" /> -->
-
-								</div>
-							</div>
-
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
 									<form:input path="customer_mobile" tabindex="1"
-										required="required" class="form-control"
-										placeholder="Customer Mobile No." />
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustmobilenumber" type="text" id="ContentPlaceHolder1_txtcustmobilenumber" tabindex="3" class="form-control" placeholder="Customer Mobile No." /> -->
+									 class="form-control" id="mobile"
+										placeholder="Customer Mobile No." 
+										onkeypress='return event.charCode >= 48 && event.charCode <= 57' pattern=".{10,}" maxlength="12" title="Please Enter your mobile number MINIMUM size =10"/>
 
 								</div>
 							</div>
-
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
 									<form:input path="customer_email" tabindex="1"
-										required="required" class="form-control"
-										placeholder="Customer Email-ID" />
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustEmailid" type="text" id="ContentPlaceHolder1_txtcustEmailid" tabindex="4" class="form-control" placeholder="Customer Email-ID" /> -->
+										 class="form-control" id="email" name="email"
+										placeholder="Customer Email-ID"  onkeyup="return emailvalidation(this.value)"  />
+										<script type="text/javascript">
+										function emailvalidation(email) {
+
+										}
+										 </script>
+
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div style="margin-bottom: 20px">
+									<form:select path="package_name" class="form-control" id="package"
+										placeholder="Package Name">
+										<form:option value="NONE">Package Type</form:option>
+										<form:options items="${pckInfo}" />
+									</form:select>
+							</div>
+							</div>
+							<div class="col-sm-6">
+								<div style="margin-bottom: 20px">
+									<form:input path="customer_id_no" tabindex="1" id="id_no"
+									 class="form-control"
+										placeholder="Customer ID Proof Number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' pattern=".{6,}" maxlength="25" title="Please Enter your ID number MINIMUM SIZE =6"/>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div style="margin-bottom: 20px">
+
+									<input type="file" name="uploadimage" id="myFile"
+											tabindex="7" multiple size="50" onchange="myFunction()"
+											class="form-control" placeholder="Upload file" />
+											
+										<p id="demo"></p>
+	    
+										<script>
+										function myFunction(){
+										    var x = document.getElementById("myFile");
+										    var formData = new FormData();
+										    formData.append('uploadimage', $('input[type=file]')[0].files[0]);
+										    var txt = "";
+										    if ('files' in x) {
+										        if (x.files.length == 0) {
+										         } else {
+										        	  for (var i = 0; i < x.files.length; i++) {
+										               var file = x.files[i];
+										              
+										                $.ajax({
+										                    url : 'imageupload.html?user=<%= request.getParameter("user") %>',
+										                    data : formData,
+										                    enctype: 'multipart/form-data',
+									
+										                    processData : false,
+										                    contentType : false,
+										                    type : 'POST',
+										                    success : function(data) {
+										                        
+										                    },
+										                    error : function(err) {
+										                   
+										                    }
+										                });
+										               
+										            }
+										        }
+										    } 
+										    else {
+										        if (x.value == "") {
+										            txt += "Select one or more files.";
+										        } else {
+										            txt += "The files property is not supported by your browser!";
+										            txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
+										        }
+										    }
+										    document.getElementById("demo").innerHTML = txt;
+										}
+										</script>
+								</div>
+							</div>
+
+							<div class="col-sm-8">
+								
+								<div style="margin-bottom: 20px">
+									<form:textarea path="customer_add" name="customer_add" rows="3"
+									cols="100" id="customer_add" class="form-control"
+									placeholder="Please Enter your Address" style="overflow:auto;resize:none;"/>
+							
+									
 
 								</div>
 							</div>
 
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<input type="number" name="username" tabindex="1"
-										class="form-control" required="required"
-										placeholder="Customer ID" />
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustid" type="text" id="ContentPlaceHolder1_txtcustid" tabindex="5" class="form-control" placeholder="Customer ID No." /> -->
-
+									<form:input path="alternate_mobile" tabindex="1"
+										 class="form-control" id="alternate"
+										placeholder="Alternate Mobile Number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' pattern=".{10,}" maxlength="12" title="Please Enter your mobile number MINIMUM SIZE =10"/>
 								</div>
 							</div>
 
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-									<form:input path="customer_stb_no" tabindex="1"
-										required="required" class="form-control"
-										placeholder="Customer STB No," />
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustsbtno" type="text" id="ContentPlaceHolder1_txtcustsbtno" tabindex="6" class="form-control" placeholder="Customer STB No," /> -->
-
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-
-									<input type="file" name="customer_photo"
-										id="ContentPlaceHolder1_fupohoto" tabindex="7"
-										title="Upload Photo" class="form-control" placeholder="Photo" />
-
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-									<form:input path="customer_id_no" tabindex="1"
-										required="required" class="form-control"
-										placeholder="Customer ID Proof Number" />
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustvcno" type="text" id="ContentPlaceHolder1_txtcustvcno" tabindex="8" class="form-control" placeholder="Customer VC No." /> -->
-
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-									<form:input path="customer_vc_no" tabindex="1"
-										required="required" class="form-control"
-										placeholder="Customer VC No." />
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustvcno" type="text" id="ContentPlaceHolder1_txtcustvcno" tabindex="8" class="form-control" placeholder="Customer VC No." /> -->
-
-								</div>
-							</div>
-
-
-
+							
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
 									<form:input path="customer_waranty_date"
-										name="ctl00$ContentPlaceHolder1$txttodate"
-										id="ContentPlaceHolder1_txttodate" tabindex="1"
+										name="customer_waranty_date"
+										id="exp_date" tabindex="1"
 										class="form-control" placeholder="VC Warranty Date" />
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustVCwarantydate" type="text" id="ContentPlaceHolder1_txtcustVCwarantydate" tabindex="10" class="form-control" placeholder="VC Warranty Date" /> -->
 
 								</div>
 							</div>
-
+							
+							
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:input path="connection_status" tabindex="1"
-										class="form-control" placeholder="Customer Status" />
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustconnection" type="text" id="ContentPlaceHolder1_txtcustconnection" tabindex="11" class="form-control" placeholder="Connection Status" /> -->
+									<form:input path="pairing_status" tabindex="1" id="pairing_status"
+										class="form-control" placeholder="Pairing Status" 
+										pattern=".{4,}" maxlength="4" onkeypress="return onlyAlphabets(event,this)" title="Please Enter your name MINIMUM SIZE =4"  />
 
 								</div>
 							</div>
-
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:select path="package_name" class="form-control"
-										placeholder="Package Name">
-										<form:option value="NONE"> --SELECT--</form:option>
-										<form:options items="${pckInfo}" />
-									</form:select>
-
-									<!--                         <select name="ctl00$ContentPlaceHolder1$ddlpackage" id="ContentPlaceHolder1_ddlpackage" class="form-control"> -->
-									<!-- 	<option value="Select">SELECT</option> -->
-									<!-- 	<option value="299/Month">299/Month</option> -->
-									<!-- 	<option value="399/Month">399/Month</option> -->
-									<!-- 	<option value="599/Month">599/Month</option> -->
-
-									<!-- </select> -->
-
+								<form:input name="fdate" path="con_expiry_date" type="text" id="fdate" tabindex="1"
+										class="form-control" placeholder="From Date" />
 								</div>
 							</div>
-
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
 									<form:input path="account_balance" tabindex="1"
-										required="required" class="form-control" placeholder="Amount" />
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustBal" type="text" id="ContentPlaceHolder1_txtcustBal" tabindex="13" class="form-control" placeholder="Amount" /> -->
+										 class="form-control" placeholder="Amount" 
+										onkeypress='return event.charCode >= 48 && event.charCode <= 57' pattern=".{3,}" maxlength="4" title="Please Enter your Amount  MINIMUM SIZE =3"/>
 
 								</div>
 							</div>
 
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-									<form:input path="pairing_status" tabindex="1"
-										class="form-control" placeholder="Pairing Status" />
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustparing" type="text" id="ContentPlaceHolder1_txtcustparing" tabindex="14" class="form-control" placeholder="Pairing Status" /> -->
-
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-									<form:input path="connection_go_live"
-										name="ctl00$ContentPlaceHolder1$txtfromdate"
-										id="ContentPlaceHolder1_txtfromdate" tabindex="2"
-										class="form-control"
-										placeholder="Expected Date Connection Go Live" />
-
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustexpectdate" type="text" id="ContentPlaceHolder1_txtcustexpectdate" tabindex="15" class="form-control" placeholder="Expected Date Connection Go Live" /> -->
-
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-									<form:input path="con_expiry_date"
-										name="ctl00$ContentPlaceHolder1$txtfromdate"
-										id="ContentPlaceHolder1_txtforExp" tabindex="2"
-										class="form-control" placeholder="Connection Expiry Date" />
-
-									<!--                         <input name="ctl00$ContentPlaceHolder1$txtcustexpectdate" type="text" id="ContentPlaceHolder1_txtcustexpectdate" tabindex="15" class="form-control" placeholder="Expected Date Connection Go Live" /> -->
-
-								</div>
-							</div>
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
 									<div class="col-sm-6">
 										<input type="submit"
-											name="ctl00$ContentPlaceHolder1$btnsubmit" value="Submit"
-											id="ContentPlaceHolder1_btnsubmit"
+											name="ctl00$ContentPlaceHolder1$btnsubmit" value="Submit" 											id="ContentPlaceHolder1_btnsubmit"
 											class="btn btn-primary btn-block" style="font-weight: bold;" />
+											<script type="text/javascript">
+											function onlyAlphabets(e, t) {
+									            try {
+									                if (window.event) {
+									                    var charCode = window.event.keyCode;
+									                }
+									                else if (e) {
+									                    var charCode = e.which;
+									                }
+									                else { return true; }
+									                if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+									                	 return true;
+									                else
+									                    return false;
+									            }
+									            catch (err) {
+									               
+									            }
+									        }
+
+											function validation(){
+											    var textbox = document.getElementById("cname");
+											    if(textbox.value.length <= 10 && textbox.value.length >= 5){
+											       return true;
+											    }
+											    else{
+											    	return false;
+											        alert("make sure the input is between 5-10 characters long")
+											    }
+											   
+											}
+// 											 onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+											</script>
 									</div>
 									<div class="col-sm-6">
 										<input type="reset" name="ctl00$ContentPlaceHolder1$btn_reset"
@@ -637,6 +845,60 @@ a.close:hover {
 				</div>
 
 			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 			<div id="old">
 
@@ -800,7 +1062,7 @@ a.close:hover {
 									System.out.println("Query Link in jsp: " + main);
 							%>
 							<tag:paginate max="15" offset="${offset}" count="${count}"
-								uri="<%= main%>" next="&raquo;" previous="&laquo;" />
+								uri="<%=main%>" next="&raquo;" previous="&laquo;" />
 						</div>
 
 					</div>

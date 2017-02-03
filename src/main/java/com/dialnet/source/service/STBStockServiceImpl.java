@@ -25,7 +25,7 @@ public class STBStockServiceImpl implements STBStockService {
 	}
 
 	@Override
-	public STBStock getByStatus(String stutus) {
+	public List<STBStock> getByStatus(String stutus) {
 		return dao.getByStatus(stutus);
 	}
 
