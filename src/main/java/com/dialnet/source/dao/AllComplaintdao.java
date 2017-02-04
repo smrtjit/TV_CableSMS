@@ -15,9 +15,9 @@ public interface AllComplaintdao {
 	public List<AllComplaints> getByAnyOne(String sdate,String edate,String VC_no,String mobile,String status); 
 	
 	
-	public List<AllComplaints> list(Integer offset, Integer maxResults);
-	public Long count();
-	public Long countForSearch(String sdate, String edate, String VC_no, String mobile, String status);
-	public List<AllComplaints> listForSearch(String sdate, String edate, String VC_no, String mobile, String status,Integer offset, Integer maxResults);
+	public List<AllComplaints> list(String user,Integer offset, Integer maxResults);
+	public Long count(String user);
+	public Long countForSearch(String user,String sdate, String edate, String VC_no, String mobile, String status);
+	public List<AllComplaints> listForSearch(String user,String sdate, String edate, String VC_no, String mobile, String status,Integer offset, Integer maxResults);
 	
 }

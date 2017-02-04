@@ -21,6 +21,10 @@ public class User {
 	
 
 
+	@Id
+	@GeneratedValue
+	private long id;
+	
 	
 	public User() {
 		super();
@@ -31,7 +35,7 @@ public class User {
 			String customer_stb_no, String customer_waranty_date, String connection_status, String package_name,
 			String pairing_status, String account_balance, String last_payment, String last_recharge_date,
 			String connection_go_live, String timestamp, String con_expiry_date, String bill_status,
-			String alternate_mobile, String package_amount, String lco_id) {
+			String alternate_mobile, String package_amount, String lco_id, String cf_number, String id_proof_type) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -58,6 +62,8 @@ public class User {
 		this.alternate_mobile = alternate_mobile;
 		this.package_amount = package_amount;
 		this.lco_id = lco_id;
+		this.cf_number = cf_number;
+		this.id_proof_type = id_proof_type;
 	}
 
 	public long getId() {
@@ -260,30 +266,41 @@ public class User {
 		this.lco_id = lco_id;
 	}
 
-	@Id
-	@GeneratedValue
-	private long id;
-	
-	
-	@NotEmpty
+	public String getCf_number() {
+		return cf_number;
+	}
+
+	public void setCf_number(String cf_number) {
+		this.cf_number = cf_number;
+	}
+
+	public String getId_proof_type() {
+		return id_proof_type;
+	}
+
+	public void setId_proof_type(String id_proof_type) {
+		this.id_proof_type = id_proof_type;
+	}
+
+
 	@Size(min=4, max=40)
 	private String username;
 	
-	@NotEmpty
+	
 	@Size(min=4, max=40)
 	private String customer_name;
 	
-	@NotEmpty
+	
 	private String customer_add;
 	
-	@NotEmpty
+
 	private String customer_mobile;
 	
-	@NotEmpty
+	
 	@Size(min=4, max=28)
 	private String password;
 	
-	@NotEmpty
+	
 	@Email
 	private String customer_email;
 	
@@ -291,19 +308,19 @@ public class User {
 	
 	private String customer_photo;
 	
-	@NotEmpty
+
 	private String customer_vc_no;
 	
-	@NotEmpty
+
 	private String customer_stb_no;
 	private String customer_waranty_date;
 	
-	@NotEmpty
+	
 	private String connection_status;
 	private String package_name;
 	private String pairing_status;
 	
-	@NotEmpty
+
 	private String account_balance;
 	private String last_payment;
 	private String last_recharge_date;
@@ -317,6 +334,10 @@ public class User {
 	private String package_amount;
 	
 	private String lco_id;
+	
+	private String cf_number;
+	
+	private String id_proof_type;
 	
 
 	

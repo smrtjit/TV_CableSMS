@@ -80,4 +80,10 @@ public class LMUserServiceImpl implements LMUserService {
 		return dao.countForSearch(empid, username, desig, mobile);
 	}
 
+	@Override
+	public List<String> getAllAgentNames(String lco) {
+		// TODO Auto-generated method stub
+		return dao.getAllAgentNames( lco);
+	}
+
 }

@@ -43,12 +43,14 @@ hr {
 table td {
 	width: 400px;
 }
+
 .nofound {
 	color: red;
 	font-size: 3ex;
 	margin-left: 350px;
 	widows: 100%;
 }
+
 .btndashborad {
 	margin: -68px 450px;
 	display: inline-block;
@@ -71,7 +73,7 @@ table td {
 }
 </style>
 </head>
-<body
+<body onload="myFunction()"
 	style="background-image: url(assets/img/back_img.jpg); no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; font-family: initial;">
 
 	<%
@@ -84,17 +86,17 @@ table td {
 
 
 	<script type="text/javascript">
-		var theForm = document.forms['form1'];
-		if (!theForm) {
-			theForm = document.form1;
-		}
-		function __doPostBack(eventTarget, eventArgument) {
-			if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
-				theForm.__EVENTTARGET.value = eventTarget;
-				theForm.__EVENTARGUMENT.value = eventArgument;
-				theForm.submit();
-			}
-		}
+	var theForm = document.forms['form1'];
+	if (!theForm) {
+	theForm = document.form1;
+	}
+	function __doPostBack(eventTarget, eventArgument) {
+	if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+	theForm.__EVENTTARGET.value = eventTarget;
+	theForm.__EVENTARGUMENT.value = eventArgument;
+	theForm.submit();
+	}
+	}
 	</script>
 
 
@@ -118,8 +120,10 @@ table td {
 		<ul>
 
 			<!--menu iteam code -->
-			<li class="pushy-link"><a href="LCOHome.html?user=<%=request.getParameter("user")%>"
-				style="background: OLDLACE; color: black"><h5><%=request.getParameter("user")%></h5> </font></a></li>
+			<li class="pushy-link"><a
+				href="LCOHome.html?user=<%=request.getParameter("user")%>"
+				style="background: OLDLACE; color: black"><h5><%=request.getParameter("user")%></h5>
+					</font></a></li>
 			<li class="pushy-link"><a
 				href="allLCOCollection.html?user=<%=request.getParameter("user")%>">Collection</a></li>
 			<li class="pushy-link"><a
@@ -129,7 +133,7 @@ table td {
 			<li class="pushy-link"><a
 				href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
 					User</a></li>
-			<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
+			<!-- 	<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
 			<li class="pushy-link"><a
 				href="lcoTopUp.html?user=<%=request.getParameter("user")%>">Top-UP</a></li>
 			<li class="pushy-link"><a
@@ -139,10 +143,10 @@ table td {
 					Management</a></li>
 			<li class="pushy-link"><a
 				href="lcostock.html?user=<%=request.getParameter("user")%>">Stock</a></li>
-			<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
-			<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
-			<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-			<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
+			<%-- 	<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
+			<!-- 	<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
+			<!-- 	<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
+			<!-- 	<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
 			<li class="pushy-link"><a
 				href="LCODetail.html?user=<%=request.getParameter("user")%>">My
 					Account</a></li>
@@ -161,16 +165,16 @@ table td {
 				New User</button>
 
 			<script type="text/javascript">
-				//<![CDATA[
-				Sys.WebForms.PageRequestManager._initialize(
-						'ctl00$ContentPlaceHolder1$ScriptManager1', 'form1', [
-								'tctl00$ContentPlaceHolder1$upd1',
-								'ContentPlaceHolder1_upd1',
-								'tctl00$ContentPlaceHolder1$msgbox',
-								'ContentPlaceHolder1_msgbox' ], [], [], 90,
-						'ctl00');
-				//]]>
-			</script>
+	//<![CDATA[
+	Sys.WebForms.PageRequestManager._initialize(
+	'ctl00$ContentPlaceHolder1$ScriptManager1', 'form1', [
+	'tctl00$ContentPlaceHolder1$upd1',
+	'ContentPlaceHolder1_upd1',
+	'tctl00$ContentPlaceHolder1$msgbox',
+	'ContentPlaceHolder1_msgbox' ], [], [], 90,
+	'ctl00');
+	//]]>
+	</script>
 
 
 			<div
@@ -178,16 +182,16 @@ table td {
 				<table id="ContentPlaceHolder1_rbselect" class="form-control"
 					style="border-style: Double; font-size: Small; width: 300px;">
 					<tr>
-						
+
 						<td><span class="radio-inline"><input
-								id="ContentPlaceHolder1_rbselect_1" type="radio" checked="checked"
-								name="ctl00$ContentPlaceHolder1$rbselect" value="1" /><label
-								for="ContentPlaceHolder1_rbselect_1">Show User</label></span></td>
+								id="ContentPlaceHolder1_rbselect_1" type="radio"
+								checked="checked" name="ctl00$ContentPlaceHolder1$rbselect"
+								value="1" /><label for="ContentPlaceHolder1_rbselect_1">Show
+									User</label></span></td>
 						<td><span class="radio-inline"><input
 								id="ContentPlaceHolder1_rbselect_0" type="radio"
-								name="ctl00$ContentPlaceHolder1$rbselect" value="0"
-								 /><label for="ContentPlaceHolder1_rbselect_0">User
-									Registration</label></span></td>
+								name="ctl00$ContentPlaceHolder1$rbselect" value="0" /><label
+								for="ContentPlaceHolder1_rbselect_0">User Registration</label></span></td>
 					</tr>
 				</table>
 			</div>
@@ -197,7 +201,7 @@ table td {
 
 
 				<div class="container">
-					<form:form action="register.html" method="get"
+					<form:form action="processRegistration.html" method="get"
 						commandName="userForm" autocomplete="off">
 
 						<input type="hidden" name="user"
@@ -269,10 +273,62 @@ table td {
 										<p class="p1">Photo</p>
 									</div>
 									<div class="col-sm-8">
-										<input type="file" name="photo"
-											id="ContentPlaceHolder1_fuUser" tabindex="10"
+										<input type="file" name="uploadimage" id="myFile"
+											tabindex="10" multiple size="50" onchange="myFunction()"
 											class="form-control" placeholder="Upload file" />
+										<p id="demo"></p>
 
+																						<script>
+													function myFunction(){
+													    var x = document.getElementById("myFile");
+													    var formData = new FormData();
+													            formData.append('uploadimage', $('input[type=file]')[0].files[0]);
+													           
+													    var txt = "";
+													    if ('files' in x) {
+													        if (x.files.length == 0) {
+													            txt = "Select one or more files.";
+													        } else {
+													        	  
+													        	
+													            for (var i = 0; i < x.files.length; i++) {
+													               var file = x.files[i];
+													               	               
+													                alert("before");
+													                
+													                $.ajax({
+													                    url : 'imageupload.html?user=<%=request.getParameter("user")%>
+																							',data : formData,
+																		enctype : 'multipart/form-data',
+
+																		processData : false,
+																		contentType : false,
+																		type : 'POST',
+																		success : function(
+																				data) {
+																			alert("tuthfjsdfhsbfsjdfjdhsbfhsfb");
+
+																		},
+																		error : function(
+																				err) {
+																			alert(err);
+																		}
+																	});
+															alert("imageupload");
+														}
+													}
+												} else {
+													if (x.value == "") {
+														txt += "Select one or more files.";
+													} else {
+														txt += "The files property is not supported by your browser!";
+														txt += "<br>The path of the selected file: "
+																+ x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
+													}
+												}
+												document.getElementById("demo").innerHTML = txt;
+											}
+										</script>
 									</div>
 								</div>
 							</div>
@@ -283,12 +339,12 @@ table td {
 										<p class="p1">Permanent Address</p>
 									</div>
 									<div class="col-sm-8">
-										<textarea path="permanent_add" 
+									<form:textarea path="permanent_add"
 											name="ctl00$ContentPlaceHolder1$txtrmark" rows="2" cols="100"
 											id="ContentPlaceHolder1_txtrmark" class="form-control"
 											placeholder="Please Enter Permanent Address"
-											style="overflow: auto; resize: none">
-								</textarea>
+											style="overflow: auto; resize: none"/>
+	
 
 									</div>
 								</div>
@@ -298,44 +354,43 @@ table td {
 										<p class="p1">Alternate Address</p>
 									</div>
 									<div class="col-sm-8">
-									<textarea path="corres_add"
+										<form:textarea path="corres_add"
 											name="ctl00$ContentPlaceHolder1$txtrmark" rows="2" cols="100"
 											id="ContentPlaceHolder1_txtrmark" class="form-control"
 											placeholder="Please Enter Correspondence Address"
-											style="overflow: auto; resize: none">
-								</textarea>
-										
+											style="overflow: auto; resize: none"/>
+
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-25">
 								<div class=" col-sm-112">
 									<div class="col-sm-113" style="margin-bottom: 18px">
-										<p style="margin-left: 29px;" class="p1" >Identity Proof</p>
+										<p style="margin-left: 29px;" class="p1">Identity Proof</p>
 									</div>
-									<div class="col-sm-3" style="width: 27%;" >
-										<form:select path="responsibility" class="form-control"
+									<div class="col-sm-3" style="width: 27%;">
+										<form:select path="identity_proof_type" class="form-control"
 											placeholder="select type">
-											<form:options items="${resp }" />
+											<form:options items="${idprof }" />
 										</form:select>
 
 									</div>
 
-								
+
 									<div class="col-sm-3" style="width: 27%;">
-										<form:input path="landline_no" class="form-control"
+										<form:input path="identity_proof" class="form-control"
 											placeholder="ID Number" />
 									</div>
 									<div class="col-sm-3" style="width: 27%;">
-										<input type="file" name="id_proof"
+										<form:input path="identity_proof_image_name" type="file" name="id_proof"
 											id="ContentPlaceHolder1_FileUpload2" tabindex="8"
 											class="form-control" placeholder="Upload file" />
 
 									</div>
 								</div>
-								
+
 							</div>
-							
+
 							<div class="col-sm-25">
 								<div class="col-sm-0"></div>
 								<div class=" col-sm-112">
@@ -343,47 +398,47 @@ table td {
 										<p style="margin-left: 29px;" class="p1">Address Proof</p>
 									</div>
 									<div class="col-sm-3" style="width: 27%;">
-										<form:select path="responsibility" class="form-control"
+										<form:select path="add_proof_type" class="form-control"
 											placeholder="select type">
-											<form:options items="${resp }" />
+											<form:options items="${addproff }" />
 										</form:select>
 
 									</div>
 
-							
 
-								
+
+
 									<div class="col-sm-3" style="width: 27%;">
-										<form:input path="landline_no" class="form-control"
+										<form:input path="add_proof" class="form-control"
 											placeholder="ID Number" />
 									</div>
 									<div class="col-sm-3" style="width: 27%;">
-										<input type="file" name="id_proof"
+										<form:input path="add_proof_image_Name" type="file" name="id_proof"
 											id="ContentPlaceHolder1_FileUpload2" tabindex="8"
 											class="form-control" placeholder="Upload file" />
 
 									</div>
 								</div>
 							</div>
-							
-							
+
+
 							<div class="col-sm-25">
 								<div class="col-sm-0"></div>
 								<div class=" col-sm-6">
 									<div class="col-sm-4" style="margin-bottom: 38px">
 										<p class="p1">Responsibility</p>
 									</div>
-									<div class="col-sm-7"  style="margin-bottom: 38px">
+									<div class="col-sm-7" style="margin-bottom: 38px">
 										<form:select path="responsibility" class="form-control"
 											placeholder="select type">
 											<form:options items="${resp }" />
 										</form:select>
-										
+
 									</div>
-									
+
 								</div>
 							</div>
-							
+
 							<div class="col-sm-10" style="margin-bottom: 30px">
 								<div>
 									<div class="col-sm-3"></div>
@@ -421,13 +476,14 @@ table td {
 
 			</div>
 
-			<div id="suser" >
-			<div id="ContentPlaceHolder1_upd1">
+			<div id="suser">
+				<div id="ContentPlaceHolder1_upd1">
 
 					<div class="row">
 						<form:form action="searchLMByLCO.html" method="get">
-							<input type="hidden" name="user" value="<%=request.getParameter("user")%>" />
-						<div class="col-sm-3" style="width: 20%">
+							<input type="hidden" name="user"
+								value="<%=request.getParameter("user")%>" />
+							<div class="col-sm-3" style="width: 20%">
 								<div style="margin-bottom: 10px">
 
 									<input name="empid" type="text"
@@ -465,194 +521,197 @@ table td {
 
 
 							<div class="col-sm-3" style="width: 20%">
-								<input type="submit" value="Search"
-										tabindex="30" class="btn-primary btn-color btn-block pull-left"/>
+								<input type="submit" value="Search" tabindex="30"
+									class="btn-primary btn-color btn-block pull-left" />
 
 							</div>
 							<div class="nofound">${error}</div>
 						</form:form>
 
 					</div>
-				<div class="col-sm-12">
-							<div style="margin-bottom: 0px">
-								<p>
-									Total Count : <span id="ContentPlaceHolder1_lblcount"
-										style="font-weight: bold;">${count}</span>
-								</p>
-							</div>
+					<div class="col-sm-12">
+						<div style="margin-bottom: 0px">
+							<p>
+								Total Count : <span id="ContentPlaceHolder1_lblcount"
+									style="font-weight: bold;">${count}</span>
+							</p>
 						</div>
-				<div class="row">
-					<div id="ContentPlaceHolder1_upd1">
+					</div>
+					<div class="row">
+						<div id="ContentPlaceHolder1_upd1">
 
 
-						<div>
-							<table
-								class="table table-striped table-bordered table-hover fontsize"
-								cellspacing="0" rules="all" border="1"
-								id="ContentPlaceHolder1_gvuser"
-								style="width: 100%; border-collapse: collapse;">
-								<tr>
-									<th scope="col">S No.</th>
-									<th scope="col">Employee ID</th>
-									<th scope="col">Username</th>
-									<th scope="col">Designation</th>
-									<th scope="col"> Name</th>
-									<th scope="col">Mobile No.</th>
-									<th scope="col">Landline No.</th>
-									<th scope="col">Email ID</th>
-									<th scope="col">Role</th>
-									<!-- 										<th scope="col">Action</th> -->
-								</tr>
-									<c:forEach items="${userList}" var="user"  varStatus="itr">
+							<div>
+								<table
+									class="table table-striped table-bordered table-hover fontsize"
+									cellspacing="0" rules="all" border="1"
+									id="ContentPlaceHolder1_gvuser"
+									style="width: 100%; border-collapse: collapse;">
 									<tr>
-										<td style="width: 5%;">${offset + itr.index +1 }</td>
-										<td>${user.id}</td>
-										<td>${user.username}</td>
-										<td>${user.designation}</td>
-										<td>${user.name}</td>
-										<td>${user.mobile}</td>
-										<td>${user.landline_no}</td>
-										<td>${user.email_id}</td>
-										<td>${user.responsibility}</td>
-										<!--    									<td><a id="ContentPlaceHolder1_gvuser_LnktDetail_0" -->
-										<!-- 											class="btn-primary btn btn-block" -->
-										<!-- 											href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvuser$ctl02$LnktDetail&#39;,&#39;&#39;)">View/Print</a> -->
-										<!-- 										</td> -->
-										
+										<th scope="col">S No.</th>
+										<th scope="col">Employee ID</th>
+										<th scope="col">Username</th>
+										<th scope="col">Designation</th>
+										<th scope="col">Name</th>
+										<th scope="col">Mobile No.</th>
+										<th scope="col">Landline No.</th>
+										<th scope="col">Email ID</th>
+										<th scope="col">Role</th>
+										<!-- 	<th scope="col">Action</th> -->
 									</tr>
-								</c:forEach>
+									<c:forEach items="${userList}" var="user" varStatus="itr">
+										<tr>
+											<td style="width: 5%;">${offset + itr.index +1 }</td>
+											<td>${user.id}</td>
+											<td>${user.username}</td>
+											<td>${user.designation}</td>
+											<td>${user.name}</td>
+											<td>${user.mobile}</td>
+											<td>${user.landline_no}</td>
+											<td>${user.email_id}</td>
+											<td>${user.responsibility}</td>
+											<!--    	<td><a id="ContentPlaceHolder1_gvuser_LnktDetail_0" -->
+											<!-- 	class="btn-primary btn btn-block" -->
+											<!-- 	href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvuser$ctl02$LnktDetail&#39;,&#39;&#39;)">View/Print</a> -->
+											<!-- 	</td> -->
+
+										</tr>
+									</c:forEach>
 
 
-							</table>
+								</table>
 								<%
-								String finalQuery = "";
-									String[] token = request.getQueryString().split("&");
-									for (int i = 0; i < token.length; i++) {
-										if (token[i].startsWith("offset")) {
-											System.out.println("offset Find");
-										} else
-											finalQuery = finalQuery + token[i] + "&";
-									}
-									String main = request.getAttribute("javax.servlet.forward.request_uri").toString() + "?"
-											+ finalQuery.substring(0, finalQuery.length() - 1);
-									System.out.println("Query Link in jsp: " + main);
-							%>
-							<tag:paginate max="15" offset="${offset}" count="${count}"
-								uri="<%= main%>" next="&raquo;" previous="&laquo;" />
+									String finalQuery = "";
+										String[] token = request.getQueryString().split("&");
+										for (int i = 0; i < token.length; i++) {
+											if (token[i].startsWith("offset")) {
+												System.out.println("offset Find");
+											} else
+												finalQuery = finalQuery + token[i] + "&";
+										}
+										String main = request.getAttribute("javax.servlet.forward.request_uri").toString() + "?"
+												+ finalQuery.substring(0, finalQuery.length() - 1);
+										System.out.println("Query Link in jsp: " + main);
+								%>
+								<tag:paginate max="15" offset="${offset}" count="${count}"
+									uri="<%= main%>" next="&raquo;" previous="&laquo;" />
+							</div>
+
 						</div>
 
 					</div>
 
 				</div>
 
-			</div>
 
+				<div class="modal fade bd-example-modal-lg" tabindex="-1"
+					id="modalDetails" role="dialog" aria-labelledby="myLargeModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<!-- Modal content-->
+						<div class="modal-content">
 
-			<div class="modal fade bd-example-modal-lg" tabindex="-1"
-				id="modalDetails" role="dialog" aria-labelledby="myLargeModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<!-- Modal content-->
-					<div class="modal-content">
+							<div class="modal-header" style="background-color: #f8c300">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Details</h4>
+							</div>
+							<div class="modal-body">
 
-						<div class="modal-header" style="background-color: #f8c300">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Details</h4>
-						</div>
-						<div class="modal-body">
+								<div id="ContentPlaceHolder1_msgbox">
 
-							<div id="ContentPlaceHolder1_msgbox">
+									<div id="ContentPlaceHolder1_pnlPrint">
 
-								<div id="ContentPlaceHolder1_pnlPrint">
+										<div id="print_ticket">
+											<div class="col-sm-2"></div>
+											<div class="col-sm-10"></div>
 
-									<div id="print_ticket">
-										<div class="col-sm-2"></div>
-										<div class="col-sm-10"></div>
+										</div>
 
 									</div>
 
+
 								</div>
-
-
 							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" id="btnprint" class="btn btn-primary"
-								onclick="return PrintPanel();">Print</button>
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Close</button>
+							<div class="modal-footer">
+								<button type="button" id="btnprint" class="btn btn-primary"
+									onclick="return PrintPanel();">Print</button>
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Close</button>
+							</div>
+
 						</div>
 
 					</div>
 
 				</div>
 
+
+
+				<script type="text/javascript">
+	$(document)
+	.ready(
+	function() {
+	debugger;
+	$('#ContentPlaceHolder1_rbselect')
+	.click(
+	function() {
+
+	var chk = $(
+	'#ContentPlaceHolder1_rbselect')
+	.find(
+	":checked")
+	.val()
+
+	if (chk == 0) {
+	$('#cuser').show();
+	$('#suser').hide();
+	}
+	if (chk == 1) {
+	$('#suser').show();
+	$('#cuser').hide();
+
+	}
+	});
+	});
+
+	function radioList() {
+	debugger;
+	var chk = $('#ContentPlaceHolder1_rbselect').find(
+	":checked").val()
+	if (chk == 0) {
+	$('#cuser').show();
+	$('#suser').hide();
+	}
+	if (chk == 1) {
+	$('#suser').show();
+	$('#cuser').hide();
+
+	}
+	}
+	</script>
+
 			</div>
 
 
+			<!-- Pushy JS -->
 
-			<script type="text/javascript">
-				$(document)
-						.ready(
-								function() {
-									debugger;
-									$('#ContentPlaceHolder1_rbselect')
-											.click(
-													function() {
-
-														var chk = $(
-																'#ContentPlaceHolder1_rbselect')
-																.find(
-																		":checked")
-																.val()
-
-														if (chk == 0) {
-															$('#cuser').show();
-															$('#suser').hide();
-														}
-														if (chk == 1) {
-															$('#suser').show();
-															$('#cuser').hide();
-
-														}
-													});
-								});
-
-				function radioList() {
-					debugger;
-					var chk = $('#ContentPlaceHolder1_rbselect').find(
-							":checked").val()
-					if (chk == 0) {
-						$('#cuser').show();
-						$('#suser').hide();
-					}
-					if (chk == 1) {
-						$('#suser').show();
-						$('#cuser').hide();
-
-					}
-				}
-			</script>
-
+			<script src="assets/js/pushy.min.js"></script>
+			<script src="assets/js/jquery-1.10.2.js"></script>
+			<script src="assets/js/bootstrap.js"></script>
+			<script src="assets/js/bootstrap.min.js"></script>
+			<link
+				href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
+				rel="stylesheet" type="text/css" />
+			<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		</div>
 
 
-		<!-- Pushy JS -->
-
-		<script src="assets/js/pushy.min.js"></script>
-		<script src="assets/js/jquery-1.10.2.js"></script>
-		<script src="assets/js/bootstrap.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<link
-			href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
-			rel="stylesheet" type="text/css" />
-		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-	</div>
-
-
-	<link href="assets/css/circle.css" rel="stylesheet" />
-	<%
-		}
+		<link href="assets/css/circle.css" rel="stylesheet" />
+		<%
+	}
 	%>
+	
 </body>
 </html>
+
+

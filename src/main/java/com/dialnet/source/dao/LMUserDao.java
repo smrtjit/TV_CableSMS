@@ -17,5 +17,5 @@ public interface LMUserDao {
 			Integer offset, Integer maxResults);
 	public Long countForSearch(String empid, String username, String desig,String mobile);
 	
-	
+	public List<String> getAllAgentNames(String lco);
 }

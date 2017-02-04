@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -157,9 +158,9 @@ public class LCOController {
 	@RequestMapping(value = "/allLCOCollection", method = RequestMethod.GET)
 	public ModelAndView allLCOCollection(ModelMap map, @RequestParam("user") String user, Integer offset,
 			Integer maxResults) {
-		List<AllCollections> userList = LCOCollectionRepository.list(offset, maxResults);
+		List<AllCollections> userList = LCOCollectionRepository.list(user,offset, maxResults);
 
-		map.addAttribute("count", LCOCollectionRepository.count());
+		map.addAttribute("count", LCOCollectionRepository.count(user));
 		map.addAttribute("offset", offset);
 		/*
 		 * for (AllCollections temp : userList) {
@@ -184,6 +185,14 @@ public class LCOController {
 		map.addAttribute("subForm", userForm);
 		List<String> al = pckgservice.getAllPckgNames();
 		map.addAttribute("pckInfo", al);
+		ArrayList<String> idprof = new ArrayList<String>();
+		idprof.add("PAN Card");
+		idprof.add("Adhaar Card");
+		idprof.add("Passport");
+		idprof.add("Driving License");
+		idprof.add("Arms Licence");
+		idprof.add("Election Commission ID Card ");
+		map.addAttribute("idprof", idprof);
 		List<User> userList = userService.list(offset, maxResults);
 		System.out.println("calling oldConnections : " + offset + "," + maxResults + "," + userList.size());
 		/*
@@ -214,6 +223,19 @@ public class LCOController {
 		map.addAttribute("stbno", stb);
 		return new ModelAndView("Connection", map);
 
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/findpriceget", method = RequestMethod.GET)
+	public String pakPriceGet(@RequestParam("user") String user, Model model, @RequestParam("package_name") String package_name) {
+	System.out.println("\n**************** Find Value **********************\t" + package_name);
+	PackageInfo pck = pckgservice.getByName(package_name);
+	System.out.println("After Found Value \t" + pck.getPrice());
+	Gson gson = new Gson();
+	String json = gson.toJson( pck.getPrice());
+	model.addAttribute("user", user);
+	return json;
+	// return new ModelAndView(json);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -255,9 +277,9 @@ public class LCOController {
 	@RequestMapping(value = "/allLCOComplain", method = RequestMethod.GET)
 	public ModelAndView allLCOComplain(ModelMap map, @RequestParam("user") String user, Integer offset,
 			Integer maxResults) {
-
-		List<AllComplaints> userList = LCOComplaintRepository.list(offset, maxResults);
-		map.addAttribute("count", LCOComplaintRepository.count());
+		
+		List<AllComplaints> userList = LCOComplaintRepository.list(user,offset, maxResults);
+		map.addAttribute("count", LCOComplaintRepository.count(user));
 		map.addAttribute("offset", offset);
 		/*
 		 * for (AllComplaints temp : userList) {
@@ -275,24 +297,40 @@ public class LCOController {
 
 	@RequestMapping(value = "/OldUserInfo", method = RequestMethod.GET)
 	public ModelAndView OldUserInfo(ModelMap map, @RequestParam("user") String user, Integer offset,
-			Integer maxResults) {
-		System.out.println("Old User Info Called");
-		LMUser userForm = new LMUser();
-		map.addAttribute("userForm", userForm);
-		ArrayList<String> departments = new ArrayList<String>();
-		departments.add("Select Repsonsibility");
-		departments.add("Collection");
-		departments.add("Local Fault Repair");
-		departments.add("Others");
+	Integer maxResults) {
+	System.out.println("Old User Info Called");
+	LMUser userForm = new LMUser();
+	map.addAttribute("userForm", userForm);
+	ArrayList<String> departments = new ArrayList<String>();
+	ArrayList<String> idprof = new ArrayList<String>();
+	idprof.add("PAN Card");
+	idprof.add("Adhaar Card");
+	idprof.add("Passport");
+	idprof.add("Driving License");
+	idprof.add("Arms Licence");
+	idprof.add("Election Commission ID Card ");
+	ArrayList<String> addproff = new ArrayList<String>();
+	addproff.add("PAN Card");
+	addproff.add("Adhaar Card");
+	addproff.add("Passport");
+	addproff.add("Driving License");
+	addproff.add("Arms Licence");
+	addproff.add("Election Commission ID Card ");
 
-		List<LMUser> userList = lmuserservice.list(offset, maxResults);
-		map.addAttribute("count", lmuserservice.count());
-		map.addAttribute("offset", offset);
+	departments.add("Select Repsonsibility");
+	departments.add("Collection");
+	departments.add("Local Fault Repair");
+	departments.add("Others");
 
-		map.addAttribute("resp", departments);
-		map.addAttribute("userList", userList);
-		map.addAttribute("id", user);
-		return new ModelAndView("NewUser", map);
+	List<LMUser> userList = lmuserservice.list(offset, maxResults);
+	map.addAttribute("count", lmuserservice.count());
+	map.addAttribute("offset", offset);
+	map.addAttribute("idprof", idprof);
+	map.addAttribute("addproff", addproff);
+	map.addAttribute("resp", departments);
+	map.addAttribute("userList", userList);
+	map.addAttribute("id", user);
+	return new ModelAndView("NewUser", map);
 	}
 
 	@RequestMapping(value = "/lcoTopUp", method = RequestMethod.GET)
@@ -325,20 +363,21 @@ public class LCOController {
 		return new ModelAndView("BulkBilling", map);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "register")
-	public ModelAndView processRegistration(@ModelAttribute("userForm") LMUser lmuser, ModelMap map,
-			@RequestParam("user") String user) {
-
-		// System.out.println("username: " + lmuser.getUsername());
+	@RequestMapping(value = "/processRegistration", method = RequestMethod.GET)
+	public ModelAndView processRegistration(ModelMap map,@RequestParam("user") String user,@ModelAttribute("userForm") LMUser lmuser) {
+//		@ModelAttribute("userForm") LMUser lmuser, ModelMap map,
+		 
 		// System.out.println("password: " + lmuser.getEmail_id());
 		// System.out.println("email: " + lmuser.getMobile());
+		String id = "150" + System.currentTimeMillis();
 		lmuser.setPassword(getSaltString());
-		lmuser.setUsername(lmuser.getMobile());
+		lmuser.setUsername(id);
 		lmuser.setTimestamp(getDate());
+		lmuser.setLco_id(user);
 		lmuserservice.add(lmuser);
-		map.addAttribute("user", user);
+        map.addAttribute("user", user);
+        System.out.println("Data Secuessfully Inserted please Check your database \t ****************");
 		return new ModelAndView("redirect:OldUserInfo.html", map);
-
 	}
 
 	@RequestMapping(value = "/searchVCbyLCO", method = RequestMethod.GET)
@@ -367,7 +406,7 @@ public class LCOController {
 			Integer maxResults) {
 		map.addAttribute("user", user);
 		System.out.println("VC no: " + VC_No);
-		List<AllCollections> tmp = LCOCollectionRepository.getByAnyOne(fdate, edate, VC_No, mobile, status, agent,
+		List<AllCollections> tmp = LCOCollectionRepository.getByAnyOne(user,fdate, edate, VC_No, mobile, status, agent,
 				offset, maxResults);
 
 		System.out.println("tmp.size()***************: " + tmp.size());
@@ -377,7 +416,7 @@ public class LCOController {
 		} else {
 			map.addAttribute("userList", tmp);
 			map.addAttribute("count",
-					LCOCollectionRepository.countForSearch(fdate, edate, VC_No, mobile, status, agent));
+					LCOCollectionRepository.countForSearch(user,fdate, edate, VC_No, mobile, status, agent));
 			map.addAttribute("offset", offset);
 		}
 
@@ -388,8 +427,6 @@ public class LCOController {
 	@RequestMapping(value = "/addNewUser", method = RequestMethod.GET)
 	public ModelAndView addNewUser(@ModelAttribute("subForm") User sub, ModelMap map, @RequestParam("user") String user,
 			@RequestParam("package_name") String package_name) {
-		
-	
 		
 		System.out.println("pck name\t" + package_name);
 		PackageInfo pck = pckgservice.getByName(package_name);
@@ -404,6 +441,7 @@ public class LCOController {
 		sub.setConnection_status("Pending");
 		//sub.setCon_expiry_date(expDate());
 		sub.setBill_status("No");
+		//System.out.println("pck.getPrice()\t"+pck.getPrice());
 		sub.setPackage_amount(pck.getPrice());
 		sub.setLco_id(user);
 		userService.add(sub);
@@ -463,6 +501,14 @@ public class LCOController {
 	@RequestMapping(value = "/lcoaccountMgmt", method = RequestMethod.GET)
 	public String accountMgmt(@RequestParam("user") String user, Model model) {
 		AgentBillDetails cust=new AgentBillDetails();
+		List pck=lmuserservice.getAllAgentNames(user);
+		List paymentType=new ArrayList();
+		paymentType.add("Cash");
+		paymentType.add("Cheque");
+		paymentType.add("Wallet");
+		paymentType.add("Others");
+		model.addAttribute("paymentType", paymentType);
+		model.addAttribute("agentName", pck);
 		model.addAttribute("bulkInfoForm", cust);
 		model.addAttribute("user", user);
 		return "LCOAccountMgmt";
@@ -557,9 +603,13 @@ public class LCOController {
 			ModelMap model) {
 		System.out.println("bulkDetails Invoice Details check data: " + invoiceid + "," + user);
 		Cust_Invoice result = invoice.getByInvoice(invoiceid);
+		AllCollections col=LCOCollectionRepository.getByInvoice(invoiceid);
+		HashMap sendData= new HashMap();
+		sendData.put("custInvoice",result);
+		sendData.put("collection",col);
 		System.out.println("Result: " + result.getInvoice_No());
 		Gson gson = new Gson();
-		String json = gson.toJson(result);
+		String json = gson.toJson(col);
 		model.addAttribute("user", user);
 		return json;
 		// return new ModelAndView(json);
@@ -767,7 +817,7 @@ public class LCOController {
 			@RequestParam("status") String status, Integer offset, Integer maxResults) {
 		map.addAttribute("user", user);
 		System.out.println("VC no: " + VC_No + "user: " + user);
-		List<AllComplaints> tmp = LCOComplaintRepository.listForSearch(fdate, edate, VC_No, mobile, status, offset,
+		List<AllComplaints> tmp = LCOComplaintRepository.listForSearch(user,fdate, edate, VC_No, mobile, status, offset,
 				maxResults);
 
 		System.out.println("tmp.size()***************: " + tmp.size());
@@ -776,7 +826,7 @@ public class LCOController {
 			System.out.println("No Data Found........................");
 		} else {
 			map.addAttribute("userList", tmp);
-			map.addAttribute("count", LCOComplaintRepository.countForSearch(fdate, edate, VC_No, mobile, status));
+			map.addAttribute("count", LCOComplaintRepository.countForSearch(user,fdate, edate, VC_No, mobile, status));
 			map.addAttribute("offset", offset);
 		}
 
@@ -841,6 +891,7 @@ public class LCOController {
 		sub.setTotalAmt(tmpdata.getTotal_Amount());
 		sub.setInstatus("Aprroved");
 		sub.setApprovedBy(user);
+		sub.setApprovalDate(getDate());
 		int i=agentbillservice.saveDetail(sub);
 		
 		User u=userService.get(tmpdata.getUser_Id());
@@ -856,7 +907,8 @@ public class LCOController {
 		col.setPayment_Mode("OffLine");
 		col.setPayment_Status("Approved");
 		col.setCollecting_Agent(sub.getAgentId());
-		
+		col.setLco_Id(user);
+		col.setPayment_Type(sub.getPayment_Type());
 		col.setApproval_ID(user);
 		col.setRefernceId(sub.getReferenceId());
 		col.setApproval_Date(getDate());
@@ -868,6 +920,47 @@ public class LCOController {
 		return new ModelAndView("redirect:lcoaccountMgmt.html", map);
 	}
 	
+	
+	@RequestMapping(value = "/addNewComplaintLCO", method = RequestMethod.GET)
+	public ModelAndView addNewComplaintLCO( ModelMap map, @RequestParam("user") String user,
+			@RequestParam("mobile") String mobile,@RequestParam("vc_no") String vc_no,
+			@RequestParam("type") String type,@RequestParam("report") String report) {
+		System.out.println("user: "+user+","+"mobile: "+mobile+","+"vc: "+vc_no+","+"type: "+type+","+"report: "+report);
+		String main=null;
+		User sub=null;
+		
+			if(mobile.equals("") || mobile==null){
+				main=vc_no;
+				sub=userService.findByVCNO(vc_no);
+			}else{
+				main=mobile;
+				sub=userService.findByMobile(mobile);
+			}
+			AllComplaints mainObj=new AllComplaints();
+			System.out.println("Sub Object: "+sub);
+			if(sub==null){
+				map.addAttribute("error", "Mobile Number or VC Number is not Valid");
+			}else{
+				mainObj.setComplaint_type(type);
+				mainObj.setComplaint_status("Open");
+				mainObj.setCustomer_vcno(sub.getCustomer_vc_no());
+				mainObj.setCustomer_name(sub.getCustomer_name());
+				mainObj.setCustomer_add(sub.getCustomer_add());
+				mainObj.setCustomer_mobile(sub.getCustomer_mobile());
+				mainObj.setCust_remark(report);
+				mainObj.setOpen_date(getDate());
+				mainObj.setClosing_remark("NA");
+				mainObj.setClosing_date("NA");
+				mainObj.setCreater_Id(user);
+				mainObj.setLco_id(user);
+				mainObj.setComplaint_no(System.currentTimeMillis());
+				LCOComplaintRepository.add(mainObj);;
+			}
+			map.addAttribute("user", user);
+			return new ModelAndView("redirect:allLCOComplain.html", map);
+		
+		
+	}
 
 	////////////////////////////////// Date and Password Generation
 	////////////////////////////////// functions///////////////////////////////////

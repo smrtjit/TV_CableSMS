@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.dialnet.source.model.LMUser;
+import com.dialnet.source.model.PackageInfo;
 
 
 
@@ -150,6 +152,20 @@ public class LMUserDaoImpl implements LMUserDao {
 		Long l= (Long)criteria
 				.setProjection(Projections.rowCount())
 				.uniqueResult();
+		sf.close();
+		return l;
+	}
+
+	@Override
+	public List<String> getAllAgentNames(String lco) {
+		Session sf = dao.openSession();
+		Criteria cr = sf.createCriteria(LMUser.class);
+		cr.add(Restrictions.eq("lco_id",lco));
+		ProjectionList proList = Projections.projectionList(); 
+		proList.add(Projections.property("name"));
+		cr.setProjection(proList); 
+
+		List l= cr.list();
 		sf.close();
 		return l;
 	}

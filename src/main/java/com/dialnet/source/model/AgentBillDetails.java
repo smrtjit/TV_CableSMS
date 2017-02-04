@@ -16,6 +16,7 @@ public class AgentBillDetails {
 	private String totalAmt;
 	private String receivedAmt;
 	private String agentId;
+	private String Payment_Type;
 	private String referenceId;
 	private String Remark;
 	private String instatus;
@@ -25,9 +26,10 @@ public class AgentBillDetails {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public AgentBillDetails(String invoice_id, String fromDate, String toDate, String custId, String totalAmt,
-			String receivedAmt, String agentId, String referenceId, String remark, String instatus, String approvedBy,
-			String approvalDate) {
+			String receivedAmt, String agentId, String payment_Type, String referenceId, String remark, String instatus,
+			String approvedBy, String approvalDate) {
 		super();
 		this.invoice_id = invoice_id;
 		this.fromDate = fromDate;
@@ -36,12 +38,22 @@ public class AgentBillDetails {
 		this.totalAmt = totalAmt;
 		this.receivedAmt = receivedAmt;
 		this.agentId = agentId;
+		Payment_Type = payment_Type;
 		this.referenceId = referenceId;
 		Remark = remark;
 		this.instatus = instatus;
 		this.approvedBy = approvedBy;
 		this.approvalDate = approvalDate;
 	}
+
+	public String getPayment_Type() {
+		return Payment_Type;
+	}
+
+	public void setPayment_Type(String payment_Type) {
+		Payment_Type = payment_Type;
+	}
+
 	public String getInvoice_id() {
 		return invoice_id;
 	}

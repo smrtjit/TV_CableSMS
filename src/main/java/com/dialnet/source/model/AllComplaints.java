@@ -16,8 +16,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class AllComplaints {
 	
 	@Id
-	@GeneratedValue
-	@Column(name = "complaint_no")
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long complaint_no;
 	@NotEmpty
 	@Size(min = 1, max = 25)
@@ -50,13 +49,25 @@ public class AllComplaints {
 	private String customer_name;
 	private String customer_add;
 	private String customer_mobile;
+	String lco_id;
 	public AllComplaints() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	
+	public String getLco_id() {
+		return lco_id;
+	}
+	public void setLco_id(String lco_id) {
+		this.lco_id = lco_id;
+	}
+
+
+
 	public AllComplaints(long complaint_no, String complaint_type, String complaint_status, String customer_vcno,
 			String cust_remark, String open_date, String closing_remark, String closing_date, String creater_Id,
-			String customer_name, String customer_add, String customer_mobile) {
+			String customer_name, String customer_add, String customer_mobile, String lco_id) {
 		super();
 		this.complaint_no = complaint_no;
 		this.complaint_type = complaint_type;
@@ -70,8 +81,11 @@ public class AllComplaints {
 		this.customer_name = customer_name;
 		this.customer_add = customer_add;
 		this.customer_mobile = customer_mobile;
+		this.lco_id = lco_id;
 	}
-	
+
+
+
 	public String getCustomer_name() {
 		return customer_name;
 	}

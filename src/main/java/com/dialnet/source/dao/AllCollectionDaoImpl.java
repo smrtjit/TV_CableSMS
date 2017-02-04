@@ -24,19 +24,22 @@ public class AllCollectionDaoImpl implements AllCollectionDao {
 	SessionFactory dao;
 
 	@Override
-	public List<AllCollections> getAll() {
+	public List<AllCollections> getAll(String user) {
 		Session sf=dao.openSession();
-		List l= sf.createCriteria(AllCollections.class).list();
+		Criteria cr=sf.createCriteria(AllCollections.class);
+		cr.add(Restrictions.eq("Lco_Id", user));
+		List l= cr.list();
 		sf.close();
 		return l;
 		
 	}
 
 	@Override
-	public List<AllCollections> getByAnyOne(String sdate, String edate, String VC_no, String mobile, String status,String agent,Integer offset, Integer maxResults) {
+	public List<AllCollections> getByAnyOne(String user,String sdate, String edate, String VC_no, String mobile, String status,String agent,Integer offset, Integer maxResults) {
 		System.out.println("sdate: "+sdate+",edate: "+edate+",VC_no: "+VC_no+",mobile: "+mobile+",pckg: "+status);
 		Session sf=dao.openSession();
 		Criteria criteria = sf.createCriteria(AllCollections.class); 
+		criteria.add(Restrictions.eq("Lco_Id", user));
 		if(sdate==null || sdate.equalsIgnoreCase("")){
 			System.out.println("sdate is not available");
 		}
@@ -80,9 +83,10 @@ public class AllCollectionDaoImpl implements AllCollectionDao {
 	
 	
 	
-	public Long countForSearch(String sdate, String edate, String VC_no, String mobile, String status,String agent) {
+	public Long countForSearch(String user,String sdate, String edate, String VC_no, String mobile, String status,String agent) {
 		Session sf=dao.openSession();
 		Criteria criteria = sf.createCriteria(AllCollections.class); 
+		criteria.add(Restrictions.eq("Lco_Id", user));
 		if(sdate==null || sdate.equalsIgnoreCase("")){
 			System.out.println("sdate is not available");
 		}
@@ -123,17 +127,21 @@ public class AllCollectionDaoImpl implements AllCollectionDao {
 	
 	////////////////////////////////////////////////////For Pagination//////////////////////////////////////////////////////
 	
-	public List<AllCollections> list(Integer offset, Integer maxResults) {
+	public List<AllCollections> list(String user,Integer offset, Integer maxResults) {
 		Session sf = dao.openSession();
-		List l= sf.createCriteria(AllCollections.class).setFirstResult(offset != null ? offset : 0)
+		Criteria cr=sf.createCriteria(AllCollections.class);
+		cr.add(Restrictions.eq("Lco_Id", user));
+		List l= cr.setFirstResult(offset != null ? offset : 0)
 				.setMaxResults(maxResults != null ? maxResults : 10).list();
 		sf.close();
 		return l;
 	}
 
-	public Long count() {
+	public Long count(String user) {
 		Session sf = dao.openSession();
-		Long l= (Long) sf.createCriteria(AllCollections.class).setProjection(Projections.rowCount()).uniqueResult();
+		Criteria cr=sf.createCriteria(AllCollections.class);
+		cr.add(Restrictions.eq("Lco_Id", user));
+		Long l= (Long) cr.setProjection(Projections.rowCount()).uniqueResult();
 		sf.close();
 		return l;
 	}
@@ -149,5 +157,27 @@ public class AllCollectionDaoImpl implements AllCollectionDao {
 				//System.out.println("Save AgentBillDetails done");
 				return 1;
 			}
+
+	@Override
+	public Object getBulkInfo(String invoice) {
+//		Session sf = dao.openSession();
+//		String qry="FROM `AllCollections` a JOIN `Customer_Invoice1` b ON b.`Invoice_No`=a.`Invoice` WHERE a.invoice=";
+//		Object data = sf.createQuery(
+//				"from Continent cont join cont.countries ctry " +
+//				"where cont.name = 'Africa'")
+//				.uniqueResult();
+//		sf.close();
+		return null;
+	}
+
+	@Override
+	public AllCollections getByInvoice(String invoice) {
+		Session sf = dao.openSession();
+		Criteria cr=sf.createCriteria(AllCollections.class);
+		cr.add(Restrictions.eq("Invoice", invoice));
+		AllCollections l= (AllCollections) cr.uniqueResult();
+		sf.close();
+		return l;
+	}
 
 }

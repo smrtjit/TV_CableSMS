@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,9 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 
 	public void add(AllComplaints complaints) {
 		Session sf = session.openSession();
+		Transaction tx= sf.beginTransaction();
 		sf.save(complaints);
+		tx.commit();
 		sf.close();
 	}
 
@@ -99,25 +102,30 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 	
 	////////////////////////////////////////////////////For Pagination//////////////////////////////////////////////////////
 	
-	public List<AllComplaints> list(Integer offset, Integer maxResults) {
+	public List<AllComplaints> list(String user,Integer offset, Integer maxResults) {
 		Session sf = session.openSession();
-		List l= sf.createCriteria(AllComplaints.class).setFirstResult(offset != null ? offset : 0)
+		Criteria cr=sf.createCriteria(AllComplaints.class);
+		cr.add(Restrictions.eq("lco_id",user));
+		List l= cr.setFirstResult(offset != null ? offset : 0)
 				.setMaxResults(maxResults != null ? maxResults : 10).list();
 		sf.close();
 		return l;
 	}
 
-	public Long count() {
+	public Long count(String user) {
 		Session sf = session.openSession();
-		Long l= (Long) sf.createCriteria(AllComplaints.class).setProjection(Projections.rowCount()).uniqueResult();
+		Criteria cr=sf.createCriteria(AllComplaints.class);
+		cr.add(Restrictions.eq("lco_id",user));
+		Long l= (Long) cr.setProjection(Projections.rowCount()).uniqueResult();
 		sf.close();
 		return l;
 	}
 	
 	
-	public List<AllComplaints> listForSearch(String sdate, String edate, String VC_no, String mobile, String status,Integer offset, Integer maxResults) {
+	public List<AllComplaints> listForSearch(String user,String sdate, String edate, String VC_no, String mobile, String status,Integer offset, Integer maxResults) {
 		Session sf=session.openSession();
-		Criteria criteria = sf.createCriteria(AllComplaints.class); 
+		Criteria criteria=sf.createCriteria(AllComplaints.class);
+		criteria.add(Restrictions.eq("lco_id",user));
 		if(sdate==null || sdate.equalsIgnoreCase("")){
 			System.out.println("sdate is not available");
 		}
@@ -152,9 +160,10 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 		return l;
 	}
 
-	public Long countForSearch(String sdate, String edate, String VC_no, String mobile, String status) {
+	public Long countForSearch(String user,String sdate, String edate, String VC_no, String mobile, String status) {
 		Session sf=session.openSession();
-		Criteria criteria = sf.createCriteria(AllComplaints.class); 
+		Criteria criteria=sf.createCriteria(AllComplaints.class);
+		criteria.add(Restrictions.eq("lco_id",user)); 
 		if(sdate==null || sdate.equalsIgnoreCase("")){
 			System.out.println("sdate is not available");
 		}

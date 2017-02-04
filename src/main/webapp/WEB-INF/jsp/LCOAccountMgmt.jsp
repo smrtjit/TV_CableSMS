@@ -384,49 +384,63 @@ table td {
 								<p class="p1">Recived Via</p>
 							</div>
 							<div class="col-sm-8">
-							<form:input path="agentId" class="form-control" placeholder="Enter The Agent Id" />
-							
+<%-- 							<form:input path="agentId" class="form-control" placeholder="Enter The Agent Id" /> --%>
+							<form:select path="agentId" class="form-control" id="package">
+										<form:option value="NONE">Select Agent</form:option>
+										<form:options items="${agentName}" />
+									</form:select>
 							</div>
 						</div>
-
+						
 						<div class=" col-sm-6">
 							<div class="col-sm-4" style="margin-bottom: 18px">
 								<p class="p1">Reference ID</p>
 							</div>
 							<div class="col-sm-8">
-							<form:input path="referenceId" class="form-control" placeholder="Enter Recived Via"  />
-							
+							<form:input path="referenceId" class="form-control" placeholder="Enter The Reference Id"  />
+						
 							</div>
 						</div>
 					</div>
+					
 					<div class="col-sm-25"  >
-
-						<div class=" col-sm-30">
-							<div class="col-sm-2" style="margin-bottom: 30px">
+							<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Payment Type</p>
+							</div>
+							<div class="col-sm-8">
+<%-- 							<form:input path="agentId" class="form-control" placeholder="Enter The Agent Id" /> --%>
+							<form:select path="Payment_Type" class="form-control" id="package">
+										<form:option value="NONE">Select Payemnt Type</form:option>
+										<form:options items="${paymentType}" />
+									</form:select>
+							</div>
+						</div>
+						
+						
+					
+					</div>
+					
+					
+					<div class="col-sm-25"  >
+					
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
 								<p class="p1">Remark</p>
 							</div>
-							<div class="col-sm-6" style="margin-bottom: 30px">
+							<div class="col-sm-8">
 							<form:textarea path="Remark" cols="100" id="ContentPlaceHolder1_txtrmark" class="form-control"
-							placeholder="Enter Remark" style="overflow:auto;resize:none" required="required" />
-							
+							placeholder="Enter Remark" style="overflow:auto;resize:none;" />
 							</div>
 						</div>
-
-
-					</div>
-
-							<div class="col-sm-12">
-						<div class="col-sm-4"></div>
-						<div class="col-sm-4" style="margin-bottom: 10px">
+						<div class=" col-sm-6"style="text-align:center;width:90%;" >
 							<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"
-								value="Submit" id="ContentPlaceHolder1_btn_sbmit"
-								class="btn btn-primary" /> <a class="btn btn-primary"
+								value="Submit" id="ContentPlaceHolder1_btn_sbmit" style="width:20%;"
+								class="btn btn-primary" /> <a class="btn btn-primary"style="width:20%;"
 								href="Custrecharge.jsp">Cancel</a>
-							<div class="col-sm-8" style="margin-bottom: 10px"></div>
 						</div>
-
 					</div>
-					</div>
+					
 					</form:form>
 				</div>
 <!-- 				<div class="col-sm-12" style="height: 1px"></div> -->

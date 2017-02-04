@@ -50,22 +50,25 @@ public class AllCollections {
 	private String trndate;
 	private String Collecting_Agent;
 	private String Approval_Date;
+	private String Payment_Type;
+	private String Lco_Id;
 	public AllCollections() {
 		// TODO Auto-generated constructor stub
 	}
 
-
+	
 
 	public AllCollections(String invoice, String vC_No, String cust_mobile, String cust_Name, String current_Pckg,
-			String Paid_Amount, String recharge_Amount, String discount, String payment_Mode, String approval_ID,
-			String payment_Status, String refernceId, String trndate, String collecting_Agent, String approval_Date) {
+			String paid_Amount, String recharge_Amount, String discount, String payment_Mode, String approval_ID,
+			String payment_Status, String refernceId, String trndate, String collecting_Agent, String approval_Date,
+			String payment_Type, String lco_Id) {
 		super();
 		Invoice = invoice;
 		VC_No = vC_No;
 		this.cust_mobile = cust_mobile;
 		Cust_Name = cust_Name;
 		Current_Pckg = current_Pckg;
-		Paid_Amount = Paid_Amount;
+		Paid_Amount = paid_Amount;
 		Recharge_Amount = recharge_Amount;
 		Discount = discount;
 		Payment_Mode = payment_Mode;
@@ -75,9 +78,31 @@ public class AllCollections {
 		this.trndate = trndate;
 		Collecting_Agent = collecting_Agent;
 		Approval_Date = approval_Date;
+		Payment_Type = payment_Type;
+		Lco_Id = lco_Id;
 	}
 
 
+
+	public String getLco_Id() {
+		return Lco_Id;
+	}
+
+
+
+	public void setLco_Id(String lco_Id) {
+		Lco_Id = lco_Id;
+	}
+
+
+
+	public String getPayment_Type() {
+		return Payment_Type;
+	}
+
+	public void setPayment_Type(String payment_Type) {
+		Payment_Type = payment_Type;
+	}
 
 	public String getInvoice() {
 		return Invoice;

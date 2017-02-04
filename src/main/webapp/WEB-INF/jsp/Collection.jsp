@@ -204,8 +204,10 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
                                 xhr.setRequestHeader("Content-Type", "application/json");  
                             },
              	success: function (data) {
-                setBulkData( data);
-                //alert(data.Total_Amount);
+                //setBulkData( data);
+                //var jdata=$.parseJSON(data);
+             		alert(Object.values(data)[0]);
+             	
  	            }
  	           
    	      });
@@ -231,12 +233,17 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 });
 
 function setBulkData( data){
-	document.getElementById("buklinid").innerHTML =data.Invoice_No;
-	document.getElementById("fdate").value =data.Billing_Date;
-	document.getElementById("amt").value =data.Total_Amount;
+	document.getElementById("buklinid").innerHTML =data.Invoice;
+	document.getElementById("fdate").value =data.Cust_Name;
+	document.getElementById("amt").value =data.Recharge_Amount;
 	document.getElementById("servicetax").value =data.Service_Tax;
 	document.getElementById("amtt").value =data.Entertain_Tax;
 	document.getElementById("ot").value =data.VAT;
+	
+	document.getElementById("ramt").value =data.Total_Amount;
+	document.getElementById("agent").value =data.Service_Tax;
+	document.getElementById("rid").value =data.Entertain_Tax;
+	document.getElementById("rmark").value =data.VAT;
 	
 	
 }
@@ -300,7 +307,6 @@ function setBulkData( data){
 
 	});
 	
-	
 	function setData( data){
 		var accNumber=data.User_Id;
 		var billNo=data.Invoice_No;
@@ -313,10 +319,10 @@ function setBulkData( data){
 		var serviceTax=data.Service_Tax;
 		var entTax=data.Entertain_Tax;
 		var PreviousBal=data.Prevoius_Bal;
-		var Disount=data.Diascount;
+		var Disount=data.Discount;
 		var lateCharge=data.LatePay_Charges;
 		var lateAmt=data.TotalAmt_AftDueDate;
-
+		var pckcost=data.Package_Cost;
 
 		document.getElementById("accno").innerHTML =accNumber;
 		document.getElementById("bill").innerHTML =billNo;
@@ -325,7 +331,7 @@ function setBulkData( data){
 		document.getElementById("pre").innerHTML =previous;
 		document.getElementById("last").innerHTML =lastPay;
 		document.getElementById("ad").innerHTML =advance;
-		document.getElementById("bill_a").innerHTML =billAmt;
+		document.getElementById("bill_a").innerHTML =pckcost;
 		document.getElementById("st").innerHTML =serviceTax;
 		document.getElementById("et").innerHTML =entTax;
 		document.getElementById("pb").innerHTML =PreviousBal;
@@ -953,7 +959,7 @@ function setBulkData( data){
 						<div class="md-form" style="width: 94%;">
 							<label for="form1" class="">Remark :</label>
 							<textarea name="ctl00$ContentPlaceHolder1$txtrmark" rows="3"
-								cols="100" id="ContentPlaceHolder1_txtrmark"
+								cols="100" id="rmark"
 								class="form-control" placeholder="Add Remark"
 								style="overflow: auto; resize: none;">					</textarea>
 							<div class="col-sm-2  pull-right">

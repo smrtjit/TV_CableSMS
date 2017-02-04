@@ -555,11 +555,13 @@ table td {
 
 
 				<div class="row">
-<!-- 				keypress event stop onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;" -->
+				<form action="addNewComplaintLCO.html"
+				onsubmit="return checkData()">
+					<input type="hidden" name="user" value="${user }" />
 					<div class="col-sm-3">
 						<div style="margin-bottom: 40px">
 							<input id="findvalue" type="text" value="" onchange=""
-								tabindex="1"
+								tabindex="1" name="vc_no"
 								class="form-control" placeholder="VC Number" />
 								<script>
 								$("#findvalue").keyup( function() {
@@ -571,7 +573,7 @@ table td {
 							            data: {
 							            	'vcno': vcno,
 							            	'user':  ${ user}
-							            },
+							             },
 							            dataType: 'json',
 							       		cache: false,
 										beforeSend: function(xhr) 
@@ -639,7 +641,7 @@ table td {
 					<div class="col-sm-3">
 						<div style="margin-bottom: 40px">
 							<input id="findbymobile" type="text" value="" onchange=""
-								tabindex="1"
+								tabindex="1" name="mobile"
 								class="form-control" placeholder="Mobile Number" />
 								<script>
 								$("#findbymobile").keyup( function() {
@@ -680,10 +682,10 @@ table td {
 
 					<div class="col-sm-3">
 						<div style="margin-bottom: 40px">
-							<select name="ctl00$ContentPlaceHolder1$ddlcomplaint"
-								id="ContentPlaceHolder1_ddlcomplaint" tabindex="11"
+							<select name="type"
+								id="type" tabindex="11"
 								class="form-control" placeholder="Responsibility">
-								<option value="Select">Complaint Type</option>
+								<option value="0">Complaint Type</option>
 								<option value="No Signal">No Signal</option>
 								<option value="Not Working">Not Working</option>
 								<option value="STB Problem">STB Problem</option>
@@ -697,23 +699,55 @@ table td {
 					</div>
 
 					<div class="col-sm-10" >
-						<textarea name="ctl00$ContentPlaceHolder1$txtrmark" rows="3"
-							cols="100" id="ContentPlaceHolder1_txtrmark" class="form-control"
-							placeholder="Add Remark" style="overflow:auto;resize:none;">
+						<textarea  rows="3" cols="100"  class="form-control" name="report"  
+						placeholder="Add Remark" style="overflow:auto;resize:none;" required>
 					</textarea>
 
 					</div><br>
 					<div class="col-sm-2" style="padding-left:20px">
 						<div style="margin-bottom: 10px">
 								<br>	<br>
-							<input type="submit" name="ctl00$ContentPlaceHolder1$btn_addUser"
-								value="Lock Complaint" id="ContentPlaceHolder1_btn_addUser"
-								tabindex="12" class="btn-primary btn btn-block" />
+							<input type="submit" value="Lock Complaint" 
+								tabindex="12" class="btn-primary btn btn-block" "/>
 
 						</div>
+					
 					</div>
+					</form>
+				
 				</div>
-
+				<script type="text/javascript">
+				function checkData() {
+					var t=document.getElementById("type").value;
+					var vc=document.getElementById("findvalue").value;
+					var mob=document.getElementById("findbymobile").value;
+					
+					if(vc==""){
+						if(mob==""){
+							alert("Please Select The Mobile Number or VC Number!!!");
+							return false;
+						}
+						else
+							
+							if(t==0){
+								alert("Please Select The Type First!!!");
+								return false;
+							}else{
+								return true;
+							}
+					}else{
+						if(t==0){
+								alert("Please Select The Type First!!!");
+								return false;
+							}else{
+								return true;
+							}
+					}
+					
+					
+					
+				}
+				</script>
 				<hr />
 
 				<div class="container">
@@ -1085,7 +1119,7 @@ table td {
 						
 							
 							document.getElementById('id1').innerHTML=id;
-							document.getElementById('vcno').value=customer_vcno;
+							document.getElementById('vcnumber').value=customer_vcno;
 							document.getElementById('customername').value=customer_name;
 							document.getElementById('mobile').value=customer_mobile;
 							document.getElementById('rem').defaultValue  =cust_remark;
@@ -1137,7 +1171,7 @@ table td {
 					<div class="form-inline marginBottom">
 						<div class="md-form">
 						<div>
-							<input type='text' id='vcno'  style="width: 30%; margin-left: 0%" class="form-control" readonly /> 
+							<input type='text' id='vcnumber'  style="width: 30%; margin-left: 0%" class="form-control" readonly /> 
 							<input type='text' id='customername'  style="width: 30%; margin-left: 4.5%"class="form-control" readonly /> 
 							<input type='text' id='mobile'  style="width: 30%; margin-left: 4.5%"class="form-control" readonly /> 
 						</div>

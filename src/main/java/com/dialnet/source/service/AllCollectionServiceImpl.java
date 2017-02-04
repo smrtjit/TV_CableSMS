@@ -16,38 +16,57 @@ public class AllCollectionServiceImpl implements AllCollectionService {
 
 	@Autowired
 	AllCollectionDao dao;
-	
-	@Override
-	public List<AllCollections> getAll() {
-		return dao.getAll();
-	}
-
-	@Override
-	public List<AllCollections> getByAnyOne(String sdate, String edate, String VC_no, String mobile, String status,String agent,Integer offset, Integer maxResults) {
-	return dao.getByAnyOne(sdate, edate, VC_no, mobile, status,agent, offset,maxResults);
-	}
-
-	@Override
-	public List<AllCollections> list(Integer offset, Integer maxResults) {
-
-		return dao.list(offset, maxResults);
-	}
-
-	@Override
-	public Long count() {
-		return dao.count();
-	}
-
-	@Override
-	public Long countForSearch(String sdate, String edate, String VC_no, String mobile, String status, String agent) {
-		
-		return dao.countForSearch(sdate, edate, VC_no, mobile, status, agent);
-	}
 
 	@Override
 	public int saveDetail(AllCollections obj) {
 		// TODO Auto-generated method stub
 		return dao.saveDetail(obj);
 	}
+
+	@Override
+	public List<AllCollections> getAll(String user) {
+		// TODO Auto-generated method stub
+		return dao.getAll(user);
+	}
+
+	@Override
+	public List<AllCollections> getByAnyOne(String user, String sdate, String edate, String VC_no, String mobile,
+			String status, String agent, Integer offset, Integer maxResults) {
+		// TODO Auto-generated method stub
+		return dao.getByAnyOne(user, sdate, edate, VC_no, mobile, status, agent, offset, maxResults);
+	}
+
+	@Override
+	public Long countForSearch(String user, String sdate, String edate, String VC_no, String mobile, String status,
+			String agent) {
+		// TODO Auto-generated method stub
+		return dao.countForSearch(user, sdate, edate, VC_no, mobile, status, agent);
+	}
+
+	@Override
+	public List<AllCollections> list(String user, Integer offset, Integer maxResults) {
+		// TODO Auto-generated method stub
+		return dao.list(user, offset, maxResults);
+	}
+
+	@Override
+	public Long count(String user) {
+		// TODO Auto-generated method stub
+		return dao.count(user);
+	}
+
+	@Override
+	public Object getBulkInfo(String invoice) {
+		// TODO Auto-generated method stub
+		return dao.getBulkInfo(invoice);
+	}
+
+	@Override
+	public AllCollections getByInvoice(String invoice) {
+		// TODO Auto-generated method stub
+		return dao.getByInvoice(invoice);
+	}
+	
+
 
 }
