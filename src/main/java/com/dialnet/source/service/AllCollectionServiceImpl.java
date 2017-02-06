@@ -66,7 +66,14 @@ public class AllCollectionServiceImpl implements AllCollectionService {
 		// TODO Auto-generated method stub
 		return dao.getByInvoice(invoice);
 	}
-	
 
+	@Override
+	public int updateCollection(String invoice, String rAmt, String lcoId, String RId, String status, String remark,
+			String appDate) {
+		// TODO Auto-generated method stub
+		return dao.updateCollection(invoice, rAmt, lcoId, RId, status, remark, appDate);
+	}
+
+	
 
 }

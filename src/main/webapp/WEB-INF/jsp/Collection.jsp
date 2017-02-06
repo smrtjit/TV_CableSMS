@@ -204,9 +204,11 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
                                 xhr.setRequestHeader("Content-Type", "application/json");  
                             },
              	success: function (data) {
-                //setBulkData( data);
-                //var jdata=$.parseJSON(data);
-             		alert(Object.values(data)[0]);
+             		var keysbyindex = Object.keys(data);
+             		//alert(data[keysbyindex[0]].cust_mobile);
+             		//alert(data[keysbyindex[1]].TotalAmt_AftDueDate);
+             	// alert(Object.values(data)[0]);
+             	setBulkData(data);
              	
  	            }
  	           
@@ -233,17 +235,20 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 });
 
 function setBulkData( data){
-	document.getElementById("buklinid").innerHTML =data.Invoice;
-	document.getElementById("fdate").value =data.Cust_Name;
-	document.getElementById("amt").value =data.Recharge_Amount;
-	document.getElementById("servicetax").value =data.Service_Tax;
-	document.getElementById("amtt").value =data.Entertain_Tax;
-	document.getElementById("ot").value =data.VAT;
+	var keysbyindex = Object.keys(data);
+		
+	document.getElementById("buklinid").innerHTML =data[keysbyindex[1]].Invoice_No;
+	document.getElementById("fdate").value =data[keysbyindex[1]].User_Name;
+	document.getElementById("amt").value =data[keysbyindex[1]].Total_Amount;
+	document.getElementById("servicetax").value =data[keysbyindex[1]].Service_Tax;
+	document.getElementById("amtt").value =data[keysbyindex[1]].Entertain_Tax;
+	document.getElementById("ot").value =data[keysbyindex[1]].Other_Tax;
 	
-	document.getElementById("ramt").value =data.Total_Amount;
-	document.getElementById("agent").value =data.Service_Tax;
-	document.getElementById("rid").value =data.Entertain_Tax;
-	document.getElementById("rmark").value =data.VAT;
+	document.getElementById("ramt").value =data[keysbyindex[0]].Paid_Amount;
+	document.getElementById("agent").value =data[keysbyindex[0]].Collecting_Agent;
+	document.getElementById("rid").value =data[keysbyindex[0]].RefernceId;
+	document.getElementById("rmark").value =data[keysbyindex[0]].Remark;
+	document.getElementById("invoice").value =data[keysbyindex[1]].Invoice_No;
 	
 	
 }
@@ -892,16 +897,17 @@ function setBulkData( data){
 		</header>
 		<div class="modal-body" style="padding-left: 20px">
 			<!--    paste here -->
-			<form>
-				<input type="hidden" name="user" value="1111">
+			<form action="ApprovedBulkLCO.html" >
+				<input type="hidden" name="user" value="${user }">
+				<input type="hidden" name="invoice"  id="invoice" >
 				<div>
 					<div class="form-inline marginBottom">
 						<div class="md-form">
-							<label for="form1" class="">From :</label> <input type="text"
-								style="width: 30%; margin-left: 10%" id="fdate" readonly=""
+							<label for="form1" class="">Customer Name:</label> <input type="text"
+								style="width: 30%; margin-left: 4%" id="fdate" readonly=""
 								class="form-control input1"> <label for="form1" class="">Amount
 								:</label> <input type="text" style="width: 30%; margin-left: 11%;"
-								id="amt" readonly="" class="form-control input1">
+								id="amt" readonly class="form-control input1">
 
 						</div>
 					</div>
@@ -925,32 +931,35 @@ function setBulkData( data){
 								readonly class="form-control input1"> <label
 								for="form1" class="">Receive Amount :</label> <input type="text"
 								style="width: 30%; margin-left: 6%;" id="ramt"
-								placeholder="Please Enter The Amount"
+								placeholder="Please Enter The Amount" name="RAmt"
 								class="form-control input1">
 
 						</div>
 					</div>
 					<br>
-					<!-- 											<div class="form-inline marginBottom"> -->
-					<!-- 												<div class="md-form"> -->
-					<!-- 													<label for="form1" class="">IS TDS Deducted :</label> <input -->
-					<!-- 														type="text" style="width: 30%; margin-left: 3%" id="form1" -->
-					<!-- 														placeholder="Complaint Type" class="form-control input1"> -->
-					<!-- 													<label for="form1" class="">Recive Amount :</label> <input -->
-					<!-- 														type="text" style="width: 30%; margin-left: 1%" id="form1" -->
-					<!-- 														placeholder="Complaint Type" class="form-control input1"> -->
-
-					<!-- 												</div> -->
-					<!-- 											</div> -->
-					<div class="form-inline marginBottom">
+		<div class="form-inline marginBottom">
 						<div class="md-form">
 							<label for="form1" class="">Received Via :</label> <input
-								type="text" placeholder="Please Enter The Agent ID" id="agent"
+								type="text" placeholder="Please Enter The Agent ID" id="agent" readonly
 								style="width: 30%; margin-left: 6%;" class="form-control input1">
 							<label for="form1" class="">Reference ID :</label> <input
 								type="text" style="width: 30%; margin-left: 8%;" id="rid"
-								placeholder="Please Enter The Reference ID"
+								placeholder="Please Enter The Reference ID" name="RId"
 								class="form-control input1">
+
+						</div>
+					</div>
+					<br>
+					<div class="form-inline marginBottom">
+						<div class="md-form">
+							<label for="form1" class="">Payment Status :</label> 
+							<select id="state" name="state" placeholder="select type" 
+							class="form-control" style="width: 48%;margin-left: 40px;">
+							<option value="0">Select Status</option>
+							<option value="Pending">Pending</option>
+							<option value="Approved">Approved</option>
+							</select>
+							
 
 						</div>
 					</div>
@@ -958,11 +967,12 @@ function setBulkData( data){
 					<div class="form-inline marginBottom">
 						<div class="md-form" style="width: 94%;">
 							<label for="form1" class="">Remark :</label>
-							<textarea name="ctl00$ContentPlaceHolder1$txtrmark" rows="3"
+							<textarea name="Remark" rows="3"
 								cols="100" id="rmark"
 								class="form-control" placeholder="Add Remark"
 								style="overflow: auto; resize: none;">					</textarea>
-							<div class="col-sm-2  pull-right">
+								<br>
+							<div class="col-sm-2  pull-right" style=" margin-top: 15px; margin-bottom: 10px;">
 								<input type="submit" name="#" value="Submit" id="" tabindex="12"
 									class="btn-danger btn btn-block">
 							</div>

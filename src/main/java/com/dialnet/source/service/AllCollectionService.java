@@ -20,4 +20,6 @@ public interface AllCollectionService {
 	public Object getBulkInfo(String invoice);
 	
 	public AllCollections getByInvoice(String invoice);
+	
+	public int updateCollection(String invoice,String rAmt,String lcoId,String RId,String status,String remark,String appDate );
 }

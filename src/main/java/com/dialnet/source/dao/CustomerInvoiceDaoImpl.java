@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -123,6 +124,23 @@ public class CustomerInvoiceDaoImpl implements CustomerInvoiceDao {
 		Long l= (Long) c.setProjection(Projections.rowCount()).uniqueResult();
 		sf.close();
 		return l;
+	}
+
+	@Override
+	public int updateInvoiceDetail(String id, String paidAmt, String agentId, String paidDate, String status) {
+		Session sf = dao.openSession();
+		String qry="update Cust_Invoice1 set Paid_Amt = :ramt,Agent_Id= :agent,date_of_paid= :Pdate,"
+				+ "bill_status= :status where Invoice_No = :id";
+		Query query = sf.createSQLQuery(qry);
+		query.setParameter("id",id);
+		query.setParameter("ramt",paidAmt);
+		query.setParameter("agent", agentId);
+		query.setParameter("Pdate", paidDate);
+		query.setParameter("status", status);
+		int result = query.executeUpdate();
+		sf.beginTransaction().commit();
+		sf.close();
+		return result;
 	}
 
 }

@@ -50,18 +50,17 @@ public class AllCollections {
 	private String trndate;
 	private String Collecting_Agent;
 	private String Approval_Date;
+	private String Remark;
 	private String Payment_Type;
 	private String Lco_Id;
 	public AllCollections() {
 		// TODO Auto-generated constructor stub
 	}
-
 	
-
 	public AllCollections(String invoice, String vC_No, String cust_mobile, String cust_Name, String current_Pckg,
 			String paid_Amount, String recharge_Amount, String discount, String payment_Mode, String approval_ID,
 			String payment_Status, String refernceId, String trndate, String collecting_Agent, String approval_Date,
-			String payment_Type, String lco_Id) {
+			String remark, String payment_Type, String lco_Id) {
 		super();
 		Invoice = invoice;
 		VC_No = vC_No;
@@ -78,11 +77,19 @@ public class AllCollections {
 		this.trndate = trndate;
 		Collecting_Agent = collecting_Agent;
 		Approval_Date = approval_Date;
+		Remark = remark;
 		Payment_Type = payment_Type;
 		Lco_Id = lco_Id;
 	}
+	
 
+	public String getRemark() {
+		return Remark;
+	}
 
+	public void setRemark(String remark) {
+		Remark = remark;
+	}
 
 	public String getLco_Id() {
 		return Lco_Id;

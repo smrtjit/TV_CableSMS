@@ -62,6 +62,12 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 		return dao.count(user);
 	}
 
+	@Override
+	public int updateInvoiceDetail(String id, String paidAmt, String agentId, String paidDate, String status) {
+		// TODO Auto-generated method stub
+		return dao.updateInvoiceDetail(id, paidAmt, agentId, paidDate, status);
+	}
+
 	
 
 }

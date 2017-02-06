@@ -18,4 +18,11 @@ public class AgentBillDetailsServiceImpl implements AgentBillDetailsService {
 		return dao.saveDetail(obj);
 	}
 
+	@Override
+	public int updateAgentBill(String id, String RAmt, String RId, String remark, String status, String ApprovedBy,
+			String ApprovedDate) {
+		// TODO Auto-generated method stub
+		return dao.updateAgentBill(id, RAmt, RId, remark, status, ApprovedBy, ApprovedDate);
+	}
+
 }

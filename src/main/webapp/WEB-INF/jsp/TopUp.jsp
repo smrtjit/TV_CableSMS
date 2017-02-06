@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+	
 	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -341,7 +346,17 @@ widows: 100%;
 						</form>
 						
 						<div class="col-sm-2">
-							<input type="submit" name="#"value="Submit" id="#"	tabindex="12" class="btn-danger btn btn-block" />
+						
+								<input type="button" value="Submit" id="myButton" tabindex="12" class="btn-danger btn btn-block" />
+						<script type="text/javascript">
+    $(document).ready(function() {
+       $("#myButton").click(function() {
+    	   alert("check");
+    	   document.getElementById("dataForm").submit();
+       });
+    });
+</script>
+							
 						</div>
 						<div class="row" >
 						<div  class="col-sm-2  pull-right">
@@ -387,31 +402,40 @@ widows: 100%;
 										</div>
 									</div>
 								</p>
-								
+								<form:form method="POST" action="uploadBulkTopup.html" modelAttribute="bulkData" id="dataForm">
+								<input type="hidden" name="user" value="${user }"/>
 								<table class="table table-striped table-bordered table-hover fontsize" cellspacing="0" rules="all" border="1" id="ContentPlaceHolder1_gvdash" style="width:100%;border-collapse:collapse;">
 									<tr>
 										<th scope="col">SN</th><th scope="col">Customer ID</th><th scope="col">Name</th><th scope="col">Address</th><th scope="col">Package Name</th><th scope="col">Mobile</th><th scope="col">Email</th><th scope="col">Amount</th>
 									</tr>
 									
 									<tr>
-									<% int i=0; %>
-									<c:forEach items="${lstUser}" var="user">   
+									<c:forEach items="${bulkData.lstUser}" var="user" varStatus="itr">   
 						   								<tr>
-						   									<td> <%= i %></td>
-						   									<td>${user.customerid}</td>
-						   									<td>${user.customername}</td> 
-						   									<td>${user.customeraddress}</td>	
-						   									<td>${user.customerpackagename}</td>	
-						   									<td>${user.customermobileno}</td>	
-						   									<td>${user.customeremailid}</td>	
-						   									<td>${user.customeramountofrecharge}</td>	
-						   								<%
-															i++;
-														%>
+						   								<td>${itr.index}</td>
+						   									<td><input name="user[${itr.index}].customerid" value="${user.customerid}"/></td>
+						   									<td><input name="user[${itr.index}].customername" value="${user.customername}"/></td>
+						   									<td><input name="user[${itr.index}].customeraddress" value="${user.customeraddress}"/></td>
+						   									<td><input name="user[${itr.index}].customerpackagename" value="${user.customerpackagename}"/></td>
+						   									<td><input name="user[${itr.index}].customermobileno" value="${user.customermobileno}"/></td>
+						   									<td><input name="user[${itr.index}].customeremailid" value="${user.customeremailid}"/></td>
+						   									<td><input name="user[${itr.index}].customeramountofrecharge" value="${user.customeramountofrecharge}"/></td>
+<%-- 						   									<td>${user.customerid}</td> --%>
+<%-- 						   									<td>${user.customername}</td>  --%>
+<%-- 						   									<td>${user.customeraddress}</td>	 --%>
+<%-- 						   									<td>${user.customerpackagename}</td>	 --%>
+<%-- 						   									<td>${user.customermobileno}</td>	 --%>
+<%-- 						   									<td>${user.customeremailid}</td>	 --%>
+<%-- 						   									<td>${user.customeramountofrecharge}</td>	 --%>
+						   								
 														</tr>
 														</c:forEach>
 									</tr>
+									
+									
 								</table>
+								<input type="submit" value="submit" onclick="hello()"/>
+									</form:form>
 								<h3><b><font color="red">${error}</font><b></b></h3>
 									
 							</div>
@@ -425,6 +449,9 @@ widows: 100%;
 				</div>
 
 				<script type="text/javascript">
+				function hello(){
+					alert("hello");
+				}
 					$(document)
 							.ready(
 									function() {

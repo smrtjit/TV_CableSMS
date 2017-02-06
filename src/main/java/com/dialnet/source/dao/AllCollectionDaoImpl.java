@@ -3,6 +3,7 @@ package com.dialnet.source.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -179,5 +180,27 @@ public class AllCollectionDaoImpl implements AllCollectionDao {
 		sf.close();
 		return l;
 	}
+
+	@Override
+	public int updateCollection(String invoice, String rAmt, String lcoId, String RId, String status, String remark,
+			String appDate) {
+		Session sf = dao.openSession();
+		String qry="update All_Collection set Paid_Amount = :ramt,Payment_Status= :status,Approval_ID= :approvalId,"
+				+ "Approval_Date= :apprvalDate,RefernceId= :Rid,Remark = :remark where Invoice = :id";
+		Query query = sf.createSQLQuery(qry);
+		query.setParameter("id",invoice);
+		query.setParameter("ramt",rAmt);
+		query.setParameter("approvalId", lcoId);
+		query.setParameter("status", status);
+		query.setParameter("Rid", RId);
+		query.setParameter("remark", remark);
+		query.setParameter("apprvalDate", appDate);
+		int result = query.executeUpdate();
+		sf.beginTransaction().commit();
+		sf.close();
+		return result;
+	}
+
+
 
 }

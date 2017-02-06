@@ -19,4 +19,6 @@ public List<Customer_Invoice1> getByStatus(String status);
 	
 	public List<Customer_Invoice1> list(String user,Integer offset, Integer maxResults);
 	public Long count(String user);
+	
+	public int updateInvoiceDetail(String id,String paidAmt,String agentId,String paidDate,String status);
 }

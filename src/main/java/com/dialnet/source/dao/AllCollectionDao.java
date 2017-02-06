@@ -20,4 +20,6 @@ public interface AllCollectionDao {
 	
 	public AllCollections getByInvoice(String invoice);
 	public Object getBulkInfo(String invoice); 
+	
+	public int updateCollection(String invoice,String rAmt,String lcoId,String RId,String status,String remark,String appDate );
 }

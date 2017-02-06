@@ -43,6 +43,7 @@ import com.dialnet.source.model.AgentBillDetails;
 import com.dialnet.source.model.AllCollections;
 import com.dialnet.source.model.AllComplaints;
 import com.dialnet.source.model.BulkRechargeAmount;
+import com.dialnet.source.model.BulkRechargeAmountList;
 import com.dialnet.source.model.Cust_Invoice;
 import com.dialnet.source.model.Customer_Invoice1;
 import com.dialnet.source.model.LCOUser;
@@ -335,6 +336,8 @@ public class LCOController {
 
 	@RequestMapping(value = "/lcoTopUp", method = RequestMethod.GET)
 	public ModelAndView topUp(ModelMap map, @RequestParam("user") String user) {
+		List<BulkRechargeAmount> lstUser = new ArrayList<BulkRechargeAmount>();
+		map.addAttribute("lstUser", lstUser);
 		map.addAttribute("user", user);
 		return new ModelAndView("TopUp", map);
 	}
@@ -602,15 +605,19 @@ public class LCOController {
 	public String bulkDetails(@RequestParam("user") String user, @RequestParam("invoice") String invoiceid,
 			ModelMap model) {
 		System.out.println("bulkDetails Invoice Details check data: " + invoiceid + "," + user);
-		Cust_Invoice result = invoice.getByInvoice(invoiceid);
+		
+		Customer_Invoice1 result = invoice1.getByInvoiceId(invoiceid);
 		AllCollections col=LCOCollectionRepository.getByInvoice(invoiceid);
-		HashMap sendData= new HashMap();
-		sendData.put("custInvoice",result);
-		sendData.put("collection",col);
+		
 		System.out.println("Result: " + result.getInvoice_No());
+		List ls= new ArrayList();
+		ls.add(col);
+		ls.add(result);
 		Gson gson = new Gson();
-		String json = gson.toJson(col);
+		String json = gson.toJson(ls);
 		model.addAttribute("user", user);
+		
+		
 		return json;
 		// return new ModelAndView(json);
 	}
@@ -676,6 +683,10 @@ public class LCOController {
 			@RequestParam("user") String id) {
 		try {
 			List<BulkRechargeAmount> lstUser = new ArrayList<BulkRechargeAmount>();
+			
+			BulkRechargeAmountList bulk= new BulkRechargeAmountList();
+			
+			
 			int i = 0;
 			System.out.println("I am here 0\t ");
 			XSSFWorkbook workbook = new XSSFWorkbook(excelfile.getInputStream());
@@ -704,6 +715,8 @@ public class LCOController {
 				user.setCustomeramountofrecharge((float) row.getCell(6).getNumericCellValue());
 				lstUser.add(user);
 			}
+			bulk.setLstUser(lstUser);
+			model.addAttribute("bulkData",bulk );
 			model.addAttribute("user", id);
 			model.addAttribute("lstUser", lstUser);
 		} catch (Exception e) {
@@ -723,6 +736,20 @@ public class LCOController {
 		model.addAttribute("user", user);
 		return json;
 		// return new ModelAndView(json);
+	}
+	
+	@RequestMapping(value = "/uploadBulkTopup", method = RequestMethod.POST)
+	public String uploadBulkTopup(@RequestParam("user") String user,@ModelAttribute("bulkData") BulkRechargeAmountList sub,
+			ModelMap model) {
+		System.out.println("uploadBulkTopup: "+user+",sub: "+sub);
+		List<BulkRechargeAmount> contacts = sub.getLstUser();
+		System.out.println("List: "+contacts);
+		System.out.println("size: "+contacts.size());
+		for(int i=0;i<contacts.size();i++){
+			System.out.println("Data ID: "+contacts.get(i).getCustomeraddress());
+		}
+		model.addAttribute("user", user);
+		return "TopUp";
 	}
 	
 	@RequestMapping(value = "/imageupload", method = RequestMethod.POST)
@@ -913,7 +940,11 @@ public class LCOController {
 		col.setRefernceId(sub.getReferenceId());
 		col.setApproval_Date(getDate());
 		col.setTrndate(getDate());
+		col.setRemark(sub.getRemark());
 		LCOCollectionRepository.saveDetail(col);
+		
+		
+		int i2=invoice1.updateInvoiceDetail(sub.getInvoice_id(), sub.getReceivedAmt(), sub.getAgentId(), getDate(), "Pending");
 		
 		//System.out.println("calling saveBulkByLCO result: "+i);
 		map.addAttribute("user", user);
@@ -961,6 +992,43 @@ public class LCOController {
 		
 		
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/updateCompLCO", method = RequestMethod.GET)
+	public String updateCompLCO(@RequestParam("user") String user, @RequestParam("id") String cId,
+			@RequestParam("remark") String cremark,@RequestParam("status") String status,ModelMap model) {
+		System.out.println("Invoice Details check data: " + cId + "," + user+","+cremark+","+status);
+		int al=LCOComplaintRepository.edit(cId, cremark, status);
+		String result=null;
+		if(al>0){
+			result="The Status is Updated Successfully";
+		}else{
+			result="There is some Error Please Try again";
+		}
+				Gson gson = new Gson();
+		String json = gson.toJson(result);
+		model.addAttribute("user", user);
+		return json;
+		// return new ModelAndView(json);
+	}
+	
+	@RequestMapping(value = "/ApprovedBulkLCO", method = RequestMethod.GET)
+	public ModelAndView ApprovedBulkLCO(@RequestParam("user") String user, @RequestParam("invoice") String id,
+			@RequestParam("RAmt") String RAmt,@RequestParam("state") String status,
+			@RequestParam("RId") String RId,@RequestParam("Remark") String Remark,ModelMap model) {
+		System.out.println("ApprovedBulkLCO1: "+user+","+RAmt+","+status+","+RId+","+Remark);
+		Customer_Invoice1 ctr= invoice1.getByInvoiceId(id);
+		AllCollections col= LCOCollectionRepository.getByInvoice(id);
+		int i=LCOCollectionRepository.updateCollection(id, RAmt, user, RId,status, Remark, getDate());
+		int i2=invoice1.updateInvoiceDetail(id, RAmt, col.getCollecting_Agent(), getDate(), status);
+		int i3=agentbillservice.updateAgentBill(id, RAmt, RId, Remark, status, user, getDate());
+		model.addAttribute("user", user);
+		 return new ModelAndView("redirect:allLCOCollection.html",model);
+	}
+	
+	
+	
 
 	////////////////////////////////// Date and Password Generation
 	////////////////////////////////// functions///////////////////////////////////

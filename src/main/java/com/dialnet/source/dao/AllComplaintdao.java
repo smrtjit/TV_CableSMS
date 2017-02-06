@@ -7,9 +7,9 @@ import com.dialnet.source.model.AllComplaints;
 public interface AllComplaintdao {
 	
 	public void add(AllComplaints complaints);
-	public void edit(AllComplaints complaints);
+	public int edit(String id,String CRemark,String status);
 	public void delete(int complaints_No);
-	public List<AllComplaints> getComplaint(String complaints_No);
+	public List<AllComplaints> getComplaintByVC(String complaints_No);
 	public List<AllComplaints> getAllComplaints();
 	
 	public List<AllComplaints> getByAnyOne(String sdate,String edate,String VC_no,String mobile,String status); 
@@ -19,5 +19,7 @@ public interface AllComplaintdao {
 	public Long count(String user);
 	public Long countForSearch(String user,String sdate, String edate, String VC_no, String mobile, String status);
 	public List<AllComplaints> listForSearch(String user,String sdate, String edate, String VC_no, String mobile, String status,Integer offset, Integer maxResults);
+	
+	public AllComplaints getComplaint(String id);
 	
 }

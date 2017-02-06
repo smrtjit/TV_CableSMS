@@ -1110,7 +1110,7 @@ table td {
 // 							document.getElementById("demo").innerHTML ="Complaint Number: "+url;
 							 
 							 var fields = url.split('#');
-							 var id = 'Complaint Id: '+ fields[0];;
+							 var id =  fields[0];;
 								
 							 var customer_vcno = fields[1];
 							 var  customer_name= fields[2];
@@ -1160,13 +1160,26 @@ table td {
 
 		<div id="popup2" class="modal-box">
 			<header> <a href="#" class="js-modal-close close">×</a>
+			<table>
+			<tr>
+			<td style="width: 27%;">
+			<h3  >
+			Complaint ID:
+			</h3>
+			</td>
+			<td>
 			<h3 id="id1" />
+			</td>
+			</tr>
+			</table>
+			
+			
 			</header>
 			<div class="modal-body">
 				<p id="remark" />
 
 				<div class="container">
-					<form id="contact" action="#">
+<%-- 					<form id="contact" action="#"> --%>
 					
 					<div class="form-inline marginBottom">
 						<div class="md-form">
@@ -1180,20 +1193,58 @@ table td {
 						</div>
 							<br>
 						<div>
-							<textarea type="text" name="message" placeholder="Message"class="form-control" style="overflow:auto;resize:none"></textarea><br> 
+							<textarea type="text" id="crem" name="message" placeholder="Message"class="form-control" style="overflow:auto;resize:none"></textarea><br> 
 						</div>
 							<br>
 						<div>
-							<select name="type"><option value="Open">Open</option>
+							<select name=selector id="type">
+							<option value="Open">Open</option>
 										<option value="Pending">Pending</option>
 										<option value="Close">Close</option>
 							</select>
 						</div>
 							<br>
-					 			 <input value="Submit!" type="submit" class="btn1">
+					 			 <input value="Submit!" type="submit" id="submit"class="btn1">
+					 			 <script>
+								$("#submit").click( function() {
+									var id = $("#id1").text();
+								    var rem = $("#crem").val();
+								    var st =  $('select[name=selector]').val();
+								    $.ajax({  
+							            type : 'GET', 
+							            url: 'updateCompLCO.html',
+							            data: {
+							            	'id': id,
+							            	'remark': rem,
+							            	'status': st,
+							            	'user':  ${ user}
+							            },
+							            dataType: 'json',
+							       		cache: false,
+										beforeSend: function(xhr) 
+							                        {
+							                            xhr.setRequestHeader("Accept", "application/json");  
+							                            xhr.setRequestHeader("Content-Type", "application/json");  
+							                        },
+							         				success: function (data) {
+							         					 alert(data);
+							         					 $(".modal-overlay").remove();
+						           						
+								            },
+								            error: function(e){
+								            	
+								            }
+							            
+							        });
+								   
+								});
+								
+											 	 
+						  </script>
 					 	</div>
+					 
 				  </div>
-				</form>
+				
 				</div>
 
 			</div>

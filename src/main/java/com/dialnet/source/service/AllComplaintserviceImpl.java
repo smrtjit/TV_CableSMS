@@ -20,8 +20,8 @@ public class AllComplaintserviceImpl implements AllComplaintService {
 	}
 
 	@Transactional
-	public void edit(AllComplaints complaints) {
-		allcomplaintdao.edit(complaints);
+	public int edit(String id,String CRemark,String status) {
+		return allcomplaintdao.edit(id,CRemark,status);
 
 	}
 
@@ -39,8 +39,8 @@ public class AllComplaintserviceImpl implements AllComplaintService {
 		return allcomplaintdao.getAllComplaints();
 	}
 
-	public List<AllComplaints> getComplaint(String complaints_No) {
-		return allcomplaintdao.getComplaint(complaints_No);
+	public List<AllComplaints> getComplaintByVC(String complaints_No) {
+		return allcomplaintdao.getComplaintByVC(complaints_No);
 	}
 
 	@Override
@@ -71,6 +71,12 @@ public class AllComplaintserviceImpl implements AllComplaintService {
 			Integer offset, Integer maxResults) {
 		// TODO Auto-generated method stub
 		return allcomplaintdao.listForSearch(user,sdate, edate, VC_no, mobile, status, offset, maxResults);
+	}
+
+	@Override
+	public AllComplaints getComplaint(String id) {
+		// TODO Auto-generated method stub
+		return allcomplaintdao.getComplaint(id);
 	}
 
 }

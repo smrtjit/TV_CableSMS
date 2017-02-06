@@ -186,7 +186,7 @@ public class UserController {
 			 return new ModelAndView("userlogin", "error", "There are some Errors");
 
 		} else {
-			List<AllComplaints> found = userComplaintService.getComplaint(vcc);
+			List<AllComplaints> found = userComplaintService.getComplaintByVC(vcc);
 //			for(AllComplaints tmp: found){
 //				System.out.println("Value1: "+tmp.getCustomer_vcno());
 //			}
@@ -222,7 +222,7 @@ public class UserController {
 		tmp.setCustomer_mobile(found.getCustomer_mobile());
 
 		userComplaintService.add(tmp);
-		List<AllComplaints> userList = userComplaintService.getComplaint(id);
+		List<AllComplaints> userList = userComplaintService.getComplaintByVC(id);
 		map.addAttribute("userList", userList);
 		map.addAttribute("id", id);
 		map.addAttribute("vc_no", vcc);

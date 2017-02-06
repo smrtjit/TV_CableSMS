@@ -1,8 +1,11 @@
 package com.dialnet.source.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -28,8 +31,17 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 		sf.close();
 	}
 
-	public void edit(AllComplaints complaints) {
-		session.getCurrentSession().update(complaints);
+	public int edit(String id,String CRemark,String status) {
+		Session sf = session.openSession();
+		Query query = sf.createSQLQuery("update all_complaints set complaint_status = :st,closing_remark= :rem,closing_date= :dt where complaint_no = :id");
+		query.setParameter("id",id);
+		query.setParameter("rem", CRemark);
+		query.setParameter("dt", getDate());
+		query.setParameter("st", status);
+		int result = query.executeUpdate();
+		sf.beginTransaction().commit();
+		sf.close();
+		return result;
 	}
 
 	public void delete(int complaints_No) {
@@ -37,7 +49,7 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 
 	}
 
-	public List<AllComplaints> getComplaint(String complaints_No) {
+	public List<AllComplaints> getComplaintByVC(String complaints_No) {
 
 		System.out.println("complaints_No\t" + complaints_No);
 		Session sf = session.openSession();
@@ -194,6 +206,34 @@ public class AllComplaintdaoImpl implements AllComplaintdao {
 		Long l= (Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
 		sf.close();
 		return l;
+	}
+	
+	
+	public String getDate() {
+		String trnstamp = null;
+		try {
+			SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date now = new Date();
+			String strDate = sdfDate.format(now);
+			// System.out.println(strDate.toString());
+			trnstamp = strDate.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return trnstamp;
+	}
+
+	@Override
+	public AllComplaints getComplaint(String id) {
+		Session sf = session.openSession();
+		Criteria c2 = sf.createCriteria(AllComplaints.class);
+		c2.add(Restrictions.eq("complaint_no", Long.parseLong(id)));
+		//AllComplaints product = (AllComplaints) sf.get(AllComplaints.class, Long.parseLong(complaints_No));
+		//System.out.println("customer_vcno: " + product);
+		AllComplaints tmp=(AllComplaints)c2.uniqueResult();
+		System.out.println("complaint_no: " + tmp);
+		sf.close();
+		return tmp;
 	}
 
 }
