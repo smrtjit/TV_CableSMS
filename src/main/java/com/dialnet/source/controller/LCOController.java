@@ -335,10 +335,21 @@ public class LCOController {
 	}
 
 	@RequestMapping(value = "/lcoTopUp", method = RequestMethod.GET)
-	public ModelAndView topUp(ModelMap map, @RequestParam("user") String user) {
+	public ModelAndView topUp(ModelMap map, @RequestParam("user") String user,Model model) {
 		List<BulkRechargeAmount> lstUser = new ArrayList<BulkRechargeAmount>();
+		AgentBillDetails cust=new AgentBillDetails();
+		List pck=lmuserservice.getAllAgentNames(user);
+		List paymentType=new ArrayList();
+		paymentType.add("Cash");
+		paymentType.add("Cheque");
+		paymentType.add("Wallet");
+		paymentType.add("Others");
+		model.addAttribute("paymentType", paymentType);
+		model.addAttribute("agentName", pck);
+		model.addAttribute("bulkInfoForm", cust);
+		model.addAttribute("user", user);
 		map.addAttribute("lstUser", lstUser);
-		map.addAttribute("user", user);
+		//map.addAttribute("user", user);
 		return new ModelAndView("TopUp", map);
 	}
 
@@ -629,7 +640,18 @@ public class LCOController {
 	public String processExcel(Model model, @RequestParam("excelfile") MultipartFile excelfile,
 			@RequestParam("user") String id) {
 		try {
-
+			AgentBillDetails cust=new AgentBillDetails();
+			List pck=lmuserservice.getAllAgentNames(id);
+			List paymentType=new ArrayList();
+			paymentType.add("Cash");
+			paymentType.add("Cheque");
+			paymentType.add("Wallet");
+			paymentType.add("Others");
+			model.addAttribute("paymentType", paymentType);
+			model.addAttribute("agentName", pck);
+			model.addAttribute("bulkInfoForm", cust);
+			
+			BulkRechargeAmountList bulk= new BulkRechargeAmountList();
 			List<BulkRechargeAmount> lstUser = new ArrayList<BulkRechargeAmount>();
 			int i = 0;
 			System.out.println("file not found name \t" + excelfile.getInputStream());
@@ -639,34 +661,40 @@ public class LCOController {
 			HSSFSheet worksheet = workbook.getSheetAt(0);
 			int noOfColumns = worksheet.getRow(0).getLastCellNum();
 			System.out.println("Column count \t" + noOfColumns);
-			if (noOfColumns == 7) {
+			if (noOfColumns == 8) {
 				while (i <= worksheet.getLastRowNum()) {
 					BulkRechargeAmount user = new BulkRechargeAmount();
 					HSSFRow row = worksheet.getRow(i++);
-					user.setCustomerid((int) row.getCell(0).getNumericCellValue());
+					user.setInvoiceid(row.getCell(0).getStringCellValue());
 					System.out.println("I am here 0\t " + row.getCell(0));
 
-					user.setCustomername(row.getCell(1).getStringCellValue());
-					System.out.println("I am here 1 \t" + row.getCell(1));
+					user.setCustomerid((int) row.getCell(1).getNumericCellValue());
+					System.out.println("I am here 0\t " + row.getCell(1));
+					
+					user.setCustomername(row.getCell(2).getStringCellValue());
+					System.out.println("I am here 1 \t" + row.getCell(2));
 
-					user.setCustomeraddress(row.getCell(2).getStringCellValue());
-					System.out.println("I am here 2\t" + row.getCell(2));
+					user.setCustomeraddress(row.getCell(3).getStringCellValue());
+					System.out.println("I am here 2\t" + row.getCell(3));
 
-					user.setCustomerpackagename(row.getCell(3).getStringCellValue());
-					System.out.println("I am here 3 \t" + row.getCell(3));
+					user.setCustomerpackagename(row.getCell(4).getStringCellValue());
+					System.out.println("I am here 3 \t" + row.getCell(4));
 
-					user.setCustomermobileno(row.getCell(4).getStringCellValue());
-					System.out.println("I am here 4\t" + row.getCell(4));
+					user.setCustomermobileno(row.getCell(5).getStringCellValue());
+					System.out.println("I am here 4\t" + row.getCell(5));
 
-					user.setCustomeremailid(row.getCell(5).getStringCellValue());
-					System.out.println("I am here 5\t" + row.getCell(5));
+					user.setCustomeremailid(row.getCell(6).getStringCellValue());
+					System.out.println("I am here 5\t" + row.getCell(6));
 
-					user.setCustomeramountofrecharge((float) row.getCell(6).getNumericCellValue());
-					System.out.println("I am here 6\t" + row.getCell(6));
+					user.setCustomeramountofrecharge((float) row.getCell(7).getNumericCellValue());
+					System.out.println("I am here 6\t" + row.getCell(7));
 					lstUser.add(user);
 				}
-				model.addAttribute("lstUser", lstUser);
+				model.addAttribute("persons", lstUser);
 				model.addAttribute("user", id);
+				bulk.setBulkInfo(lstUser);
+				System.out.println("List Size: "+bulk.getBulkInfo().size());
+				model.addAttribute("bulkData",bulk );
 			} else {
 				model.addAttribute("error", "File is Not Valid");
 				model.addAttribute("user", id);
@@ -678,53 +706,7 @@ public class LCOController {
 		return "TopUp";
 	}
 
-	@RequestMapping(value = "/gf", method = RequestMethod.POST)
-	public String processExcel2003(Model model, @RequestParam("excelfile") MultipartFile excelfile,
-			@RequestParam("user") String id) {
-		try {
-			List<BulkRechargeAmount> lstUser = new ArrayList<BulkRechargeAmount>();
-			
-			BulkRechargeAmountList bulk= new BulkRechargeAmountList();
-			
-			
-			int i = 0;
-			System.out.println("I am here 0\t ");
-			XSSFWorkbook workbook = new XSSFWorkbook(excelfile.getInputStream());
-			XSSFSheet worksheet = workbook.getSheetAt(0);
-			while (i <= worksheet.getLastRowNum()) {
-				BulkRechargeAmount user = new BulkRechargeAmount();
-				XSSFRow row = worksheet.getRow(i++);
-				user.setCustomerid((int) row.getCell(0).getNumericCellValue());
-				System.out.println("I am here 0\t " + row.getCell(0));
 
-				user.setCustomername(row.getCell(1).getStringCellValue());
-				System.out.println("I am here 1 \t" + row.getCell(1));
-
-				user.setCustomeraddress(row.getCell(2).getStringCellValue());
-				System.out.println("I am here 2\t" + row.getCell(2));
-
-				user.setCustomerpackagename(row.getCell(3).getStringCellValue());
-				System.out.println("I am here 3 \t" + row.getCell(3));
-
-				user.setCustomermobileno(row.getCell(4).getStringCellValue());
-				System.out.println("I am here 4\t" + row.getCell(4));
-
-				user.setCustomeremailid(row.getCell(5).getStringCellValue());
-				System.out.println("I am here 5\t" + row.getCell(5));
-
-				user.setCustomeramountofrecharge((float) row.getCell(6).getNumericCellValue());
-				lstUser.add(user);
-			}
-			bulk.setLstUser(lstUser);
-			model.addAttribute("bulkData",bulk );
-			model.addAttribute("user", id);
-			model.addAttribute("lstUser", lstUser);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "TopUp";
-	}
-	
 	@ResponseBody
 	@RequestMapping(value = "/expdate", method = RequestMethod.GET)
 	public String findexpdate(@RequestParam("user") String user, Model model, @RequestParam("vcno") String vcno) {
@@ -739,17 +721,62 @@ public class LCOController {
 	}
 	
 	@RequestMapping(value = "/uploadBulkTopup", method = RequestMethod.POST)
-	public String uploadBulkTopup(@RequestParam("user") String user,@ModelAttribute("bulkData") BulkRechargeAmountList sub,
+	public String uploadBulkTopup(@RequestParam("user") String user,@ModelAttribute("bulkData") BulkRechargeAmountList bulk,
 			ModelMap model) {
-		System.out.println("uploadBulkTopup: "+user+",sub: "+sub);
-		List<BulkRechargeAmount> contacts = sub.getLstUser();
-		System.out.println("List: "+contacts);
-		System.out.println("size: "+contacts.size());
-		for(int i=0;i<contacts.size();i++){
-			System.out.println("Data ID: "+contacts.get(i).getCustomeraddress());
+		System.out.println("uploadBulkTopup: "+user+",sub: "+bulk);
+		List<BulkRechargeAmount> contacts =bulk.getBulkInfo();
+		System.out.println("Object List: "+contacts);
+		if(null != contacts && contacts.size() > 0) {
+			for (BulkRechargeAmount contact : contacts) {
+				int i2=invoice1.updateInvoiceDetail(contact.getInvoiceid()+"", contact.getCustomeramountofrecharge()+"", user, getDate(), "Approved");
+				
+				Customer_Invoice1 tmpdata=invoice1.getByInvoiceId(contact.getInvoiceid()+"");
+				
+				AgentBillDetails sub= new AgentBillDetails();
+				sub.setInvoice_id(contact.getInvoiceid()+"");
+				sub.setReceivedAmt( contact.getCustomeramountofrecharge()+"");
+				sub.setAgentId(user);
+				sub.setReferenceId("NA");
+				sub.setRemark("NA");
+				sub.setPayment_Type("NA");
+				sub.setFromDate(tmpdata.getDueDate());
+				sub.setToDate(tmpdata.getBilling_Date());
+				sub.setCustId(tmpdata.getUser_Id());
+				sub.setTotalAmt(tmpdata.getTotal_Amount());
+				sub.setInstatus("Aprroved");
+				sub.setApprovedBy(user);
+				sub.setApprovalDate(getDate());
+				int i=agentbillservice.saveDetail(sub);
+				
+				User u=userService.get(tmpdata.getUser_Id());
+				AllCollections col= new AllCollections();
+				col.setInvoice(contact.getInvoiceid()+"");
+				col.setVC_No(tmpdata.getVc_No());
+				col.setCust_mobile(u.getCustomer_mobile());
+				col.setCust_Name(tmpdata.getUser_Name());
+				col.setCurrent_Pckg(tmpdata.getPackage_Name());
+				col.setRecharge_Amount(tmpdata.getTotal_Amount());
+				col.setPaid_Amount(contact.getCustomeramountofrecharge()+"");
+				col.setDiscount(tmpdata.getDiscount());
+				col.setPayment_Mode("OffLine");
+				col.setPayment_Status("Approved");
+				col.setCollecting_Agent(user);
+				col.setLco_Id(user);
+				col.setPayment_Type("OffLine");
+				col.setApproval_ID(user);
+				col.setRefernceId("NA");
+				col.setApproval_Date(getDate());
+				col.setTrndate(getDate());
+				col.setRemark("NA");
+				LCOCollectionRepository.saveDetail(col);
+				
+				System.out.printf("Data in Loop%s \t ", contact.getCustomeremailid());
+			}
+		}else{
+			System.out.println("Data is NULL");
 		}
 		model.addAttribute("user", user);
-		return "TopUp";
+		return "redirect:lcoTopUp.html";
 	}
 	
 	@RequestMapping(value = "/imageupload", method = RequestMethod.POST)

@@ -22,6 +22,15 @@
 <!-- Pushy CSS -->
 <link rel="stylesheet" href="assets/css/pushy.css" />
 
+		<script src="/js/pushy.min.js"></script>
+		<script src="/js/jquery-1.10.2.js"></script>
+		<script src="/js/bootstrap.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+			<link href="assets/css/circle.css" rel="stylesheet" />
+		<link
+			href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
+			rel="stylesheet" type="text/css" />
+		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- jQuery -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -321,9 +330,7 @@ table td {
 		<!-- Pushy Menu -->
 		<nav class="pushy pushy-left">
 		<ul>
-			<!--menu iteam code -->
-			<li class="pushy-link"><a href="#"
-				style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
+			<li class="pushy-link"><a href="LCOHome.html?user=${user}" style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 			<li class="pushy-link"><a
 				href="allLCOCollection.html?user=${user}">Collection</a></li>
 			<li class="pushy-link"><a
@@ -333,16 +340,9 @@ table td {
 			<li class="pushy-link"><a
 				href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
 					User</a></li>
-			<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
 			<li class="pushy-link"><a href="lcoTopUp.html?user=${user}">Top-UP</a></li>
 			<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
-			<li class="pushy-link"><a
-				href="lcoaccountMgmt.html?user=${user}">Account Management</a></li>
-
-			<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
 			<li class="pushy-link"><a href="lcostock.html?user=${user}">Stock</a></li>
-			<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-			<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
 			<li class="pushy-link"><a href="LCODetail.html?user=${user}">My
 					Account</a></li>
 			<li class="pushy-link"><a href="logout.html">Log Out</a></li>
@@ -1012,18 +1012,10 @@ table td {
 
 		<!-- Pushy JS -->
 
-		<script src="/js/pushy.min.js"></script>
-		<script src="/js/jquery-1.10.2.js"></script>
-		<script src="/js/bootstrap.js"></script>
-		<script src="/js/bootstrap.min.js"></script>
-		<link
-			href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
-			rel="stylesheet" type="text/css" />
-		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	</div>
 	</form>
 
-	<link href="assets/css/circle.css" rel="stylesheet" />
+
 	<%
 		}
 	%>

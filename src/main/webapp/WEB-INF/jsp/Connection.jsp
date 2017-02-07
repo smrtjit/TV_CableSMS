@@ -342,34 +342,20 @@ a.close:hover {
 		<!-- Pushy Menu -->
 		<nav class="pushy pushy-left">
 		<ul>
-			<!--menu iteam code -->
-			<li class="pushy-link"><a href="LCOHome.html?user=${user}"
-				style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
+				<li class="pushy-link"><a href="LCOHome.html?user=${user}" style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 			<li class="pushy-link"><a
 				href="allLCOCollection.html?user=${user}">Collection</a></li>
 			<li class="pushy-link"><a
 				href="allLCOComplain.html?user=${user} ">Complaint</a></li>
 			<li class="pushy-link"><a
-				href="oldConnections.html?user=<%=request.getParameter("user")%>">Connection</a></li>
+				href="oldConnections.html?user=${user}">Connection</a></li>
 			<li class="pushy-link"><a
 				href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
 					User</a></li>
-			<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-			<li class="pushy-link"><a
-				href="lcoTopUp.html?user=<%=request.getParameter("user")%>">Top-UP</a></li>
-			<li class="pushy-link"><a
-				href="lcoBilling.html?user=<%=request.getParameter("user")%>">Bulk-Billing</a></li>
-			<li class="pushy-link"><a
-				href="lcoaccountMgmt.html?user=<%=request.getParameter("user")%>">Account
-					Management</a></li>
-			<li class="pushy-link"><a
-				href="lcostock.html?user=<%=request.getParameter("user")%>">Stock</a></li>
-			<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
-			<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
-			<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-			<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-			<li class="pushy-link"><a
-				href="LCODetail.html?user=<%=request.getParameter("user")%>">My
+			<li class="pushy-link"><a href="lcoTopUp.html?user=${user}">Top-UP</a></li>
+			<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
+			<li class="pushy-link"><a href="lcostock.html?user=${user}">Stock</a></li>
+			<li class="pushy-link"><a href="LCODetail.html?user=${user}">My
 					Account</a></li>
 			<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 		</ul>
@@ -421,23 +407,23 @@ a.close:hover {
 					
 				<div class="container">
 					<div class="row">
-						<form:form action="addNewUser.html?user=${user}" method="get" name="createnewuser"  
+						<form:form action="addNewUser.html?user=${user}" method="get" name="createnewuser"  id="myform"
 							commandName="subForm" autocomplete="off">
 							<div class="col-sm-6">
 							<div style="margin-bottom: 20px">
 						  <form:input path="cf_number" tabindex="1"
-							 class="form-control" id="mobile"
-							placeholder="Cf Number" 
-								onkeypress='return event.charCode >= 48 && event.charCode <= 57' pattern=".{10,}" maxlength="12" title="Please Enter your mobile number MINIMUM size =10"/>
+							 class="form-control" id="cf"
+							placeholder="Cf Number"  required="required" title="MINIMUM SIZE =3"
+								 pattern=".{3,}" maxlength="12" />
 										
 										</div>
 									</div>				
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
 								
-									<form:select path="customer_vc_no" class="form-control" id="findvalue" onchange='helloo()'
-										placeholder="">
-										<form:option value="NONE">Select Vc No</form:option>
+									<form:select required="true" path="customer_vc_no" class="form-control" id="findvalue" onchange='helloo()'
+										placeholder=""  >
+										<form:option value="">Select Vc No</form:option>
 										<form:options items="${vcstock}" />
 									</form:select>
 									<script>
@@ -475,9 +461,9 @@ a.close:hover {
 							</div>
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:select path="customer_stb_no" class="form-control" onchange="myFunc()" id="StbNo"
+									<form:select  required="true"  path="customer_stb_no" class="form-control" onchange="myFunc()" id="StbNo" 
 										placeholder="Package Name">
-										<form:option value="NONE">Select Stb No</form:option>
+										<form:option value="">Select Stb No</form:option>
 										<form:options items="${stbno}" />
 										</form:select>
 										<script type="text/javascript">
@@ -493,29 +479,25 @@ a.close:hover {
 							<div class="col-sm-6">
 								<input type="hidden" name="user" value="${user }" />
 								<div style="margin-bottom: 20px">
-									<form:input path="customer_name" tabindex="1" id="cname" 
+									<form:input path="customer_name" tabindex="1" id="cname"   required="required" title="MINIMUM SIZE =5"
 										class="form-control" placeholder="Customer Name"
-									pattern=".{5,}" maxlength="25" onkeypress="return onlyAlphabets(event,this)" title="Please Enter your name MINIMUM size =5" />
+									pattern=".{5,}" maxlength="25" onkeypress="return onlyAlphabets(event,this)"  />
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:input path="customer_mobile" tabindex="1"
-										placeholder="Customer Mobile No." 
-										onkeypress='return event.charCode >= 48 && event.charCode <= 57' pattern=".{10,}" maxlength="12" title="Please Enter your mobile number MINIMUM size =10"/>
+									<form:input path="customer_mobile" tabindex="1" id="cmobile"  =10"
+										placeholder="Customer Mobile No."  class="form-control" 
+									required="required" title="MINIMUM SIZE	onkeypress='return event.charCode >= 48 && event.charCode <= 57' pattern=".{10,}" maxlength="12" />
 
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:input path="customer_email" tabindex="1"
-										 class="form-control" id="email" name="email"
-										placeholder="Customer Email-ID"  onkeyup="return emailvalidation(this.value)"  />
-										<script type="text/javascript">
-										function emailvalidation(email) {
-
-										}
-										 </script>
+									<form:input path="customer_email" tabindex="1" required="true" 
+										 class="form-control" id="email" name="email"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+										placeholder="Customer Email-ID"  />
+										
 
 								</div>
 							</div>
@@ -523,25 +505,25 @@ a.close:hover {
 						
 							<div class="col-sm-4">
 								<div style="margin-bottom: 20px">
-									<form:select path="id_proof_type" class="form-control" id="package"
-										placeholder="ID Type Name">
-										<form:option value="NONE">Select ID Type</form:option>
+									<form:select required="true"  path="id_proof_type" class="form-control" id="id_type"
+										placeholder="ID Type Name" >
+										<form:option value="">Select ID Type</form:option>
 										<form:options items="${idprof}" />
 									</form:select>
 								</div>
 							</div>
 							<div class="col-sm-4">
 								<div style="margin-bottom: 20px">
-									<form:input path="customer_id_no" tabindex="1" id="id_no"
+									<form:input path="customer_id_no" tabindex="1" id="id_no"  required="required" title="MINIMUM SIZE =6"
 									 class="form-control"
-										placeholder="Customer ID Proof Number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' pattern=".{6,}" maxlength="25" title="Please Enter your ID number MINIMUM SIZE =6"/>
+										placeholder="Customer ID Proof Number"  pattern=".{6,}" maxlength="25" />
 								</div>
 							</div>
 							
 							<div class="col-sm-4">
 								<div style="margin-bottom: 20px">
 
-									<input type="file" name="uploadimage" id="myFile"
+									<input type="file" name="uploadimage" id="myFile"  required="required" title="MINIMUM SIZE =10"
 											tabindex="7" multiple size="50" onchange="myFunction()"
 											class="form-control" placeholder="Upload file" />
 											
@@ -593,9 +575,9 @@ a.close:hover {
 							</div>
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:select path="package_name" class="form-control" id="findvalue1" onchange='hello()'
-										placeholder="">
-										<form:option value="NONE">Package Type</form:option>
+									<form:select  required="true"  path="package_name" class="form-control" id="findvalue1" onchange='hello()'
+										placeholder=""  >
+										<form:option value="">Package Type</form:option>
 										<form:options items="${pckInfo}" />
 									</form:select>
 									
@@ -636,8 +618,8 @@ a.close:hover {
 							
 							<div class="col-sm-6">
 								<div style="margin-bottom: 20px">
-									<form:input path="package_amount" tabindex="1"
-									 class="form-control" id="amount"
+									<form:input path="package_amount" tabindex="1"  required="required" title="MINIMUM SIZE =3"  pattern=".{3,}"
+									 class="form-control" id="amount" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
 										placeholder="Package Price" />
 										
 								</div>
@@ -647,7 +629,7 @@ a.close:hover {
 								
 								<div style="margin-bottom: 20px">
 								
-									<form:textarea path="customer_add" name="customer_add" rows="3"
+									<form:textarea path="customer_add" name="customer_add" rows="3"  pattern=".{16,}" required="required" title="MINIMUM SIZE =3"
 									cols="100" id="customer_add" class="form-control" value=""
 									placeholder="Please Enter your Address" style="overflow:auto;resize:none;"/>
 							
@@ -664,6 +646,11 @@ a.close:hover {
 											name="ctl00$ContentPlaceHolder1$btnsubmit" value="Submit" 											id="ContentPlaceHolder1_btnsubmit"
 											class="btn btn-primary btn-block" style="font-weight: bold;" />
 											<script type="text/javascript">
+											function validateEmail(email) { 
+												var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+												 alert('you did not fill out one of the fields');
+												return re.test(email); 
+											}
 											function onlyAlphabets(e, t) {
 									            try {
 									                if (window.event) {

@@ -8,7 +8,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
-
+	<link href="assets/css/circle.css" rel="stylesheet" />
+	
+	<script src="assets/js/bootstrap.min.js"></script>
+	<link
+		href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
+		rel="stylesheet" type="text/css" />
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="description"
@@ -406,36 +412,22 @@ function setBulkData( data){
 		<!-- Pushy Menu -->
 		<nav class="pushy pushy-left">
 			<ul>
-				<!--menu iteam code -->
-				<li class="pushy-link"><a href="LCOHome.html?user=${user}"
-					style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
-				<li class="pushy-link"><a
-					href="allLCOCollection.html?user=${user}">Collection</a></li>
-				<li class="pushy-link"><a
-					href="allLCOComplain.html?user=${user} ">Complaint</a></li>
-				<li class="pushy-link"><a
-					href="oldConnections.html?user=<%=request.getParameter("user")%>">Connection</a></li>
-				<li class="pushy-link"><a
-					href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
-						User</a></li>
-				<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-				<li class="pushy-link"><a
-					href="lcoTopUp.html?user=<%=request.getParameter("user")%>">Top-UP</a></li>
-				<li class="pushy-link"><a
-					href="lcoBilling.html?user=<%=request.getParameter("user")%>">Bulk-Billing</a></li>
-				<li class="pushy-link"><a
-					href="lcoaccountMgmt.html?user=<%=request.getParameter("user")%>">Account
-						Management</a></li>
-				<li class="pushy-link"><a
-					href="lcostock.html?user=<%=request.getParameter("user")%>">Stock</a></li>
-				<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
-				<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
-				<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-				<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a
-					href="LCODetail.html?user=<%=request.getParameter("user")%>">My
-						Account</a></li>
-				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
+				<li class="pushy-link"><a href="LCOHome.html?user=${user}" style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
+			<li class="pushy-link"><a
+				href="allLCOCollection.html?user=${user}">Collection</a></li>
+			<li class="pushy-link"><a
+				href="allLCOComplain.html?user=${user} ">Complaint</a></li>
+			<li class="pushy-link"><a
+				href="oldConnections.html?user=${user}">Connection</a></li>
+			<li class="pushy-link"><a
+				href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
+					User</a></li>
+			<li class="pushy-link"><a href="lcoTopUp.html?user=${user}">Top-UP</a></li>
+			<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
+			<li class="pushy-link"><a href="lcostock.html?user=${user}">Stock</a></li>
+			<li class="pushy-link"><a href="LCODetail.html?user=${user}">My
+					Account</a></li>
+			<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 			</ul>
 		</nav>
 
@@ -989,18 +981,11 @@ function setBulkData( data){
 
 	</div>
 	<!-- Pushy JS -->
-
 	<script src="assets/js/pushy.min.js"></script>
 	<script src="assets/js/jquery-1.10.2.js"></script>
 	<script src="assets/js/bootstrap.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
-	<link
-		href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
-		rel="stylesheet" type="text/css" />
-	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	</div>
 
-	<link href="assets/css/circle.css" rel="stylesheet" />
 	<%
 		}
 	%>

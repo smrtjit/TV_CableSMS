@@ -118,12 +118,7 @@ table td {
 		<!-- Pushy Menu -->
 		<nav class="pushy pushy-left">
 		<ul>
-
-			<!--menu iteam code -->
-			<li class="pushy-link"><a
-				href="LCOHome.html?user=<%=request.getParameter("user")%>"
-				style="background: OLDLACE; color: black"><h5><%=request.getParameter("user")%></h5>
-					</font></a></li>
+		<li class="pushy-link"><a href="LCOHome.html?user=<%=request.getParameter("user")%>" style="background: OLDLACE; color: black"><h5><%=request.getParameter("user")%></h5> </font></a></li>
 			<li class="pushy-link"><a
 				href="allLCOCollection.html?user=<%=request.getParameter("user")%>">Collection</a></li>
 			<li class="pushy-link"><a
@@ -133,22 +128,10 @@ table td {
 			<li class="pushy-link"><a
 				href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
 					User</a></li>
-			<!-- 	<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-			<li class="pushy-link"><a
-				href="lcoTopUp.html?user=<%=request.getParameter("user")%>">Top-UP</a></li>
-			<li class="pushy-link"><a
-				href="lcoBilling.html?user=<%=request.getParameter("user")%>">Bulk-Billing</a></li>
-			<li class="pushy-link"><a
-				href="lcoaccountMgmt.html?user=<%=request.getParameter("user")%>">Account
-					Management</a></li>
-			<li class="pushy-link"><a
-				href="lcostock.html?user=<%=request.getParameter("user")%>">Stock</a></li>
-			<%-- 	<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
-			<!-- 	<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
-			<!-- 	<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-			<!-- 	<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-			<li class="pushy-link"><a
-				href="LCODetail.html?user=<%=request.getParameter("user")%>">My
+			<li class="pushy-link"><a href="lcoTopUp.html?user=<%=request.getParameter("user")%>">Top-UP</a></li>
+			<li class="pushy-link"><a href="lcoBilling.html?user=<%=request.getParameter("user")%>">Bulk-Billing</a></li>
+			<li class="pushy-link"><a href="lcostock.html?user=<%=request.getParameter("user")%>">Stock</a></li>
+			<li class="pushy-link"><a href="LCODetail.html?user=<%=request.getParameter("user")%>">My
 					Account</a></li>
 			<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 		</ul>
@@ -215,8 +198,27 @@ table td {
 									</div>
 									<div class="col-sm-8">
 										<form:input path="designation" class="form-control"
-											placeholder="Please Enter Designation" required="required" />
-
+											placeholder="Please Enter Designation" required="required" title="MINIMUM SIZE =5" pattern=".{5,}" maxlength="25" onkeypress="return onlyAlphabets(event,this)"  />
+											<script type="text/javascript">
+											function onlyAlphabets(e, t) {
+									            try {
+									                if (window.event) {
+									                    var charCode = window.event.keyCode;
+									                }
+									                else if (e) {
+									                    var charCode = e.which;
+									                }
+									                else { return true; }
+									                if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+									                	 return true;
+									                else
+									                    return false;
+									            }
+									            catch (err) {
+									                alert(err.Description);
+									            }
+									        }
+											</script>
 									</div>
 								</div>
 
@@ -226,7 +228,7 @@ table td {
 									</div>
 									<div class="col-sm-8">
 										<form:input path="name" class="form-control"
-											placeholder="Please Enter Name" required="required" />
+											placeholder="Please Enter Name" required="required" title="MINIMUM SIZE =5" pattern=".{5,}" maxlength="25" onkeypress="return onlyAlphabets(event,this)" />
 
 									</div>
 								</div>
@@ -238,8 +240,8 @@ table td {
 										<p class="p1">Email Id</p>
 									</div>
 									<div class="col-sm-8">
-										<form:input path="email_id" class="form-control"
-											placeholder="Please Enter Email ID" required="required" />
+										<form:input path="email_id" class="form-control" 
+											placeholder="Please Enter Email ID" required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
 
 									</div>
 								</div>
@@ -250,7 +252,8 @@ table td {
 									</div>
 									<div class="col-sm-8">
 										<form:input path="mobile" class="form-control"
-											placeholder="Please Enter Mobile No" required="required" />
+											placeholder="Please Enter Mobile No"  title="MINIMUM SIZE 10"
+											required="required" onkeypress='return event.charCode >= 48 && event.charCode <= 57' pattern=".{10,}" maxlength="12" />
 
 									</div>
 								</div>
@@ -262,7 +265,7 @@ table td {
 										<p class="p1">Landline</p>
 									</div>
 									<div class="col-sm-8">
-										<form:input path="landline_no" class="form-control"
+										<form:input path="landline_no" class="form-control" required="required" onkeypress='return event.charCode >= 48 && event.charCode <= 57' pattern=".{10,}" maxlength="12" 
 											placeholder="Please Enter Landline" />
 
 									</div>
@@ -273,7 +276,7 @@ table td {
 										<p class="p1">Photo</p>
 									</div>
 									<div class="col-sm-8">
-										<input type="file" name="uploadimage" id="myFile"
+										<input type="file" name="uploadimage" id="myFile"  required="required" 
 											tabindex="10" multiple size="50" onchange="myFunction()"
 											class="form-control" placeholder="Upload file" />
 										<p id="demo"></p>
@@ -339,7 +342,7 @@ table td {
 										<p class="p1">Permanent Address</p>
 									</div>
 									<div class="col-sm-8">
-									<form:textarea path="permanent_add"
+									<form:textarea path="permanent_add" required="required" title="MINIMUM SIZE =5" pattern=".{10,}" maxlength="45"
 											name="ctl00$ContentPlaceHolder1$txtrmark" rows="2" cols="100"
 											id="ContentPlaceHolder1_txtrmark" class="form-control"
 											placeholder="Please Enter Permanent Address"
@@ -354,7 +357,7 @@ table td {
 										<p class="p1">Alternate Address</p>
 									</div>
 									<div class="col-sm-8">
-										<form:textarea path="corres_add"
+										<form:textarea path="corres_add" required="required" title="MINIMUM SIZE =5" pattern=".{10,}" maxlength="45"
 											name="ctl00$ContentPlaceHolder1$txtrmark" rows="2" cols="100"
 											id="ContentPlaceHolder1_txtrmark" class="form-control"
 											placeholder="Please Enter Correspondence Address"
@@ -369,8 +372,9 @@ table td {
 										<p style="margin-left: 29px;" class="p1">Identity Proof</p>
 									</div>
 									<div class="col-sm-3" style="width: 27%;">
-										<form:select path="identity_proof_type" class="form-control"
+										<form:select required="true" path="identity_proof_type" class="form-control"
 											placeholder="select type">
+											<form:option value="">ID Type</form:option>
 											<form:options items="${idprof }" />
 										</form:select>
 
@@ -378,12 +382,15 @@ table td {
 
 
 									<div class="col-sm-3" style="width: 27%;">
-										<form:input path="identity_proof" class="form-control"
+										<form:input path="identity_proof" class="form-control" 
+										required="required" title="MINIMUM SIZE =6" pattern=".{6,}" maxlength="15"
 											placeholder="ID Number" />
 									</div>
 									<div class="col-sm-3" style="width: 27%;">
 										<form:input path="identity_proof_image_name" type="file" name="id_proof"
-											id="ContentPlaceHolder1_FileUpload2" tabindex="8"
+											required="required"
+											id="ContentPlaceHolder1_FileUpload2" tabindex="8" 
+											
 											class="form-control" placeholder="Upload file" />
 
 									</div>
@@ -398,8 +405,9 @@ table td {
 										<p style="margin-left: 29px;" class="p1">Address Proof</p>
 									</div>
 									<div class="col-sm-3" style="width: 27%;">
-										<form:select path="add_proof_type" class="form-control"
+										<form:select path="add_proof_type" class="form-control" required="true" 
 											placeholder="select type">
+											<form:option value="">ID Type</form:option>
 											<form:options items="${addproff }" />
 										</form:select>
 
@@ -410,11 +418,12 @@ table td {
 
 									<div class="col-sm-3" style="width: 27%;">
 										<form:input path="add_proof" class="form-control"
+										required="required" title="MINIMUM SIZE =6" pattern=".{6,}" maxlength="15"
 											placeholder="ID Number" />
 									</div>
 									<div class="col-sm-3" style="width: 27%;">
 										<form:input path="add_proof_image_Name" type="file" name="id_proof"
-											id="ContentPlaceHolder1_FileUpload2" tabindex="8"
+											id="ContentPlaceHolder1_FileUpload2" tabindex="8" required="required"
 											class="form-control" placeholder="Upload file" />
 
 									</div>
@@ -429,8 +438,10 @@ table td {
 										<p class="p1">Responsibility</p>
 									</div>
 									<div class="col-sm-7" style="margin-bottom: 38px">
-										<form:select path="responsibility" class="form-control"
+										<form:select path="responsibility" class="form-control" 
+										required="required"
 											placeholder="select type">
+											<form:option value="">Select Type</form:option>
 											<form:options items="${resp }" />
 										</form:select>
 

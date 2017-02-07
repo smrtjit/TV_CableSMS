@@ -21,7 +21,14 @@
 <link rel="stylesheet" href="assets/cssstyle.css">
 <link href="assets/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/pushy.css" />
-
+		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		
+		<link
+			href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
+			rel="stylesheet" type="text/css" />
+			
+			<script src="assets/js/bootstrap.min.js"></script>
+			<link href="assets/css/circle.css" rel="stylesheet" />
 <!-- //////////////////////////////////////////////////start for Modal Box//////////////////////////////////////////////////////////////////// -->
 
 
@@ -330,29 +337,6 @@ text-align: right;
 	</script>
 
 
-	<script type="text/javascript">
-		// function madeAjaxCall(){
-		//  $.ajax({
-		//   type: "get",
-		//   url: "http://localhost:8080/TV_CableSMS/updateVCStatus.html",
-		//   cache: false,    
-		//   data:'VC_No=' + $("#VC_No").val() + "&vcStatus;=" + $("#vcStatus").val() + "&user;=" + $("#user").val(),
-		//   success: function(response){
-		// 	  var modelAttributeValue = '${vcList}';
-		// 	  alert(modelAttributeValue);
-		//    $('#result').html("");
-		//    var obj = JSON.parse(response);
-		//    $('#result').html(modelAttributeValue);
-		//   },
-		//   error: function(){      
-		//    alert('Error while request..');
-		//   }
-		//  });
-		// }
-
-		// $("#theForm").ajaxForm({url: 'updateVCStatus.html', type: 'get'})
-	</script>
-
 	<div>
 		<header class="site-header push">
 			<marquee>Welcome to Payspot</marquee>
@@ -360,30 +344,23 @@ text-align: right;
 		<!-- Pushy Menu -->
 		<nav class="pushy pushy-left">
 			<ul>
+				<li class="pushy-link"><a href="LCOHome.html?user=${user}" style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 
-				<li class="pushy-link"><a href="LCOHome.html?user=${user}"
-style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
-				<li class="pushy-link"><a
-					href="allLCOCollection.html?user=${user}">Collection</a></li>
-				<li class="pushy-link"><a
-					href="allLCOComplain.html?user=${user} ">Complaint</a></li>
-				<li class="pushy-link"><a
-					href="oldConnections.html?user=${user}">Connection</a></li>
-				<li class="pushy-link"><a
-					href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
-						User</a></li>
-				<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-				<li class="pushy-link"><a href="lcoTopUp.html?user=${user}">Top-UP</a></li>
-				<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
-				<li class="pushy-link"><a
-					href="lcoaccountMgmt.html?user=${user}">Account Management</a></li>
-				<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
-				<li class="pushy-link"><a href="lcostock.html?user=${user}"">Stock</a></li>
-				<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-				<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a href="LCODetail.html?user=${user}">My
-						Account</a></li>
-				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
+			<li class="pushy-link"><a
+				href="allLCOCollection.html?user=${user}">Collection</a></li>
+			<li class="pushy-link"><a
+				href="allLCOComplain.html?user=${user} ">Complaint</a></li>
+			<li class="pushy-link"><a
+				href="oldConnections.html?user=${user}">Connection</a></li>
+			<li class="pushy-link"><a
+				href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
+					User</a></li>
+			<li class="pushy-link"><a href="lcoTopUp.html?user=${user}">Top-UP</a></li>
+			<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
+			<li class="pushy-link"><a href="lcostock.html?user=${user}">Stock</a></li>
+			<li class="pushy-link"><a href="LCODetail.html?user=${user}">My
+					Account</a></li>
+			<li class="pushy-link"><a href="logout.html">Log Out</a></li>
 			</ul>
 		</nav>
 
@@ -782,18 +759,15 @@ style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 		
 		<!-- Pushy JS -->
 
-		<script src="assets/js/pushy.min.js"></script>
+		
 		<script src="assets/js/jquery-1.10.2.js"></script>
 		<script src="assets/js/bootstrap.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<link
-			href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/humanity/jquery-ui.css"
-			rel="stylesheet" type="text/css" />
-		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		<script src="assets/js/pushy.min.js"></script>
+		
+		
 	</div>
 	</form>
 
-	<link href="assets/css/circle.css" rel="stylesheet" />
 	<%
 		}
 	%>

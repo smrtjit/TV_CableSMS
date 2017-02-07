@@ -45,24 +45,22 @@
             <!-- Pushy Menu -->
             <nav class="pushy pushy-left">
                 <ul>
-                    
-                   <!--menu iteam code -->
-				<li class="pushy-link"><a href="LCOHome.html?user=${user}" style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
-				<li class="pushy-link"><a href="allLCOCollection.html?user=${user}">Collection</a></li>
-				<li class="pushy-link"><a href="allLCOComplain.html?user=${user} ">Complaint</a></li>
-				<li class="pushy-link"><a href="oldConnections.html?user=<%= request.getParameter("user") %>">Connection</a></li>
-				<li class="pushy-link"><a href="OldUserInfo.html?user=<%= request.getParameter("user") %>">Create User</a></li>
-<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
-				<li class="pushy-link"><a href="lcoTopUp.html?user=<%= request.getParameter("user") %>">Top-UP</a></li>
-				<li class="pushy-link"><a href="lcoBilling.html?user=<%= request.getParameter("user") %>">Bulk-Billing</a></li>
-				<li class="pushy-link"><a href="lcoaccountMgmt.html?user=<%= request.getParameter("user") %>">Account Management</a></li>
-				<li class="pushy-link"><a href="lcostock.html?user=<%= request.getParameter("user") %>"">Stock</a></li>
-<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
-<!-- 				<li class="pushy-link"><a href="stock.jsp">Stock</a></li> -->
-<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
-				<li class="pushy-link"><a href="LCODetail.html?user=<%= request.getParameter("user") %>">My Account</a></li>
-				<li class="pushy-link"><a href="logout.html">Log Out</a></li>
+               		<li class="pushy-link"><a href="LCOHome.html?user=${user}" style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
+			<li class="pushy-link"><a
+				href="allLCOCollection.html?user=${user}">Collection</a></li>
+			<li class="pushy-link"><a
+				href="allLCOComplain.html?user=${user} ">Complaint</a></li>
+			<li class="pushy-link"><a
+				href="oldConnections.html?user=${user}">Connection</a></li>
+			<li class="pushy-link"><a
+				href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
+					User</a></li>
+			<li class="pushy-link"><a href="lcoTopUp.html?user=${user}">Top-UP</a></li>
+			<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
+			<li class="pushy-link"><a href="lcostock.html?user=${user}">Stock</a></li>
+			<li class="pushy-link"><a href="LCODetail.html?user=${user}">My
+					Account</a></li>
+			<li class="pushy-link"><a href="logout.html">Log Out</a></li>
                 </ul>
             </nav>
 

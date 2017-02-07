@@ -103,9 +103,7 @@ widows: 100%;
 		<!-- Pushy Menu -->
 		<nav class="pushy pushy-left">
 		<ul>
-			<!--menu iteam code -->
-			<li class="pushy-link"><a href="LCOHome.html?user=${user}"
-				style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
+					<li class="pushy-link"><a href="LCOHome.html?user=${user}" style="background: OLDLACE; color: black"><h5>${user}</h5> </font></a></li>
 			<li class="pushy-link"><a
 				href="allLCOCollection.html?user=${user}">Collection</a></li>
 			<li class="pushy-link"><a
@@ -115,16 +113,9 @@ widows: 100%;
 			<li class="pushy-link"><a
 				href="OldUserInfo.html?user=<%=request.getParameter("user")%>">Create
 					User</a></li>
-			<!-- 				<li class="pushy-link"><a href="packages.jsp">Packages</a></li> -->
 			<li class="pushy-link"><a href="lcoTopUp.html?user=${user}">Top-UP</a></li>
 			<li class="pushy-link"><a href="lcoBilling.html?user=${user}">Bulk-Billing</a></li>
-			<li class="pushy-link"><a
-				href="lcoaccountMgmt.html?user=${user}">Account Management</a></li>
-
-			<%-- 				<li class="pushy-link"><a href="BulkTransaction.jsp?user=<%= request.getParameter("user") %>">Bulk Transactions</a></li> --%>
 			<li class="pushy-link"><a href="lcostock.html?user=${user}">Stock</a></li>
-			<!-- 				<li class="pushy-link"><a href="report.jsp">Reports</a></li> -->
-			<!-- 				<li class="pushy-link"><a href="notification.aspx">Notification</a></li> -->
 			<li class="pushy-link"><a href="LCODetail.html?user=${user}">My
 					Account</a></li>
 			<li class="pushy-link"><a href="logout.html">Log Out</a></li>
@@ -147,7 +138,7 @@ widows: 100%;
 										id="ContentPlaceHolder1_rbselect_0" type="radio"
 										name="ctl00$ContentPlaceHolder1$rbselect" value="0"
 										 /><label
-										for="ContentPlaceHolder1_rbselect_0">OneToOne_Recharge</label></span></td>
+										for="ContentPlaceHolder1_rbselect_0">Account Management</label></span></td>
 								<td><span class="radio-inline"><input
 										id="ContentPlaceHolder1_rbselect_1" type="radio"checked="checked"
 										name="ctl00$ContentPlaceHolder1$rbselect" value="1" /><label
@@ -159,135 +150,278 @@ widows: 100%;
 				<hr />
 
 				<div id="oto" style="display: none">
-
-
-					<div class="row">
-					<form action="searchVCbyLCO.html">
-					<input type="hidden" name="user" value="${user }"/>
-						<div class="col-sm-3"></div>
-						<div class="col-sm-2">
-							<div style="margin-bottom: 10px">
-								<input name="VC_No" type="text"
-									id="ContentPlaceHolder1_txtvcmobile" tabindex="1"
-									class="form-control" placeholder="VC No" required/>
-
+						<form:form action="saveBulkByLCO.html" method="get" name="savebulkInfo"
+							commandName="bulkInfoForm" >
+						<input type="hidden" name="user" value="${user }"/>
+							<div  >
+								<div class="col-sm-25">
+									<div class="col-sm-0"></div>
+									<div class=" col-sm-6">
+										<div class="col-sm-4" style="margin-bottom: 18px">
+											<p class="p1">Invoice</p>
+										</div>
+										<div class="col-sm-8">
+										<form:input path="invoice_id" class="form-control" id="findvalue" value="" onchange="" 
+												required="required" tabindex="1" placeholder="Invoice Number"/>
+											
+									<script>
+								$("#findvalue").keyup( function() {
+								    var invoice = $("#findvalue").val();
+								   
+								     $.ajax({  
+							            type : 'GET', 
+							            url: 'printBill.html',
+							            data: {
+							            	'invoice': invoice,
+							            	'user':  ${user}
+							            },
+							            dataType: 'json',
+							       		cache: false,
+										beforeSend: function(xhr) 
+							                        {
+							                            xhr.setRequestHeader("Accept", "application/json");  
+							                            xhr.setRequestHeader("Content-Type", "application/json");  
+							                        },
+							         				success: function (data) {
+							         					 if(data=="Data Not Found"){
+							         						// alert(data);
+							         					 }else{
+							         						setData( data);
+							         					 }
+							         					 
+							         					 
+							           						
+								            },
+								            error: function(e){
+								            	
+								            }
+							            
+							        });
+								   
+								});
+								function setData( data){
+									var todate= data.Billing_Date;
+									var amt=data.Total_Amount;
+									var st=data.Service_Tax;
+									var at=data.Entertain_Tax;
+									
+									var cid=data.User_Id;
+									var cname=data.User_Name;
+									var ot=data.Other_Tax;
+									var pkg=data.Package_Name;
+									//alert(todate+","+amt+","+st+","+at);
+									
+									document.getElementById("dte").value =todate;
+									document.getElementById("amount").value =amt;
+									
+									document.getElementById("custname").value =cname;
+									document.getElementById("custId").value =cid;
+									
+									document.getElementById("service").value =st;
+									document.getElementById("enttax").value =at;
+									document.getElementById("other").value =ot;
+									document.getElementById("pkc").value =pkg;
+									
+									
+									
+								}
+											 	 
+						  </script>
 							</div>
-
 						</div>
 
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">From</p>
+							</div>
+							<div class="col-sm-8">
+							
+								<input name="dte" readonly="readonly" type="text"
+									id="dte" class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-25">
+						<div class="col-sm-0"></div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Customer Id</p>
+							</div>
+							<div class="col-sm-8">
+						
+								<input name="custId" readonly="readonly" type="text"
+									id="custId" class="form-control"
+									placeholder="" />
+							</div>
+						</div>
 
-						<div class="col-sm-2">
-							<div style="margin-bottom: 10px">
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Customer Name</p>
+							</div>
+							<div class="col-sm-8">
+							
+								<input name="custname" readonly="readonly" type="text"
+									id="custname" class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-sm-25">
+						<div class="col-sm-0"></div>
+						
+						<div class="col-sm-0"></div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Package</p>
+							</div>
+							<div class="col-sm-8">
+						
+								<input name="amount" readonly="readonly" type="text"
+									id="pkc" class="form-control"
+									placeholder="" />
+							</div>
+						</div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Amount</p>
+							</div>
+							<div class="col-sm-8">
+							
+								<input name="amount" readonly="readonly" type="text"
+									id="amount" class="form-control"
+									placeholder="" />
+							</div>
+						</div>
 
-								<input type="submit" name="submit"
-									value="Submit" id="ContentPlaceHolder1_btn_search"
-									tabindex="12" class="btn-primary btn btn-block" />
-
+						
+					</div>
+					<div class="col-sm-25">
+						<div class="col-sm-0"></div>
+						
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Service Tax</p>
+							</div>
+							<div class="col-sm-8">
+						
+								<input name="service" readonly="readonly" type="text"
+									id="service" class="form-control"
+									placeholder="" />
 							</div>
 						</div>
 						
-						</form>
-					</div>
-	<div class="nofound" >
-	${error }
-	</div>
-					<hr />
-
-					<div class="container">
-						<div class="row">
-
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-									<input name="ctl00$ContentPlaceHolder1$txtid" type="text"
-										id="ContentPlaceHolder1_txtid" disabled="disabled"
-										tabindex="2" class="aspNetDisabled form-control"
-										placeholder="CustomerID" 
-										value="${userDetails.username }"/>
-
-								</div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Amusement Tax</p>
 							</div>
-
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-									<input name="ctl00$ContentPlaceHolder1$txtname" type="text"
-										id="ContentPlaceHolder1_txtname" disabled="disabled"
-										tabindex="2" class="aspNetDisabled form-control"
-										placeholder="Customer Name"
-										value="${userDetails.customer_name }" />
-
-								</div>
+							<div class="col-sm-8">
+						
+								<input name="enttax" readonly="readonly" type="text"
+									id="enttax" class="form-control"
+									placeholder="" />
 							</div>
-
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-
-									<input name="ctl00$ContentPlaceHolder1$txtadd" type="text"
-										id="ContentPlaceHolder1_txtadd" disabled="disabled"
-										tabindex="3" class="aspNetDisabled form-control"
-										placeholder="Customer Address"
-										value="${userDetails.customer_add }" />
-
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-
-									<input name="ctl00$ContentPlaceHolder1$txtpackage" type="text"
-										id="ContentPlaceHolder1_txtpackage" disabled="disabled"
-										tabindex="3" class="aspNetDisabled form-control"
-										placeholder="Customer Package Name" 
-										value="${pckinfo}"/>
-
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-
-									<input name="ctl00$ContentPlaceHolder1$txtmobile" type="text"
-										id="ContentPlaceHolder1_txtmobile" disabled="disabled"
-										tabindex="3" class="aspNetDisabled form-control"
-										placeholder="Customer Mobile No." 
-										value="${userDetails.customer_mobile }"/>
-
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-
-									<input name="ctl00$ContentPlaceHolder1$txtemail" type="text"
-										id="ContentPlaceHolder1_txtemail" disabled="disabled"
-										tabindex="3" class="aspNetDisabled form-control"
-										placeholder="Customer Email Id" 
-										value="${userDetails.customer_email }"/>
-
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-
-									<input name="amt" type="text"
-										id="ContentPlaceHolder1_txtamount" tabindex="3"
-										class="form-control" placeholder="Amount Of Recharge"
-										required style="border-color: Red;" />
-
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div style="margin-bottom: 20px">
-
-									<input type="submit" name="ctl00$ContentPlaceHolder1$btn_pay"
-										value="Pay Now" id="ContentPlaceHolder1_btn_pay" tabindex="12"
-										class="btn-primary btn btn-block" />
-
-								</div>
-							</div>
-						<div class="col-sm-12" style="height: 1px"></div>
 						</div>
 					</div>
+
+					<div class="col-sm-25">
+						<div class="col-sm-0"></div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Other Tax</p>
+							</div>
+							<div class="col-sm-8">
+					
+								<input name="other" readonly="readonly" type="text"
+									id="other" class="form-control"
+									/>
+							</div>
+						</div>
+
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Recived Amount</p>
+							</div>
+							<div class="col-sm-8">
+							<form:input path="receivedAmt" class="form-control" placeholder="Enter Recived Amount" required="required"/>
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-25">
+						<div class="col-sm-0"></div>
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Recived Via</p>
+							</div>
+							<div class="col-sm-8">
+<%-- 							<form:input path="agentId" class="form-control" placeholder="Enter The Agent Id" /> --%>
+							<form:select path="agentId" class="form-control" id="package">
+										<form:option value="NONE">Select Agent</form:option>
+										<form:options items="${agentName}" />
+									</form:select>
+							</div>
+						</div>
+						
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Reference ID</p>
+							</div>
+							<div class="col-sm-8">
+							<form:input path="referenceId" class="form-control" placeholder="Enter The Reference Id"  />
+						
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-25"  >
+							<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Payment Type</p>
+							</div>
+							<div class="col-sm-8">
+<%-- 							<form:input path="agentId" class="form-control" placeholder="Enter The Agent Id" /> --%>
+							<form:select path="Payment_Type" class="form-control" id="package">
+										<form:option value="NONE">Select Payemnt Type</form:option>
+										<form:options items="${paymentType}" />
+									</form:select>
+							</div>
+						</div>
+						
+						
+					
+					</div>
+					
+					
+					<div class="col-sm-25"  >
+					
+						<div class=" col-sm-6">
+							<div class="col-sm-4" style="margin-bottom: 18px">
+								<p class="p1">Remark</p>
+							</div>
+							<div class="col-sm-8">
+							<form:textarea path="Remark" cols="100" id="ContentPlaceHolder1_txtrmark" class="form-control"
+							placeholder="Enter Remark" style="overflow:auto;resize:none;" />
+							</div>
+						</div>
+						<div class=" col-sm-6"style="text-align:center;width:90%;" >
+							<input type="submit" name="ctl00$ContentPlaceHolder1$btn_sbmit"
+								value="Submit" id="ContentPlaceHolder1_btn_sbmit" style="width:20%;"
+								class="btn btn-primary" /> <a class="btn btn-primary"style="width:20%;"
+								href="Custrecharge.jsp">Cancel</a>
+						</div>
+					</div>
+					
+					</form:form>
+				</div>
+<!-- 				<div class="col-sm-12" style="height: 1px"></div> -->
+			</div>
+		</div>
 
 				</div>
 
@@ -348,14 +482,14 @@ widows: 100%;
 						<div class="col-sm-2">
 						
 								<input type="button" value="Submit" id="myButton" tabindex="12" class="btn-danger btn btn-block" />
-						<script type="text/javascript">
-    $(document).ready(function() {
-       $("#myButton").click(function() {
-    	   alert("check");
-    	   document.getElementById("dataForm").submit();
-       });
-    });
-</script>
+								<script type="text/javascript">
+								    $(document).ready(function() {
+								       $("#myButton").click(function() {
+								    	  // alert("check");
+								    	   document.getElementById("dataForm").submit();
+								       });
+								    });
+								</script>
 							
 						</div>
 						<div class="row" >
@@ -406,35 +540,72 @@ widows: 100%;
 								<input type="hidden" name="user" value="${user }"/>
 								<table class="table table-striped table-bordered table-hover fontsize" cellspacing="0" rules="all" border="1" id="ContentPlaceHolder1_gvdash" style="width:100%;border-collapse:collapse;">
 									<tr>
-										<th scope="col">SN</th><th scope="col">Customer ID</th><th scope="col">Name</th><th scope="col">Address</th><th scope="col">Package Name</th><th scope="col">Mobile</th><th scope="col">Email</th><th scope="col">Amount</th>
+										<th scope="col">SN</th><th scope="col">Invoice No.</th><th scope="col" style="width:10%;">Customer ID</th><th scope="col">Name</th><th scope="col">Address</th><th scope="col">Package Name</th><th scope="col">Mobile</th><th scope="col">Email</th><th scope="col">Amount</th>
 									</tr>
 									
 									<tr>
-									<c:forEach items="${bulkData.lstUser}" var="user" varStatus="itr">   
+									<c:forEach items="${bulkData.bulkInfo}" var="user"
+											varStatus="itr">
 						   								<tr>
-						   								<td>${itr.index}</td>
-						   									<td><input name="user[${itr.index}].customerid" value="${user.customerid}"/></td>
-						   									<td><input name="user[${itr.index}].customername" value="${user.customername}"/></td>
-						   									<td><input name="user[${itr.index}].customeraddress" value="${user.customeraddress}"/></td>
-						   									<td><input name="user[${itr.index}].customerpackagename" value="${user.customerpackagename}"/></td>
-						   									<td><input name="user[${itr.index}].customermobileno" value="${user.customermobileno}"/></td>
-						   									<td><input name="user[${itr.index}].customeremailid" value="${user.customeremailid}"/></td>
-						   									<td><input name="user[${itr.index}].customeramountofrecharge" value="${user.customeramountofrecharge}"/></td>
-<%-- 						   									<td>${user.customerid}</td> --%>
-<%-- 						   									<td>${user.customername}</td>  --%>
-<%-- 						   									<td>${user.customeraddress}</td>	 --%>
-<%-- 						   									<td>${user.customerpackagename}</td>	 --%>
-<%-- 						   									<td>${user.customermobileno}</td>	 --%>
-<%-- 						   									<td>${user.customeremailid}</td>	 --%>
-<%-- 						   									<td>${user.customeramountofrecharge}</td>	 --%>
-						   								
-														</tr>
+												<td>${itr.index}</td>
+												<%-- 						   								<c:out value="user[${itr.index}].customerid"/> --%>
+												<td>
+												<form:input path="bulkInfo[${itr.index}].invoiceid" />
+<%-- 												<input name="user[${itr.index}].customerid" --%>
+<%-- 													value="${user.customerid}" /> --%>
+													
+													</td>
+												<td>
+												<form:input path="bulkInfo[${itr.index}].customerid" />
+<%-- 												<input name="user[${itr.index}].customerid" --%>
+<%-- 													value="${user.customerid}" /> --%>
+													
+													</td>
+												<td>
+												<form:input path="bulkInfo[${itr.index}].customername" />
+<%-- 												<input name="user[${itr.index}].customername" --%>
+<%-- 													value="${user.customername}" /> --%>
+													</td>
+												<td>
+												<form:input path="bulkInfo[${itr.index}].customeraddress" />
+<%-- 												<input name="user[${itr.index}].customeraddress" --%>
+<%-- 													value="${user.customeraddress}" /> --%>
+													</td>
+												<td>
+												<form:input path="bulkInfo[${itr.index}].customerpackagename" />
+<%-- 												<input name="user[${itr.index}].customerpackagename" --%>
+<%-- 													value="${user.customerpackagename}" /> --%>
+													</td>
+												<td>
+												<form:input path="bulkInfo[${itr.index}].customermobileno" />
+<%-- 												<input name="user[${itr.index}].customermobileno" --%>
+<%-- 													value="${user.customermobileno}" /> --%>
+													</td>
+												<td>
+												<form:input path="bulkInfo[${itr.index}].customeremailid" />
+<%-- 												<input name="user[${itr.index}].customeremailid" --%>
+<%-- 													value="${user.customeremailid}" /> --%>
+													</td>
+												<td>
+												<form:input path="bulkInfo[${itr.index}].customeramountofrecharge" />
+<%-- 												<input name="user[${itr.index}].customeramountofrecharge" --%>
+<%-- 													value="${user.customeramountofrecharge}" /> --%>
+													</td>
+												<%-- 						   									<td>${user.customerid}</td> --%>
+												<%-- 						   									<td>${user.customername}</td>  --%>
+												<%-- 						   									<td>${user.customeraddress}</td>	 --%>
+												<%-- 						   									<td>${user.customerpackagename}</td>	 --%>
+												<%-- 						   									<td>${user.customermobileno}</td>	 --%>
+												<%-- 						   									<td>${user.customeremailid}</td>	 --%>
+												<%-- 						   									<td>${user.customeramountofrecharge}</td>	 --%>
+
+											</tr>
 														</c:forEach>
 									</tr>
 									
 									
 								</table>
-								<input type="submit" value="submit" onclick="hello()"/>
+								
 									</form:form>
 								<h3><b><font color="red">${error}</font><b></b></h3>
 									

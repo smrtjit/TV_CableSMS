@@ -4,24 +4,26 @@ import java.util.List;
 
 public class BulkRechargeAmountList {
 
-	private List<BulkRechargeAmount> lstUser;
+	private List<BulkRechargeAmount> bulkInfo;
 
 	public BulkRechargeAmountList() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public BulkRechargeAmountList(List<BulkRechargeAmount> lstUser) {
+	public List<BulkRechargeAmount> getBulkInfo() {
+		return bulkInfo;
+	}
+
+	public void setBulkInfo(List<BulkRechargeAmount> bulkInfo) {
+		this.bulkInfo = bulkInfo;
+	}
+
+	public BulkRechargeAmountList(List<BulkRechargeAmount> bulkInfo) {
 		super();
-		this.lstUser = lstUser;
+		this.bulkInfo = bulkInfo;
 	}
 
-	public List<BulkRechargeAmount> getLstUser() {
-		return lstUser;
-	}
-
-	public void setLstUser(List<BulkRechargeAmount> lstUser) {
-		this.lstUser = lstUser;
-	}
+	
 	
 }
