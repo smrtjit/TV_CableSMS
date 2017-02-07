@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dialnet.source.model.STBStock;
+import com.dialnet.source.model.VCStock;
 
 @Repository
 public class STBStockDaoImpl implements STBStockDao {
@@ -19,6 +20,13 @@ public class STBStockDaoImpl implements STBStockDao {
 	@Autowired
 	SessionFactory dao;
 
+	@Override
+	public void add(STBStock stock) {
+		Session sf = dao.openSession();
+		sf.save(stock);
+		sf.close();
+	}
+	
 	@Override
 	public List<STBStock> getAllVCStock() {
 		Session sf = dao.openSession();
@@ -84,4 +92,5 @@ public class STBStockDaoImpl implements STBStockDao {
 		return l;
 	}
 
+	
 }

@@ -530,7 +530,9 @@ public class LCOController {
 
 	@RequestMapping(value = "/lcostock", method = RequestMethod.GET)
 	public String lcoStock(@RequestParam("user") String user, Model model, Integer offset, Integer maxResults) {
-
+		
+		BulkRechargeAmountList bulkstock = new BulkRechargeAmountList();
+		model.addAttribute("bulkstock", bulkstock);
 		List<STBStock> tmp = stbService.list(offset, maxResults);
 		model.addAttribute("countForSTB", stbService.count());
 		model.addAttribute("offsetForSTB", offset);
@@ -538,12 +540,7 @@ public class LCOController {
 		List<VCStock> tmp1 = vcService.list(offset, maxResults);
 		model.addAttribute("countForVC", vcService.count());
 		model.addAttribute("offsetForVC", offset);
-		/*
-		 * System.out.println("LCO Stock size: "+tmp.size()); for(STBStock st:
-		 * tmp){
-		 * System.out.println("Data Check for Setup Box: "+st.getStb_box_no());
-		 * }
-		 */
+		
 		model.addAttribute("stbList", tmp);
 		model.addAttribute("vcList", tmp1);
 		model.addAttribute("user", user);
@@ -635,7 +632,144 @@ public class LCOController {
 
 	//////////////////////////////// Sarbjeet
 	//////////////////////////////// code////////////////////////////////////////////
+	
+	@RequestMapping(value = "/vcstockexcel", method = RequestMethod.POST)
+	public String vcStockExcel(Model model, @RequestParam("excelfile") MultipartFile excelfile,
+			Integer offset, Integer maxResults,@RequestParam("user") String id) {
+		try {
+			BulkRechargeAmountList bulkstock = new BulkRechargeAmountList();
+			model.addAttribute("bulkstock", bulkstock);
+			List<STBStock> tmp = stbService.list(offset, maxResults);
+			model.addAttribute("countForSTB", stbService.count());
+			model.addAttribute("offsetForSTB", offset);
 
+			List<VCStock> tmp1 = vcService.list(offset, maxResults);
+			model.addAttribute("countForVC", vcService.count());
+			model.addAttribute("offsetForVC", offset);
+			
+			model.addAttribute("stbList", tmp);
+			model.addAttribute("vcList", tmp1);
+			
+			
+			BulkRechargeAmountList bulk= new BulkRechargeAmountList();
+			List<VCStock> lstUser = new ArrayList<VCStock>();
+			int i = 0;
+			System.out.println("file not found name \t" + excelfile.getInputStream());
+			// File file= new File();
+			HSSFWorkbook workbook = new HSSFWorkbook(excelfile.getInputStream());
+			String ss = excelfile.getName();
+			HSSFSheet worksheet = workbook.getSheetAt(0);
+			int noOfColumns = worksheet.getRow(0).getLastCellNum();
+			System.out.println("Column count \t" + noOfColumns);
+			if (noOfColumns == 6) {
+				while (i <= worksheet.getLastRowNum()) {
+					VCStock user = new VCStock();
+					HSSFRow row = worksheet.getRow(i++);
+					user.setVc_no(row.getCell(0).getStringCellValue());
+					System.out.println("I am here 0\t " + row.getCell(0));
+
+					user.setManufacture_date(row.getCell(1).getStringCellValue());
+					System.out.println("I am here 0\t " + row.getCell(1));
+					
+					user.setExp_date(row.getCell(2).getStringCellValue());
+					System.out.println("I am here 1 \t" + row.getCell(2));
+
+					user.setCompany(row.getCell(3).getStringCellValue());
+					System.out.println("I am here 2\t" + row.getCell(3));
+
+					user.setMso(row.getCell(4).getStringCellValue());
+					System.out.println("I am here 3 \t" + row.getCell(4));
+
+					user.setCurrent_status(row.getCell(5).getStringCellValue());
+					System.out.println("I am here 4\t" + row.getCell(5));
+
+					
+					lstUser.add(user);
+				}
+				model.addAttribute("persons", lstUser);
+				model.addAttribute("user", id);
+				bulk.setVcstock(lstUser);
+				System.out.println("List Size: "+bulk.getVcstock().size());
+				model.addAttribute("bulkData",bulk );
+			} else {
+				model.addAttribute("error", "File is Not Valid");
+				model.addAttribute("user", id);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "LCOStock";
+	}
+
+	@RequestMapping(value = "/stbstockexcel", method = RequestMethod.POST)
+	public String stbStockExcel(Model model, @RequestParam("excelfile") MultipartFile excelfile,
+			Integer offset, Integer maxResults,@RequestParam("user") String id) {
+		try {
+			BulkRechargeAmountList bulkstock = new BulkRechargeAmountList();
+			model.addAttribute("bulkstock", bulkstock);
+			List<STBStock> tmp = stbService.list(offset, maxResults);
+			model.addAttribute("countForSTB", stbService.count());
+			model.addAttribute("offsetForSTB", offset);
+
+			List<VCStock> tmp1 = vcService.list(offset, maxResults);
+			model.addAttribute("countForVC", vcService.count());
+			model.addAttribute("offsetForVC", offset);
+			
+			model.addAttribute("stbList", tmp);
+			model.addAttribute("vcList", tmp1);
+			
+			
+			BulkRechargeAmountList bulk= new BulkRechargeAmountList();
+			List<STBStock> lstUser = new ArrayList<STBStock>();
+			int i = 0;
+			System.out.println("file not found name \t" + excelfile.getInputStream());
+			// File file= new File();
+			HSSFWorkbook workbook = new HSSFWorkbook(excelfile.getInputStream());
+			String ss = excelfile.getName();
+			HSSFSheet worksheet = workbook.getSheetAt(0);
+			int noOfColumns = worksheet.getRow(0).getLastCellNum();
+			System.out.println("Column count \t" + noOfColumns);
+			if (noOfColumns == 6) {
+				while (i <= worksheet.getLastRowNum()) {
+					STBStock user = new STBStock();
+					HSSFRow row = worksheet.getRow(i++);
+					user.setStb_box_no(row.getCell(0).getStringCellValue());
+					System.out.println("I am here 0\t " + row.getCell(0));
+
+					user.setManufacture_date(row.getCell(1).getStringCellValue());
+					System.out.println("I am here 0\t " + row.getCell(1));
+					
+					user.setExp_date(row.getCell(2).getStringCellValue());
+					System.out.println("I am here 1 \t" + row.getCell(2));
+
+					user.setCompany(row.getCell(3).getStringCellValue());
+					System.out.println("I am here 2\t" + row.getCell(3));
+
+					user.setMso(row.getCell(4).getStringCellValue());
+					System.out.println("I am here 3 \t" + row.getCell(4));
+
+					user.setCurrent_status(row.getCell(5).getStringCellValue());
+					System.out.println("I am here 4\t" + row.getCell(5));
+
+					
+					lstUser.add(user);
+				}
+				model.addAttribute("persons", lstUser);
+				model.addAttribute("user", id);
+				bulk.setStbstock(lstUser);
+				System.out.println("List Size: "+bulk.getStbstock().size());
+				model.addAttribute("bulkData",bulk );
+			} else {
+				model.addAttribute("error", "File is Not Valid");
+				model.addAttribute("user", id);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "LCOStock";
+	}
 	@RequestMapping(value = "/processExcel", method = RequestMethod.POST)
 	public String processExcel(Model model, @RequestParam("excelfile") MultipartFile excelfile,
 			@RequestParam("user") String id) {
@@ -718,6 +852,46 @@ public class LCOController {
 		model.addAttribute("user", user);
 		return json;
 		// return new ModelAndView(json);
+	}
+	
+	@RequestMapping(value = "/uploadBulkSTB", method = RequestMethod.POST)
+	public String uploadBulkSTB(@RequestParam("user") String user,@ModelAttribute("bulkData") BulkRechargeAmountList bulk,
+			ModelMap model) {
+		System.out.println("uploadBulkVC: "+user+",sub: "+bulk);
+		List<STBStock> contacts =bulk.getStbstock();
+		System.out.println("Object List: "+contacts);
+		if(null != contacts && contacts.size() > 0) {
+			for (STBStock contact : contacts) {
+				System.out.printf("Data in Loop%s \t ", contact.getStb_box_no());
+				contact.setLco_id(user);
+				contact.setTime_stamp(getDate());
+				stbService.add(contact);
+			}
+		}else{
+			System.out.println("Data is NULL");
+		}
+		model.addAttribute("user", user);
+		return "redirect:lcostock.html";
+	}
+	
+	@RequestMapping(value = "/uploadBulkVC", method = RequestMethod.POST)
+	public String uploadBulkVC(@RequestParam("user") String user,@ModelAttribute("bulkData") BulkRechargeAmountList bulk,
+			ModelMap model) {
+		System.out.println("uploadBulkVC: "+user+",sub: "+bulk);
+		List<VCStock> contacts =bulk.getVcstock();
+		System.out.println("Object List: "+contacts);
+		if(null != contacts && contacts.size() > 0) {
+			for (VCStock contact : contacts) {
+				System.out.printf("Data in Loop%s \t ", contact.getVc_no());
+				contact.setLco_id(user);
+				contact.setTime_stamp(getDate());
+				vcService.add(contact);
+			}
+		}else{
+			System.out.println("Data is NULL");
+		}
+		model.addAttribute("user", user);
+		return "redirect:lcostock.html";
 	}
 	
 	@RequestMapping(value = "/uploadBulkTopup", method = RequestMethod.POST)

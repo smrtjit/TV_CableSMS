@@ -3,8 +3,11 @@ package com.dialnet.source.dao;
 import java.util.List;
 
 import com.dialnet.source.model.STBStock;
+import com.dialnet.source.model.VCStock;
 
 public interface STBStockDao {
+
+	public void add(STBStock stock);
 
 	
 public List<STBStock> getAllVCStock();

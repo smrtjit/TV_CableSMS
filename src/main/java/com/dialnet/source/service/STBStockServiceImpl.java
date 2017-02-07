@@ -44,4 +44,10 @@ public class STBStockServiceImpl implements STBStockService {
 		return dao.count();
 	}
 
+	@Override
+	public void add(STBStock stock) {
+		dao.add(stock);
+		
+	}
+
 }

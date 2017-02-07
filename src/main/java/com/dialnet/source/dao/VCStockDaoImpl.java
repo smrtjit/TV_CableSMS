@@ -12,7 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
+import com.dialnet.source.model.LCOUser;
 import com.dialnet.source.model.VCStock;
 
 
@@ -22,6 +22,13 @@ public class VCStockDaoImpl implements VCStockDao {
 	@Autowired
 	SessionFactory dao;
 
+	@Override
+	public void add(VCStock stock) {
+		Session sf = dao.openSession();
+		sf.save(stock);
+		sf.close();
+	}
+	
 	@Override
 	public List<VCStock> getAllVCStock() {
 		System.out.println("Check call getAllVCStock VCStockDaoImpl");

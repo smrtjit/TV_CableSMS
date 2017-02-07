@@ -6,6 +6,9 @@ import com.dialnet.source.model.VCStock;
 
 public interface VCStockService {
 
+	public void add(VCStock stock);
+
+	
 	public List<VCStock> getAllVCStock();
 
 	public VCStock getByVCNo(String stb);

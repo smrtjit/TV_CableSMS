@@ -6,7 +6,10 @@ import com.dialnet.source.model.VCStock;
 
 public interface VCStockDao {
 
-public List<VCStock> getAllVCStock();
+	public void add(VCStock stock);
+	
+	public List<VCStock> getAllVCStock();
+	
 	
 	public VCStock getByVCNo(String stb);
 	

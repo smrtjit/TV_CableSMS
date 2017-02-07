@@ -32,13 +32,29 @@ public class VCStock {
 	private String mso;
 	private String current_status;
 	private String time_stamp;
+	private String lco_id;
+	
 	
 	public VCStock() {
 		// TODO Auto-generated constructor stub
 	}
 
+
+
+	public String getLco_id() {
+		return lco_id;
+	}
+
+
+
+	public void setLco_id(String lco_id) {
+		this.lco_id = lco_id;
+	}
+
+
+
 	public VCStock(int id, String vc_no, String manufacture_date, String exp_date, String company, String mso,
-			String current_status, String time_stamp) {
+			String current_status, String time_stamp, String lco_id) {
 		super();
 		this.id = id;
 		this.vc_no = vc_no;
@@ -48,7 +64,10 @@ public class VCStock {
 		this.mso = mso;
 		this.current_status = current_status;
 		this.time_stamp = time_stamp;
+		this.lco_id = lco_id;
 	}
+
+
 
 	public int getId() {
 		return id;

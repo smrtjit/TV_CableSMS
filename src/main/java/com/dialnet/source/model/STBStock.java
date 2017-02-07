@@ -16,6 +16,26 @@ public class STBStock {
 	@GeneratedValue
 	private int id;
 	
+	public STBStock(int id, String stb_box_no, String manufacture_date, String exp_date, String company, String mso,
+			String current_status, String time_stamp, String lco_id) {
+		super();
+		this.id = id;
+		this.stb_box_no = stb_box_no;
+		this.manufacture_date = manufacture_date;
+		this.exp_date = exp_date;
+		this.company = company;
+		this.mso = mso;
+		this.current_status = current_status;
+		this.time_stamp = time_stamp;
+		this.lco_id = lco_id;
+	}
+	public String getLco_id() {
+		return lco_id;
+	}
+	
+	public void setLco_id(String lco_id) {
+		this.lco_id = lco_id;
+	}
 	@NotEmpty
 	@Size(min = 1, max = 35)
 	private String stb_box_no;
@@ -32,21 +52,11 @@ public class STBStock {
 	private String mso;
 	private String current_status;
 	private String time_stamp;
+	
+	private String lco_id;
 	public STBStock() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	public STBStock(int id, String stb_box_no, String manufacture_date, String exp_date, String company, String mso,
-			String current_status, String time_stamp) {
-		super();
-		this.id = id;
-		this.stb_box_no = stb_box_no;
-		this.manufacture_date = manufacture_date;
-		this.exp_date = exp_date;
-		this.company = company;
-		this.mso = mso;
-		this.current_status = current_status;
-		this.time_stamp = time_stamp;
 	}
 	public int getId() {
 		return id;

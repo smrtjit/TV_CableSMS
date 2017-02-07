@@ -6,6 +6,9 @@ import com.dialnet.source.model.STBStock;
 
 public interface STBStockService {
 
+	public void add(STBStock stock);
+
+	
 	public List<STBStock> getAllVCStock();
 
 	public STBStock getBySTBNo(String stb);

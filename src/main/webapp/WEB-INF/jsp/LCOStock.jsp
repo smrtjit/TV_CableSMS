@@ -315,16 +315,12 @@ display: inline-block;
 									
 								</c:forEach>
 								<%
-								System.out.println("ttttttttttttttttttttttt 1       offset Find");
 								String finalQuery="";
-								System.out.println("ttttttttttttttttttttttt 2       offset Find\t"+request.getQueryString());
 								String tmp= request.getQueryString();
 								String main=null;
 								if(tmp!=null){
 									String []token= tmp.split("&");
-									System.out.println("ttttttttttttttttttttttt 3       offset Find");
 									for(int i=0;i<token.length;i++){
-										System.out.println("ttttttttttttttttttttttt        offset Find");
 										if(token[i].startsWith("offset")){
 											System.out.println("ttttttttttttttttttttttt 5       offset Find");
 										}else
@@ -517,7 +513,7 @@ display: inline-block;
 					<hr />
 					<div id="vcnumber" style="display: none" >
 					<div class="row">
-					<form action="vcprocessExcel.html" method="post" enctype="multipart/form-data">
+					<form action="vcstockexcel.html" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="user" value="${user }"/>
 						<div class="col-sm-3"></div>
 						<div class="col-sm-3">
@@ -571,7 +567,7 @@ display: inline-block;
 						</form>
 						
 						<div class="col-sm-2">
-							<input type="button" form="vcform" value="Submit" tabindex="12" class="btn-danger btn btn-block" />
+								<input type="button" value="Submit" id="myButton" tabindex="12" class="btn-danger btn btn-block" />
 							
 							<input type="hidden" name="user" value="${user }"/>
 						</div>
@@ -651,57 +647,73 @@ display: inline-block;
 										</div>
 									</div>
 								</p>
-								<table class="table table-striped jambo_table bulk_action"
-								cellspacing="0" rules="all" border="1"
-								id="tabelid"
-								style="width: 100%; border-collapse: collapse;">
-								<tr>
-									<th width="5%" scope="col">SN</th>
-									<th scope="col"> VC No</th>
-									<th scope="col">Manufacture Date</th>
-									<th scope="col">Expire Date</th>
-									<th scope="col">Company Name</th>
-									<th scope="col">MSO</th>
-									<th scope="col">Status</th>
-									
-								</tr>
-								<div id="insertdata" style="visibility: hidden1">${lstUser}</div>
-								<form:form method="post" action="lcovcnumberadd.html" modelAttribute="vcstock">
-								<c:forEach items="${lstUser}" var="data" varStatus="itr">
-								<form name="vcform" action="lcovcnumberadd.html">
-								<input type="hidden" name="user" value="${user}"/>
+								<script type="text/javascript">
+								    $(document).ready(function() {
+								       $("#myButton").click(function() {
+								    	  // alert("check");
+								    	   document.getElementById("dataForm").submit();
+								       });
+								    });
+								</script>
+								<form:form method="POST" action="uploadBulkVC.html" modelAttribute="bulkData" id="dataForm">
+								<input type="hidden" name="user" value="${user }"/>
+								<table class="table table-striped table-bordered table-hover fontsize" cellspacing="0" rules="all" border="1" id="ContentPlaceHolder1_gvdash" style="width:100%;border-collapse:collapse;">
 									<tr>
-									<input type="hidden" name="VC_No" value="${data.vc_no}"/>
-									<td >${offsetForVC + itr.index +1 }</td>
-									<form:input path="data[${itr.index}].vc_no" name="vc_no" id="vc_no" value="${data.vc_no}" />
-									<form:input path="data[${itr.index}].manufacture_date" name="manufacture_date" id="manufacture_date" value="${data.manufacture_date}" />
-									<form:input path="data[${itr.index}].exp_date" name="exp_date" id="exp_date" value="${data.exp_date}" />
-									<form:input path="data[${itr.index}].company" name="company" id="company" value="${data.company}" />
-									<form:input path="data[${itr.index}].mso" name="mso" id="mso" value="${data.mso}" />
-					 				<form:input path="data[${itr.index}].current_status" name="current_status" id="current_status" value="${data.current_status}" />
-<%-- 										<td>${data.mso}</td> --%>
-<%-- 										<td>${data.exp_date}</td> --%>
-										
-<%-- 										<td>${data.current_status}</td> --%>
-<%-- 										<td>${data.manufacture_date}</td> --%>
-<%-- 										<td>${data.vc_no}</td> --%>
-<%-- 										<td>${data.company}</td> --%>
-
-
-
-
-										
-										
+										<th scope="col">SN</th><th scope="col">VC No.</th><th scope="col" style="width:10%;">Manufacture Date</th><th scope="col">Expire Date</th><th scope="col">Company Name</th><th scope="col">MSO</th><th scope="col">Status</th>
 									</tr>
-									</form>
-								</c:forEach>
-								</form:form>
-							</table>
-							<tag:paginate max="15" offset="${offsetForVC}" count="${countForVC}" uri="<%= main%>"  next="&raquo;" previous="&laquo;" />
-						
-								
-							<h3><b><font color="red">${error}</font><b></b></h3>
 									
+									<tr>
+									<c:forEach items="${bulkData.vcstock}" var="user"
+											varStatus="itr">
+						   								<tr>
+												<td>${itr.index}</td>
+												<%-- 						   								<c:out value="user[${itr.index}].customerid"/> --%>
+												<td>
+												<form:input path="vcstock[${itr.index}].vc_no" />
+<%-- 												<input name="user[${itr.index}].customerid" --%>
+<%-- 													value="${user.customerid}" /> --%>
+													
+													</td>
+												<td>
+												<form:input path="vcstock[${itr.index}].manufacture_date" />
+<%-- 												<input name="user[${itr.index}].customerid" --%>
+<%-- 													value="${user.customerid}" /> --%>
+													
+													</td>
+												<td>
+												<form:input path="vcstock[${itr.index}].exp_date" />
+<%-- 												<input name="user[${itr.index}].customername" --%>
+<%-- 													value="${user.customername}" /> --%>
+													</td>
+												<td>
+												<form:input path="vcstock[${itr.index}].company" />
+<%-- 												<input name="user[${itr.index}].customeraddress" --%>
+<%-- 													value="${user.customeraddress}" /> --%>
+													</td>
+												<td>
+												<form:input path="vcstock[${itr.index}].mso" />
+<%-- 												<input name="user[${itr.index}].customerpackagename" --%>
+<%-- 													value="${user.customerpackagename}" /> --%>
+													</td>
+												<td>
+												<form:input path="vcstock[${itr.index}].current_status" />
+<%-- 												<input name="user[${itr.index}].customermobileno" --%>
+<%-- 													value="${user.customermobileno}" /> --%>
+													</td>
+												<td>
+												
+											
+											</tr>
+														</c:forEach>
+									</tr>
+									
+									
+								</table>
+								
+									</form:form>
+								<h3><b><font color="red">${error}</font><b></b></h3>
+								
+															
 							</div>
 						</div>
 
@@ -712,10 +724,215 @@ display: inline-block;
 					
 				</div>
 					<div id="stbbox"  style="display: none">
-					
-					
-					
+					<div class="row">
+					<form action="stbstockexcel.html" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="user" value="${user }"/>
+						<div class="col-sm-3"></div>
+						<div class="col-sm-3">
+						<input  type="file" name="excelfile"  class="form-control" onchange="example1()" id="stbname"/><br>
+							<script>
+							
+							       function example1(){
+							    	   var _validFileExtensions = [".xls"]; 
+							    	   var arrInputs = document.getElementsByTagName("input");
+							    	   
+							           		for (var i = 0; i < arrInputs.length; i++) {
+											    	var oInput = arrInputs[i];
+											    	if (oInput.type == "file") {
+											        	var sFileName = oInput.value;
+											        	
+											        	
+											            if (sFileName.length > 0) {
+											                var blnValid = false;
+											                for (var j = 0; j < _validFileExtensions.length; j++) {
+											                    var sCurExtension = _validFileExtensions[j];
+											                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+											                        blnValid = true;
+											                        break;
+											                    }
+											                }
+											                if (!blnValid) {
+											                    alert("Sorry, " + sFileName + " is invalid File , allowed extensions are: " + _validFileExtensions.join(", "));
+											                    return false;
+											                }
+											            }
+											      }
+										    }
+											  return true;
+								       }
+						
+							       
+							       function checkValue1(data){
+							    	 if(data==null || data==""){
+							    		   alert('Please select the File First!!!');
+							    		   return false;
+							    	   }
+							       }
+							       
+								  </script>
+															
+						</div>
+						<div class="col-sm-2">
+						
+							<input type="submit"  value="Upload"class="btn-primary btn btn-block" onclick="return checkValue1(document.getElementById('stbname').value);"/>
+						</div>
+						</form>
+						<div class="col-sm-2">
+								<input type="button" value="Submit" id="stbButton" tabindex="12" class="btn-danger btn btn-block" />
+						<input type="hidden" name="user" value="${user }"/>
+						</div>
+						<script>
+							function inserytvcBulk(){
+								alert("hello")	;	
+								 var element = document.getElementById('insertdata');  
+								 var x = document.getElementById("tabelid").rows.length;
+								 alert(x);
+							
+								 $.ajax({  
+								            type : 'GET', 
+								            url: 'lcovcnumberadd.html',
+							            data: {
+								            	
+								            	"user":  ${ user},
+								            	"lstUser": ${ lstUser}
+							            },
+								            dataType: 'json',
+								       		cache: false,
+											beforeSend: function(xhr) 
+							            {
+						                          xhr.setRequestHeader("Accept", "application/json");  
+					                          xhr.setRequestHeader("Content-Type", "application/json");  
+						                    },
+						         			success: function (data) {
+						         			   alert("fghfghfg");
+					       	            },
+									         error: function(e){
+									     }
+									 });
+								}
+						</script>
+						
+						<div class="row" >
+						<div  class="col-sm-2  pull-right">
+							<div class="container">
+							<input type="button" value="Template"class="btn-primary btn btn-block"  id="myBtn1"/>
+							  <div class="modal fade" id="myModal" role="dialog">
+							  <div class="modal-dialog">
+						      <div class="modal-content">
+							    <div class="modal-header" >
+						    	  <button type="button" class="close" data-dismiss="modal">&times;</button>
+						    			</div>
+							   			 <div class="modal-body" style="padding:1px 1px;">
+							 			      <img id="myImg" src="assets/img/bulktemplate.png" alt="Trolltunga, Norway" width="1000" height="600">
+								        </div>
+									    </div>
+									    </div>
+									  	</div> 
+							</div>
+										<script>
+										
+										$(document).ready(function(){
+										    $("#myBtn1").click(function(){
+										        $("#myModal").modal();
+										    });
+										});
+										</script>
+																			
+										</div>
+									</div>						
+						
 					</div>
+					<hr />
+					
+					<div class="col-sm-12">
+						<div class="col-sm-12">
+							<div style="margin-bottom: 0px">
+								<p id="demo">
+									Total No.of Data Uploaded : <span id="ContentPlaceHolder1_lblcount" style="font-weight: bold;"></span>
+									<div class="row" >
+										<div  class="col-sm-2  pull-right">
+											<div class="container">
+											<a href="lcostock.html?user=${user}">Clear All</a>
+											</div> 
+										</div>
+									</div>
+								</p>
+								<script type="text/javascript">
+								    $(document).ready(function() {
+								       $("#stbButton").click(function() {
+								    	  // alert("check");
+								    	   document.getElementById("dataForm1").submit();
+								       });
+								    });
+								</script>
+								<form:form method="POST" action="uploadBulkSTB.html" modelAttribute="bulkData" id="dataForm1">
+								<input type="hidden" name="user" value="${user }"/>
+								<table class="table table-striped table-bordered table-hover fontsize" cellspacing="0" rules="all" border="1" id="ContentPlaceHolder1_gvdash" style="width:100%;border-collapse:collapse;">
+									<tr>
+										<th scope="col">SN</th><th scope="col">VC No.</th><th scope="col" style="width:10%;">Manufacture Date</th><th scope="col">Expire Date</th><th scope="col">Company Name</th><th scope="col">MSO</th><th scope="col">Status</th>
+									</tr>
+									
+									<tr>
+									<c:forEach items="${bulkData.stbstock}" var="user"
+											varStatus="itr">
+						   								<tr>
+												<td>${itr.index}</td>
+												<%-- 						   								<c:out value="user[${itr.index}].customerid"/> --%>
+												<td>
+												<form:input path="stbstock[${itr.index}].stb_box_no" />
+<%-- 												<input name="user[${itr.index}].customerid" --%>
+<%-- 													value="${user.customerid}" /> --%>
+													
+													</td>
+												<td>
+												<form:input path="stbstock[${itr.index}].manufacture_date" />
+<%-- 												<input name="user[${itr.index}].customerid" --%>
+<%-- 													value="${user.customerid}" /> --%>
+													
+													</td>
+												<td>
+												<form:input path="stbstock[${itr.index}].exp_date" />
+<%-- 												<input name="user[${itr.index}].customername" --%>
+<%-- 													value="${user.customername}" /> --%>
+													</td>
+												<td>
+												<form:input path="stbstock[${itr.index}].company" />
+<%-- 												<input name="user[${itr.index}].customeraddress" --%>
+<%-- 													value="${user.customeraddress}" /> --%>
+													</td>
+												<td>
+												<form:input path="stbstock[${itr.index}].mso" />
+<%-- 												<input name="user[${itr.index}].customerpackagename" --%>
+<%-- 													value="${user.customerpackagename}" /> --%>
+													</td>
+												<td>
+												<form:input path="stbstock[${itr.index}].current_status" />
+<%-- 												<input name="user[${itr.index}].customermobileno" --%>
+<%-- 													value="${user.customermobileno}" /> --%>
+													</td>
+												<td>
+												
+											
+											</tr>
+														</c:forEach>
+									</tr>
+									
+									
+								</table>
+								
+									</form:form>
+								<h3><b><font color="red">${error}</font><b></b></h3>
+								
+															
+							</div>
+						</div>
+
+
+						<div></div>
+
+					</div>
+					
+				</div>
 					<div id="nonedata" >
 						<div class="row">
 							<form action="vcprocessExcel.html" method="post"enctype="multipart/form-data">

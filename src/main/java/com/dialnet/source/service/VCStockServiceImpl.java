@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dialnet.source.dao.VCStockDao;
+import com.dialnet.source.model.LCOUser;
 import com.dialnet.source.model.VCStock;
 
 @Service
@@ -14,6 +15,12 @@ public class VCStockServiceImpl implements VCStockService {
 	
 	@Autowired
 	VCStockDao dao;
+	
+	@Override
+	public void add(VCStock stock) {
+		dao.add(stock);;
+		
+	}
 	
 	@Override
 	public List<VCStock> getAllVCStock() {
